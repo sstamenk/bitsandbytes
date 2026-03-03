@@ -316,29 +316,9 @@ elseif(BUILD_ROCM)
 
     string(APPEND BNB_OUTPUT_NAME "${ROCM_VERSION}")
 
-    # Derive host-visible warp size from target architectures.
-    # gfx9xx (CDNA) = wave64, everything else (RDNA) = wave32.
-    # Mixed builds conservatively default to 32.
-    set(_bnb_has_wave64 FALSE)
-    set(_bnb_has_wave32 FALSE)
-    foreach(_arch IN LISTS CMAKE_HIP_ARCHITECTURES)
-        if(_arch MATCHES "^gfx9")
-            set(_bnb_has_wave64 TRUE)
-        else()
-            set(_bnb_has_wave32 TRUE)
-        endif()
-    endforeach()
-    if(_bnb_has_wave64 AND NOT _bnb_has_wave32)
-        set(BNB_HOST_WARP_SIZE 64)
-    else()
-        set(BNB_HOST_WARP_SIZE 32)
-    endif()
-    message(STATUS "Host warp size: ${BNB_HOST_WARP_SIZE}")
-
     add_compile_definitions(__HIP_PLATFORM_AMD__)
     add_compile_definitions(__HIP_PLATFORM_HCC__)
-    add_compile_definitions(BUILD_HIP)
-    add_compile_definitions(BNB_HOST_WARP_SIZE=${BNB_HOST_WARP_SIZE})
+    add_compile_definitions(BUILD_ROCM)
 elseif(BUILD_MPS)
     if(NOT APPLE)
         message(FATAL_ERROR "MPS is only supported on macOS" )

@@ -13,6 +13,18 @@
 using std::cout;
 using std::endl;
 
+#if BNB_HIP
+#include <hip/hip_runtime.h>
+static int bnb_runtime_warp_size() {
+    static int cache[16] = {};
+    int dev;
+    (void)hipGetDevice(&dev);
+    if (cache[dev] == 0)
+        (void)hipDeviceGetAttribute(&cache[dev], hipDeviceAttributeWarpSize, dev);
+    return cache[dev];
+}
+#endif
+
 template <typename T, int STOCHASTIC, int DATA_TYPE>
 void quantizeBlockwise(
     float* code, T* A, float* absmax, unsigned char* out, float* rand, int rand_offset, int blocksize, const int n
@@ -35,10 +47,13 @@ void quantizeBlockwise(
         kQuantizeBlockwise<T, 128, 2, 0, DATA_TYPE><<<num_blocks, 64>>>(code, A, absmax, out, rand, rand_offset, n);
     else if (blocksize == 64) {
 #if BNB_HIP
-        // On HIP with 64-wide warps (CDNA), use specialized kernel for 4-bit types
         if constexpr (DATA_TYPE > 0) {
-            kQuantizeBlockwiseSmall<T, DATA_TYPE>
-                <<<(num_blocks + 1) / 2, 64>>>(code, A, absmax, out, rand, rand_offset, n);
+            if (bnb_runtime_warp_size() == 64) {
+                kQuantizeBlockwiseSmall<T, DATA_TYPE>
+                    <<<(num_blocks + 1) / 2, 64>>>(code, A, absmax, out, rand, rand_offset, n);
+            } else {
+                kQuantizeBlockwise<T, 64, 2, 0, DATA_TYPE><<<num_blocks, 32>>>(code, A, absmax, out, rand, rand_offset, n);
+            }
         } else {
             kQuantizeBlockwise<T, 64, 2, 0, DATA_TYPE><<<num_blocks, 32>>>(code, A, absmax, out, rand, rand_offset, n);
         }
@@ -46,12 +61,15 @@ void quantizeBlockwise(
         kQuantizeBlockwise<T, 64, 2, 0, DATA_TYPE><<<num_blocks, 32>>>(code, A, absmax, out, rand, rand_offset, n);
 #endif
     } else if (blocksize == 32) {
-        // For 4-bit: use specialized kernel that processes 2 blocks per warp
-        // Each CUDA block handles 2 quantization blocks, so divide num_blocks by 2
         if constexpr (DATA_TYPE > 0) {
-            int num_blocks_adjusted = (num_blocks + 1) / 2;
-            kQuantizeBlockwiseSmall<T, DATA_TYPE>
-                <<<num_blocks_adjusted, 32>>>(code, A, absmax, out, rand, rand_offset, n);
+#if BNB_HIP
+            if (bnb_runtime_warp_size() <= 32)
+#endif
+            {
+                int num_blocks_adjusted = (num_blocks + 1) / 2;
+                kQuantizeBlockwiseSmall<T, DATA_TYPE>
+                    <<<num_blocks_adjusted, 32>>>(code, A, absmax, out, rand, rand_offset, n);
+            }
         }
     }
 
