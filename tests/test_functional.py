@@ -509,7 +509,6 @@ class TestIGEMMFunctional:
     @pytest.mark.parametrize("hidden_dim", [32, 1024 * 4], ids=id_formatter("hidden_dim"))
     @pytest.mark.parametrize("batch_dim", [2, 16], ids=id_formatter("batch_dim"))
     @pytest.mark.parametrize("transpose", TRUE_FALSE, ids=id_formatter("transpose"))
-    @pytest.mark.skipif(ROCM_WARP_SIZE_64, reason="this test is not supported on ROCm yet")
     def test_minmax_igemm(self, seq_dim, hidden_dim, batch_dim, transpose):
         def min_max(x):
             maxA = torch.amax(x, dim=2, keepdim=True)
