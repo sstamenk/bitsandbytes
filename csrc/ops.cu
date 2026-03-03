@@ -63,13 +63,14 @@ void quantizeBlockwise(
     } else if (blocksize == 32) {
         if constexpr (DATA_TYPE > 0) {
 #if BNB_HIP
-            if (bnb_runtime_warp_size() <= 32)
+            int ws = bnb_runtime_warp_size();
+#else
+            constexpr int ws = 32;
 #endif
-            {
-                int num_blocks_adjusted = (num_blocks + 1) / 2;
-                kQuantizeBlockwiseSmall<T, DATA_TYPE>
-                    <<<num_blocks_adjusted, 32>>>(code, A, absmax, out, rand, rand_offset, n);
-            }
+            int blocks_per_tb = ws / 16; // ws / (QUANT_BLOCK_SIZE / NUM_PER_TH)
+            int grid = (num_blocks + blocks_per_tb - 1) / blocks_per_tb;
+            kQuantizeBlockwiseSmall<T, DATA_TYPE, 32>
+                <<<grid, ws>>>(code, A, absmax, out, rand, rand_offset, n);
         }
     }
 
