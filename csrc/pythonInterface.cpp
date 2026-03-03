@@ -8,6 +8,7 @@
 #include <ops.cuh>
 #endif
 #if BUILD_ROCM
+#include <hip/hip_runtime.h>
 #include <ops.cuh>
 #endif
 #if BUILD_MPS
