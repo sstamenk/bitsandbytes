@@ -1447,15 +1447,15 @@ __global__ void kgemm_4bit_inference_naive(
 ) {
 
     // per threadblock:
-    // load step-by-step in chunks of [32,warps]: 1x32 * [32,warps] -> [1,warps]
-    // 4 warps -> 4 loads per iter
-    // 1x32 * 32x4 -> 1x4 outputs per thread block
+    // load step-by-step in chunks of [warp_size,warps]: 1xwarp_size * [warp_size,warps] -> [1,warps]
+    // THREADS/BNB_WARP_SIZE warps -> that many loads per iter
+    // 1xwarp_size * warp_size x warps -> 1 x warps outputs per thread block
     typedef bnb_cub::WarpReduce<float> WarpReduce;
-    __shared__ typename WarpReduce::TempStorage temp_storage[THREADS / 32];
+    __shared__ typename WarpReduce::TempStorage temp_storage[THREADS / BNB_WARP_SIZE];
 
-    const int warp_idx = threadIdx.x / 32;
-    const int warp_lane = threadIdx.x % 32;
-    const int row_B = (THREADS / 32) * blockIdx.x + warp_idx;
+    const int warp_idx = threadIdx.x / BNB_WARP_SIZE;
+    const int warp_lane = threadIdx.x % BNB_WARP_SIZE;
+    const int row_B = (THREADS / BNB_WARP_SIZE) * blockIdx.x + warp_idx;
     const int offset_B = ldb * row_B;
     const int num_values_8bit = num_values_4bit / 2;
     float local_C = 0.0f;
@@ -1474,7 +1474,7 @@ __global__ void kgemm_4bit_inference_naive(
 
     // A: [1, K]
     // B: [N, K]
-    for (int inner_idx = warp_lane * num_values_4bit; inner_idx < K; inner_idx += 32 * num_values_4bit) {
+    for (int inner_idx = warp_lane * num_values_4bit; inner_idx < K; inner_idx += BNB_WARP_SIZE * num_values_4bit) {
         const int inner_idx_halved = inner_idx / 2;
 
         // Since blocksize will always be a power-of-2, we avoid more expensive

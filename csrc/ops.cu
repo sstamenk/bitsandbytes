@@ -46,20 +46,7 @@ void quantizeBlockwise(
     else if (blocksize == 128)
         kQuantizeBlockwise<T, 128, 2, 0, DATA_TYPE><<<num_blocks, 64>>>(code, A, absmax, out, rand, rand_offset, n);
     else if (blocksize == 64) {
-#if BNB_HIP
-        if constexpr (DATA_TYPE > 0) {
-            if (bnb_runtime_warp_size() == 64) {
-                kQuantizeBlockwiseSmall<T, DATA_TYPE>
-                    <<<(num_blocks + 1) / 2, 64>>>(code, A, absmax, out, rand, rand_offset, n);
-            } else {
-                kQuantizeBlockwise<T, 64, 2, 0, DATA_TYPE><<<num_blocks, 32>>>(code, A, absmax, out, rand, rand_offset, n);
-            }
-        } else {
-            kQuantizeBlockwise<T, 64, 2, 0, DATA_TYPE><<<num_blocks, 32>>>(code, A, absmax, out, rand, rand_offset, n);
-        }
-#else
         kQuantizeBlockwise<T, 64, 2, 0, DATA_TYPE><<<num_blocks, 32>>>(code, A, absmax, out, rand, rand_offset, n);
-#endif
     } else if (blocksize == 32) {
         if constexpr (DATA_TYPE > 0) {
 #if BNB_HIP
@@ -424,13 +411,12 @@ void gemm_4bit_inference_naive(
     int blocksize, bnb_stream_t stream
 ) {
 
-    int num_blocks = (m + 3) / 4;
 #if BNB_HIP
-    // On 64-wide warp architectures, each warp processes 2 rows instead of 4
-    if (BNB_WARP_SIZE == 64) {
-        num_blocks = (m + 1) / 2;
-    }
+    int warps_per_block = 128 / bnb_runtime_warp_size();
+#else
+    constexpr int warps_per_block = 128 / 32;
 #endif
+    int num_blocks = (m + warps_per_block - 1) / warps_per_block;
 
     kgemm_4bit_inference_naive<T, 128, BITS>
         <<<num_blocks, 128, 0, stream>>>(m, n, k, A, B, absmax, datatype, out, lda, ldb, ldc, blocksize);
