@@ -262,6 +262,13 @@ elseif(BUILD_ROCM)
             string(SUBSTRING "${ROCM_VERSION}" 0 ${_ROCM_MAJOR_LEN} _ROCM_MAJOR)
             string(SUBSTRING "${ROCM_VERSION}" ${_ROCM_MAJOR_LEN} 1 _ROCM_MINOR)
             set(_DETECTED_ROCM_VERSION "${_ROCM_MAJOR}.${_ROCM_MINOR}")
+        else()
+            message(WARNING
+                "ROCM_VERSION='${ROCM_VERSION}' looks like a single digit. "
+                "Expected a two-digit shortcode (e.g. 71 for ROCm 7.1). "
+                "Interpreting as ${ROCM_VERSION}.0."
+            )
+            set(_DETECTED_ROCM_VERSION "${ROCM_VERSION}.0")
         endif()
     else()
         # Detect the actual ROCm version.
