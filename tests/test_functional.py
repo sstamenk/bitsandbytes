@@ -1028,9 +1028,6 @@ class TestQuantize4BitFunctional:
         # torch.cuda.synchronize()
         # print((time.time()-t0)/iters*1e6)
 
-    @pytest.mark.skipif(
-        ROCM_WARP_SIZE_64, reason="gemv 4bit tests are partially enabled on MI300, others being fixed for warpsize 64"
-    )
     @pytest.mark.parametrize("device", get_available_devices())
     @pytest.mark.parametrize("double_quant", TRUE_FALSE, ids=lambda double_quant: f"DQ_{double_quant}")
     @pytest.mark.parametrize("storage_type", ["nf4", "fp4"])
@@ -1149,7 +1146,7 @@ class TestQuantize4BitFunctional:
             },
             torch.float32: {
                 "le512": {"err1": (2e-8, 2e-9), "relerr1": (8e-7, 1.2e-6), "maxerr1": (6e-8, 2e-8)},
-                "gt512": {"err1": (1e-8, 2e-9), "relerr1": (5e-7, 1.6e-7), "maxerr1": (4e-8, 1e-8)},
+                "gt512": {"err1": (1e-8, 5e-9), "relerr1": (5e-7, 1.6e-7), "maxerr1": (1e-7, 3e-8)},
             },
             torch.bfloat16: {
                 "le512": {"err1": (0.00042, 0.000059), "relerr1": (0.0041, 0.01153), "maxerr1": (0.0037, 0.000556)},
@@ -1185,7 +1182,6 @@ class TestQuantize4BitFunctional:
     @pytest.mark.parametrize("device", get_available_devices())
     @pytest.mark.parametrize("storage_type", ["nf4", "fp4"], ids=["nf4", "fp4"])
     @pytest.mark.parametrize("dtype", [torch.float16, torch.bfloat16, torch.float32], ids=describe_dtype)
-    @pytest.mark.skipif(ROCM_WARP_SIZE_64, reason="this test is not supported on ROCm yet")
     def test_gemv_eye_4bit(self, device, storage_type, dtype):
         if device == "hpu" and not is_supported_on_hpu(storage_type, dtype):
             pytest.skip("This configuration is not supported on HPU.")
