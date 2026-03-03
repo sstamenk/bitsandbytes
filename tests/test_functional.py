@@ -96,7 +96,7 @@ class Test8BitBlockwiseQuantizeFunctional:
     @pytest.mark.parametrize("nested", TRUE_FALSE, ids=id_formatter("nested"))
     @pytest.mark.parametrize(
         "blocksize",
-        [4096, 2048, 1024, 512, 256, 128, 64] if not ROCM_WARP_SIZE_64 else [4096, 2048, 1024, 512, 256, 128],
+        [4096, 2048, 1024, 512, 256, 128, 64] # if not ROCM_WARP_SIZE_64 else [4096, 2048, 1024, 512, 256, 128],
     )
     @pytest.mark.parametrize("signed", TRUE_FALSE, ids=id_formatter("signed"))
     def test_dynamic_blockwise_quantization(self, device, dtype, nested, blocksize, signed):

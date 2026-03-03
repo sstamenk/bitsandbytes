@@ -336,7 +336,7 @@ def test_multiple_parameters(device, dtype):
 @pytest.mark.parametrize("dtype", [torch.float32, torch.float16, torch.bfloat16], ids=describe_dtype)
 @pytest.mark.parametrize(
     "blocksize",
-    [64, 128, 256] if not ROCM_WARP_SIZE_64 else [128, 256],
+    [64, 128, 256] )#if not ROCM_WARP_SIZE_64 else [128, 256],
 )
 def test_different_blocksizes(device, dtype, blocksize):
     """Test parametrization with different block sizes to verify flexibility."""
