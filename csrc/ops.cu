@@ -33,6 +33,43 @@ static constexpr int bnb_host_warp_size() { return 32; }
 using std::cout;
 using std::endl;
 
+template <int QBLOCK_SIZE>
+static int quantizeBlockwisePackedThreads() {
+    return bnb_host_warp_size();
+}
+
+template <int QBLOCK_SIZE>
+static int quantizeBlockwisePackedGrid(int num_blocks, int threads) {
+    const int num_qb = threads / (QBLOCK_SIZE / 2);
+    return (num_blocks + num_qb - 1) / num_qb;
+}
+
+template <typename T, int DATA_TYPE, int QBLOCK_SIZE>
+static void launchQuantizeBlockwisePacked(
+    float* code, T* A, float* absmax, unsigned char* out, float* rand, int rand_offset, int num_blocks, const int n
+) {
+    const int threads = quantizeBlockwisePackedThreads<QBLOCK_SIZE>();
+    const int grid = quantizeBlockwisePackedGrid<QBLOCK_SIZE>(num_blocks, threads);
+    kQuantizeBlockwiseSmall<T, QBLOCK_SIZE, DATA_TYPE><<<grid, threads>>>(code, A, absmax, out, rand, rand_offset, n);
+}
+
+template <int QBLOCK_SIZE>
+static int quantizeBlockwiseSingleQBlockThreads() {
+    if constexpr (QBLOCK_SIZE <= 1024)
+        return QBLOCK_SIZE / 2;
+    else
+        return 512;
+}
+
+template <typename T, int DATA_TYPE, int QBLOCK_SIZE>
+static void launchQuantizeBlockwiseSingleQBlock(
+    float* code, T* A, float* absmax, unsigned char* out, float* rand, int rand_offset, int num_blocks, const int n
+) {
+    const int threads = quantizeBlockwiseSingleQBlockThreads<QBLOCK_SIZE>();
+    kQuantizeBlockwiseSingleQBlock<T, QBLOCK_SIZE, DATA_TYPE>
+        <<<num_blocks, threads>>>(code, A, absmax, out, rand, rand_offset, n);
+}
+
 template <typename T, int STOCHASTIC, int DATA_TYPE>
 void quantizeBlockwise(
     float* code, T* A, float* absmax, unsigned char* out, float* rand, int rand_offset, int blocksize, const int n
@@ -40,35 +77,61 @@ void quantizeBlockwise(
     int num_blocks = n / blocksize;
     num_blocks = n % blocksize == 0 ? num_blocks : num_blocks + 1;
 
-    if (blocksize == 4096)
-        kQuantizeBlockwise<T, 4096, 4, STOCHASTIC, DATA_TYPE>
-            <<<num_blocks, 1024>>>(code, A, absmax, out, rand, rand_offset, n);
-    else if (blocksize == 2048)
-        kQuantizeBlockwise<T, 2048, 4, 0, DATA_TYPE><<<num_blocks, 512>>>(code, A, absmax, out, rand, rand_offset, n);
-    else if (blocksize == 1024)
-        kQuantizeBlockwise<T, 1024, 4, 0, DATA_TYPE><<<num_blocks, 256>>>(code, A, absmax, out, rand, rand_offset, n);
-    else if (blocksize == 512)
-        kQuantizeBlockwise<T, 512, 2, 0, DATA_TYPE><<<num_blocks, 256>>>(code, A, absmax, out, rand, rand_offset, n);
-    else if (blocksize == 256)
-        kQuantizeBlockwise<T, 256, 2, 0, DATA_TYPE><<<num_blocks, 128>>>(code, A, absmax, out, rand, rand_offset, n);
-    else if (blocksize == 128)
-        kQuantizeBlockwise<T, 128, 2, 0, DATA_TYPE><<<num_blocks, 64>>>(code, A, absmax, out, rand, rand_offset, n);
-    else if (blocksize == 64) {
-        if constexpr (DATA_TYPE > 0) {
-            const int ws = bnb_host_warp_size();
-            const int num_qb = ws / (64 / 2);
-            int grid = (num_blocks + num_qb - 1) / num_qb;
-            kQuantizeBlockwiseSmall<T, 64, DATA_TYPE><<<grid, ws>>>(code, A, absmax, out, rand, rand_offset, n);
-        } else {
+    if constexpr (DATA_TYPE > 0) {
+        switch (blocksize) {
+        case 4096:
+            launchQuantizeBlockwiseSingleQBlock<T, DATA_TYPE, 4096>(
+                code, A, absmax, out, rand, rand_offset, num_blocks, n
+            );
+            break;
+        case 2048:
+            launchQuantizeBlockwiseSingleQBlock<T, DATA_TYPE, 2048>(
+                code, A, absmax, out, rand, rand_offset, num_blocks, n
+            );
+            break;
+        case 1024:
+            launchQuantizeBlockwiseSingleQBlock<T, DATA_TYPE, 1024>(
+                code, A, absmax, out, rand, rand_offset, num_blocks, n
+            );
+            break;
+        case 512:
+            launchQuantizeBlockwiseSingleQBlock<T, DATA_TYPE, 512>(
+                code, A, absmax, out, rand, rand_offset, num_blocks, n
+            );
+            break;
+        case 256:
+            launchQuantizeBlockwiseSingleQBlock<T, DATA_TYPE, 256>(
+                code, A, absmax, out, rand, rand_offset, num_blocks, n
+            );
+            break;
+        case 128:
+            launchQuantizeBlockwiseSingleQBlock<T, DATA_TYPE, 128>(
+                code, A, absmax, out, rand, rand_offset, num_blocks, n
+            );
+            break;
+        case 64:
+            launchQuantizeBlockwisePacked<T, DATA_TYPE, 64>(code, A, absmax, out, rand, rand_offset, num_blocks, n);
+            break;
+        case 32:
+            launchQuantizeBlockwisePacked<T, DATA_TYPE, 32>(code, A, absmax, out, rand, rand_offset, num_blocks, n);
+            break;
+        }
+    } else {
+        if (blocksize == 4096)
+            kQuantizeBlockwise<T, 4096, 4, STOCHASTIC, DATA_TYPE>
+                <<<num_blocks, 1024>>>(code, A, absmax, out, rand, rand_offset, n);
+        else if (blocksize == 2048)
+            kQuantizeBlockwise<T, 2048, 4, 0, DATA_TYPE><<<num_blocks, 512>>>(code, A, absmax, out, rand, rand_offset, n);
+        else if (blocksize == 1024)
+            kQuantizeBlockwise<T, 1024, 4, 0, DATA_TYPE><<<num_blocks, 256>>>(code, A, absmax, out, rand, rand_offset, n);
+        else if (blocksize == 512)
+            kQuantizeBlockwise<T, 512, 2, 0, DATA_TYPE><<<num_blocks, 256>>>(code, A, absmax, out, rand, rand_offset, n);
+        else if (blocksize == 256)
+            kQuantizeBlockwise<T, 256, 2, 0, DATA_TYPE><<<num_blocks, 128>>>(code, A, absmax, out, rand, rand_offset, n);
+        else if (blocksize == 128)
+            kQuantizeBlockwise<T, 128, 2, 0, DATA_TYPE><<<num_blocks, 64>>>(code, A, absmax, out, rand, rand_offset, n);
+        else if (blocksize == 64)
             kQuantizeBlockwise<T, 64, 2, 0, DATA_TYPE><<<num_blocks, 32>>>(code, A, absmax, out, rand, rand_offset, n);
-        }
-    } else if (blocksize == 32) {
-        if constexpr (DATA_TYPE > 0) {
-            const int ws = bnb_host_warp_size();
-            const int num_qb = ws / (32 / 2);
-            int grid = (num_blocks + num_qb - 1) / num_qb;
-            kQuantizeBlockwiseSmall<T, 32, DATA_TYPE><<<grid, ws>>>(code, A, absmax, out, rand, rand_offset, n);
-        }
     }
 
     BNB_CHECK_RETURN(BNB_PEEK_LAST_ERROR());
