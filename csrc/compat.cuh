@@ -23,6 +23,13 @@
 
 #include <hip/hip_bfloat16.h>
 #include <hip/hip_bf16.h>
+#ifndef BNB_HIP_ENABLE_BF16_VDOT2
+#if defined(__GFX11__) || defined(__GFX12__)
+#define BNB_HIP_ENABLE_BF16_VDOT2 1
+#else
+#define BNB_HIP_ENABLE_BF16_VDOT2 0
+#endif
+#endif
 #include <hip/hip_fp16.h>
 #include <hip/hip_math_constants.h>
 #include <hip/hip_runtime.h>
