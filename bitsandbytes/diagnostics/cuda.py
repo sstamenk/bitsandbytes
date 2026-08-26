@@ -6,7 +6,7 @@ from pathlib import Path
 import torch
 
 from bitsandbytes.cextension import HIP_ENVIRONMENT, get_cuda_bnb_library_path
-from bitsandbytes.cuda_specs import CUDASpecs, get_rocm_version
+from bitsandbytes.cuda_specs import CUDASpecs
 from bitsandbytes.diagnostics.utils import print_dedented
 
 CUDART_PATH_PREFERRED_ENVVARS = ("CONDA_PREFIX", "LD_LIBRARY_PATH")
@@ -137,13 +137,7 @@ def _print_cuda_diagnostics(cuda_specs: CUDASpecs) -> None:
 
 
 def _print_hip_diagnostics(cuda_specs: CUDASpecs) -> None:
-    rocm_major, rocm_minor = cuda_specs.cuda_version_tuple
-    print(
-        "PyTorch settings found: "
-        f"ROCm={getattr(torch.version, 'rocm', None) or 'N/A'}, "
-        f"HIP={getattr(torch.version, 'hip', None) or 'N/A'}, "
-        f"binary suffix=rocm{rocm_major}{rocm_minor}"
-    )
+    print(f"PyTorch settings found: HIP_VERSION={cuda_specs.cuda_version_string}")
 
     rocm_override = os.environ.get("BNB_ROCM_VERSION")
     if rocm_override:
@@ -155,16 +149,24 @@ def _print_hip_diagnostics(cuda_specs: CUDASpecs) -> None:
             f"""
             No compatible ROCm library found (tried: {binary_path.name}). You may need to compile from source:
             https://huggingface.co/docs/bitsandbytes/main/en/installation#rocm-compile
-            Use BNB_ROCM_VERSION to force a specific version if needed.
+            Use BNB_ROCM_VERSION to force a specific HIP-version suffix if needed.
             """,
         )
 
-    if (rocm_major, rocm_minor) < (6, 3):
-        print_dedented(
-            """
-            WARNING: bitsandbytes is fully supported only from ROCm 6.3.
-            """,
-        )
+    rocm_version = getattr(torch.version, "rocm", None)
+    if rocm_version is not None:
+        try:
+            rocm_major, rocm_minor = map(int, rocm_version.split(".")[:2])
+        except (ValueError, IndexError):
+            pass
+        else:
+            if (rocm_major, rocm_minor) < (6, 4):
+                print_dedented(
+                    """
+                    WARNING: ROCm 6.4 or newer is required when compiling bitsandbytes from source.
+                    Current prebuilt Linux binaries begin at ROCm 6.4.4.
+                    """,
+                )
 
 
 def print_diagnostics(cuda_specs: CUDASpecs) -> None:
@@ -176,7 +178,7 @@ def print_diagnostics(cuda_specs: CUDASpecs) -> None:
 
 def print_runtime_diagnostics() -> None:
     backend = "ROCm" if HIP_ENVIRONMENT else "CUDA"
-    runtime_version = get_rocm_version() if HIP_ENVIRONMENT else torch.version.cuda
+    runtime_version = torch.version.hip if HIP_ENVIRONMENT else torch.version.cuda
     override_var = "BNB_ROCM_VERSION" if HIP_ENVIRONMENT else "BNB_CUDA_VERSION"
     override_example = "72" if HIP_ENVIRONMENT else "122"
 

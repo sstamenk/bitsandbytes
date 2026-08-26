@@ -27,8 +27,10 @@ def get_cuda_bnb_library_path(cuda_specs: CUDASpecs) -> Path:
     1. Exact version match.
     2. Highest packaged version <= runtime version, same major (e.g. runtime 12.9, packaged 12.8).
     3. Lowest packaged version > runtime version, same major (e.g. runtime 12.0, packaged 12.1).
-    4. For ROCm only, repeat the same older-first selection across major versions.
-    CUDA does not fall back across major versions. A warning is logged when falling back.
+    4. For the ROCm backend only, repeat the same older-first selection across HIP major versions.
+    ROCm-backend selection uses the version tuple reported by ``torch.version.hip``; it does
+    not infer a ROCm release from ``torch.version.rocm``. CUDA does not fall back across major
+    versions. A warning is logged when falling back.
     Overrides select the requested filename directly. The returned path is not guaranteed
     to exist when no packaged libraries are found or an override names an absent version.
     """
@@ -94,16 +96,16 @@ def get_cuda_bnb_library_path(cuda_specs: CUDASpecs) -> Path:
 
     if cross_major:
         logger.warning(
-            f"No prebuilt binary for ROCm {runtime_version[0]}.{runtime_version[1]}, loading "
-            f"ROCm {selected[0]}.{selected[1]} across major releases. This binary may be incompatible "
+            f"No prebuilt ROCm-backend binary for HIP {runtime_version[0]}.{runtime_version[1]}, loading "
+            f"HIP {selected[0]}.{selected[1]} across major versions. This binary may be incompatible "
             "or may not contain code for your GPU architecture. "
             f"Set {override_var} to override or compile from source."
         )
     else:
         logger.warning(
-            f"No prebuilt binary for {'ROCm' if is_hip else 'CUDA'} "
+            f"No prebuilt binary for {'ROCm-backend HIP' if is_hip else 'CUDA'} "
             f"{runtime_version[0]}.{runtime_version[1]}, loading "
-            f"{'ROCm' if is_hip else 'CUDA'} {selected[0]}.{selected[1]} instead. "
+            f"{'HIP' if is_hip else 'CUDA'} {selected[0]}.{selected[1]} instead. "
             f"Set {override_var} to override."
         )
     return available[selected]
@@ -325,7 +327,7 @@ class ErrorHandlerMockBNBNativeLibrary(BNBNativeLibrary):
                 "You have two options:\n"
                 "1. COMPILE FROM SOURCE as mentioned here:\n"
                 "   https://huggingface.co/docs/bitsandbytes/main/en/installation?backend=AMD+ROCm#amd-gpu\n"
-                "2. Use BNB_ROCM_VERSION to specify a DIFFERENT ROCm version from the detected one, matching the version the library was built with.\n\n"
+                "2. Use BNB_ROCM_VERSION to select a DIFFERENT HIP-version suffix for the ROCm-backend binary, matching the version the library was built with.\n\n"
             )
         )
 

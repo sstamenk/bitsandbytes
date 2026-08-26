@@ -10,9 +10,10 @@
 #                        Separate by semicolons, i.e. `-DCOMPUTE_CAPABILITY=89;90;100;120`
 #                        Check your compute capability here: https://developer.nvidia.com/cuda-gpus
 #  - PTXAS_VERBOSE: Pass the `-v` option to the PTX Assembler
-#  - ROCM_VERSION: Override the ROCm release used in the output library name. Accepts a
-#                  dotted release or shortcode. For example, `7.14.0` and `714`
-#                  both produce libbitsandbytes_rocm714.so.
+#  - HIP_VERSION: Override the HIP version used in the ROCm-backend output library name.
+#                  Accepts a dotted version or compact shortcode. For example,
+#                  `-DHIP_VERSION=7.14` and `-DHIP_VERSION=714` both produce
+#                  libbitsandbytes_rocm714.so.
 cmake_minimum_required(VERSION 3.22.1)
 
 # On Windows with HIP backend, auto-detect compilers from ROCM_PATH before project()
@@ -274,6 +275,11 @@ elseif(BUILD_HIP)
       set(CMAKE_HIP_ARCHITECTURES "gfx90a;gfx942;gfx1100;gfx1101;gfx1102;gfx1103;gfx1150;gfx1151;gfx1152;gfx1153;gfx1200;gfx1201")
     endif()
 
+    find_program(HIPCONFIG_EXECUTABLE hipconfig)
+    if(NOT HIPCONFIG_EXECUTABLE)
+        message(FATAL_ERROR "hipconfig was not found on PATH; a ROCm/HIP SDK is required for HIP builds")
+    endif()
+
     enable_language(HIP)
     message(STATUS "HIP Compiler: ${CMAKE_HIP_COMPILER}")
     message(STATUS "HIP Targets: ${CMAKE_HIP_ARCHITECTURES}")
@@ -286,75 +292,32 @@ elseif(BUILD_HIP)
 
     string(APPEND BNB_OUTPUT_NAME "_rocm")
 
-    # HIP and ROCm releases can diverge, so use the ROCm release for the filename.
-    set(ROCM_VERSION "" CACHE STRING "ROCm release used in the output library name")
-    set(_ROCM_VERSION_RAW "${ROCM_VERSION}")
-    set(_ROCM_VERSION_SOURCE "-DROCM_VERSION")
-
-    if(NOT _ROCM_VERSION_RAW)
-        if(NOT ROCM_PATH)
-            if(DEFINED ENV{ROCM_PATH})
-                file(TO_CMAKE_PATH "$ENV{ROCM_PATH}" ROCM_PATH)
-            elseif(CMAKE_HIP_COMPILER_ROCM_ROOT)
-                set(ROCM_PATH "${CMAKE_HIP_COMPILER_ROCM_ROOT}")
-            elseif(WIN32)
-                message(FATAL_ERROR "ROCM_PATH must be set for HIP builds on Windows")
-            else()
-                message(WARNING "ROCM_PATH is not set; falling back to /opt/rocm")
-                set(ROCM_PATH "/opt/rocm")
-            endif()
-        endif()
-
-        foreach(_VERSION_FILE "${ROCM_PATH}/.info/version" "${ROCM_PATH}/core/.info/version")
-            if(NOT _ROCM_VERSION_RAW AND EXISTS "${_VERSION_FILE}")
-                file(READ "${_VERSION_FILE}" _ROCM_VERSION_RAW)
-                set(_ROCM_VERSION_SOURCE "${_VERSION_FILE}")
-            endif()
-        endforeach()
-
-        if(NOT _ROCM_VERSION_RAW)
-            execute_process(
-                COMMAND rocm-sdk version
-                OUTPUT_VARIABLE _ROCM_VERSION_RAW
-                ERROR_QUIET
-                OUTPUT_STRIP_TRAILING_WHITESPACE
-            )
-            set(_ROCM_VERSION_SOURCE "rocm-sdk version")
-        endif()
-
-        if(NOT _ROCM_VERSION_RAW)
-            message(FATAL_ERROR
-                "Could not determine the ROCm version from ${ROCM_PATH}/.info/version, "
-                "${ROCM_PATH}/core/.info/version, or 'rocm-sdk version'. "
-                "Set ROCM_PATH correctly or pass -DROCM_VERSION=<version>."
-            )
-        endif()
-    endif()
-
-    string(STRIP "${_ROCM_VERSION_RAW}" _ROCM_VERSION_RAW)
-    if(_ROCM_VERSION_RAW MATCHES "^([0-9]+)\\.([0-9]+)")
-        set(_ROCM_VERSION_MAJOR "${CMAKE_MATCH_1}")
-        set(_ROCM_VERSION_MINOR "${CMAKE_MATCH_2}")
-    elseif(_ROCM_VERSION_RAW MATCHES "^([6-9])([0-9]+)$")
-        set(_ROCM_VERSION_MAJOR "${CMAKE_MATCH_1}")
-        set(_ROCM_VERSION_MINOR "${CMAKE_MATCH_2}")
-    elseif(_ROCM_VERSION_RAW MATCHES "^([1-5][0-9])([0-9]+)$")
-        set(_ROCM_VERSION_MAJOR "${CMAKE_MATCH_1}")
-        set(_ROCM_VERSION_MINOR "${CMAKE_MATCH_2}")
-    else()
-        message(FATAL_ERROR
-            "Could not parse ROCm version '${_ROCM_VERSION_RAW}'. "
-            "Pass -DROCM_VERSION=7.14.0 (or 714)."
-        )
-    endif()
-
-    set(ROCM_VERSION "${_ROCM_VERSION_MAJOR}.${_ROCM_VERSION_MINOR}")
-    set(_ROCM_VERSION_TAG "${_ROCM_VERSION_MAJOR}${_ROCM_VERSION_MINOR}")
-    message(STATUS
-        "ROCm Release: ${_ROCM_VERSION_MAJOR}.${_ROCM_VERSION_MINOR}; "
-        "library suffix: rocm${_ROCM_VERSION_TAG} (from ${_ROCM_VERSION_SOURCE})"
+    execute_process(
+        COMMAND "${HIPCONFIG_EXECUTABLE}" --version
+        OUTPUT_VARIABLE HIPCONFIG_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        COMMAND_ERROR_IS_FATAL ANY
     )
-    string(APPEND BNB_OUTPUT_NAME "${_ROCM_VERSION_TAG}")
+
+    if(NOT HIPCONFIG_VERSION MATCHES "([0-9]+)\\.([0-9]+)")
+        message(FATAL_ERROR "Could not parse HIP version: ${HIPCONFIG_VERSION}")
+    endif()
+    set(DETECTED_HIP_VERSION_TAG "${CMAKE_MATCH_1}${CMAKE_MATCH_2}")
+
+    set(HIP_VERSION "${DETECTED_HIP_VERSION_TAG}" CACHE STRING
+        "HIP version used in the ROCm-backend library name"
+    )
+    if(HIP_VERSION MATCHES "^([0-9]+)\\.([0-9]+)(\\.[0-9]+)?$")
+        set(HIP_VERSION_TAG "${CMAKE_MATCH_1}${CMAKE_MATCH_2}")
+    elseif(HIP_VERSION MATCHES "^[0-9]+$")
+        set(HIP_VERSION_TAG "${HIP_VERSION}")
+    else()
+        message(FATAL_ERROR "HIP_VERSION must be dotted or compact, such as 7.14 or 714")
+    endif()
+
+    message(STATUS "HIP ${HIPCONFIG_VERSION}; library suffix: rocm${HIP_VERSION_TAG}")
+
+    string(APPEND BNB_OUTPUT_NAME "${HIP_VERSION_TAG}")
     add_compile_definitions(__HIP_PLATFORM_AMD__)
     add_compile_definitions(__HIP_PLATFORM_HCC__)
     add_compile_definitions(BUILD_HIP)
@@ -475,16 +438,16 @@ if(BUILD_CUDA)
     )
 endif()
 if(BUILD_HIP)
-    # ROCM_PATH was resolved during version detection; retain it for package discovery.
-    if(NOT ROCM_PATH)
-        if(DEFINED ENV{ROCM_PATH})
-            file(TO_CMAKE_PATH "$ENV{ROCM_PATH}" ROCM_PATH)
-        elseif(WIN32)
-            message(FATAL_ERROR "ROCM_PATH must be set for ROCm builds on Windows")
-        else()
-            message(WARNING "ROCM_PATH is not set; falling back to /opt/rocm")
-            set(ROCM_PATH "/opt/rocm")
-        endif()
+    # Determine ROCM_PATH from an existing CMake value or environment variable.
+    if(ROCM_PATH)
+        file(TO_CMAKE_PATH "${ROCM_PATH}" ROCM_PATH)
+    elseif(DEFINED ENV{ROCM_PATH} AND NOT "$ENV{ROCM_PATH}" STREQUAL "")
+        file(TO_CMAKE_PATH "$ENV{ROCM_PATH}" ROCM_PATH)
+    elseif(WIN32)
+        message(FATAL_ERROR "ROCM_PATH must be set for HIP builds on Windows")
+    else()
+        message(WARNING "ROCM_PATH is not set; falling back to /opt/rocm")
+        set(ROCM_PATH /opt/rocm)
     endif()
     list(APPEND CMAKE_PREFIX_PATH ${ROCM_PATH})
     macro(find_package_and_print_version PACKAGE_NAME)
