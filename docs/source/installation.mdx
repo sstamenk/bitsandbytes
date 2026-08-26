@@ -152,7 +152,7 @@ Big thanks to [wkpark](https://github.com/wkpark), [Jamezo97](https://github.com
 * A compatible PyTorch version with AMD ROCm support is required. It is recommended to use the latest stable release. On Linux, see [PyTorch on ROCm](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html) for guidance. On Windows, ROCm-enabled PyTorch wheels are available from:
   - [repo.radeon.com/rocm/windows/](https://repo.radeon.com/rocm/windows/) — official AMD releases
   - [stable.repo.amd.com/rocm/whl-next/](https://stable.repo.amd.com/rocm/whl-next/) — current stable [TheRock](https://github.com/ROCm/TheRock) release builds
-  - [rocm.nightlies.amd.com/v2](https://rocm.nightlies.amd.com/v2) — TheRock nightly builds
+  - [nightly.repo.amd.com/rocm/whl-next/](https://nightly.repo.amd.com/rocm/whl-next/) — current nightly TheRock builds
 
 ### Installation from PyPI[[rocm-pip]]
 
@@ -219,17 +219,7 @@ pip install --index-url https://stable.repo.amd.com/rocm/whl-next/ \
     "rocm[libraries,devel,device-gfx1100]==10.0.0"
 ```
 
-For ROCm 7.14.0, use the legacy multi-architecture SDK from [repo.amd.com](https://repo.amd.com/rocm/whl-multi-arch/):
-
-```bash
-pip install ninja cmake
-# Replace gfx1100 with your GPU architecture. To support multiple GPU
-# architectures, add multiple device extras (for example, device-gfx1100,device-gfx1151).
-pip install --index-url https://repo.amd.com/rocm/whl-multi-arch/ \
-    "rocm[libraries,devel,device-gfx1100]==7.14.0"
-```
-
-After installing either SDK, initialize it and build bitsandbytes:
+After installing the SDK, initialize it and build bitsandbytes:
 
 ```bash
 # Expand the devel tarball and link the installed device files.
