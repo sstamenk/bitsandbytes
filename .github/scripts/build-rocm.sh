@@ -62,17 +62,15 @@ else
 
     if rocm_version_at_least "7.14"; then
         rocm_index_url="https://repo.amd.com/rocm/whl-multi-arch/"
-        rocm_extras="libraries,devel"
 
         if rocm_version_at_least "10.0"; then
             rocm_index_url="https://stable.repo.amd.com/rocm/whl-next/"
-            rocm_extras="libraries,devel,device-all"
         fi
 
         # Add the remaining targets available from the Windows multi-architecture index.
         bnb_rocm_arch="${bnb_rocm_arch};gfx908;gfx90a;gfx1010;gfx1011;gfx1012;gfx1030;gfx1031;gfx1032;gfx1033;gfx1034;gfx1035;gfx1036;gfx1103;gfx1152;gfx1153"
 
-        pip install --index-url "${rocm_index_url}" "rocm[${rocm_extras}]==${ROCM_VERSION}"
+        pip install --index-url "${rocm_index_url}" "rocm[libraries,devel]==${ROCM_VERSION}"
     else
         # Install ROCm SDK wheels from repo.radeon.com.
         rocm_base_url="https://repo.radeon.com/rocm/windows/rocm-rel-${ROCM_VERSION}"

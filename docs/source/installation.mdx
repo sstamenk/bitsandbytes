@@ -151,7 +151,7 @@ Big thanks to [wkpark](https://github.com/wkpark), [Jamezo97](https://github.com
 * All features are supported for both consumer RDNA devices and Data Center CDNA products.
 * A compatible PyTorch version with AMD ROCm support is required. It is recommended to use the latest stable release. On Linux, see [PyTorch on ROCm](https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html) for guidance. On Windows, ROCm-enabled PyTorch wheels are available from:
   - [repo.radeon.com/rocm/windows/](https://repo.radeon.com/rocm/windows/) — official AMD releases
-  - [repo.amd.com/rocm/whl/](https://repo.amd.com/rocm/whl/) — [TheRock](https://github.com/ROCm/TheRock) release builds
+  - [stable.repo.amd.com/rocm/whl-next/](https://stable.repo.amd.com/rocm/whl-next/) — current stable [TheRock](https://github.com/ROCm/TheRock) release builds
   - [rocm.nightlies.amd.com/v2](https://rocm.nightlies.amd.com/v2) — TheRock nightly builds
 
 ### Installation from PyPI[[rocm-pip]]
@@ -167,8 +167,10 @@ The currently distributed `bitsandbytes` are built with the following configurat
 | **Linux x86-64**   | 7.1.1    | CDNA: gfx908, gfx90a, gfx942, gfx950 / RDNA: gfx1030, gfx1100, gfx1101, gfx1102, gfx1103, gfx1150, gfx1151, gfx1152, gfx1153, gfx1200, gfx1201
 | **Linux x86-64**   | 7.2.4    | CDNA: gfx908, gfx90a, gfx942, gfx950 / RDNA: gfx1030, gfx1100, gfx1101, gfx1102, gfx1103, gfx1150, gfx1151, gfx1152, gfx1153, gfx1200, gfx1201
 | **Linux x86-64**   | 7.14.0   | CDNA: gfx908, gfx90a, gfx942, gfx950, gfx1250 / RDNA: gfx1010, gfx1011, gfx1012, gfx1030, gfx1031, gfx1032, gfx1033, gfx1034, gfx1035, gfx1036, gfx1100, gfx1101, gfx1102, gfx1103, gfx1150, gfx1151, gfx1152, gfx1153, gfx1200, gfx1201
+| **Linux x86-64**   | 10.0.0   | CDNA: gfx908, gfx90a, gfx942, gfx950, gfx1250 / RDNA: gfx1010, gfx1011, gfx1012, gfx1030, gfx1031, gfx1032, gfx1033, gfx1034, gfx1035, gfx1036, gfx1100, gfx1101, gfx1102, gfx1103, gfx1150, gfx1151, gfx1152, gfx1153, gfx1200, gfx1201
 | **Windows x86-64** | 7.2.1    | RDNA: gfx1100, gfx1101, gfx1102, gfx1150, gfx1151, gfx1200, gfx1201
 | **Windows x86-64** | 7.14.0   | CDNA: gfx908, gfx90a / RDNA: gfx1010, gfx1011, gfx1012, gfx1030, gfx1031, gfx1032, gfx1033, gfx1034, gfx1035, gfx1036, gfx1100, gfx1101, gfx1102, gfx1103, gfx1150, gfx1151, gfx1152, gfx1153, gfx1200, gfx1201
+| **Windows x86-64** | 10.0.0   | CDNA: gfx908, gfx90a / RDNA: gfx1010, gfx1011, gfx1012, gfx1030, gfx1031, gfx1032, gfx1033, gfx1034, gfx1035, gfx1036, gfx1100, gfx1101, gfx1102, gfx1103, gfx1150, gfx1151, gfx1152, gfx1153, gfx1200, gfx1201
 
 Use `pip` or `uv` to install the latest release:
 
@@ -178,7 +180,7 @@ pip install bitsandbytes
 
 ### Compile from Source[[rocm-compile]]
 
-bitsandbytes can be compiled from ROCm 6.3 - ROCm 7.14.0. See the `CMakeLists.txt` for additional options.
+bitsandbytes can be compiled from ROCm 6.3 - ROCm 10.0.0. See the `CMakeLists.txt` for additional options.
 
 <hfoptions id="rocm-source">
 <hfoption id="Linux">
@@ -207,7 +209,17 @@ Compilation on Windows requires Visual Studio 2022 with C++ support, CMake, Ninj
 
 Instead of a system-wide ROCm installation, use the pip-installable ROCm SDK.
 
-For ROCm 7.14.0, install the current multi-architecture SDK from [repo.amd.com](https://repo.amd.com/rocm/whl-multi-arch/):
+For ROCm 10.0.0, install the current stable multi-architecture SDK from [stable.repo.amd.com](https://stable.repo.amd.com/rocm/whl-next/):
+
+```bash
+pip install ninja cmake
+# Replace gfx1100 with your GPU architecture. To support multiple GPU
+# architectures, add multiple device extras (for example, device-gfx1100,device-gfx1151).
+pip install --index-url https://stable.repo.amd.com/rocm/whl-next/ \
+    "rocm[libraries,devel,device-gfx1100]==10.0.0"
+```
+
+For ROCm 7.14.0, use the legacy multi-architecture SDK from [repo.amd.com](https://repo.amd.com/rocm/whl-multi-arch/):
 
 ```bash
 pip install ninja cmake
@@ -215,7 +227,11 @@ pip install ninja cmake
 # architectures, add multiple device extras (for example, device-gfx1100,device-gfx1151).
 pip install --index-url https://repo.amd.com/rocm/whl-multi-arch/ \
     "rocm[libraries,devel,device-gfx1100]==7.14.0"
+```
 
+After installing either SDK, initialize it and build bitsandbytes:
+
+```bash
 # Expand the devel tarball and link the installed device files.
 rocm-sdk init
 
