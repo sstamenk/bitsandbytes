@@ -69,6 +69,7 @@ list(APPEND SRC_FILES ${CPP_FILES})
 set(COMPUTE_BACKEND "cpu" CACHE STRING "The compute backend to use (cpu, cuda, hip, xpu)")
 set_property(CACHE COMPUTE_BACKEND PROPERTY STRINGS cpu cuda hip xpu)
 option(PTXAS_VERBOSE "Pass through -v flag to PTX Assembler" OFF)
+option(BNB_WMMA_DEV "ROCm: enable the WMMA 4-bit GEMM tuning overrides (BNB_GEMM4BIT_KERNEL, BNB_WMMA_CFG)" OFF)
 
 if(APPLE)
   set(CMAKE_OSX_DEPLOYMENT_TARGET 14.0)
@@ -277,8 +278,8 @@ elseif(BUILD_HIP)
     list(APPEND SRC_FILES ${GPU_FILES})
 
     # 4-bit GEMM: build the SIMT kernel + C dispatch on ROCm.
-    set_source_files_properties(csrc/gemm_4bit_simt.cu csrc/gemm_4bit.cu PROPERTIES LANGUAGE HIP)
-    list(APPEND SRC_FILES csrc/gemm_4bit_simt.cu csrc/gemm_4bit.cu)
+    set_source_files_properties(csrc/gemm_4bit_simt.cu csrc/gemm_4bit_wmma.cu csrc/gemm_4bit.cu PROPERTIES LANGUAGE HIP)
+    list(APPEND SRC_FILES csrc/gemm_4bit_simt.cu csrc/gemm_4bit_wmma.cu csrc/gemm_4bit.cu)
 
     string(APPEND BNB_OUTPUT_NAME "_rocm")
 
@@ -299,6 +300,9 @@ elseif(BUILD_HIP)
     add_compile_definitions(__HIP_PLATFORM_AMD__)
     add_compile_definitions(__HIP_PLATFORM_HCC__)
     add_compile_definitions(BUILD_HIP)
+    if(BNB_WMMA_DEV)
+        add_compile_definitions(BNB_WMMA_DEV)
+    endif()
 elseif(BUILD_XPU)
     list(APPEND SRC_FILES ${XPU_FILES})
     add_compile_definitions(BUILD_XPU)

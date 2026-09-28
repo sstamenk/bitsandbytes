@@ -33,6 +33,9 @@ _GEMM_4BIT_SHAPES = [
     (40, 36864, 128),  # 64x128-64 wide-N
     (48, 8192, 512),  # 64x64-64 on GDDR+A100, K=512
     (48, 8192, 8192),  # 64x64-128, large K
+    (2, 1000, 256),  # RDNA3 WMMA: smallest M, N tail
+    (24, 6000, 704),  # RDNA3 WMMA: 64-K iterations (K % 128 != 0), wide N
+    (200, 2000, 512),  # RDNA3 WMMA: M > 128 tile with split-K
 ]
 
 
@@ -1011,6 +1014,30 @@ class TestQuantize4BitFunctional:
         else:
             threshold = 0.16
         assert mean_err < threshold
+
+    @pytest.mark.parametrize("device", get_available_devices())
+    @pytest.mark.parametrize("compress_statistics", TRUE_FALSE, ids=id_formatter("compress_statistics"))
+    @pytest.mark.parametrize("quant_type", ["nf4", "fp4"])
+    @pytest.mark.parametrize("blocksize", [32, 64], ids=id_formatter("blocksize"))
+    @pytest.mark.parametrize("M", [1, 4, 16, 40, 100], ids=id_formatter("M"))
+    def test_matmul_4bit_fp32_precision(self, M, blocksize, quant_type, compress_statistics, device):
+        # fp32 must keep fp32-level accuracy on every kernel path (the RDNA3 WMMA path
+        # emulates it with split bf16 operands). Compare against a float64 product of the
+        # same dequantized weights.
+        if device not in ("cuda",):
+            pytest.skip("fp32 precision bound is calibrated for the CUDA/ROCm kernels")
+        N, K = 1000, 1024
+        A = torch.randn(1, M, K, dtype=torch.float32, device=device)
+        B = torch.randn(N, K, dtype=torch.float32, device=device) / (K**0.5)
+        qB, qs = F.quantize_4bit(
+            B, blocksize=blocksize, quant_type=quant_type, compress_statistics=compress_statistics
+        )
+        ref = A.double() @ F.dequantize_4bit(qB, qs).double().t()
+        out = bnb.matmul_4bit(A, qB, qs)
+        # fp32 kernels and the fp32 dequant+F.linear fallback stay below ~6e-7; a
+        # reduced-precision (e.g. bf16 or two-part bf16) path would be at >=8e-6.
+        rel = ((out.double() - ref).abs().mean() / ref.abs().mean()).item()
+        assert rel < 2e-6
 
     @pytest.mark.parametrize("device", get_available_devices())
     def test_matmul_4bit_weight_orientation(self, device):
