@@ -822,6 +822,13 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
     dequant+F.linear on every shape through M=128, on 39/40 at M=192 and on ~30/40 at
     M=256 (geomean ~1.1x); fp32 on every shape through M=96 and on most at M=128
     (geomean ~1.16x at default clocks).
+    RDNA4 (gfx120x) with K % 64 == 0 runs the WMMA kernel for bf16/fp16 from M=2 and for
+    fp32 from M=6. Calibrated on R9700 (gfx1201): bf16/fp16 beat dequant+F.linear on every
+    shape through M=128 and on 37-40/40 at M=192/256 (total time 1.28-1.45x); at M=384 they
+    still win in total but lose on 9-13 shapes. fp32 beats dequant+F.linear on every shape
+    through M=384; with the calibration toolchain torch's fp32 GEMM on gfx1201 is ~100x
+    slower than expected, and the fused path still wins every shape against a working
+    (Triton) fp32 GEMM, so fp32 keeps the fused path to the same M=256 cap.
     Other RDNA3/RDNA4/RDNA3.5 and CDNA5 (gfx125x) cases run SIMT only; calibration keeps
     it through ~M=8. gfx125x is Wave32 but lacks the v_dot2 SIMT instructions, so its
     kernel takes the fp32-FMA CDNA math path; the crossover is left at the gfx12
@@ -837,6 +844,8 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
     arch = _rocm_gfx_arch(device_index)
     if arch.startswith("gfx110") and K % 64 == 0:  # RDNA3 WMMA
         return M <= (128 if dtype == torch.float32 else 256)
+    if arch.startswith("gfx120") and K % 64 == 0:  # RDNA4 WMMA
+        return M <= 256
     if arch.startswith("gfx11") or arch.startswith("gfx12"):  # RDNA3 / RDNA4 / CDNA5 (gfx125x)
         return M <= 8
     if arch.startswith("gfx9"):  # CDNA1-4 / MI-series (Wave64)
@@ -935,7 +944,7 @@ if torch.version.hip is None:
 else:
     _gemm_4bit_use_custom_fn = _gemm_4bit_use_custom_rocm
     # ROCm: the per-arch heuristic above owns RDNA/CDNA thresholds. dequant+F.linear
-    # wins past M=256 even with the RDNA3 WMMA kernel.
+    # wins past M=256 even with the RDNA3/RDNA4 WMMA kernels.
     _gemm_4bit_custom_max_m = 256
 
 

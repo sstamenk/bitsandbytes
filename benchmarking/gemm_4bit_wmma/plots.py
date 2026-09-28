@@ -38,21 +38,30 @@ SUFFIX = os.environ.get("PLOT_SUFFIX", "")
 OUT = os.environ.get("PLOT_OUT", "plots/gfx1100")
 os.makedirs(OUT, exist_ok=True)
 CLOCKS = os.environ.get("PLOT_CLOCKS", "default clocks")
+ARCH = os.environ.get("PLOT_ARCH", "gfx1100")
 for f in FILES:
     for r in csv.DictReader(open(f)):
         t[(r["dtype"], r["shape"], int(r["M"]))][r["kernel"]] = float(r["us"])
 Ms = sorted({k[2] for k in t})
+DTYPES = [d for d in ("fp16", "bf16", "fp32") if any(k[0] == d for k in t)]
 
 
-def old_default(v, M):  # previous gfx1100 dispatch: SIMT for M<=8, dequant+F.linear above
+def old_default(v, M):  # previous gfx1100 and gfx1201 dispatch: SIMT for M<=8, dequant+F.linear above
     return v["simt"] if M <= 8 else v["dequant"]
 
 
+# New dispatch per dtype: SIMT through simt_max_m, WMMA through fused_max_m, dequant+F.linear above.
+# PLOT_NEW="fp16:1:256,bf16:1:256,fp32:5:128"; the default is the gfx1100 bf16/fp16 dispatch.
 NEW_SIMT_MAX_M = int(os.environ.get("PLOT_NEW_SIMT_MAX_M", "0"))
+NEW = {d: (NEW_SIMT_MAX_M, 256) for d in ("fp16", "bf16", "fp32")}
+for spec in filter(None, os.environ.get("PLOT_NEW", "").split(",")):
+    d, simt_max, fused_max = spec.split(":")
+    NEW[d] = (int(simt_max), int(fused_max))
 
 
-def new_default(v, M):  # this PR: WMMA through M=256 (SIMT below NEW_SIMT_MAX_M), dequant+F.linear above
-    return v["simt"] if M <= NEW_SIMT_MAX_M else (v["wmma"] if M <= 256 else v["dequant"])
+def new_default(v, M, dt):
+    simt_max, fused_max = NEW[dt]
+    return v["simt"] if M <= simt_max else (v["wmma"] if M <= fused_max else v["dequant"])
 
 
 def logx(ax):
@@ -63,12 +72,12 @@ def logx(ax):
 
 
 # 1) Headline: new vs previous default dispatch
-fig, axes = plt.subplots(1, 2, figsize=(11, 4), sharey=True)
+fig, axes = plt.subplots(1, len(DTYPES), figsize=(5.5 * len(DTYPES), 4), sharey=len(DTYPES) < 3)
 table = []
-for ax, dt in zip(axes, ("fp16", "bf16")):
+for ax, dt in zip(axes, DTYPES):
     med, lo, hi = [], [], []
     for M in Ms:
-        rs = [old_default(v, M) / new_default(v, M) for (d, s, m), v in t.items() if d == dt and m == M]
+        rs = [old_default(v, M) / new_default(v, M, dt) for (d, s, m), v in t.items() if d == dt and m == M]
         med.append(st.median(rs))
         lo.append(min(rs))
         hi.append(max(rs))
@@ -78,11 +87,13 @@ for ax, dt in zip(axes, ("fp16", "bf16")):
     ax.axhline(1, color=INK2, lw=1)
     logx(ax)
     ax.set_yscale("log", base=2)
-    ax.yaxis.set_major_locator(FixedLocator([0.5, 1, 2, 4, 8]))
+    ax.yaxis.set_major_locator(FixedLocator([0.5, 1, 2, 4, 8, 16, 64, 256, 1024]))
     ax.yaxis.set_minor_locator(NullLocator())
     ax.yaxis.set_major_formatter(FuncFormatter(lambda y, _: f"{y:g}x"))
     ax.set_xlabel("batch M (rows)")
-    ax.set_title(dt, loc="left", fontsize=11, color=INK)
+    # Optional per-dtype caveat, e.g. PLOT_NOTE_fp32="previous dequant+BLAS uses a slow fp32 GEMM".
+    note = os.environ.get(f"PLOT_NOTE_{dt}", "")
+    ax.set_title(dt + (f"  ({note})" if note else ""), loc="left", fontsize=11 if not note else 9, color=INK)
     i = Ms.index(16)
     ax.annotate(
         f"{med[i]:.1f}x at M=16", (16, med[i]), xytext=(6, 8), textcoords="offset points", color=INK, fontsize=9
@@ -93,7 +104,7 @@ for ax, dt in zip(axes, ("fp16", "bf16")):
     )
 axes[0].set_ylabel("speedup vs previous dispatch")
 fig.suptitle(
-    "gfx1100 4-bit GEMM: new default dispatch vs previous (SIMT M≤8, dequant+BLAS above)\n"
+    f"{ARCH} 4-bit GEMM: new default dispatch vs previous (SIMT M≤8, dequant+BLAS above)\n"
     f"median over 40 LLM shapes; band = min-max across shapes; {CLOCKS}",
     fontsize=11,
     x=0.01,
@@ -104,8 +115,8 @@ fig.tight_layout()
 fig.savefig(f"{OUT}/speedup_vs_previous_dispatch{SUFFIX}.png", dpi=160)
 
 # 2) Median latency per kernel
-fig, axes = plt.subplots(1, 2, figsize=(11, 4.2), sharey=True)
-for ax, dt in zip(axes, ("fp16", "bf16")):
+fig, axes = plt.subplots(1, len(DTYPES), figsize=(5.5 * len(DTYPES), 4.2), sharey=True)
+for ax, dt in zip(axes, DTYPES):
     for k in ("simt", "wmma", "dequant"):
         xs = [M for M in Ms if any(k in v for (d, s, m), v in t.items() if d == dt and m == M)]
         ys = [st.median([v[k] for (d, s, m), v in t.items() if d == dt and m == M and k in v]) for M in xs]
@@ -132,10 +143,10 @@ for ax, dt in zip(axes, ("fp16", "bf16")):
                 fontsize=9,
                 color=INK2,
             )
-    ax.axvline(256, color=INK2, lw=1)
+    ax.axvline(NEW[dt][1], color=INK2, lw=1)
     ax.annotate(
-        "default dispatch\nuses dequant+BLAS\nabove M=256 →",
-        (256, 0.03),
+        f"default dispatch\nuses dequant+BLAS\nabove M={NEW[dt][1]} →",
+        (NEW[dt][1], 0.03),
         xycoords=("data", "axes fraction"),
         xytext=(-4, 0),
         textcoords="offset points",
@@ -158,7 +169,7 @@ for ax, dt in zip(axes, ("fp16", "bf16")):
 axes[0].set_ylabel("median latency (µs, log)")
 axes[0].legend(frameon=False, loc="upper left")
 fig.suptitle(
-    f"gfx1100 4-bit GEMM kernels, median latency over 40 LLM shapes (weights streamed from DRAM), {CLOCKS}",
+    f"{ARCH} 4-bit GEMM kernels, median latency over 40 LLM shapes (weights streamed from DRAM), {CLOCKS}",
     fontsize=11,
     x=0.01,
     ha="left",
@@ -168,7 +179,7 @@ fig.tight_layout()
 fig.savefig(f"{OUT}/median_latency{SUFFIX}.png", dpi=160)
 
 # 3) Per-shape grids
-for dt in ("fp16", "bf16"):
+for dt in DTYPES:
     fig, axes = plt.subplots(5, 8, figsize=(24, 14))
     for ax, (name, N, K) in zip(axes.flat, SHAPES):
         for k in ("simt", "wmma", "dequant"):
@@ -187,15 +198,16 @@ for dt in ("fp16", "bf16"):
     fig.legend(handles=handles, loc="upper center", ncol=3, frameon=False, bbox_to_anchor=(0.5, 0.995))
     fig.supxlabel("batch M")
     fig.supylabel("latency (µs, log)", x=0.003)
-    fig.suptitle(f"gfx1100 {dt}: per-shape latency, {CLOCKS}", x=0.01, ha="left", fontsize=13)
+    fig.suptitle(f"{ARCH} {dt}: per-shape latency, {CLOCKS}", x=0.01, ha="left", fontsize=13)
     fig.tight_layout(rect=(0.012, 0, 1, 0.975))
     fig.savefig(f"{OUT}/per_shape_{dt}{SUFFIX}.png", dpi=110)
 
 with open(f"{OUT}/speedup_table{SUFFIX}.md", "w") as f:
-    f.write("| M | fp16 median (min-max) | bf16 median (min-max) |\n|---|---|---|\n")
+    f.write("| M | " + " | ".join(f"{dt} median (min-max)" for dt in DTYPES) + " |\n")
+    f.write("|---" * (len(DTYPES) + 1) + "|\n")
     rows = defaultdict(dict)
     for dt, M, m, lo, hi in table:
         rows[M][dt] = f"{m:.2f}x ({lo:.2f}-{hi:.2f})"
     for M in Ms:
-        f.write(f"| {M} | {rows[M]['fp16']} | {rows[M]['bf16']} |\n")
+        f.write(f"| {M} | " + " | ".join(rows[M][dt] for dt in DTYPES) + " |\n")
 print(open(f"{OUT}/speedup_table{SUFFIX}.md").read())

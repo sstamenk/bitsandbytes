@@ -5,7 +5,6 @@ import argparse
 import csv
 import math
 import os
-import re
 import sys
 
 import torch
@@ -13,6 +12,7 @@ import torch
 sys.path.insert(0, os.path.dirname(__file__))
 from bench import timed_rotation
 from shapes import SHAPES
+from sweep_table import ROWS, TABLE, smem_ok
 
 from bitsandbytes.backends.cuda.ops import _gemm_4bit_kernel_impl
 import bitsandbytes.functional as F
@@ -28,28 +28,17 @@ args = p.parse_args()
 dt = {"fp16": torch.float16, "bf16": torch.bfloat16, "fp32": torch.float32}[args.dtype]
 PLANES = 3 if args.dtype == "fp32" else 1
 
-# Candidate tiles = the BNB_WMMA_DEV_TRY table compiled into the dev launcher.
-_src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../csrc/gemm_4bit_wmma.cu")).read()
-TABLE = sorted(
-    {tuple(map(int, t)) for t in re.findall(r"BNB_WMMA_DEV_TRY\((\d+), (\d+), (\d+), (\d+), (\d+)\)", _src)}
-)
-
-
-def smem_ok(wm, wn, wmp, wnp, ks, kch):
-    mt, nt = wmp * 8 * wm, wnp * 16 * wn
-    return max(2 * PLANES * ks * mt * (64 * kch + 8) * 2, ks * mt * nt * 4 if ks > 1 else 0) <= 48 * 1024
-
 
 def cands(M, K):
     if args.cfgs != "auto":
         return [tuple(map(int, c.split(","))) for c in args.cfgs.split(";")]
     out = []
     for wm, wn, wmp, wnp, ks in TABLE:
-        mt = wmp * 8 * wm
-        if mt > max(8, 2 * M) or (M >= 64 and mt < 32):  # skip mostly-empty or tiny M tiles
+        mt = wmp * ROWS * wm
+        if mt > max(ROWS, 2 * M) or (M >= 64 and mt < 32):  # skip mostly-empty or tiny M tiles
             continue
         for kch in (1, 2):
-            if K % (64 * kch) == 0 and smem_ok(wm, wn, wmp, wnp, ks, kch):
+            if K % (64 * kch) == 0 and smem_ok(wm, wn, wmp, wnp, ks, kch, PLANES):
                 out.append((wm, wn, wmp, wnp, ks, kch))
     return out
 

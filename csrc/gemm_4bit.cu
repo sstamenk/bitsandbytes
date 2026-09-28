@@ -1,5 +1,5 @@
 // C API for the custom 4-bit GEMM.
-// Dispatches to SIMT, MMA (CUDA) or WMMA (ROCm RDNA3) kernels based on GPU architecture and shape.
+// Dispatches to SIMT, MMA (CUDA) or WMMA (ROCm RDNA3/RDNA4) kernels based on GPU architecture and shape.
 // Computes out[M, N] = A[M, K] @ B[N, K]^T. All pointers are device memory.
 
 #include <cstdint>
@@ -45,8 +45,8 @@ GpuProps get_gpu_props() {
 
 /// @brief Fused 4-bit dequantize + GEMM. Computes out[M,N] = A[M,K] @ B[N,K]^T + bias.
 ///
-/// Dispatches to SIMT (sm60+, all ROCm), MMA (sm75 fp16, sm80+ bf16/fp16) or WMMA (RDNA3
-/// bf16/fp16/fp32) based on GPU arch and shape. fp32 uses SIMT except on RDNA3. Supports
+/// Dispatches to SIMT (sm60+, all ROCm), MMA (sm75 fp16, sm80+ bf16/fp16) or WMMA (RDNA3/RDNA4
+/// bf16/fp16/fp32) based on GPU arch and shape. fp32 uses SIMT except on RDNA3/RDNA4. Supports
 /// single-level and double-quantized (nested) absmax.
 ///
 /// @tparam T Input/output dtype (`bnb_bfloat16`, `half`, or `float`)
@@ -70,16 +70,23 @@ static void gemm_4bit(
     constexpr bool is_fp32 = std::is_same_v<T, float>;
 
 #if BNB_HIP
+    // WMMA needs K % 64 == 0 and at least 32-element quantization blocks.
     // RDNA3 (gfx110x): on the 40 calibrated LLM shapes WMMA beats SIMT for bf16/fp16 at
     // every M (at M=1 by ~8% in total time, mostly on the larger weights) and for fp32
-    // from M=6, which runs six split-bf16 WMMAs per tile. WMMA needs K % 64 == 0 and at
-    // least 32-element quantization blocks.
-    bool use_wmma = M >= (is_fp32 ? 6 : 1) && K % 64 == 0 && blocksize >= 32 && gemm_4bit_wmma_supported();
+    // from M=6, which runs six split-bf16 WMMAs per tile.
+    // RDNA4 (gfx120x): each WMMA covers 16 rows (gfx11: 8), so SIMT keeps the smallest M.
+    // On gfx1201 WMMA is 5-8% faster than SIMT in total time over the 40 shapes from M=2
+    // for bf16/fp16 (4-5% slower at M=1) and 17% faster from M=6 for fp32 (SIMT wins
+    // through M=4).
+    constexpr int GFX12_MIN_M_16BIT = 2, GFX12_MIN_M_FP32 = 6;
+    const int wmma_arch = K % 64 == 0 && blocksize >= 32 ? gemm_4bit_wmma_arch() : 0;
+    const int wmma_min_m = wmma_arch == 12 ? (is_fp32 ? GFX12_MIN_M_FP32 : GFX12_MIN_M_16BIT) : (is_fp32 ? 6 : 1);
+    bool use_wmma = wmma_arch != 0 && M >= wmma_min_m;
 #ifdef BNB_WMMA_DEV
     // Dev-only (cmake -DBNB_WMMA_DEV=ON): BNB_GEMM4BIT_KERNEL=simt|wmma forces the kernel
     // for benchmarking; the Python side still decides custom kernel vs dequant+F.linear.
     if (const char* force = std::getenv("BNB_GEMM4BIT_KERNEL"))
-        use_wmma = std::strcmp(force, "wmma") == 0 && K % 64 == 0 && blocksize >= 32 && gemm_4bit_wmma_supported();
+        use_wmma = std::strcmp(force, "wmma") == 0 && wmma_arch != 0;
 #endif
     if (use_wmma) {
         launch_gemm_4bit_wmma<T>(

@@ -1,16 +1,19 @@
 # AMD WMMA 4-bit GEMM: benchmark and tuning harness
 
-Harness, data and notes behind the RDNA3 WMMA kernel for the fused 4-bit GEMM
+Harness, data and notes behind the RDNA3/RDNA4 WMMA kernel for the fused 4-bit GEMM
 (`csrc/gemm_4bit_wmma.cu`). Use it to re-tune the tile rules and to enable more
 architectures.
 
-Dispatch on RDNA3 (gfx110x) with `K % 64 == 0` and blocksize >= 32:
+Dispatch with `K % 64 == 0` and blocksize >= 32:
 
-| dtype | kernel choice |
-|---|---|
-| fp16 / bf16 | WMMA for every M the Python side routes to the custom kernel (M <= 256) |
-| fp32 | SIMT for M <= 5, WMMA for M = 6-128. fp32 is emulated with 3-way split bf16 operands (6 WMMAs per tile) and is fp32-accurate. |
+| arch | dtype | kernel choice |
+|---|---|---|
+| RDNA3 (gfx110x) | fp16 / bf16 | WMMA for every M the Python side routes to the custom kernel (M <= 256) |
+| RDNA3 (gfx110x) | fp32 | SIMT for M <= 5, WMMA for M = 6-128 |
+| RDNA4 (gfx120x) | fp16 / bf16 | SIMT for M = 1, WMMA for M = 2-256 |
+| RDNA4 (gfx120x) | fp32 | SIMT for M <= 5, WMMA for M = 6-256 |
 
+fp32 is emulated with 3-way split bf16 operands (6 WMMAs per tile) and is fp32-accurate.
 Every other architecture keeps SIMT plus dequant+`F.linear`, unchanged.
 
 ## Setup
@@ -26,6 +29,8 @@ rocm-sdk init
 
 The per-arch device wheel (`amd-torch-device-gfx1100`) is required, otherwise torch fails with
 "invalid kernel file".
+
+For RDNA4 use `device-gfx1201` / `amd-torch-device-gfx1201` and `-DBNB_ROCM_ARCH=gfx1201`.
 
 Build with the dev overrides enabled. `BNB_WMMA_DEV` is off by default, and release builds do
 not contain the overrides.
@@ -56,6 +61,7 @@ Dev-only environment variables (these need `-DBNB_WMMA_DEV=ON`):
 - **One process per GPU.** `par_bench.sh` and `par_sweep.sh` shard shapes round-robin across GPUs, one process per GPU, and merge the CSVs.
 - **Clock mode.** Never compare timings across clock modes. `power_dpm_force_performance_level=profile_standard`, which is needed for rocprofv3 SQ counters, pins sclk at about 970 MHz and roughly halves WMMA throughput. It also moves the crossovers. All data here was taken at default (auto) clocks.
 - **Device order.** HIP device order can differ from amd-smi order. Check with `rocminfo` before pinning clocks on a specific GPU.
+- **Exclusive GPUs.** Other users' jobs on a shared machine invalidate timings, also on GPUs you are not using (their host and PCIe traffic still interferes). `amd-smi process` does not show other users' processes; `rocm-smi --showpids` does. On gfx1201 a vLLM job on the other GPUs inflated small-kernel times by up to 10x, while two clean runs 25 minutes apart agreed within ±2% (p5-p95). `runs_guard.sh` wraps a timing job, logs any foreign GPU process during the run, and reports CLEAN or CONTAMINATED.
 
 ## Scripts
 
@@ -70,6 +76,10 @@ Dev-only environment variables (these need `-DBNB_WMMA_DEV=ON`):
 | `summarize.py bench.csv` | Median latency per M and kernel, plus a count of wins. |
 | `plots.py` | Charts and a markdown table comparing the new default dispatch to the previous one. Set `PLOT_FILES`, `PLOT_OUT` and `PLOT_CLOCKS`. |
 | `check.py` | fp16/bf16 correctness sweep over odd shapes, blocksizes, nested stats and bias (`BNB_GEMM4BIT_KERNEL` picks the kernel). |
+| `check_tiles.py` | Correctness of every tile in the dev table (the sweep candidates) for fp16/bf16/fp32, blocksizes 32/64/256 and nested stats, against a float64 reference. |
+| `sweep_table.py` | The dev tile table and the LDS budget check shared by `sweep.py` and `check_tiles.py` (rows per WMMA follow the device: 8 on gfx11, 16 on gfx12). |
+| `runs_guard.sh <log> <cmd...>` | Runs a timing job and flags it CONTAMINATED if any other user's GPU process appeared during the run. |
+| `experiments/wmma_gfx12_layout_probe.hip` | Maps the gfx12 WMMA operand and accumulator layouts with one-hot inputs. |
 | `check_f32.py`, `f32_err_dist.py` | fp32 accuracy of WMMA (split bf16) vs SIMT vs torch, against a float64 reference. |
 
 Example: re-sweep fp16 on 8 GPUs, derive rules, then re-evaluate.
@@ -104,6 +114,64 @@ The headline result compares the new default dispatch with the previous one (SIM
 | bf16 | 1.03x (0.88) | 1.15x (0.98) | 2.36x (1.24) | 4.52x (1.76) | 3.53x (1.57) | 2.93x (1.63) | 2.59x (1.44) | 1.74x (1.19) | 1.17x (0.99) |
 | fp32 | 1.00x | 1.00x | 1.51x (0.93) | 4.22x (2.59) | 2.72x (1.97) | 2.15x (1.56) | 1.50x (1.11) | 1.13x (0.90) | 1.00x |
 
+## Data (`data/gfx1201`, Radeon AI Pro R9700S, ROCm 10.2.0a20260928 nightly, torch 2.14.0, default clocks)
+
+gfx1201 (Navi48, RDNA4): 64 CUs, 64 KB LDS per workgroup, 64 MB Infinity Cache, 32 GB GDDR6 (~640 GB/s).
+The 384 MB weight rotation is 6x the Infinity Cache. Every timing file below was taken with no foreign
+GPU process on the machine (checked with `runs_guard.sh`).
+
+| file | contents |
+|---|---|
+| `baseline_simt.csv`, `baseline_dequant.csv` | The previous dispatch's kernels before the port: SIMT (M = 1-128) and dequant+BLAS (M = 1-384), 40 shapes x fp16/bf16/fp32. |
+| `eval_wmma_dequant.csv` | WMMA and dequant+BLAS with the shipped gfx1201 rules: 40 shapes x fp16/bf16/fp32 x M = 1-384. |
+| `eval_simt.csv` | SIMT for the same shapes, M = 1-128. |
+| `sweep_fp16.csv`, `sweep_fp32.csv` | Tile sweeps the gfx1201 rules were derived from. |
+| `sweep_bf16.csv` | bf16 tile sweep: the fp16 rules are within 1.040x (total time) of the per-shape best bf16 tile, and bf16's own derivation picks the same tiles. |
+
+The charts and tables in `plots/gfx1201` were generated from the two `eval_*` files with
+`PLOT_ARCH=gfx1201 PLOT_NEW="fp16:1:256,bf16:1:256,fp32:5:256"`.
+
+New default dispatch vs the previous one (SIMT for M <= 8, dequant+BLAS above), median over the 40
+shapes with the worst shape in brackets, and the total time over the 40 shapes:
+
+| M | 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256 |
+|---|---|---|---|---|---|---|---|---|---|
+| fp16 | 1.00x | 1.07x (0.93) | 1.37x (1.09) | 2.16x (1.35) | 3.37x (1.93) | 2.71x (1.72) | 2.63x (1.40) | 2.11x (1.23) | 1.27x (0.95) |
+| fp16 total | 1.00x | 1.08x | 1.56x | 2.49x | 6.64x | 5.77x | 3.69x | 2.19x | 1.28x |
+| bf16 | 1.00x | 1.06x (0.94) | 1.36x (1.08) | 2.12x (1.39) | 3.78x (2.04) | 3.10x (1.83) | 2.73x (1.49) | 2.06x (1.39) | 1.27x (1.04) |
+| bf16 total | 1.00x | 1.05x | 1.53x | 2.45x | 6.66x | 5.80x | 3.73x | 2.21x | 1.30x |
+
+fp32 against the previous dispatch is not meaningful on this toolchain: torch's fp32 GEMM takes ~20 ms
+for any shape on gfx1201 (see Known issues), so the new dispatch is 12-220x faster from M = 12. Against the
+previous fused kernel (SIMT) alone:
+
+| M | 1-4 | 6 | 8 | 16 | 32 | 64 | 128 |
+|---|---|---|---|---|---|---|---|
+| fp32 vs SIMT | 1.00x | 1.04x (0.62) | 1.29x (0.70) | 2.40x (0.84) | 2.93x (1.50) | 3.69x (0.97) | 4.20x (1.69) |
+| fp32 vs SIMT, total | 1.00x | 1.17x | 1.53x | 3.11x | 4.06x | 4.96x | 5.64x |
+
+How the thresholds were set (total time over the 40 shapes, `eval_*` files):
+
+- **SIMT vs WMMA, fp16/bf16.** WMMA is 4-5% slower at M = 1, where 15 of the 16 WMMA rows are padding, and
+  5-8% faster at M = 2 (29-31/40 shapes, worst 0.93x). From M = 3 it wins on all 40 shapes.
+- **SIMT vs WMMA, fp32.** SIMT wins through M = 4. WMMA is 17% faster in total at M = 6 but loses on 18 of
+  the 40 shapes (worst 0.62x, the small weights), and 53% faster at M = 8.
+- **Fused vs dequant+`F.linear`, fp16/bf16.** WMMA wins on 37-40/40 shapes at M = 192 and 256 (total 1.28-1.45x,
+  worst 0.90x at M = 192). At M = 384 it still wins in total (1.18x) but loses on 9-13 shapes by up to 22%, so
+  the cap stays at 256.
+- **Fused vs dequant+`F.linear`, fp32.** The fused path wins on every shape through M = 384, also against a
+  working fp32 GEMM: bnb dequant plus a Triton IEEE-fp32 matmul is 2.3-4.1x slower in total at M = 64-384.
+  A well-tuned fp32 BLAS (~30 TFLOPS) would break even around M = 128-192 by estimate, so revisit this cap
+  (256 today, 128 on gfx1100) once torch's fp32 GEMM works on gfx1201.
+
+Known losses: fp16/bf16 at M = 2 on 9-11 shapes (up to 7%); fp32 at M = 6-16 on small weights (up to 38%
+at M = 6); fp16 at M = 192/256 on 3 shapes vs dequant+BLAS (up to 10%).
+
+Where the time goes: through M = 16 the kernel streams weights at 500-590 GB/s on the large layers,
+85-92% of the DRAM bandwidth. From M = 64 it plateaus at 65-80 TFLOPS, about 40% of the dense fp16 WMMA
+peak. The derived rules are within 1.04x (fp16/bf16) and 1.004x (fp32) of the per-shape best swept tile in
+total time.
+
 ## Kernel notes
 
 ### Half-wave WMMA on gfx11
@@ -117,6 +185,35 @@ In wave32, `v_wmma_f32_16x16x16_{f16,bf16}` executes as two independent 8x16x16 
 The ISA manual says to replicate operands across the halves. The kernel instead gives each half a different 32-element K slice and adds the two halves with `permlanex16` at the end. This doubles the useful K per WMMA. The behaviour is undocumented but was verified with a probe kernel.
 
 Each accumulator element j in lane L holds row 2j + L/16 and column L%16.
+
+### WMMA on gfx12
+
+`v_wmma_f32_16x16x16_{f16,bf16}` on gfx12 (the `_w32_gfx12` builtins, 8 16-bit operand elements per lane) is
+one real 16x16x16 product with no half-wave duplication. The probe in
+`experiments/wmma_gfx12_layout_probe.hip` gives:
+
+- A: lane L holds row L%16, K = 8*(L/16) + e for element e = 0-7.
+- B: lane L holds column L%16, K = 8*(L/16) + e.
+- C/D: element j of lane L holds row j + 8*(L/16), column L%16.
+
+Only the pairing of A and B K indices matters, so each half-wave still takes its own 32 contiguous K of a
+column (one 16-byte B load per 64-K unit), now summed inside the WMMA as 4 WMMAs of 8 K per lane. No
+`permlanex16` is needed, and all 32 lanes store results.
+
+Because the two halves feed the same accumulator, their K must share an absmax. For blocksize >= 64, half
+h takes K [64u + 32h, +32) of unit u. For blocksize 32, it takes 16 K from each 32-K block of the unit (two
+8-byte loads), and the absmax groups cover 2 WMMAs. The first port kept the gfx11 K split and was off by
+~16% whenever blocksize < 256; `check.py` caught it.
+
+Each WMMA covers 16 rows, so the kernel's M sub-tile is 16 rows (8 on gfx11) and the A stages in LDS are twice
+as large. The kernel is templated on the WMMA generation so the host can size tiles, and a kernel body is
+only emitted in the device pass of its own generation. The gfx11 code generation is unchanged apart from
+register allocation: over the 49 shipped gfx1100 kernels the instruction count moved by -0.09%, scratch
+use is identical, and every VGPR change stays inside the same 16-register allocation granule.
+
+Other gfx1201 WMMA variants were checked and rejected on accuracy: `iu4`/`iu8` need integer activations
+and an integer codebook, `fp8`/`bf8` would round activations to 3 mantissa bits, and the f16-accumulate
+variant loses precision. `16x16x32_f16` needs gfx1250.
 
 ### Structure
 
@@ -153,10 +250,10 @@ AMD clang 24.0.0git (ROCm 10.2 nightly) miscompiles `__builtin_bit_cast(float, v
 
 ## Enabling another architecture
 
-1. Gate the kernel body (`BNB_WMMA_RDNA3` in `gemm_4bit_wmma.cu`) and `gemm_4bit_wmma_supported()` for the new target.
-   - gfx115x (RDNA3.5) uses the same WMMA encoding but was not validated.
-   - gfx12 (RDNA4) has different WMMA operand layouts and no half-wave duplication, so it needs a new fragment mapping.
-   - CDNA uses MFMA and wave64.
+1. Gate the kernel body (`BNB_WMMA_DEVICE_ARCH` in `gemm_4bit_wmma.cu`) and `gemm_4bit_wmma_arch()` for the new target.
+   - gfx115x (RDNA3.5) uses the gfx11 WMMA encoding but was not validated.
+   - gfx1200 shares gfx1201's WMMA and is enabled with gfx1201's rules, but was not measured (it has half the CUs).
+   - CDNA uses MFMA and wave64; gfx1250 has different (wider) WMMAs.
 2. Probe the operand and accumulator layouts before trusting the fragment mapping.
 3. Run `check.py`, `check_f32.py` and the relevant pytest cases:
    ```bash
@@ -167,4 +264,12 @@ AMD clang 24.0.0git (ROCm 10.2 nightly) miscompiles `__builtin_bit_cast(float, v
 
 ## Known issues
 
+With ROCm 10.2.0a20260928 and torch 2.14.0 on gfx1201, torch's fp32 GEMM takes ~8-25 ms for any shape:
+hipBLASLt returns `HIPBLAS_STATUS_NOT_SUPPORTED` and the rocBLAS fallback is slow. fp64 is affected too;
+fp16/bf16 are not. This makes the fp32 dequant+`F.linear` baseline meaningless on this toolchain.
+
 With this toolchain, 23 fp32 `test_gemv_4bit` cases fail their tight tolerance on `main` as well. The failures predate the WMMA work and are not caused by it: torch's fp32 reference is the less accurate side.
+
+On gfx1201 it is 16-22 cases per run (the test is unseeded), the same with `BNB_GEMM4BIT_KERNEL=simt` and
+`=wmma`: `test_gemv_4bit` calls the separate `cgemm_4bit_inference_naive_*` GEMV kernel, not this GEMM.
+Against a float64 reference that kernel is ~4x more accurate than torch's fp32 `F.linear`.

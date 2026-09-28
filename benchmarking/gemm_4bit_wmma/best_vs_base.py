@@ -3,7 +3,9 @@ import csv
 import statistics as st
 import sys
 
+# best_vs_base.py sweep.csv bench.csv [dtype]: the sweep CSV holds one dtype (default fp16).
 sweep, base = sys.argv[1], sys.argv[2]
+dtype = sys.argv[3] if len(sys.argv) > 3 else "fp16"
 best = {}
 for r in csv.DictReader(open(sweep)):
     k = (r["shape"], int(r["M"]))
@@ -12,6 +14,8 @@ for r in csv.DictReader(open(sweep)):
         best[k] = (us, r["cfg"])
 b = defaultdict(dict)
 for r in csv.DictReader(open(base)):
+    if r["dtype"] != dtype:
+        continue
     b[(r["shape"], int(r["M"]))][r["kernel"]] = float(r["us"])
 Ms = sorted({k[1] for k in best})
 shapes = list(dict.fromkeys(k[0] for k in best))
