@@ -1,0 +1,201 @@
+--- a/csrc/gemm_4bit_wmma.cu	2026-09-28 22:54:07.459110735 +0000
++++ b/csrc/gemm_4bit_wmma.cu	2026-09-28 22:39:00.935752610 +0000
+@@ -35,6 +35,13 @@
+ // A main-loop iteration consumes KCH units, i.e. 64*KCH K per warp.
+ constexpr int WMMA_KC = 64;
+ 
++// Experiment: decode B once per block into LDS (gfx12, 16-bit, blocksize >= 64).
++#ifndef BNB_WMMA_BLDS
++#define BNB_WMMA_BLDS 0
++#endif
++constexpr bool wmma_blds(int arch, int planes) { return BNB_WMMA_BLDS && arch == 12 && planes == 1; }
++constexpr int wmma_lds_budget(int arch, int planes) { return wmma_blds(arch, planes) ? 64 * 1024 : 48 * 1024; }
++
+ // Native vector types: HIP's uint4 is a class, and copying it through private
+ // arrays lowers to memcpy that stays in scratch memory.
+ using wmma_v2u = uint32_t __attribute__((ext_vector_type(2)));
+@@ -139,8 +146,8 @@
+ // fp32 hi/lo split) or, reusing the same space, the split-K reduction tile,
+ // whichever is larger. The staged A rows are padded by 8 elements: keeps 16-byte
+ // alignment and spreads rows across LDS banks.
+-constexpr int wmma_smem_bytes(int mt, int nt, int ksplit, int kch, int planes) {
+-    const int a_bytes = 2 * planes * ksplit * mt * (WMMA_KC * kch + 8) * 2;
++constexpr int wmma_smem_bytes(int mt, int nt, int ksplit, int kch, int planes, bool blds = false) {
++    const int a_bytes = 2 * planes * ksplit * mt * (WMMA_KC * kch + 8) * 2 + (blds ? 2 * ksplit * nt * WMMA_KC * kch * 2 : 0);
+     const int red_bytes = ksplit > 1 ? ksplit * mt * nt * 4 : 0;
+     return a_bytes > red_bytes ? a_bytes : red_bytes;
+ }
+@@ -221,8 +228,11 @@
+     // dependent global load.
+     __shared__ float code_lds[256];
+     // A stages [2][KSPLIT][MT][A_STRIDE]; reused for the split-K reduction.
+-    __shared__ __attribute__((aligned(16))) uint8_t smem[wmma_smem_bytes(MT, NT, KSPLIT, KCH, PLANES)];
++    constexpr bool BLDS_ALLOC = wmma_blds(ARCH, PLANES);
++    __shared__ __attribute__((aligned(16))) uint8_t smem[wmma_smem_bytes(MT, NT, KSPLIT, KCH, PLANES, BLDS_ALLOC)];
+     uint16_t* a_lds = reinterpret_cast<uint16_t*>(smem);
++    // Decoded B stages [2][KSPLIT][NT/16][KCH][4 subs][32 lanes][8 halves] after the A stages.
++    uint16_t* b_lds = a_lds + 2 * PLANES * KSPLIT * MT * (WMMA_KC * KCH + 8);
+ 
+     const bool nested = absmax_8bit != nullptr;
+     {
+@@ -352,8 +362,8 @@
+     using Frag = wmma_frag<ARCH>;
+     constexpr int SUBS = GFX12 ? 4 : 2;
+     constexpr int FRAG_WORDS = 16 / SUBS;
+-    constexpr bool SPLIT32 = GFX12 && GS < SUBS;      // gfx12, blocksize 32
+-    constexpr int NG = KCH * SUBS / GS;               // scale groups per iteration
++    constexpr bool SPLIT32 = GFX12 && GS < SUBS; // gfx12, blocksize 32
++    constexpr int NG = KCH * SUBS / GS;          // scale groups per iteration
+     constexpr int GROUP_SUBS = GS < SUBS ? GS : SUBS; // WMMAs per group within one unit
+     constexpr int UNIT_K = GFX12 ? 64 : 32;           // K between a lane's consecutive units
+     // First K of the lane's slice in unit 0 (relative to the chunk start).
+@@ -370,12 +380,13 @@
+         uint32_t qidx[WN][NG]; // nested: 8-bit absmax code index
+     };
+ 
++    constexpr bool BLDS = BLDS_ALLOC && !SPLIT32;
+     auto issue_b = [&](int i, BStage& st) {
+         const int k_half = chunk_k0(i, warp_k) + k_lane;
+ #pragma unroll
+         for (int wn = 0; wn < WN; wn++) {
+ #pragma unroll
+-            for (int u = 0; u < KCH; u++) {
++            for (int u = 0; u < (BLDS ? 0 : KCH); u++) {
+                 const uint8_t* p = b_row[wn] + (k_half + u * UNIT_K) / 2;
+                 if constexpr (SPLIT32) {
+                     const wmma_v2u lo = *reinterpret_cast<const wmma_v2u*>(p);
+@@ -401,9 +412,46 @@
+         for (int wn = 0; wn < WN; wn++)
+             acc[wm][wn] = wmma_v8f{};
+ 
++    // Cooperative B tile: KSPLIT x NT/16 column groups x KCH units x 32 lanes, one
++    // 16-byte vector each (lane l: column l%16 of the group, K [64u + 32*(l/16), +32)).
++    constexpr int B_VECS = KSPLIT * (NT / 16) * KCH * 32;
++    constexpr int B_VECS_PER_THREAD = BLDS ? (B_VECS + NUM_THREADS - 1) / NUM_THREADS : 0;
++    constexpr int B_STAGE = KSPLIT * NT * WMMA_KC * KCH; // halves per stage
++    wmma_v4u bl_stage[B_VECS_PER_THREAD > 0 ? B_VECS_PER_THREAD : 1];
++    auto issue_bl = [&](int i) {
++#pragma clang loop unroll(full)
++        for (int j = 0; j < B_VECS_PER_THREAD; j++) {
++            const int v = threadIdx.x + j * NUM_THREADS;
++            if (B_VECS % NUM_THREADS == 0 || v < B_VECS) {
++                const int l = v % 32, u = (v / 32) % KCH, wc = (v / (32 * KCH)) % (NT / 16);
++                const int g = v / (32 * KCH * (NT / 16));
++                const int n = min(bn + wc * 16 + (l & 15), N - 1);
++                bl_stage[j] = *reinterpret_cast<const wmma_v4u*>(
++                    B + (size_t)n * (K / 2) + (chunk_k0(i, g) + 64 * u + 32 * (l >> 4)) / 2
++                );
++            }
++        }
++    };
++    auto store_bl = [&](int buf) {
++#pragma clang loop unroll(full)
++        for (int j = 0; j < B_VECS_PER_THREAD; j++) {
++            const int v = threadIdx.x + j * NUM_THREADS;
++            if (B_VECS % NUM_THREADS == 0 || v < B_VECS) {
++                const int l = v % 32;
++                uint16_t* dst = b_lds + buf * B_STAGE + (v / 32) * (4 * 32 * 8) + l * 8;
++#pragma unroll
++                for (int s = 0; s < 4; s++) {
++                    const uint32_t w = bl_stage[j][s];
++                    *reinterpret_cast<wmma_v4u*>(dst + s * 32 * 8) =
++                        wmma_v4u{lut[0][w & 0xff], lut[0][(w >> 8) & 0xff], lut[0][(w >> 16) & 0xff], lut[0][w >> 24]};
++                }
++            }
++        }
++    };
++
+     auto compute = [&](int buf, const BStage& st) {
+-        const uint16_t* a_base =
+-            a_lds + buf * A_STAGE + (warp_k * MT + warp_m * R * WM + (GFX12 ? col : col >> 1)) * A_STRIDE + k_lane;
++        const uint16_t* a_base = a_lds + buf * A_STAGE +
++                                 (warp_k * MT + warp_m * R * WM + (GFX12 ? col : col >> 1)) * A_STRIDE + k_lane;
+ #pragma unroll
+         for (int g = 0; g < NG; g++) {
+             float scale[WN];
+@@ -419,6 +467,16 @@
+             for (int t0 = g * GS; t0 < (g + 1) * GS; t0 += GROUP_SUBS) {
+                 const int u = t0 / SUBS;
+                 Frag b_frag[PLANES][WN][GROUP_SUBS];
++                if constexpr (BLDS) {
++#pragma unroll
++                    for (int wn = 0; wn < WN; wn++)
++#pragma unroll
++                        for (int s = 0; s < GROUP_SUBS; s++)
++                            b_frag[0][wn][s] = *reinterpret_cast<const Frag*>(
++                                b_lds + buf * B_STAGE +
++                                ((((warp_k * (NT / 16) + warp_n * WN + wn) * KCH + u) * 4 + (t0 % SUBS + s)) * 32 + lane) * 8
++                            );
++                } else
+ #pragma unroll
+                 for (int wn = 0; wn < WN; wn++)
+ #pragma unroll
+@@ -466,20 +524,31 @@
+ 
+     BStage b_cur, b_nxt;
+     issue_a(0);
++    if constexpr (BLDS)
++        issue_bl(0);
+     issue_b(0, b_cur);
++    if constexpr (BLDS)
++        __syncthreads(); // LUT ready before store_bl decodes through it
+     store_a(0);
++    if constexpr (BLDS)
++        store_bl(0);
+     __syncthreads();
+ 
+     for (int it = 0; it < num_iters; it++) {
+         const bool has_next = it + 1 < num_iters;
+         if (has_next) {
+             issue_a(it + 1);
++            if constexpr (BLDS)
++                issue_bl(it + 1);
+             issue_b(it + 1, b_nxt);
+         }
+         if (chunk_valid(it, warp_k))
+             compute(it & 1, b_cur);
+-        if (has_next)
++        if (has_next) {
+             store_a((it + 1) & 1);
++            if constexpr (BLDS)
++                store_bl((it + 1) & 1);
++        }
+         __syncthreads();
+         b_cur = b_nxt;
+     }
+@@ -603,7 +672,9 @@
+     constexpr int NT = WARPS_N * 16 * WN;
+     constexpr int THREADS = KSPLIT * WARPS_M * WARPS_N * 32;
+     static_assert(
+-        wmma_smem_bytes(MT, NT, KSPLIT, KCH_MAX, std::is_same_v<T, float> ? WMMA_F32_PARTS : 1) <= 48 * 1024,
++        wmma_smem_bytes(MT, NT, KSPLIT, KCH_MAX, std::is_same_v<T, float> ? WMMA_F32_PARTS : 1,
++                        wmma_blds(ARCH, std::is_same_v<T, float> ? WMMA_F32_PARTS : 1)) <=
++            wmma_lds_budget(ARCH, std::is_same_v<T, float> ? WMMA_F32_PARTS : 1),
+         "tile exceeds the LDS budget"
+     );
+     const dim3 grid((N + NT - 1) / NT, (M + MT - 1) / MT);
+@@ -670,10 +741,10 @@
+             constexpr int R = wmma_rows(ARCH);
+ #define BNB_WMMA_DEV_TRY(WM, WN, WMP, WNP, KS)                                                           \
+             if (c[0] == WM && c[1] == WN && c[2] == WMP && c[3] == WNP && c[4] == KS) {                  \
+-                if constexpr (wmma_smem_bytes(WMP * R * WM, WNP * 16 * WN, KS, 2, planes) <= 48 * 1024) { \
++                if constexpr (wmma_smem_bytes(WMP * R * WM, WNP * 16 * WN, KS, 2, planes, wmma_blds(ARCH, planes)) <= wmma_lds_budget(ARCH, planes)) { \
+                     if (c[5] == 2) { LAUNCH_WMMA(WM, WN, WMP, WNP, KS, 2); return; }                    \
+                 }                                                                                        \
+-                if constexpr (wmma_smem_bytes(WMP * R * WM, WNP * 16 * WN, KS, 1, planes) <= 48 * 1024) { \
++                if constexpr (wmma_smem_bytes(WMP * R * WM, WNP * 16 * WN, KS, 1, planes, wmma_blds(ARCH, planes)) <= wmma_lds_budget(ARCH, planes)) { \
+                     if (c[5] == 1) { LAUNCH_WMMA(WM, WN, WMP, WNP, KS, 1); return; }                    \
+                 }                                                                                        \
+             }
+@@ -703,7 +774,10 @@
+         return;
+     }
+ #endif
+-    if constexpr (ARCH == 12) {
++    if constexpr (ARCH == 12 && BNB_WMMA_BLDS) {
++        LAUNCH_WMMA(1, 1, 1, 2, 2, 1);
++        return;
++    } else if constexpr (ARCH == 12) {
+         // gfx12 (16-row WMMA): calibrated on gfx1201 (R9700) at default clocks over the same
+         // 40 shapes, within ~2-6% (bf16/fp16) and ~0-2% (fp32) geomean of the best swept tile.
+         // One 16-row tile covers M <= 16, where the kernel is bandwidth-bound; larger M adds

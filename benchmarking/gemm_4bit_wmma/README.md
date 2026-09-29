@@ -126,6 +126,7 @@ GPU process on the machine (checked with `runs_guard.sh`).
 | `eval_wmma_dequant.csv` | WMMA and dequant+BLAS with the shipped gfx1201 rules: 40 shapes x fp16/bf16/fp32 x M = 1-384. |
 | `eval_simt.csv` | SIMT for the same shapes, M = 1-128. |
 | `sweep_fp16.csv`, `sweep_fp32.csv` | Tile sweeps the gfx1201 rules were derived from. |
+| `experiments/sweep_fp16_blds.csv` | fp16 sweep with the rejected B-in-LDS variant (see rejected experiments). |
 | `sweep_bf16.csv` | bf16 tile sweep: the fp16 rules are within 1.040x (total time) of the per-shape best bf16 tile, and bf16's own derivation picks the same tiles. |
 
 The charts and tables in `plots/gfx1201` were generated from the two `eval_*` files with
@@ -247,6 +248,7 @@ AMD clang 24.0.0git (ROCm 10.2 nightly) miscompiles `__builtin_bit_cast(float, v
 | 64- and 128-row block tiles | Slower than two passes of 32-row tiles. |
 | Nontemporal B loads | Mixed. |
 | Two-deep prefetch | Slower. |
+| gfx1201: decode B once per block into LDS (fragment-ordered, double-buffered, 64 KB budget) so warps along M share it (`experiments/gemm_4bit_wmma_blds.patch`, `data/gfx1201/experiments/sweep_fp16_blds.csv`) | 15-31% slower in total at every M = 16-256 (best tile vs best tile), no shape wins. The per-warp register decode is already amortised over WM row tiles, and the extra LDS stage costs more than it saves. |
 
 ## Enabling another architecture
 
