@@ -11,7 +11,7 @@ Dispatch with `K % 64 == 0` and blocksize >= 32:
 | RDNA3 (gfx110x) | fp16 / bf16 | WMMA for every M the Python side routes to the custom kernel (M <= 256) |
 | RDNA3 (gfx110x) | fp32 | SIMT for M <= 5, WMMA for M = 6-128 |
 | RDNA4 (gfx120x) | fp16 / bf16 | SIMT for M = 1, WMMA for M = 2-256 |
-| RDNA4 (gfx120x) | fp32 | SIMT for M <= 5, WMMA for M = 6-256 |
+| RDNA4 (gfx120x) | fp32 | SIMT for M <= 5, WMMA for M = 6-512 |
 
 fp32 is emulated with 3-way split bf16 operands (6 WMMAs per tile) and is fp32-accurate.
 Every other architecture keeps SIMT plus dequant+`F.linear`, unchanged.
@@ -78,7 +78,8 @@ Dev-only environment variables (these need `-DBNB_WMMA_DEV=ON`):
 | `check.py` | fp16/bf16 correctness sweep over odd shapes, blocksizes, nested stats and bias (`BNB_GEMM4BIT_KERNEL` picks the kernel). |
 | `check_tiles.py` | Correctness of every tile in the dev table (the sweep candidates) for fp16/bf16/fp32, blocksizes 32/64/256 and nested stats, against a float64 reference. |
 | `sweep_table.py` | The dev tile table and the LDS budget check shared by `sweep.py` and `check_tiles.py` (rows per WMMA follow the device: 8 on gfx11, 16 on gfx12). |
-| `runs_guard.sh <log> <cmd...>` | Runs a timing job and flags it CONTAMINATED if any other user's GPU process appeared during the run. |
+| `runs_guard.sh <log> <cmd...>` | Runs a timing job and flags it CONTAMINATED if any other user's GPU process appeared during the run. `GUARD_ALLOW_PIDS` / `GUARD_IDLE_GPUS` tolerate a known idle process (e.g. a vLLM server parked on other GPUs) as long as it stays idle. |
+| `hipblaslt_fix_overlay.sh <dir>` | Builds the active nightly's exact hipBLASLt host libraries plus the ROCM-31245 fix and writes `<dir>/env.sh` to load them (see Known issues). Needed for a meaningful fp32 dequant+BLAS baseline on ROCm 10.2 nightlies from 0913. |
 | `experiments/wmma_gfx12_layout_probe.hip` | Maps the gfx12 WMMA operand and accumulator layouts with one-hot inputs. |
 | `check_f32.py`, `f32_err_dist.py` | fp32 accuracy of WMMA (split bf16) vs SIMT vs torch, against a float64 reference. |
 
@@ -117,60 +118,64 @@ The headline result compares the new default dispatch with the previous one (SIM
 ## Data (`data/gfx1201`, Radeon AI Pro R9700S, ROCm 10.2.0a20260928 nightly, torch 2.14.0, default clocks)
 
 gfx1201 (Navi48, RDNA4): 64 CUs, 64 KB LDS per workgroup, 64 MB Infinity Cache, 32 GB GDDR6 (~640 GB/s).
-The 384 MB weight rotation is 6x the Infinity Cache. Every timing file below was taken with no foreign
-GPU process on the machine (checked with `runs_guard.sh`).
+The 384 MB weight rotation is 6x the Infinity Cache. Every timing file below was taken with no other
+active GPU job on the machine (checked with `runs_guard.sh`). The `eval_*` files were run on 4 of the 8 GPUs
+next to a parked, idle vLLM server; a SIMT re-run in that setup matched the earlier all-idle data within
+±3% (p5-p95).
+
+dequant+BLAS in the `eval_*` files uses hipBLASLt built from the nightly's exact revision plus the ROCM-31245
+fix (`hipblaslt_fix_overlay.sh`); with the stock nightly every small fp32 GEMM takes ~20 ms (see Known issues).
+The fix leaves fp16/bf16 dequant+BLAS unchanged (identical total time at every M) and makes fp32 6-17x faster.
 
 | file | contents |
 |---|---|
-| `baseline_simt.csv`, `baseline_dequant.csv` | The previous dispatch's kernels before the port: SIMT (M = 1-128) and dequant+BLAS (M = 1-384), 40 shapes x fp16/bf16/fp32. |
-| `eval_wmma_dequant.csv` | WMMA and dequant+BLAS with the shipped gfx1201 rules: 40 shapes x fp16/bf16/fp32 x M = 1-384. |
-| `eval_simt.csv` | SIMT for the same shapes, M = 1-128. |
+| `baseline_simt.csv`, `baseline_dequant.csv` | The previous dispatch's kernels before the port, stock hipBLASLt: SIMT (M = 1-128) and dequant+BLAS (M = 1-384), 40 shapes x fp16/bf16/fp32. fp32 dequant+BLAS here shows the ROCM-31245 slowdown. |
+| `eval_wmma_dequant.csv` | WMMA with the shipped gfx1201 rules and dequant+BLAS with fixed hipBLASLt: 40 shapes x fp16/bf16/fp32 x M = 1-512. |
+| `eval_simt.csv` | SIMT for the same shapes, M = 1-128, same run. |
 | `sweep_fp16.csv`, `sweep_fp32.csv` | Tile sweeps the gfx1201 rules were derived from. |
+| `sweep_bf16.csv` | bf16 tile sweep: the fp16 rules are within 1.03x (total time) of the per-shape best bf16 tile, and bf16's own derivation picks the same tiles. |
 | `experiments/sweep_fp16_blds.csv` | fp16 sweep with the rejected B-in-LDS variant (see rejected experiments). |
-| `sweep_bf16.csv` | bf16 tile sweep: the fp16 rules are within 1.040x (total time) of the per-shape best bf16 tile, and bf16's own derivation picks the same tiles. |
 
 The charts and tables in `plots/gfx1201` were generated from the two `eval_*` files with
-`PLOT_ARCH=gfx1201 PLOT_NEW="fp16:1:256,bf16:1:256,fp32:5:256"`.
+`PLOT_ARCH=gfx1201 PLOT_NEW="fp16:1:256,bf16:1:256,fp32:5:512"`.
 
 New default dispatch vs the previous one (SIMT for M <= 8, dequant+BLAS above), median over the 40
 shapes with the worst shape in brackets, and the total time over the 40 shapes:
 
-| M | 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256 |
-|---|---|---|---|---|---|---|---|---|---|
-| fp16 | 1.00x | 1.07x (0.93) | 1.37x (1.09) | 2.16x (1.35) | 3.37x (1.93) | 2.71x (1.72) | 2.63x (1.40) | 2.11x (1.23) | 1.27x (0.95) |
-| fp16 total | 1.00x | 1.08x | 1.56x | 2.49x | 6.64x | 5.77x | 3.69x | 2.19x | 1.28x |
-| bf16 | 1.00x | 1.06x (0.94) | 1.36x (1.08) | 2.12x (1.39) | 3.78x (2.04) | 3.10x (1.83) | 2.73x (1.49) | 2.06x (1.39) | 1.27x (1.04) |
-| bf16 total | 1.00x | 1.05x | 1.53x | 2.45x | 6.66x | 5.80x | 3.73x | 2.21x | 1.30x |
-
-fp32 against the previous dispatch is not meaningful on this toolchain: torch's fp32 GEMM takes ~20 ms
-for any shape on gfx1201 (see Known issues), so the new dispatch is 12-220x faster from M = 12. Against the
-previous fused kernel (SIMT) alone:
-
-| M | 1-4 | 6 | 8 | 16 | 32 | 64 | 128 |
-|---|---|---|---|---|---|---|---|
-| fp32 vs SIMT | 1.00x | 1.04x (0.62) | 1.29x (0.70) | 2.40x (0.84) | 2.93x (1.50) | 3.69x (0.97) | 4.20x (1.69) |
-| fp32 vs SIMT, total | 1.00x | 1.17x | 1.53x | 3.11x | 4.06x | 4.96x | 5.64x |
+| M | 1 | 2 | 4 | 8 | 16 | 32 | 64 | 128 | 256 | 512 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| fp16 | 1.00x | 1.07x (0.97) | 1.40x (1.08) | 2.25x (1.31) | 3.45x (1.92) | 2.70x (1.73) | 2.55x (1.38) | 2.11x (1.23) | 1.28x (0.95) | 1.00x |
+| fp16 total | 1.00x | 1.10x | 1.59x | 2.54x | 6.74x | 5.74x | 3.68x | 2.19x | 1.29x | 1.00x |
+| bf16 | 1.00x | 1.06x (0.97) | 1.39x (1.08) | 2.22x (1.30) | 3.88x (1.92) | 3.11x (1.79) | 2.68x (1.50) | 2.07x (1.33) | 1.26x (1.05) | 1.00x |
+| bf16 total | 1.00x | 1.07x | 1.56x | 2.50x | 6.77x | 5.76x | 3.72x | 2.20x | 1.29x | 1.00x |
+| fp32 | 1.00x | 1.00x | 1.00x | 1.31x (0.69) | 6.83x (3.29) | 4.36x (2.79) | 2.62x (1.92) | 1.84x (1.34) | 1.44x (1.16) | 1.28x (1.01) |
+| fp32 total | 1.00x | 1.00x | 1.00x | 1.54x | 7.34x | 4.53x | 2.68x | 1.88x | 1.51x | 1.36x |
 
 How the thresholds were set (total time over the 40 shapes, `eval_*` files):
 
-- **SIMT vs WMMA, fp16/bf16.** WMMA is 4-5% slower at M = 1, where 15 of the 16 WMMA rows are padding, and
-  5-8% faster at M = 2 (29-31/40 shapes, worst 0.93x). From M = 3 it wins on all 40 shapes.
-- **SIMT vs WMMA, fp32.** SIMT wins through M = 4. WMMA is 17% faster in total at M = 6 but loses on 18 of
-  the 40 shapes (worst 0.62x, the small weights), and 53% faster at M = 8.
-- **Fused vs dequant+`F.linear`, fp16/bf16.** WMMA wins on 37-40/40 shapes at M = 192 and 256 (total 1.28-1.45x,
-  worst 0.90x at M = 192). At M = 384 it still wins in total (1.18x) but loses on 9-13 shapes by up to 22%, so
-  the cap stays at 256.
-- **Fused vs dequant+`F.linear`, fp32.** The fused path wins on every shape through M = 384, also against a
-  working fp32 GEMM: bnb dequant plus a Triton IEEE-fp32 matmul is 2.3-4.1x slower in total at M = 64-384.
-  A well-tuned fp32 BLAS (~30 TFLOPS) would break even around M = 128-192 by estimate, so revisit this cap
-  (256 today, 128 on gfx1100) once torch's fp32 GEMM works on gfx1201.
+- **SIMT vs WMMA, fp16/bf16.** WMMA is 2-3% slower at M = 1, where 15 of the 16 WMMA rows are padding, and
+  7-10% faster at M = 2 (35/40 shapes; the other 5 lose by at most 3.4%, 0.1-0.8 µs, within run-to-run
+  noise). From M = 3 it wins on all 40 shapes.
+- **SIMT vs WMMA, fp32.** SIMT wins through M = 4 (WMMA 0.84x in total). WMMA is 17% faster in total at
+  M = 6 but loses on 17 of the 40 shapes (worst 0.62x, the small weights), and 54% faster at M = 8.
+- **Fused vs dequant+`F.linear`, fp16/bf16.** WMMA wins on 37-40/40 shapes at M = 192 and 256 (total 1.29-1.45x,
+  worst 0.93x). At M = 384 it still wins in total (1.18x) but loses on 10-13 shapes by up to 19%, and at M = 512
+  it ties in total, so the cap stays at 256.
+- **Fused vs dequant+`F.linear`, fp32.** The fused path wins on every shape through M = 512 (total 1.36x at
+  M = 512, worst 1.01x), so gfx120x fp32 keeps the fused path to M = 512; the global ROCm cap was raised to 512
+  for this, and every other arch/dtype still stops at 256 or below.
 
-Known losses: fp16/bf16 at M = 2 on 9-11 shapes (up to 7%); fp32 at M = 6-16 on small weights (up to 38%
-at M = 6); fp16 at M = 192/256 on 3 shapes vs dequant+BLAS (up to 10%).
+The M <= 16 bf16/fp16 rule splits N >= 3840 into two leaves (`1,1,1,2,2,2` below N = 6144, `1,1,1,2,4,2` above):
+against a single tile for N >= 3840 it is 1.5% faster in total at every M <= 16 and reduces the M = 2 shapes that
+lose to SIMT from 9-10 to 5 (worst 0.93x to 0.97x). On the sweeps it is within 1.014x of the per-shape best tile
+(was 1.033x).
+
+Known losses: fp32 at M = 6-16 on small weights (up to 38% at M = 6); fp16 at M = 192/256 on 2-3 shapes vs
+dequant+BLAS (up to 7%); fp16/bf16 at M = 2 on 5 shapes (up to 3.4%).
 
 Where the time goes: through M = 16 the kernel streams weights at 500-590 GB/s on the large layers,
 85-92% of the DRAM bandwidth. From M = 64 it plateaus at 65-80 TFLOPS, about 40% of the dense fp16 WMMA
-peak. The derived rules are within 1.04x (fp16/bf16) and 1.004x (fp32) of the per-shape best swept tile in
+peak. The derived rules are within 1.03x (fp16/bf16) and 1.004x (fp32) of the per-shape best swept tile in
 total time.
 
 ## Kernel notes
@@ -266,9 +271,13 @@ AMD clang 24.0.0git (ROCm 10.2 nightly) miscompiles `__builtin_bit_cast(float, v
 
 ## Known issues
 
-With ROCm 10.2.0a20260928 and torch 2.14.0 on gfx1201, torch's fp32 GEMM takes ~8-25 ms for any shape:
-hipBLASLt returns `HIPBLAS_STATUS_NOT_SUPPORTED` and the rocBLAS fallback is slow. fp64 is affected too;
-fp16/bf16 are not. This makes the fp32 dequant+`F.linear` baseline meaningless on this toolchain.
+ROCM-31245: on ROCm 10.2 nightlies from 10.2.0a20260913 (including the 0928 used here), every small fp32
+GEMM on gfx12 takes ~5-20 ms. hipBLASLt was split into `libhipblaslt.so.1` and `libtensilelite-host.so.1`,
+which duplicated the TensileLite `Debug` singleton, so solution lookup runs on every call. The rocBLAS
+fallback goes through the same lookup. The fix is ROCm/rocm-libraries#12465. `hipblaslt_fix_overlay.sh`
+builds the nightly's exact hipBLASLt revision plus that fix (host code only, the wheel's device objects are
+reused) and loads it in place of the wheel's copy; with it a 16x2048x2048 fp32 GEMM takes 0.08 ms instead of
+19 ms and stays IEEE-accurate (~1e-6 relative to fp64). The `eval_*` data uses it; `baseline_dequant.csv` does not.
 
 With this toolchain, 23 fp32 `test_gemv_4bit` cases fail their tight tolerance on `main` as well. The failures predate the WMMA work and are not caused by it: torch's fp32 reference is the less accurate side.
 

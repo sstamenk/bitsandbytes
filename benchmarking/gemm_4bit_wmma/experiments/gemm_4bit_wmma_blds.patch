@@ -3,7 +3,7 @@
 @@ -35,6 +35,13 @@
  // A main-loop iteration consumes KCH units, i.e. 64*KCH K per warp.
  constexpr int WMMA_KC = 64;
- 
+
 +// Experiment: decode B once per block into LDS (gfx12, 16-bit, blocksize >= 64).
 +#ifndef BNB_WMMA_BLDS
 +#define BNB_WMMA_BLDS 0
@@ -35,7 +35,7 @@
      uint16_t* a_lds = reinterpret_cast<uint16_t*>(smem);
 +    // Decoded B stages [2][KSPLIT][NT/16][KCH][4 subs][32 lanes][8 halves] after the A stages.
 +    uint16_t* b_lds = a_lds + 2 * PLANES * KSPLIT * MT * (WMMA_KC * KCH + 8);
- 
+
      const bool nested = absmax_8bit != nullptr;
      {
 @@ -352,8 +362,8 @@
@@ -52,7 +52,7 @@
 @@ -370,12 +380,13 @@
          uint32_t qidx[WN][NG]; // nested: 8-bit absmax code index
      };
- 
+
 +    constexpr bool BLDS = BLDS_ALLOC && !SPLIT32;
      auto issue_b = [&](int i, BStage& st) {
          const int k_half = chunk_k0(i, warp_k) + k_lane;
@@ -67,7 +67,7 @@
 @@ -401,9 +412,46 @@
          for (int wn = 0; wn < WN; wn++)
              acc[wm][wn] = wmma_v8f{};
- 
+
 +    // Cooperative B tile: KSPLIT x NT/16 column groups x KCH units x 32 lanes, one
 +    // 16-byte vector each (lane l: column l%16 of the group, K [64u + 32*(l/16), +32)).
 +    constexpr int B_VECS = KSPLIT * (NT / 16) * KCH * 32;
@@ -131,7 +131,7 @@
                  for (int wn = 0; wn < WN; wn++)
  #pragma unroll
 @@ -466,20 +524,31 @@
- 
+
      BStage b_cur, b_nxt;
      issue_a(0);
 +    if constexpr (BLDS)
@@ -143,7 +143,7 @@
 +    if constexpr (BLDS)
 +        store_bl(0);
      __syncthreads();
- 
+
      for (int it = 0; it < num_iters; it++) {
          const bool has_next = it + 1 < num_iters;
          if (has_next) {

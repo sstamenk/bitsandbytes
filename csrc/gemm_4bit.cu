@@ -75,8 +75,8 @@ static void gemm_4bit(
     // every M (at M=1 by ~8% in total time, mostly on the larger weights) and for fp32
     // from M=6, which runs six split-bf16 WMMAs per tile.
     // RDNA4 (gfx120x): each WMMA covers 16 rows (gfx11: 8), so SIMT keeps the smallest M.
-    // On gfx1201 WMMA is 5-8% faster than SIMT in total time over the 40 shapes from M=2
-    // for bf16/fp16 (4-5% slower at M=1) and 17% faster from M=6 for fp32 (SIMT wins
+    // On gfx1201 WMMA is 7-10% faster than SIMT in total time over the 40 shapes from M=2
+    // for bf16/fp16 (2-3% slower at M=1) and 17% faster from M=6 for fp32 (SIMT wins
     // through M=4).
     constexpr int GFX12_MIN_M_16BIT = 2, GFX12_MIN_M_FP32 = 6;
     const int wmma_arch = K % 64 == 0 && blocksize >= 32 ? gemm_4bit_wmma_arch() : 0;
