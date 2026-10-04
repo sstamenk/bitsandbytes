@@ -79,7 +79,7 @@ Dev-only environment variables (these need `-DBNB_WMMA_DEV=ON`):
 | `check_tiles.py` | Correctness of every tile in the dev table (the sweep candidates) for fp16/bf16/fp32, blocksizes 32/64/256 and nested stats, against a float64 reference. |
 | `sweep_table.py` | The dev tile table and the LDS budget check shared by `sweep.py` and `check_tiles.py` (rows per WMMA follow the device: 8 on gfx11, 16 on gfx12). |
 | `runs_guard.sh <log> <cmd...>` | Runs a timing job and flags it CONTAMINATED if any other user's GPU process appeared during the run. `GUARD_ALLOW_PIDS` / `GUARD_IDLE_GPUS` tolerate a known idle process (e.g. a vLLM server parked on other GPUs) as long as it stays idle. |
-| `hipblaslt_fix_overlay.sh <dir>` | Builds the active nightly's exact hipBLASLt host libraries plus the ROCM-31245 fix and writes `<dir>/env.sh` to load them (see Known issues). Needed for a meaningful fp32 dequant+BLAS baseline on ROCm 10.2 nightlies from 0913. |
+| `hipblaslt_fix_overlay.sh <dir> [arch]` | Builds the active nightly's exact hipBLASLt host libraries plus the ROCM-31245 fix and writes `<dir>/env.sh` to load them (see Known issues). Needed for a meaningful fp32 dequant+BLAS baseline on ROCm 10.2 nightlies from 0913. |
 | `experiments/wmma_gfx12_layout_probe.hip` | Maps the gfx12 WMMA operand and accumulator layouts with one-hot inputs. |
 | `check_f32.py`, `f32_err_dist.py` | fp32 accuracy of WMMA (split bf16) vs SIMT vs torch, against a float64 reference. |
 
@@ -188,6 +188,41 @@ best swept tile per shape shows the same steps, 16-row tiles at M = 24-48 are 1.
 tile streams and decodes the weights again), and skipping fully padded sub-tiles did not help (see rejected
 experiments). The derived rules are within 1.03x (fp16/bf16) and 1.004x (fp32) of the per-shape best swept tile in
 total time.
+
+## Porting the gfx1201 findings to gfx1100
+
+What the gfx1201 work found, and how much each item should help gfx1100. The gfx1100 estimates come from
+re-analysing the committed W7900 data (`data/gfx1100`) the same way the gfx1201 data was analysed. None of them
+has been measured on a W7900 yet; validate each with the procedure below before changing gfx11 rules.
+
+**Worth doing**
+
+| change | gfx1201 result | gfx1100 estimate from existing data |
+|---|---|---|
+| fp32 SIMT/WMMA choice by N (SIMT for narrow weights; `gfx12_fp32_wmma` table in `gemm_4bit.cu`) | Worst shape at M = 6-24 from up to 1.64x to <= 1.08x of the faster kernel; WMMA from M = 5 on wide N | Largest at M = 4, which is SIMT today: total 1.106x -> 1.020x of the per-shape best, worst 1.45x -> 1.21x. M = 6-12: worst 1.08-1.19x -> 1.02-1.06x, total unchanged. M = 3: no N rule helps, stay on SIMT. M = 64 has two narrow shapes at up to 1.62x: re-measure, may be noise |
+| fp16/bf16 tile rules with up to three N leaves per M bucket (as gfx1201's M <= 16 split) | M <= 16: 1.5% faster at every M, M = 2 shapes losing to SIMT 9-10 -> 5 | Shipped rules are 1.025-1.115x of the per-shape best swept tile in total time; three N leaves give 1.006-1.049x. Largest: M = 49-64 1.115 -> 1.026, M = 33-48 1.090 -> 1.046, M = 129-256 1.067 -> 1.028. On gfx1201 the measured gain matched the sweep's prediction (1.9% predicted, 1.5% measured) |
+| Measure with the default dispatch (`bench.py --kernels auto`) at in-between M | Interpolated fp32 cutoffs were wrong at M = 5, 7, 10; a second run fixed them | Measure M = 3, 5, 7, 10, 14, 20 as well as the usual M values |
+
+**Not worth trying**
+
+- Decoding B into LDS once per block: 15-31% slower on gfx1201 at every M = 16-256.
+- Skipping fully padded sub-tiles: 2-13% slower where nothing is skipped. On gfx11 the sub-tiles are 8 rows,
+  so there is even less padding to save.
+- Raising the fp32 fused cap: gfx1100's fp32 dequant+BLAS was healthy (~410 µs median, not affected by
+  ROCM-31245), and the fused path already loses on some shapes at M = 128. Keep 128.
+
+**Procedure on a W7900**
+
+1. Check the toolchain for ROCM-31245: if a 16x2048x2048 fp32 `F.linear` takes milliseconds instead of ~0.1 ms,
+   build the fixed hipBLASLt with `./hipblaslt_fix_overlay.sh <dir> gfx1100` and source `<dir>/env.sh` for every
+   dequant+BLAS measurement.
+2. Wrap every timing run in `runs_guard.sh` on a shared machine.
+3. Re-sweep fp16 and fp32 (`par_sweep.sh`, the same M list as gfx1201) and fit the rules with `derive_cfg.py`
+   plus a three-leaf N search (as done for gfx1201 M <= 16).
+4. Fit the fp32 N cutoffs from `bench.py --kernels simt,wmma` per shape, add a gfx11 table next to
+   `gfx12_fp32_wmma`, then confirm with `--kernels auto` at the in-between M values.
+5. Re-run `check.py`, `check_f32.py`, `check_tiles.py` and the pytest subset, re-evaluate, regenerate
+   `plots/gfx1100` and update the gfx1100 data section.
 
 ## Kernel notes
 

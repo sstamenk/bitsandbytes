@@ -1,13 +1,14 @@
 #!/bin/bash
-# hipblaslt_fix_overlay.sh <out dir>: build the active ROCm nightly venv's exact hipBLASLt host libraries plus the
+# hipblaslt_fix_overlay.sh <out dir> [gfx arch, default gfx1201]: build the active ROCm nightly venv's exact hipBLASLt host libraries plus the
 # ROCM-31245 fix (ROCm/rocm-libraries#12465) and write <out dir>/env.sh, which loads them in place of the wheel's
 # copies. The wheel's device objects and every other ROCm component stay unchanged. Needed on nightlies from
 # 10.2.0a20260913 until the fix ships: without it, every small torch fp32 GEMM on gfx12 takes ~5-20 ms.
-# Requires: an activated venv with rocm[devel], git, network access. Builds for gfx1201 (host code only).
+# Requires: an activated venv with rocm[devel], git, network access. Host code only; the arch selects the wheel's
+# device objects the overlay loads (e.g. gfx1100 on a W7900).
 # Re-running is safe: the checkout is reset to the pin and the fix re-applied each time. The fix is applied as the
 # PR's current diff against its merge base, so a rebased or force-pushed PR still works.
 set -euo pipefail
-out=$(realpath -m "$1"); mkdir -p "$out"; work=$out/work; mkdir -p "$work"
+out=$(realpath -m "$1"); arch=${2:-gfx1201}; mkdir -p "$out"; work=$out/work; mkdir -p "$work"
 site=$(python -c "import site; print(site.getsitepackages()[0])")
 devel=$site/_rocm_sdk_devel
 pin=$(python -c "import json; d = json.load(open('$site/_rocm_sdk_core/share/therock/therock_manifest.json')); \
@@ -53,7 +54,7 @@ cmake --install "$work/msgpack-build" > /dev/null
 cmake -G Ninja -S "$src/projects/hipblaslt" -B "$work/build" -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_C_COMPILER="$devel/lib/llvm/bin/clang" -DCMAKE_CXX_COMPILER="$devel/lib/llvm/bin/clang++" \
   -DCMAKE_PREFIX_PATH="$devel;$site/_rocm_sdk_libraries;$site/_rocm_sdk_core;$work/yaml;$work/msgpack" \
-  -Dfmt_DIR="$work/fmt-cmake" -DROCM_PATH="$devel" -DGPU_TARGETS=gfx1201 \
+  -Dfmt_DIR="$work/fmt-cmake" -DROCM_PATH="$devel" -DGPU_TARGETS="$arch" \
   -DHIPBLASLT_ENABLE_DEVICE=OFF -DHIPBLASLT_ENABLE_EXTOPS=OFF -DHIPBLASLT_ENABLE_MATRIX_TRANSFORM=OFF \
   -DHIPBLASLT_ENABLE_CLIENT=OFF -DHIPBLASLT_ENABLE_THEROCK=ON -DHIPBLASLT_ENABLE_FETCH=OFF \
   -DHIPBLASLT_ENABLE_MXDATAGENERATOR=OFF -DTENSILELITE_BUILD_TESTING=OFF -DCMAKE_SKIP_RPATH=ON \
@@ -92,6 +93,6 @@ cat > "$out/env.sh" <<ENV
 # source to load the fixed hipBLASLt host libraries (ROCM-31245): rocm-libraries $pin + ROCm/rocm-libraries#12465 at $fix
 export BNB_HIPBLASLT_OVERLAY=$out
 export PYTHONPATH=$out/bootstrap\${PYTHONPATH:+:\$PYTHONPATH}
-export HIPBLASLT_TENSILE_LIBPATH=$site/_rocm_sdk_libraries/lib/hipblaslt/library/gfx1201
+export HIPBLASLT_TENSILE_LIBPATH=$site/_rocm_sdk_libraries/lib/hipblaslt/library/$arch
 ENV
 echo "built: source $out/env.sh"
