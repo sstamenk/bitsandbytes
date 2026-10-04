@@ -2,6 +2,7 @@
 // Dispatches to SIMT, MMA (CUDA) or WMMA (ROCm RDNA3/RDNA4) kernels based on GPU architecture and shape.
 // Computes out[M, N] = A[M, K] @ B[N, K]^T. All pointers are device memory.
 
+#include <climits>
 #include <cstdint>
 #include <type_traits>
 #ifdef BNB_WMMA_DEV
@@ -74,20 +75,29 @@ static void gemm_4bit(
     // RDNA3 (gfx110x): on the 40 calibrated LLM shapes WMMA beats SIMT for bf16/fp16 at
     // every M (at M=1 by ~8% in total time, mostly on the larger weights) and for fp32
     // from M=6, which runs six split-bf16 WMMAs per tile.
-    // RDNA4 (gfx120x): each WMMA covers 16 rows (gfx11: 8), so SIMT keeps the smallest M.
+    // RDNA4 (gfx1201): each WMMA covers 16 rows (gfx11: 8), so SIMT keeps the smallest M.
     // On gfx1201 WMMA is 7-10% faster than SIMT in total time over the 40 shapes from M=2
     // for bf16/fp16 (2-3% slower at M=1). fp32 picks by M and N (see below) from M=5.
-    constexpr int GFX12_MIN_M_16BIT = 2, GFX12_MIN_M_FP32 = 5;
+    constexpr int GFX12_MIN_M_16BIT = 2;
     const int wmma_arch = K % 64 == 0 && blocksize >= 32 ? gemm_4bit_wmma_arch() : 0;
-    const int wmma_min_m = wmma_arch == 12 ? (is_fp32 ? GFX12_MIN_M_FP32 : GFX12_MIN_M_16BIT) : (is_fp32 ? 6 : 1);
-    bool use_wmma = wmma_arch != 0 && M >= wmma_min_m;
-    if (wmma_arch == 12 && is_fp32 && use_wmma) {
+    bool use_wmma = wmma_arch == 11 ? M >= (is_fp32 ? 6 : 1) : wmma_arch == 12 && M >= GFX12_MIN_M_16BIT;
+    if (wmma_arch == 12 && is_fp32) {
         // gfx1201 fp32: with few output columns the 16-row split-bf16 WMMA tiles leave too few
-        // blocks to stream the weights, and SIMT stays faster up to a few dozen rows. With these
-        // N cutoffs the 40 shapes run within 1% of the faster kernel in total time at M = 5-32,
-        // and no shape is more than 8% slower (WMMA alone was up to 1.6x slower at M = 6).
-        const int simt_below_n = M == 5 ? 8192 : M == 6 ? 4096 : M < 10 ? 2048 : M < 16 ? 1408 : M < 32 ? 1024 : 0;
-        use_wmma = N >= simt_below_n;
+        // blocks to stream the weights, so SIMT stays faster up to a few dozen rows. The first
+        // row with M <= max_m decides: WMMA iff N >= min_n (M <= 4: always SIMT); M >= 32
+        // always uses WMMA. With these cutoffs the 40 shapes run within 1% of the faster kernel
+        // in total time at M = 5-32 and no shape is more than 8% slower (WMMA alone was up to
+        // 1.6x slower at M = 6).
+        static constexpr struct {
+            int max_m, min_n;
+        } gfx12_fp32_wmma[] = {{4, INT_MAX}, {5, 8192}, {6, 4096}, {9, 2048}, {15, 1408}, {31, 1024}};
+
+        use_wmma = true;
+        for (const auto& row : gfx12_fp32_wmma)
+            if (M <= row.max_m) {
+                use_wmma = N >= row.min_n;
+                break;
+            }
     }
 #ifdef BNB_WMMA_DEV
     // Dev-only (cmake -DBNB_WMMA_DEV=ON): BNB_GEMM4BIT_KERNEL=simt|wmma forces the kernel
@@ -95,12 +105,11 @@ static void gemm_4bit(
     if (const char* force = std::getenv("BNB_GEMM4BIT_KERNEL"))
         use_wmma = std::strcmp(force, "wmma") == 0 && wmma_arch != 0;
 #endif
-    if (use_wmma) {
-        launch_gemm_4bit_wmma<T>(
-            A, B, absmax, absmax_8bit, absmax_code, absmax_offset, out, bias, M, N, K, blocksize, quant_type, stream
-        );
+    if (use_wmma && launch_gemm_4bit_wmma<T>(
+                        wmma_arch, A, B, absmax, absmax_8bit, absmax_code, absmax_offset, out, bias, M, N, K, blocksize,
+                        quant_type, stream
+                    ))
         return;
-    }
 #endif
 
     // Otherwise fp32 and M<=3 are always SIMT -- skip the props lookup.

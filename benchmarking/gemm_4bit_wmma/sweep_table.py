@@ -5,8 +5,9 @@ import re
 
 import torch
 
-# Output rows per WMMA: gfx11 runs two 8-row half-wave products, gfx12 one 16-row product.
-ROWS = 16 if torch.cuda.get_device_properties(0).gcnArchName.startswith("gfx12") else 8
+# Output rows per WMMA on the device being tuned (the current one): gfx11 runs two 8-row half-wave products, gfx120x one
+# 16-row product. Same test as the C launcher (gfx125x has other WMMAs and no WMMA kernel here).
+ROWS = 16 if torch.cuda.get_device_properties(torch.cuda.current_device()).gcnArchName.startswith("gfx120") else 8
 
 _src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../csrc/gemm_4bit_wmma.cu")).read()
 TABLE = sorted(

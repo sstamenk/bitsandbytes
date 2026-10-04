@@ -4,6 +4,8 @@
 # copies. The wheel's device objects and every other ROCm component stay unchanged. Needed on nightlies from
 # 10.2.0a20260913 until the fix ships: without it, every small torch fp32 GEMM on gfx12 takes ~5-20 ms.
 # Requires: an activated venv with rocm[devel], git, network access. Builds for gfx1201 (host code only).
+# Re-running is safe: the checkout is reset to the pin and the fix re-applied each time. The fix is applied as the
+# PR's current diff against its merge base, so a rebased or force-pushed PR still works.
 set -euo pipefail
 out=$(realpath -m "$1"); mkdir -p "$out"; work=$out/work; mkdir -p "$work"
 site=$(python -c "import site; print(site.getsitepackages()[0])")
@@ -18,9 +20,12 @@ if [ ! -d "$src" ]; then
   git clone -q --filter=blob:none --no-checkout https://github.com/ROCm/rocm-libraries.git "$src"
   git -C "$src" sparse-checkout set projects/hipblaslt shared
 fi
-git -C "$src" fetch -q origin "$pin" pull/12465/head:pr12465
-git -C "$src" checkout -q --detach "$pin"
-git -C "$src" -c user.name=overlay -c user.email=overlay@localhost cherry-pick --no-commit 9df96b1eecd7bcef2424979ed990f4862bcc79bb
+git -C "$src" fetch -q origin "$pin" +pull/12465/head:pr12465
+git -C "$src" checkout -q --detach --force "$pin"
+git -C "$src" reset -q --hard "$pin"
+git -C "$src" clean -qfd
+fix=$(git -C "$src" rev-parse pr12465)
+git -C "$src" diff "$(git -C "$src" merge-base "$pin" pr12465)" pr12465 -- projects/hipblaslt | git -C "$src" apply --index
 
 # Build-only dependencies of the rocroller CMake package: static PIC yaml-cpp, header-only fmt and msgpack.
 [ -d "$work/yaml-src" ] || git clone -q --depth 1 -b 0.8.0 https://github.com/jbeder/yaml-cpp.git "$work/yaml-src"
@@ -84,7 +89,7 @@ def _find_libraries(*names):
 rocm_sdk.find_libraries = _find_libraries
 PY
 cat > "$out/env.sh" <<ENV
-# source to load the fixed hipBLASLt host libraries (ROCM-31245) built for rocm-libraries $pin
+# source to load the fixed hipBLASLt host libraries (ROCM-31245): rocm-libraries $pin + ROCm/rocm-libraries#12465 at $fix
 export BNB_HIPBLASLT_OVERLAY=$out
 export PYTHONPATH=$out/bootstrap\${PYTHONPATH:+:\$PYTHONPATH}
 export HIPBLASLT_TENSILE_LIBPATH=$site/_rocm_sdk_libraries/lib/hipblaslt/library/gfx1201

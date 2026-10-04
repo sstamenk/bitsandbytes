@@ -1,6 +1,7 @@
 // AMD WMMA 4-bit GEMM kernel for RDNA3 (gfx110x) and RDNA4 (gfx120x), wave32.
 // Computes C[M,N] = A[M,K] @ B[N,K]^T + bias with fused 4-bit dequantization.
 
+#include <atomic>
 #include <cstdint>
 #include <cstring>
 #ifdef BNB_WMMA_DEV
@@ -27,6 +28,17 @@
 #define BNB_WMMA_DEVICE_ARCH 12
 #else
 #define BNB_WMMA_DEVICE_ARCH 0
+#endif
+
+// Which kernel generations a compilation pass instantiates: the host pass needs every
+// launch stub, a device pass only the kernels of its own generation, so no target's code
+// object carries empty kernels for the other one (non-WMMA targets carry none).
+#ifdef __HIP_DEVICE_COMPILE__
+#define BNB_WMMA_EMIT_11 (BNB_WMMA_DEVICE_ARCH == 11)
+#define BNB_WMMA_EMIT_12 (BNB_WMMA_DEVICE_ARCH == 12)
+#else
+#define BNB_WMMA_EMIT_11 1
+#define BNB_WMMA_EMIT_12 1
 #endif
 
 namespace {
@@ -135,8 +147,8 @@ __device__ __forceinline__ float half_wave_sum(float v) {
 #endif
 }
 
-// LDS bytes for the A stages (two stages of `planes` 16-bit tiles: 1, or 2 for the
-// fp32 hi/lo split) or, reusing the same space, the split-K reduction tile,
+// LDS bytes for the A stages (two stages of `planes` 16-bit tiles: 1, or WMMA_F32_PARTS = 3
+// for the fp32 hi/mid/lo split) or, reusing the same space, the split-K reduction tile,
 // whichever is larger. The staged A rows are padded by 8 elements: keeps 16-byte
 // alignment and spreads rows across LDS banks.
 constexpr int wmma_smem_bytes(int mt, int nt, int ksplit, int kch, int planes) {
@@ -163,9 +175,14 @@ constexpr int wmma_smem_bytes(int mt, int nt, int ksplit, int kch, int planes) {
 ///
 /// Per iteration the block stages the A tile of its KSPLIT current chunks in LDS
 /// (double-buffered, shared by all warps of a K group). Each lane (half h =
-/// lane/16, c = lane%16) streams its own B columns straight from global memory:
-///   B: column n, K [k0 + 32*KCH*h, k0 + 32*KCH*(h+1)) -> KCH 16-byte loads,
-///      decoded through a 256-entry LDS LUT (byte -> packed pair of centroids).
+/// lane/16, c = lane%16) streams its own B columns straight from global memory,
+/// 32 K per 64-K unit u = 0..KCH-1 of the chunk starting at k0:
+///   B: column n; gfx11: K [k0 + 32*KCH*h + 32*u, +32), one 16-byte load per unit
+///      (each half-wave is its own product, so it may use its own absmax);
+///      gfx12: K [k0 + 64*u + 32*h, +32), one 16-byte load, or for blocksize 32
+///      K [k0 + 64*u + 16*h, +16) and [k0 + 64*u + 32 + 16*h, +16), two 8-byte
+///      loads (both halves feed every WMMA, so their K must share an absmax).
+///      Decoded through a 256-entry LDS LUT (byte -> packed pair of centroids).
 ///   A: row c/2 (gfx11) or c (gfx12) of each R-row sub-tile, same K range, from LDS.
 ///   Scale: absmax for that column/K range, applied to the fp32 accumulator after
 ///      the chunk's WMMAs (centroids enter the WMMA unscaled).
@@ -569,24 +586,39 @@ __global__ void __launch_bounds__(KSPLIT* WARPS_M* WARPS_N * 32) gemm_4bit_wmma(
 
 namespace {
 
-// Cached per device: WMMA generation of the GPU (11 = RDNA3 gfx110x, 12 = RDNA4
-// gfx120x), or 0 if the kernel does not support it.
+// WMMA generation for a gcnArchName ("gfx1201" or "gfx1201:xnack-"): 11, 12, or 0.
+// The chips must be ones whose device pass emits the kernel body (IS_RDNA3 / IS_RDNA4 in
+// common.cuh); any other device would launch an empty kernel. gfx1200 is built but not
+// listed: the gfx12 tile rules and cutoffs are calibrated on gfx1201, which has twice its
+// CUs, so it keeps the SIMT path until it is calibrated.
+int wmma_arch_of(const char* name) {
+    static constexpr struct {
+        const char* chip;
+        int arch;
+    } chips[] = {{"gfx1100", 11}, {"gfx1101", 11}, {"gfx1102", 11}, {"gfx1103", 11}, {"gfx1201", 12}};
+
+    for (const auto& c : chips) {
+        const size_t n = std::strlen(c.chip);
+        if (std::strncmp(name, c.chip, n) == 0 && (name[n] == '\0' || name[n] == ':'))
+            return c.arch;
+    }
+    return 0;
+}
+
+// Cached per device (devices 0-15; later ones are queried on every call).
 int wmma_device_arch() {
-    static int cache[16] = {}; // 0 = unknown, else arch + 1
+    static std::atomic<int> cache[16] = {}; // 0 = unknown, else arch + 1
     int dev = 0;
     (void)hipGetDevice(&dev);
-    if (dev < 16 && cache[dev] != 0)
-        return cache[dev] - 1;
-    hipDeviceProp_t prop;
-    int arch = 0;
-    if (hipGetDeviceProperties(&prop, dev) == hipSuccess) {
-        if (std::strncmp(prop.gcnArchName, "gfx110", 6) == 0)
-            arch = 11;
-        else if (std::strncmp(prop.gcnArchName, "gfx120", 6) == 0)
-            arch = 12;
+    if (dev < 16) {
+        const int cached = cache[dev].load(std::memory_order_relaxed);
+        if (cached != 0)
+            return cached - 1;
     }
+    hipDeviceProp_t prop;
+    const int arch = hipGetDeviceProperties(&prop, dev) == hipSuccess ? wmma_arch_of(prop.gcnArchName) : 0;
     if (dev < 16)
-        cache[dev] = arch + 1;
+        cache[dev].store(arch + 1, std::memory_order_relaxed);
     return arch;
 }
 
@@ -804,10 +836,12 @@ void launch_gemm_4bit_wmma_arch(
 int gemm_4bit_wmma_arch() { return wmma_device_arch(); }
 
 /// @brief Host launcher for the RDNA3/RDNA4 WMMA 4-bit GEMM kernel.
+/// @return false (nothing launched) if `arch` is not a WMMA generation this build has kernels for.
 /// @tparam T Input/output dtype (`bnb_bfloat16`, `half` or `float`)
 template <typename T>
-void launch_gemm_4bit_wmma(
+bool launch_gemm_4bit_wmma(
     // clang-format off
+    int            arch,          // gemm_4bit_wmma_arch() of the current device
     const T*       A,             // inputs [M, K]
     const uint8_t* B,             // packed 4-bit weights [N, K/2]
     const float*   absmax,        // fp32 absmax [N*K/blocksize] or [ceil(N*K/(blocksize*256))] when nested
@@ -822,25 +856,34 @@ void launch_gemm_4bit_wmma(
     bnb_stream_t stream           // HIP stream
     // clang-format on
 ) {
-    if (wmma_device_arch() == 12)
+#if BNB_WMMA_EMIT_12
+    if (arch == 12) {
         launch_gemm_4bit_wmma_arch<12, T>(
             A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type, stream
         );
-    else
+        return true;
+    }
+#endif
+#if BNB_WMMA_EMIT_11
+    if (arch == 11) {
         launch_gemm_4bit_wmma_arch<11, T>(
             A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type, stream
         );
+        return true;
+    }
+#endif
+    return false;
 }
 
-template void launch_gemm_4bit_wmma<bnb_bfloat16>(
-    const bnb_bfloat16*, const uint8_t*, const float*, const uint8_t*, const float*, const float*, bnb_bfloat16*,
+template bool launch_gemm_4bit_wmma<bnb_bfloat16>(
+    int, const bnb_bfloat16*, const uint8_t*, const float*, const uint8_t*, const float*, const float*, bnb_bfloat16*,
     const bnb_bfloat16*, int, int, int, int, int, bnb_stream_t
 );
-template void launch_gemm_4bit_wmma<half>(
-    const half*, const uint8_t*, const float*, const uint8_t*, const float*, const float*, half*, const half*, int, int,
-    int, int, int, bnb_stream_t
-);
-template void launch_gemm_4bit_wmma<float>(
-    const float*, const uint8_t*, const float*, const uint8_t*, const float*, const float*, float*, const float*, int,
+template bool launch_gemm_4bit_wmma<half>(
+    int, const half*, const uint8_t*, const float*, const uint8_t*, const float*, const float*, half*, const half*, int,
     int, int, int, int, bnb_stream_t
+);
+template bool launch_gemm_4bit_wmma<float>(
+    int, const float*, const uint8_t*, const float*, const uint8_t*, const float*, const float*, float*, const float*,
+    int, int, int, int, int, bnb_stream_t
 );

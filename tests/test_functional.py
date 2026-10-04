@@ -33,9 +33,12 @@ _GEMM_4BIT_SHAPES = [
     (40, 36864, 128),  # 64x128-64 wide-N
     (48, 8192, 512),  # 64x64-64 on GDDR+A100, K=512
     (48, 8192, 8192),  # 64x64-128, large K
-    (2, 1000, 256),  # RDNA3 WMMA: smallest M, N tail
-    (24, 6000, 704),  # RDNA3 WMMA: 64-K iterations (K % 128 != 0), wide N
-    (200, 2000, 512),  # RDNA3 WMMA: M > 128 tile with split-K
+    (2, 1000, 256),  # RDNA3/RDNA4 WMMA: smallest M, N tail
+    (24, 6000, 704),  # RDNA3/RDNA4 WMMA: 64-K iterations (K % 128 != 0), wide N
+    (200, 2000, 512),  # RDNA3/RDNA4 WMMA: M > 128 tile with split-K
+    (5, 8192, 256),  # RDNA4 WMMA: fp32 starts at M=5 on wide N
+    (16, 6144, 512),  # RDNA4 WMMA: M <= 16 tile for N >= 6144 (128-K iterations)
+    (17, 4096, 704),  # RDNA4 WMMA: one row past a 16-row tile, K % 128 != 0
 ]
 
 
@@ -1019,14 +1022,16 @@ class TestQuantize4BitFunctional:
     @pytest.mark.parametrize("compress_statistics", TRUE_FALSE, ids=id_formatter("compress_statistics"))
     @pytest.mark.parametrize("quant_type", ["nf4", "fp4"])
     @pytest.mark.parametrize("blocksize", [32, 64], ids=id_formatter("blocksize"))
-    @pytest.mark.parametrize("M", [1, 4, 16, 40, 100], ids=id_formatter("M"))
-    def test_matmul_4bit_fp32_precision(self, M, blocksize, quant_type, compress_statistics, device):
-        # fp32 must keep fp32-level accuracy on every kernel path (the RDNA3 WMMA path
-        # emulates it with split bf16 operands). Compare against a float64 product of the
-        # same dequantized weights.
+    @pytest.mark.parametrize("N", [1000, 8192], ids=id_formatter("N"))
+    @pytest.mark.parametrize("M", [1, 4, 5, 8, 16, 17, 40, 100], ids=id_formatter("M"))
+    def test_matmul_4bit_fp32_precision(self, M, N, blocksize, quant_type, compress_statistics, device):
+        # fp32 must keep fp32-level accuracy on every kernel path (the RDNA3/RDNA4 WMMA paths
+        # emulate it with split bf16 operands). Compare against a float64 product of the
+        # same dequantized weights. N=8192 reaches RDNA4's fp32 WMMA tiles at small M, which
+        # narrow weights (N=1000) leave to SIMT up to M=31.
         if device not in ("cuda",):
             pytest.skip("fp32 precision bound is calibrated for the CUDA/ROCm kernels")
-        N, K = 1000, 1024
+        K = 1024
         A = torch.randn(1, M, K, dtype=torch.float32, device=device)
         B = torch.randn(N, K, dtype=torch.float32, device=device) / (K**0.5)
         qB, qs = F.quantize_4bit(

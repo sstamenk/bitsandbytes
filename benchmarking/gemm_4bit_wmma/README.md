@@ -10,8 +10,8 @@ Dispatch with `K % 64 == 0` and blocksize >= 32:
 |---|---|---|
 | RDNA3 (gfx110x) | fp16 / bf16 | WMMA for every M the Python side routes to the custom kernel (M <= 256) |
 | RDNA3 (gfx110x) | fp32 | SIMT for M <= 5, WMMA for M = 6-128 |
-| RDNA4 (gfx120x) | fp16 / bf16 | SIMT for M = 1, WMMA for M = 2-256 |
-| RDNA4 (gfx120x) | fp32 | SIMT for M <= 4; from M = 5, WMMA when N is large enough for its M (SIMT below N = 8192 at M = 5, 4096 at M = 6, 2048 at M = 7-9, 1408 at M = 10-15, 1024 at M = 16-31), otherwise SIMT; fused through M = 512 |
+| RDNA4 (gfx1201) | fp16 / bf16 | SIMT for M = 1, WMMA for M = 2-256 |
+| RDNA4 (gfx1201) | fp32 | SIMT for M <= 4; from M = 5, WMMA when N is large enough for its M (SIMT below N = 8192 at M = 5, 4096 at M = 6, 2048 at M = 7-9, 1408 at M = 10-15, 1024 at M = 16-31), otherwise SIMT; fused through M = 512 |
 
 fp32 is emulated with 3-way split bf16 operands (6 WMMAs per tile) and is fp32-accurate.
 Every other architecture keeps SIMT plus dequant+`F.linear`, unchanged.
@@ -269,9 +269,15 @@ AMD clang 24.0.0git (ROCm 10.2 nightly) miscompiles `__builtin_bit_cast(float, v
 
 ## Enabling another architecture
 
-1. Gate the kernel body (`BNB_WMMA_DEVICE_ARCH` in `gemm_4bit_wmma.cu`) and `gemm_4bit_wmma_arch()` for the new target.
+1. Enable the target in `gemm_4bit_wmma.cu`:
+   - its device pass must emit the kernel body (`BNB_WMMA_DEVICE_ARCH`, from `IS_RDNA3` / `IS_RDNA4` in `common.cuh`);
+   - add the chip to `wmma_arch_of()`, which maps the device name to a WMMA generation. It must only list chips whose
+     body is emitted, or the launch would run an empty kernel;
+   - a new generation also needs its own `BNB_WMMA_EMIT_*` guard, so each device pass only instantiates its own kernels.
    - gfx115x (RDNA3.5) uses the gfx11 WMMA encoding but was not validated.
-   - gfx1200 shares gfx1201's WMMA and is enabled with gfx1201's rules, but was not measured (it has half the CUs).
+   - gfx1200 shares gfx1201's WMMA and its kernels are built, but it is not in `wmma_arch_of()` or the Python check: it
+     has half the CUs, so gfx1201's tile rules and N cutoffs would not transfer. It keeps SIMT plus dequant+`F.linear`
+     until it is calibrated.
    - CDNA uses MFMA and wave64; gfx1250 has different (wider) WMMAs.
 2. Probe the operand and accumulator layouts before trusting the fragment mapping.
 3. Run `check.py`, `check_f32.py` and the relevant pytest cases:
