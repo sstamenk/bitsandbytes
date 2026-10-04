@@ -76,12 +76,19 @@ static void gemm_4bit(
     // from M=6, which runs six split-bf16 WMMAs per tile.
     // RDNA4 (gfx120x): each WMMA covers 16 rows (gfx11: 8), so SIMT keeps the smallest M.
     // On gfx1201 WMMA is 7-10% faster than SIMT in total time over the 40 shapes from M=2
-    // for bf16/fp16 (2-3% slower at M=1) and 17% faster from M=6 for fp32 (SIMT wins
-    // through M=4).
-    constexpr int GFX12_MIN_M_16BIT = 2, GFX12_MIN_M_FP32 = 6;
+    // for bf16/fp16 (2-3% slower at M=1). fp32 picks by M and N (see below) from M=5.
+    constexpr int GFX12_MIN_M_16BIT = 2, GFX12_MIN_M_FP32 = 5;
     const int wmma_arch = K % 64 == 0 && blocksize >= 32 ? gemm_4bit_wmma_arch() : 0;
     const int wmma_min_m = wmma_arch == 12 ? (is_fp32 ? GFX12_MIN_M_FP32 : GFX12_MIN_M_16BIT) : (is_fp32 ? 6 : 1);
     bool use_wmma = wmma_arch != 0 && M >= wmma_min_m;
+    if (wmma_arch == 12 && is_fp32 && use_wmma) {
+        // gfx1201 fp32: with few output columns the 16-row split-bf16 WMMA tiles leave too few
+        // blocks to stream the weights, and SIMT stays faster up to a few dozen rows. With these
+        // N cutoffs the 40 shapes run within 1% of the faster kernel in total time at M = 5-32,
+        // and no shape is more than 8% slower (WMMA alone was up to 1.6x slower at M = 6).
+        const int simt_below_n = M == 5 ? 8192 : M == 6 ? 4096 : M < 10 ? 2048 : M < 16 ? 1408 : M < 32 ? 1024 : 0;
+        use_wmma = N >= simt_below_n;
+    }
 #ifdef BNB_WMMA_DEV
     // Dev-only (cmake -DBNB_WMMA_DEV=ON): BNB_GEMM4BIT_KERNEL=simt|wmma forces the kernel
     // for benchmarking; the Python side still decides custom kernel vs dequant+F.linear.

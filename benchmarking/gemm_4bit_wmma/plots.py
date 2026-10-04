@@ -60,8 +60,13 @@ for spec in filter(None, os.environ.get("PLOT_NEW", "").split(",")):
 
 
 def new_default(v, M, dt):
+    # A measured "auto" (default C dispatch, bench.py kernel auto) replaces the M rule where present.
     simt_max, fused_max = NEW[dt]
-    return v["simt"] if M <= simt_max else (v["wmma"] if M <= fused_max else v["dequant"])
+    if M > fused_max:
+        return v["dequant"]
+    if "auto" in v:
+        return v["auto"]
+    return v["simt"] if M <= simt_max else v["wmma"]
 
 
 def logx(ax):
@@ -74,16 +79,29 @@ def logx(ax):
 # 1) Headline: new vs previous default dispatch
 fig, axes = plt.subplots(1, len(DTYPES), figsize=(5.5 * len(DTYPES), 4), sharey=len(DTYPES) < 3)
 table = []
+
+
+def speedups(dt, M):
+    """Previous/new dispatch per shape, or [] when an M lacks the kernels both need (e.g. auto-only runs)."""
+    try:
+        return [old_default(v, M) / new_default(v, M, dt) for (d, s, m), v in t.items() if d == dt and m == M]
+    except KeyError:
+        return []
+
+
 for ax, dt in zip(axes, DTYPES):
-    med, lo, hi = [], [], []
+    xs, med, lo, hi = [], [], [], []
     for M in Ms:
-        rs = [old_default(v, M) / new_default(v, M, dt) for (d, s, m), v in t.items() if d == dt and m == M]
+        rs = speedups(dt, M)
+        if not rs:
+            continue
+        xs.append(M)
         med.append(st.median(rs))
         lo.append(min(rs))
         hi.append(max(rs))
         table.append((dt, M, st.median(rs), min(rs), max(rs)))
-    ax.fill_between(Ms, lo, hi, color=COL["new"], alpha=0.10, linewidth=0)
-    ax.plot(Ms, med, color=COL["new"], lw=2, marker="o", ms=6, mec=SURF, mew=2, solid_capstyle="round")
+    ax.fill_between(xs, lo, hi, color=COL["new"], alpha=0.10, linewidth=0)
+    ax.plot(xs, med, color=COL["new"], lw=2, marker="o", ms=6, mec=SURF, mew=2, solid_capstyle="round")
     ax.axhline(1, color=INK2, lw=1)
     logx(ax)
     ax.set_yscale("log", base=2)
@@ -94,11 +112,11 @@ for ax, dt in zip(axes, DTYPES):
     # Optional per-dtype caveat, e.g. PLOT_NOTE_fp32="previous dequant+BLAS uses a slow fp32 GEMM".
     note = os.environ.get(f"PLOT_NOTE_{dt}", "")
     ax.set_title(dt + (f"  ({note})" if note else ""), loc="left", fontsize=11 if not note else 9, color=INK)
-    i = Ms.index(16)
+    i = xs.index(16)
     ax.annotate(
         f"{med[i]:.1f}x at M=16", (16, med[i]), xytext=(6, 8), textcoords="offset points", color=INK, fontsize=9
     )
-    i = Ms.index(128)
+    i = xs.index(128)
     ax.annotate(
         f"{med[i]:.2f}x at M=128", (128, med[i]), xytext=(8, 12), textcoords="offset points", color=INK, fontsize=9
     )
@@ -209,5 +227,6 @@ with open(f"{OUT}/speedup_table{SUFFIX}.md", "w") as f:
     for dt, M, m, lo, hi in table:
         rows[M][dt] = f"{m:.2f}x ({lo:.2f}-{hi:.2f})"
     for M in Ms:
-        f.write(f"| {M} | " + " | ".join(rows[M][dt] for dt in DTYPES) + " |\n")
+        if rows[M]:
+            f.write(f"| {M} | " + " | ".join(rows[M].get(dt, "-") for dt in DTYPES) + " |\n")
 print(open(f"{OUT}/speedup_table{SUFFIX}.md").read())

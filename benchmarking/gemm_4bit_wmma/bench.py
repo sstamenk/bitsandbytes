@@ -1,4 +1,5 @@
 """DRAM-streaming 4-bit GEMM sweep: SIMT vs WMMA vs dequant+BLAS over the 40 LLM shapes.
+Kernel "auto" times the fused path with the default C dispatch (SIMT or WMMA as the library picks).
 
 Kernel selection inside the fused path is forced with the dev-only env var
 BNB_GEMM4BIT_KERNEL (needs a -DBNB_WMMA_DEV=ON build), which the C dispatch reads once per process, so each fused
@@ -95,6 +96,7 @@ def main():
     for dtype in args.dtypes.split(","):
         for kernel in args.kernels.split(","):
             env = dict(os.environ)
+            env.pop("BNB_GEMM4BIT_KERNEL", None)  # "auto" times the default C dispatch
             if kernel in ("simt", "wmma"):
                 env["BNB_GEMM4BIT_KERNEL"] = kernel
             cmd = [
