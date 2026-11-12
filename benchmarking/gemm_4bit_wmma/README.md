@@ -49,6 +49,7 @@ Dev-only environment variables (these need `-DBNB_WMMA_DEV=ON`):
 |---|---|
 | `BNB_GEMM4BIT_KERNEL=simt\|wmma` | Forces the fused kernel in the C dispatch. The Python side still chooses fused vs dequant+`F.linear`. |
 | `BNB_WMMA_CFG=wm,wn,warps_m,warps_n,ksplit,kch` | Forces a WMMA tile. It is re-read on every call. The allowed tiles are the `BNB_WMMA_DEV_TRY` table in the launcher. |
+| `BNB_WMMA_PRESCALE=0\|1` | Disable/force gfx11 fp16 operand prescaling for paired experiments. Nested scales always retain accumulator scaling because reconstructed absmax can overflow fp16. |
 
 ## Methodology
 
@@ -337,3 +338,55 @@ With this toolchain, 23 fp32 `test_gemv_4bit` cases fail their tight tolerance o
 On gfx1201 it is 16-22 cases per run (the test is unseeded), the same with `BNB_GEMM4BIT_KERNEL=simt` and
 `=wmma`: `test_gemv_4bit` calls the separate `cgemm_4bit_inference_naive_*` GEMV kernel, not this GEMM.
 Against a float64 reference that kernel is ~4x more accurate than torch's fp32 `F.linear`.
+
+
+## W7900 inner-loop experiments, 2026-11-12
+
+The retained fp16 path scales packed B centroid pairs with `v_pk_mul_f16` and
+accumulates directly across quantization groups. This removes the temporary
+accumulator tile and its per-group fp32 scale FMAs. It adds fp16 operand rounding;
+fp32 split-bf16 arithmetic, bf16, and gfx12 retain the original path.
+
+The default eligibility is M >= 96, WM >= 2, KCH_MAX == 2, and either M <= 128
+or K <= N. Short-chunk tiles and large-M contraction layers had repeatable
+regressions in alternating, identical-allocation tests. There is no FP4/NF4 or
+blocksize restriction. Nested scales retain the original path: real finite fp16
+weights can reconstruct absmax above 65504 (observed 65588 and 65762), overflowing
+the fp16 scale before multiplication. The edge reproducer is
+`experiments/check_prescale_nested_overflow.py`; the dev override respects this
+correctness fallback.
+
+Full 40-shape fp16 A/B/A at AUTO clocks, real NF4 weights, GPUs 4-7, all CLEAN,
+with shipped tiles (`data/gfx1100/experiments/astra_restrict_{a1,b,a2}.csv`):
+
+| M | 1 | 2 | 4 | 8 | 16 | 24 | 32 | 48 | 64 | 96 | 128 | 192 | 256 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| mean base total / variant total | .996 | 1.002 | .991 | .998 | .996 | 1.015 | .994 | .997 | .991 | 1.034 | 1.011 | 1.008 | 1.021 |
+
+M < 96 executes the original kernel; its variation measures harness noise.
+Separate-process runs showed individual swings up to 23% even on unchanged
+paths. `experiments/paired_prescale.py` therefore alternates modes five times
+using identical real quantized weight allocations. The gate excludes every
+point where the variant range was more than 2% slower than the entire baseline
+range. It is not a claim that every individual event measurement is faster.
+
+A final 12-shape sweep over the union of 22 previously winning configurations
+(`astra_final_sw_{base,variant}.csv`) gives best-vs-best total speedups of 1.087,
+1.064, 1.028, and 1.018 at M=96,128,192,256; worst ratios are 0.973, 0.988, 0.975,
+and 0.978. This is a restricted candidate sweep, not an exhaustive tile search.
+The non-nested benchmark path is unaffected by the subsequent nested safety
+fallback. Parent-level tile tuning with row-tiles-first order is separate work.
+
+Other local experiments were rejected: XOR3 LUT addressing; two half-wave LUT
+copies with a bank offset; raised compute-wave priority; vectorized split-K
+reduction; two-stage ping-pong B scheduling; and streamed B-fragment decoding.
+The latter initially gained about 5% in a subset sweep but did not reproduce.
+Patches, raw measurements, and fixed-clock PMC captures live under `experiments/`
+and `data/gfx1100/experiments/`. The shared NOTES.md records experiment commits.
+
+Profiling used HIP7 / amd-smi4 in STABLE_STD, then restored AUTO. SQ counters were
+zero at AUTO; fixed-clock ratios must not be treated as AUTO-clock throughput.
+At M=16-128, narrow 1024x4096 weights had about 20-32% ALU stalls attributed to LDS,
+versus about 0.4-2.7% on 14336x4096. A combined FETCH_SIZE/WRITE_SIZE/L2CacheHit
+profile exceeded hardware counter capacity, so no measured DRAM-byte throughput
+or main-loop/epilogue time attribution is claimed.

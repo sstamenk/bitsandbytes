@@ -204,9 +204,10 @@ constexpr int wmma_smem_bytes(int mt, int nt, int ksplit, int kch, int planes) {
 /// @tparam WARPS_N Warps along N
 /// @tparam KSPLIT  Warp groups along K
 /// @tparam KCH     64-K units per main-loop iteration
+/// @tparam PRESCALE gfx11 fp16: round scaled B operands to half and accumulate across groups.
 /// @tparam GS      Consecutive WMMAs (per chain) sharing one absmax: each group's WMMAs
 ///                 chain into one fp32 tile that is scaled once.
-template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KSPLIT, int KCH, int GS>
+template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KSPLIT, int KCH, int GS, bool PRESCALE = false>
 __device__ __forceinline__ void gemm_4bit_wmma_body(
     // clang-format off
     const T*       __restrict__ A,             // inputs [M, K]
@@ -233,6 +234,7 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
     constexpr int KC = WMMA_KC * KCH; // K per warp per iteration
     constexpr int A_STRIDE = KC + 8;  // LDS row stride (elements)
     constexpr bool F32 = std::is_same_v<T, float>;
+    static_assert(!PRESCALE || (ARCH == 11 && std::is_same_v<T, half>));
     constexpr int PLANES = F32 ? WMMA_F32_PARTS : 1; // fp32: one bf16 tile per split part
     constexpr int A_PLANE = KSPLIT * MT * A_STRIDE;  // elements per A tile
     constexpr int A_STAGE = PLANES * A_PLANE;        // elements per A stage
@@ -461,8 +463,16 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
                             const int b = (t0 % SUBS + s) * FRAG_WORDS + i; // byte within the 16-byte load
                             const int byte = (st.b[wn][u][b / 4] >> (8 * (b % 4))) & 0xff;
 #pragma unroll
-                            for (int p = 0; p < PLANES; p++)
-                                b_frag[p][wn][s][i] = lut[p][byte];
+                            for (int p = 0; p < PLANES; p++) {
+                                uint32_t pair = lut[p][byte];
+                                if constexpr (PRESCALE) {
+                                    // Shared across WM row tiles; avoids their temporary scaled sums.
+                                    const half2 v = __builtin_bit_cast(half2, pair);
+                                    const half2 factor = __float2half2_rn(scale[wn]);
+                                    pair = __builtin_bit_cast(uint32_t, __hmul2(v, factor));
+                                }
+                                b_frag[p][wn][s][i] = pair;
+                            }
                         }
 #pragma unroll
                 for (int s = 0; s < GROUP_SUBS; s++)
@@ -473,7 +483,7 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
                         const bool first = t0 == g * GS && s == 0;
 #pragma unroll
                         for (int wn = 0; wn < WN; wn++) {
-                            wmma_v8f c = first ? wmma_v8f{} : tmp[wm][wn];
+                            wmma_v8f c = PRESCALE ? acc[wm][wn] : (first ? wmma_v8f{} : tmp[wm][wn]);
                             if constexpr (F32) {
                                 // Products of split parts whose indices sum to < 3, smallest
                                 // first; the leading hi*hi product comes last (below).
@@ -485,7 +495,10 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
                                 c = wmma_16x16x16<ARCH, T>(a_mid, b_frag[0][wn][s], c);
                                 c = wmma_16x16x16<ARCH, T>(a_frag, b_frag[1][wn][s], c);
                             }
-                            tmp[wm][wn] = wmma_16x16x16<ARCH, T>(a_frag, b_frag[0][wn][s], c);
+                            if constexpr (PRESCALE)
+                                acc[wm][wn] = wmma_16x16x16<ARCH, T>(a_frag, b_frag[0][wn][s], c);
+                            else
+                                tmp[wm][wn] = wmma_16x16x16<ARCH, T>(a_frag, b_frag[0][wn][s], c);
                         }
                     }
             }
@@ -493,7 +506,8 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
             for (int wm = 0; wm < WM; wm++)
 #pragma unroll
                 for (int wn = 0; wn < WN; wn++)
-                    acc[wm][wn] += tmp[wm][wn] * scale[wn];
+                    if constexpr (!PRESCALE)
+                        acc[wm][wn] += tmp[wm][wn] * scale[wn];
         }
     };
 
@@ -585,7 +599,7 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
 
 /// Kernel entry: the body is only emitted in the device pass of the matching WMMA
 /// generation (see gemm_4bit_wmma_body for the parameters).
-template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KSPLIT, int KCH, int GS>
+template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KSPLIT, int KCH, int GS, bool PRESCALE = false>
 __global__ void __launch_bounds__(KSPLIT* WARPS_M* WARPS_N * 32) gemm_4bit_wmma(
     const T* __restrict__ A, const uint8_t* __restrict__ B, const float* __restrict__ absmax,
     const uint8_t* __restrict__ absmax_8bit, const float* __restrict__ absmax_code,
@@ -594,7 +608,7 @@ __global__ void __launch_bounds__(KSPLIT* WARPS_M* WARPS_N * 32) gemm_4bit_wmma(
 ) {
 #if BNB_WMMA_DEVICE_ARCH
     if constexpr (ARCH == BNB_WMMA_DEVICE_ARCH)
-        gemm_4bit_wmma_body<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH, GS>(
+        gemm_4bit_wmma_body<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH, GS, PRESCALE>(
             A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type,
             row_tiles_first
         );
@@ -661,8 +675,8 @@ bool wmma_row_tiles_first(int target) {
 /// Launch one tile configuration. KCH_MAX is lowered to 1 when K is not a multiple
 /// of 128; one absmax covers each half-wave's per-iteration K slice when
 /// blocksize >= 32 * KCH.
-template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KSPLIT, int KCH_MAX>
-void launch_wmma_tile(
+template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KSPLIT, int KCH_MAX, bool PRESCALE = false>
+void launch_wmma_tile_impl(
     const T* A, const uint8_t* B, const float* absmax, const uint8_t* absmax_8bit, const float* absmax_code,
     const float* absmax_offset, T* C, const T* bias, int M, int N, int K, int blocksize, int quant_type,
     bool row_tiles_first, bnb_stream_t stream
@@ -686,19 +700,49 @@ void launch_wmma_tile(
     if constexpr (KCH_MAX == 2) {
         if (K % 128 == 0) {
             if (blocksize >= 64)
-                launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 2, 4>);
+                launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 2, 4, PRESCALE>);
             else
-                launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 2, 2>);
+                launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 2, 2, PRESCALE>);
             return;
         }
     }
     if constexpr (ARCH == 12) {
         if (blocksize >= 64) {
-            launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 1, 4>);
+            launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 1, 4, PRESCALE>);
             return;
         }
     }
-    launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 1, 2>);
+    launch(gemm_4bit_wmma<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, 1, 2, PRESCALE>);
+}
+
+template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KSPLIT, int KCH_MAX>
+void launch_wmma_tile(
+    const T* A, const uint8_t* B, const float* absmax, const uint8_t* absmax_8bit, const float* absmax_code,
+    const float* absmax_offset, T* C, const T* bias, int M, int N, int K, int blocksize, int quant_type,
+    bool row_tiles_first, bnb_stream_t stream
+) {
+    // Prescaling shares B multiplies across row tiles. Short-K-chunk tiles and
+    // large-M contraction layers regress in paired tests, so retain their original path.
+    // The original accumulator-scaled kernel remains available for every tile.
+    if constexpr (ARCH == 11 && std::is_same_v<T, half>) {
+        bool prescale = M >= 96 && WM >= 2 && KCH_MAX == 2 && (M <= 128 || K <= N);
+#ifdef BNB_WMMA_DEV
+        if (const char* force = std::getenv("BNB_WMMA_PRESCALE"))
+            prescale = std::strcmp(force, "1") == 0;
+#endif
+        // Nested reconstruction can exceed 65504 even for finite fp16 source weights.
+        // Rounding that scale to half would contaminate otherwise finite products.
+        prescale = prescale && absmax_8bit == nullptr;
+        if (prescale) {
+            launch_wmma_tile_impl<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX, true>(
+                A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type,
+                row_tiles_first, stream);
+            return;
+        }
+    }
+    launch_wmma_tile_impl<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX, false>(
+        A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type,
+        row_tiles_first, stream);
 }
 
 /// @brief Tile selection for one WMMA generation (parameters as launch_gemm_4bit_wmma).

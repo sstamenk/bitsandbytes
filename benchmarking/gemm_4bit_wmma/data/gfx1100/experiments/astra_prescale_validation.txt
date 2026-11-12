@@ -1,0 +1,27 @@
+/tmp/astra_safe_check_default.log
+kernel=wmma fails=0
+/tmp/astra_safe_f32_default.log
+208 cases; worst max|err|/mean|ref|: wmma 2.95e-06, simt 1.35e-06, torch 1.39e-05; wmma >4x worse in 0
+/tmp/astra_safe_tiles_default.log
+rows/wmma=8 checked=5184 fails=0
+/tmp/astra_safe_pytest_default.log
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+=============== 1857 passed, 420 deselected, 1 warning in 14.74s ===============
+/tmp/astra_safe_check_1.log
+kernel=wmma fails=0
+/tmp/astra_safe_f32_1.log
+208 cases; worst max|err|/mean|ref|: wmma 2.95e-06, simt 1.35e-06, torch 1.39e-05; wmma >4x worse in 0
+/tmp/astra_safe_tiles_1.log
+rows/wmma=8 checked=5184 fails=0
+/tmp/astra_safe_pytest_1.log
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+==================================== PASSES ====================================
+=============== 1857 passed, 420 deselected, 1 warning in 15.89s ===============
+Nested overflow reproducer after fallback:
+0.01 decoded_scale_max 65588.25 base_nonfinite 0 scaled_nonfinite 0 finite_relative_difference 0.0
+0.05 decoded_scale_max 65252.4609375 base_nonfinite 0 scaled_nonfinite 0 finite_relative_difference 0.0
+0.1 decoded_scale_max 65384.546875 base_nonfinite 0 scaled_nonfinite 0 finite_relative_difference 0.0
+0.2 decoded_scale_max 65762.390625 base_nonfinite 0 scaled_nonfinite 0 finite_relative_difference 0.0
+0.5 decoded_scale_max 65504.0 base_nonfinite 0 scaled_nonfinite 0 finite_relative_difference 0.0
+
