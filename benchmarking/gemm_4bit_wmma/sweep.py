@@ -43,7 +43,10 @@ def cands(M, K):
     return out
 
 
-rows = []
+# Rows are written as they are measured, so an interrupted sweep keeps its data.
+out_f = open(args.out, "w", newline="")
+writer = csv.DictWriter(out_f, fieldnames=["shape", "N", "K", "M", "cfg", "us"])
+writer.writeheader()
 for si in map(int, args.shapes.split(",")):
     name, N, K = SHAPES[si]
     W = torch.randn(N, K, device="cuda", dtype=dt)
@@ -62,7 +65,8 @@ for si in map(int, args.shapes.split(",")):
                 f()
             us = timed_rotation(fns, min(max(args.reps, 2 * ncopies // 3), 120))
             res.append((us, c))
-            rows.append({"shape": name, "N": N, "K": K, "M": M, "cfg": ",".join(map(str, c)), "us": us})
+            writer.writerow({"shape": name, "N": N, "K": K, "M": M, "cfg": ",".join(map(str, c)), "us": us})
+        out_f.flush()
         res.sort()
         print(
             f"{name[:30]:30} M={M:4} best {res[0][0]:8.1f} {res[0][1]}  2nd {res[1][0]:8.1f} {res[1][1]}  worst {res[-1][0]:8.1f}",
@@ -70,7 +74,4 @@ for si in map(int, args.shapes.split(",")):
         )
     del copies
     torch.cuda.empty_cache()
-with open(args.out, "w", newline="") as f:
-    w = csv.DictWriter(f, fieldnames=list(rows[0]))
-    w.writeheader()
-    w.writerows(rows)
+out_f.close()

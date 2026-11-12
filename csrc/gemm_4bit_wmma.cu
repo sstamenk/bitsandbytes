@@ -646,14 +646,16 @@ int wmma_device_arch() {
 /// - gfx1100 (W7900, 96 MB Infinity Cache): best-tile total time 1.08x faster, no weight
 ///   size bucket slower (1.10-1.14x on weights >= 40 MB, ~1.01x below 4 MB);
 /// - gfx1201 (R9700, 64 MB): with the shipped tiles fp16 1.03x and fp32 1.04x at M = 256,
-///   no size bucket slower.
+///   no size bucket slower;
+/// - gfx1151 (Radeon 8060S, 32 MB, LPDDR5X): with the gfx1100 tiles fp16 1.14x at M = 64,
+///   1.26x at M = 128 and 1.57x at M = 256, fp32 ~1.03-1.13x (iGPU run-to-run drift ~10%).
 /// The tile rules are fitted with this order. Dev override: BNB_WMMA_ROW_TILES_FIRST=0|1.
 bool wmma_row_tiles_first(int target) {
 #ifdef BNB_WMMA_DEV
     if (const char* env = std::getenv("BNB_WMMA_ROW_TILES_FIRST"))
         return env[0] == '1';
 #endif
-    return target == 11 || target == 12;
+    return target == 11 || target == 12 || target == WMMA_TARGET_GFX115X;
 }
 
 /// Launch one tile configuration. KCH_MAX is lowered to 1 when K is not a multiple
