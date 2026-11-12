@@ -221,7 +221,8 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
     const T*       __restrict__ bias,          // [N] optional, nullptr = no bias
     int M, int N, int K,                       // problem shape
     int blocksize,                             // elements per quantization block
-    int quant_type                             // 1 = FP4, 2 = NF4
+    int quant_type,                            // 1 = FP4, 2 = NF4
+    bool row_tiles_first                       // block order, see below
     // clang-format on
 ) {
     constexpr bool GFX12 = ARCH == 12;
@@ -280,8 +281,19 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
     const int half_id = lane >> 4;
     const int col = lane & 15;
 
-    const int bn = blockIdx.x * NT;
-    const int bm = blockIdx.y * MT;
+    // Block order. By default consecutive blocks walk N, so every row tile streams all of B
+    // from DRAM again. With row_tiles_first, the row tiles of the same N columns get
+    // consecutive block ids: they are resident together and the later ones read B from
+    // L2/MALL. That pays off once B no longer stays in the last-level cache between row
+    // tiles (see wmma_row_tiles_first).
+    int bx = blockIdx.x, by = blockIdx.y;
+    if (row_tiles_first) {
+        const int lin = blockIdx.x + gridDim.x * blockIdx.y;
+        bx = lin / gridDim.y;
+        by = lin % gridDim.y;
+    }
+    const int bn = bx * NT;
+    const int bm = by * MT;
 
     // Per-lane weight rows (clamped so tail lanes read valid memory; never stored).
     const uint8_t* b_row[WN];
@@ -299,7 +311,7 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
     // Blocks start at different K chunks so that concurrently resident blocks
     // stream different K offsets of their rows. With power-of-two row strides
     // (K/2 bytes), lock-stepped blocks otherwise camp on a few DRAM channels.
-    const int chunk_rot = blockIdx.x % num_chunks;
+    const int chunk_rot = bx % num_chunks;
     // First K element of warp group g's chunk at iteration i. Past-the-end chunks
     // (last iteration when KSPLIT does not divide num_chunks) alias a valid chunk:
     // they are loaded but never consumed, which keeps every load unconditional.
@@ -579,12 +591,13 @@ __global__ void __launch_bounds__(KSPLIT* WARPS_M* WARPS_N * 32) gemm_4bit_wmma(
     const T* __restrict__ A, const uint8_t* __restrict__ B, const float* __restrict__ absmax,
     const uint8_t* __restrict__ absmax_8bit, const float* __restrict__ absmax_code,
     const float* __restrict__ absmax_offset, T* __restrict__ C, const T* __restrict__ bias, int M, int N, int K,
-    int blocksize, int quant_type
+    int blocksize, int quant_type, bool row_tiles_first
 ) {
 #if BNB_WMMA_DEVICE_ARCH
     if constexpr (ARCH == BNB_WMMA_DEVICE_ARCH)
         gemm_4bit_wmma_body<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH, GS>(
-            A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type
+            A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type,
+            row_tiles_first
         );
 #endif
 }
@@ -628,6 +641,21 @@ int wmma_device_arch() {
     return arch;
 }
 
+/// Whether blocks walk the row tiles of the same N columns first (see gemm_4bit_wmma_body).
+/// gfx1100 (W7900, 96 MB Infinity Cache): with the shipped tiles, total time over the 40
+/// shapes 1.07-1.18x faster at M = 48-256 (up to 1.36x on 117 MB weights), neutral through
+/// M = 32 (one row tile) and on weights that stay cached; some 12-15 MB weights lost up
+/// to 13%, so it starts at 40 MB of packed weights. Other targets keep the N-first order
+/// until measured. Dev override: BNB_WMMA_ROW_TILES_FIRST=0|1.
+bool wmma_row_tiles_first(int target, int N, int K) {
+#ifdef BNB_WMMA_DEV
+    if (const char* env = std::getenv("BNB_WMMA_ROW_TILES_FIRST"))
+        return env[0] == '1';
+#endif
+    const size_t weight_bytes = (size_t)N * K / 2;
+    return target == 11 && weight_bytes >= (size_t)40 << 20;
+}
+
 /// Launch one tile configuration. KCH_MAX is lowered to 1 when K is not a multiple
 /// of 128; one absmax covers each half-wave's per-iteration K slice when
 /// blocksize >= 32 * KCH.
@@ -635,7 +663,7 @@ template <int ARCH, typename T, int WM, int WN, int WARPS_M, int WARPS_N, int KS
 void launch_wmma_tile(
     const T* A, const uint8_t* B, const float* absmax, const uint8_t* absmax_8bit, const float* absmax_code,
     const float* absmax_offset, T* C, const T* bias, int M, int N, int K, int blocksize, int quant_type,
-    bnb_stream_t stream
+    bool row_tiles_first, bnb_stream_t stream
 ) {
     constexpr int MT = WARPS_M * wmma_rows(ARCH) * WM;
     constexpr int NT = WARPS_N * 16 * WN;
@@ -647,7 +675,8 @@ void launch_wmma_tile(
     const dim3 grid((N + NT - 1) / NT, (M + MT - 1) / MT);
     auto launch = [&](auto kernel) {
         kernel<<<grid, THREADS, 0, stream>>>(
-            A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type
+            A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type,
+            row_tiles_first
         );
     };
     // WMMAs per absmax group: gfx11 2 per 32-K slice of a lane,
@@ -694,10 +723,12 @@ void launch_gemm_4bit_wmma_arch(
     // clang-format on
 ) {
     constexpr int ARCH = wmma_gen(TARGET);
+    const bool row_tiles_first = wmma_row_tiles_first(TARGET, N, K);
     // clang-format off
 #define LAUNCH_WMMA(WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX)                                           \
     launch_wmma_tile<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX>(                                \
-        A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type, stream)
+        A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type,  \
+        row_tiles_first, stream)
 
 #ifdef BNB_WMMA_DEV
     // Dev-only tile override (cmake -DBNB_WMMA_DEV=ON), used by benchmarking/gemm_4bit_wmma/sweep.py:
