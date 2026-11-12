@@ -80,7 +80,7 @@ static void gemm_4bit(
     // for bf16/fp16 (2-3% slower at M=1). fp32 picks by M and N (see below) from M=5.
     constexpr int GFX12_MIN_M_16BIT = 2;
     const int wmma_arch = K % 64 == 0 && blocksize >= 32 ? gemm_4bit_wmma_arch() : 0;
-    bool use_wmma = wmma_arch == 11 ? M >= (is_fp32 ? 6 : 1) : wmma_arch == 12 && M >= GFX12_MIN_M_16BIT;
+    bool use_wmma = (wmma_arch == 11 || wmma_arch == 115) ? M >= (is_fp32 ? 6 : 1) : wmma_arch == 12 && M >= GFX12_MIN_M_16BIT;
     if (wmma_arch == 12 && is_fp32) {
         // gfx1201 fp32: with few output columns the 16-row split-bf16 WMMA tiles leave too few
         // blocks to stream the weights, so SIMT stays faster up to a few dozen rows. The first

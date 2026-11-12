@@ -14,9 +14,9 @@
 #include "gemm_4bit_common.cuh"
 #include "gemm_4bit_wmma.cuh"
 
-// RDNA3.5 (gfx115x) shares the gfx11 WMMA encoding but has not been validated
-// with the half-wave K split below, so it keeps the SIMT path for now.
-#define BNB_WMMA_RDNA3 IS_RDNA3
+// RDNA3.5 (gfx115x) shares the gfx11 WMMA encoding and half-wave behaviour
+// (verified with experiments/wmma_gfx11_halfwave_probe.hip), so it runs the gfx11 kernels.
+#define BNB_WMMA_RDNA3 (IS_RDNA3 || IS_RDNA3_5)
 #define BNB_WMMA_RDNA4 IS_RDNA4
 
 // WMMA generation the current device pass compiles kernel bodies for (0 = none,
@@ -61,6 +61,11 @@ using wmma_v16s = short __attribute__((ext_vector_type(16)));
 // Output rows per WMMA that carry real data: gfx11 runs two 8-row half-wave
 // products (see wmma_16x16x16), gfx12 one full 16x16x16 product.
 constexpr int wmma_rows(int arch) { return arch == 12 ? 16 : 8; }
+
+// Tuning targets returned by gemm_4bit_wmma_arch(): 11 (gfx110x), 115 (gfx115x, RDNA3.5)
+// and 12 (gfx120x). gfx115x runs the gfx11 kernels with its own tile rules.
+constexpr int WMMA_TARGET_GFX115X = 115;
+constexpr int wmma_gen(int target) { return target == WMMA_TARGET_GFX115X ? 11 : target; }
 
 // Per-lane operand fragment: 16 (gfx11) or 8 (gfx12) 16-bit values.
 template <int ARCH> using wmma_frag = std::conditional_t<ARCH == 12, wmma_v4u, wmma_v8u>;
@@ -586,7 +591,7 @@ __global__ void __launch_bounds__(KSPLIT* WARPS_M* WARPS_N * 32) gemm_4bit_wmma(
 
 namespace {
 
-// WMMA generation for a gcnArchName ("gfx1201" or "gfx1201:xnack-"): 11, 12, or 0.
+// WMMA tuning target for a gcnArchName ("gfx1201" or "gfx1201:xnack-"): 11, 115, 12, or 0.
 // The chips must be ones whose device pass emits the kernel body (IS_RDNA3 / IS_RDNA4 in
 // common.cuh); any other device would launch an empty kernel. gfx1200 is built but not
 // listed: the gfx12 tile rules and cutoffs are calibrated on gfx1201, which has twice its
@@ -595,7 +600,8 @@ int wmma_arch_of(const char* name) {
     static constexpr struct {
         const char* chip;
         int arch;
-    } chips[] = {{"gfx1100", 11}, {"gfx1101", 11}, {"gfx1102", 11}, {"gfx1103", 11}, {"gfx1201", 12}};
+    } chips[] = {{"gfx1100", 11}, {"gfx1101", 11}, {"gfx1102", 11}, {"gfx1103", 11},
+                   {"gfx1151", WMMA_TARGET_GFX115X}, {"gfx1201", 12}};
 
     for (const auto& c : chips) {
         const size_t n = std::strlen(c.chip);
@@ -670,7 +676,7 @@ void launch_wmma_tile(
 /// shapes: one tile per M bucket and N side, within ~3-8% (geomean) of the best swept
 /// tile per shape. Narrow N keeps 16-column warp tiles and deeper split-K so enough
 /// warps stream B; wide N uses 32-column warp tiles and 128-K iterations.
-template <int ARCH, typename T>
+template <int TARGET, typename T>
 void launch_gemm_4bit_wmma_arch(
     // clang-format off
     const T*       A,             // inputs [M, K]
@@ -687,6 +693,7 @@ void launch_gemm_4bit_wmma_arch(
     bnb_stream_t stream           // HIP stream
     // clang-format on
 ) {
+    constexpr int ARCH = wmma_gen(TARGET);
     // clang-format off
 #define LAUNCH_WMMA(WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX)                                           \
     launch_wmma_tile<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX>(                                \
@@ -867,6 +874,12 @@ bool launch_gemm_4bit_wmma(
 #if BNB_WMMA_EMIT_11
     if (arch == 11) {
         launch_gemm_4bit_wmma_arch<11, T>(
+            A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type, stream
+        );
+        return true;
+    }
+    if (arch == WMMA_TARGET_GFX115X) {
+        launch_gemm_4bit_wmma_arch<WMMA_TARGET_GFX115X, T>(
             A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type, stream
         );
         return true;

@@ -7,7 +7,9 @@
 log=$1; shift
 : > "$log.foreign"
 ( while true; do
-    rocm-smi --showpids 2>/dev/null | awk '/^[0-9]+/ {print $1}' | while read -r pid; do
+    # KFD lists every process with a GPU context; rocm-smi --showpids is the fallback.
+    { if [ -d /sys/class/kfd/kfd/proc ]; then ls /sys/class/kfd/kfd/proc
+      else rocm-smi --showpids 2>/dev/null | awk '/^[0-9]+/ {print $1}'; fi; } | while read -r pid; do
       u=$(ps -o user= -p "$pid" 2>/dev/null)
       [ -n "$u" ] && [ "$u" != "$USER" ] && ! [[ " $GUARD_ALLOW_PIDS " == *" $pid "* ]] &&
         echo "$(date +%T) $pid $u $(ps -o comm= -p "$pid")" >> "$log.foreign"
