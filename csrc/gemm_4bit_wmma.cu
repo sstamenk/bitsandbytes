@@ -281,11 +281,10 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
     const int half_id = lane >> 4;
     const int col = lane & 15;
 
-    // Block order. By default consecutive blocks walk N, so every row tile streams all of B
-    // from DRAM again. With row_tiles_first, the row tiles of the same N columns get
-    // consecutive block ids: they are resident together and the later ones read B from
-    // L2/MALL. That pays off once B no longer stays in the last-level cache between row
-    // tiles (see wmma_row_tiles_first).
+    // Block order. Walking N first makes every row tile stream all of B from DRAM again
+    // once B no longer fits in the last-level cache. With row_tiles_first, the row tiles of
+    // the same N columns get consecutive block ids, so they are resident together and share
+    // each B chunk through L2 (see wmma_row_tiles_first).
     int bx = blockIdx.x, by = blockIdx.y;
     if (row_tiles_first) {
         const int lin = blockIdx.x + gridDim.x * blockIdx.y;
@@ -642,18 +641,19 @@ int wmma_device_arch() {
 }
 
 /// Whether blocks walk the row tiles of the same N columns first (see gemm_4bit_wmma_body).
-/// gfx1100 (W7900, 96 MB Infinity Cache): with the shipped tiles, total time over the 40
-/// shapes 1.07-1.18x faster at M = 48-256 (up to 1.36x on 117 MB weights), neutral through
-/// M = 32 (one row tile) and on weights that stay cached; some 12-15 MB weights lost up
-/// to 13%, so it starts at 40 MB of packed weights. Other targets keep the N-first order
-/// until measured. Dev override: BNB_WMMA_ROW_TILES_FIRST=0|1.
-bool wmma_row_tiles_first(int target, int N, int K) {
+/// Only matters with two or more row tiles (M above one block tile). Measured with the
+/// best swept tile per shape and order over the 40 shapes (fp16, M = 48-256):
+/// - gfx1100 (W7900, 96 MB Infinity Cache): best-tile total time 1.08x faster, no weight
+///   size bucket slower (1.10-1.14x on weights >= 40 MB, ~1.01x below 4 MB);
+/// - gfx1201 (R9700, 64 MB): with the shipped tiles fp16 1.03x and fp32 1.04x at M = 256,
+///   no size bucket slower.
+/// The tile rules are fitted with this order. Dev override: BNB_WMMA_ROW_TILES_FIRST=0|1.
+bool wmma_row_tiles_first(int target) {
 #ifdef BNB_WMMA_DEV
     if (const char* env = std::getenv("BNB_WMMA_ROW_TILES_FIRST"))
         return env[0] == '1';
 #endif
-    const size_t weight_bytes = (size_t)N * K / 2;
-    return target == 11 && weight_bytes >= (size_t)40 << 20;
+    return target == 11 || target == 12;
 }
 
 /// Launch one tile configuration. KCH_MAX is lowered to 1 when K is not a multiple
@@ -723,7 +723,7 @@ void launch_gemm_4bit_wmma_arch(
     // clang-format on
 ) {
     constexpr int ARCH = wmma_gen(TARGET);
-    const bool row_tiles_first = wmma_row_tiles_first(TARGET, N, K);
+    const bool row_tiles_first = wmma_row_tiles_first(TARGET);
     // clang-format off
 #define LAUNCH_WMMA(WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX)                                           \
     launch_wmma_tile<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX>(                                \
