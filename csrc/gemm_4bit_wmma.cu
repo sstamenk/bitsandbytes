@@ -663,13 +663,18 @@ int wmma_device_arch() {
 ///   no size bucket slower;
 /// - gfx1151 (Radeon 8060S, 32 MB, LPDDR5X): with the gfx1100 tiles fp16 1.14x at M = 64,
 ///   1.26x at M = 128 and 1.57x at M = 256, fp32 ~1.03-1.13x (iGPU run-to-run drift ~10%).
-/// The tile rules are fitted with this order. Dev override: BNB_WMMA_ROW_TILES_FIRST=0|1.
-bool wmma_row_tiles_first(int target) {
+/// - fp32 on gfx110x stays N-first: neutral on gfx1100 (W7900, RX 7900 XTX), but 1.08x slower at
+///   M = 128-256 on gfx1103 (Radeon 760M, pinned clocks), where fp16 gains 1.27-1.35x.
+/// All measured at pinned clocks unless noted. The tile rules are fitted with this order.
+/// Dev override: BNB_WMMA_ROW_TILES_FIRST=0|1.
+bool wmma_row_tiles_first(int target, bool fp32) {
 #ifdef BNB_WMMA_DEV
     if (const char* env = std::getenv("BNB_WMMA_ROW_TILES_FIRST"))
         return env[0] == '1';
 #endif
-    return target == 11 || target == 12 || target == WMMA_TARGET_GFX115X;
+    if (target == 11)
+        return !fp32;
+    return target == 12 || target == WMMA_TARGET_GFX115X;
 }
 
 /// Launch one tile configuration. KCH_MAX is lowered to 1 when K is not a multiple
@@ -747,10 +752,11 @@ void launch_wmma_tile(
 
 /// @brief Tile selection for one WMMA generation (parameters as launch_gemm_4bit_wmma).
 ///
-/// gfx11: calibrated on gfx1100 (W7900) at default clocks over 40 LLM linear-layer
-/// shapes with row-tiles-first block order and fp16 prescaling: up to three N leaves per
-/// M bucket (benchmarking/gemm_4bit_wmma/derive_cfg3.py), fp16 total time within 0.4-7.4%
-/// of the best swept tile per shape. Narrow N keeps 16-column warp tiles and deeper
+/// gfx11: calibrated on gfx1100 (W7900) at pinned clocks (perf level high) over 40 LLM
+/// linear-layer shapes with row-tiles-first block order and fp16 prescaling: up to three
+/// leaves on N or K/N per M bucket (benchmarking/gemm_4bit_wmma/derive_cfg3.py), fp16 total
+/// time within 0.3-4.4% of the best swept tile per shape. Sweeps at default (auto) clocks
+/// are bimodal by ~10% and picked wrong small-M tiles. Narrow N keeps 16-column warp tiles and deeper
 /// split-K so enough warps stream B; wide N uses 32-column warp tiles and 128-K
 /// iterations.
 template <int TARGET, typename T>
@@ -771,7 +777,7 @@ void launch_gemm_4bit_wmma_arch(
     // clang-format on
 ) {
     constexpr int ARCH = wmma_gen(TARGET);
-    const bool row_tiles_first = wmma_row_tiles_first(TARGET);
+    const bool row_tiles_first = wmma_row_tiles_first(TARGET, std::is_same_v<T, float>);
     // clang-format off
 #define LAUNCH_WMMA(WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX)                                           \
     launch_wmma_tile<ARCH, T, WM, WN, WARPS_M, WARPS_N, KSPLIT, KCH_MAX>(                                \
@@ -859,9 +865,65 @@ void launch_gemm_4bit_wmma_arch(
         } else if (M <= 128) {
             if (N < 2048) LAUNCH_WMMA(2, 1, 1, 4, 2, 2);
             else          LAUNCH_WMMA(4, 1, 1, 4, 2, 1);
+        } else if (M <= 160) {
+            // M = 129-192 swept separately (the 256-row rule below was 1.22-1.25x off here).
+            if (N < 3072) LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
+            else          LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
+        } else if (M <= 192) {
+            if (N < 4608) LAUNCH_WMMA(4, 1, 1, 4, 2, 1);
+            else          LAUNCH_WMMA(4, 2, 1, 4, 1, 1);
         } else {
             if (K < N) LAUNCH_WMMA(4, 1, 2, 4, 1, 1);
             else       LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
+        }
+        return;
+    } else
+    if constexpr (TARGET == WMMA_TARGET_GFX115X) {
+        // gfx115x (gfx11 kernels): calibrated on gfx1151 (Radeon 8060S, LPDDR5X) at default
+        // clocks over the 40 shapes with row-tiles-first; total time within 1-6% (fp16) and
+        // 0.4-2% (fp32) of the best swept tile per shape (the gfx1100 rules were 15-17% off at
+        // M <= 16 and 33% at M = 128). The 8-row half-wave tiles and 40 CUs favour fewer warps
+        // along N at small M than on gfx1100.
+        if constexpr (std::is_same_v<T, float>) {
+            if (M <= 8) {
+                if (N < 2048)      LAUNCH_WMMA(1, 1, 1, 2, 4, 1);
+                else if (N < 3072) LAUNCH_WMMA(1, 1, 1, 4, 4, 1);
+                else               LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
+            } else if (M <= 16) {
+                if (N < 2048)      LAUNCH_WMMA(1, 1, 1, 4, 2, 2);
+                else if (N < 4096) LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
+                else               LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+            } else if (M <= 32) {
+                if (N < 2560)      LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
+                else if (N < 3072) LAUNCH_WMMA(2, 2, 1, 2, 1, 1);
+                else               LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+            } else if (M <= 64) {
+                if (N < 2816)      LAUNCH_WMMA(4, 1, 1, 4, 1, 1);
+                else if (N < 4096) LAUNCH_WMMA(2, 2, 2, 4, 1, 1);
+                else               LAUNCH_WMMA(2, 2, 2, 2, 1, 1);
+            } else {
+                LAUNCH_WMMA(2, 2, 2, 2, 1, 1);
+            }
+        } else if (M <= 8) {
+            if (N < 3072)       LAUNCH_WMMA(1, 1, 1, 1, 4, 1);
+            else if (N < 28672) LAUNCH_WMMA(1, 1, 1, 1, 8, 2);
+            else                LAUNCH_WMMA(1, 1, 1, 1, 2, 2);
+        } else if (M <= 16) {
+            if (N < 3072)       LAUNCH_WMMA(2, 1, 1, 2, 4, 1);
+            else if (N < 25600) LAUNCH_WMMA(2, 2, 1, 1, 4, 2);
+            else                LAUNCH_WMMA(2, 1, 1, 2, 2, 2);
+        } else if (M <= 32) {
+            if (N < 3840)      LAUNCH_WMMA(4, 1, 1, 2, 2, 1);
+            else if (N < 6144) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
+            else               LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        } else if (M <= 64) {
+            if (N < 2560)      LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+            else if (N < 3840) LAUNCH_WMMA(4, 2, 1, 2, 2, 1);
+            else               LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        } else {
+            if (N < 2816)      LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
+            else if (N < 3072) LAUNCH_WMMA(4, 2, 1, 4, 1, 1);
+            else               LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
         }
         return;
     } else
@@ -890,9 +952,11 @@ void launch_gemm_4bit_wmma_arch(
         return;
     } else
     if (M <= 8) {
-        if (N < 3840)      LAUNCH_WMMA(1, 1, 1, 1, 8, 1);
-        else if (N < 8192) LAUNCH_WMMA(1, 1, 1, 1, 2, 2);
-        else               LAUNCH_WMMA(1, 1, 1, 1, 8, 2);
+        // Leaves on the aspect ratio K/N: very wide layers (K/N < 2/7) use two warps along N,
+        // very tall ones (K >= 5N) a shorter split-K with 128-K iterations.
+        if (7 * (int64_t)K < 2 * (int64_t)N) LAUNCH_WMMA(1, 1, 1, 2, 8, 1);
+        else if (K >= 5 * N)                  LAUNCH_WMMA(1, 1, 1, 2, 4, 2);
+        else                                  LAUNCH_WMMA(1, 1, 1, 1, 8, 1);
     } else if (M <= 16) {
         if (N < 5120) LAUNCH_WMMA(2, 1, 1, 2, 8, 1);
         else          LAUNCH_WMMA(2, 2, 1, 2, 4, 2);
@@ -909,9 +973,9 @@ void launch_gemm_4bit_wmma_arch(
         else if (N < 8192) LAUNCH_WMMA(2, 2, 1, 2, 2, 2);
         else               LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
     } else if (M <= 64) {
-        if (N < 3072)      LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
-        else if (N < 5120) LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
-        else               LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
+        if (N < 3072)       LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
+        else if (N < 10240) LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        else                LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
     } else if (M <= 96) {
         if (N < 3072)      LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
         else if (N < 8192) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);

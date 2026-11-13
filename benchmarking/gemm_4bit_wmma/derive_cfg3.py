@@ -19,6 +19,8 @@ p.add_argument("sweep")
 p.add_argument("--min-gain", type=float, default=0.01)
 p.add_argument("--merge", type=float, default=0.01, help="merge adjacent M buckets if the joint rule loses <= this")
 p.add_argument("--score", choices=["geomean", "total"], default="geomean", help="objective: geomean of time/best or total time")
+p.add_argument("--feature", choices=["N", "K", "KoverN", "auto"], default="N",
+               help="shape feature the leaves split on; auto tries N, K and K/N per bucket and keeps the best")
 args = p.parse_args()
 
 t = defaultdict(dict)  # (shape, N, K, M) -> cfg -> us
@@ -55,19 +57,30 @@ def best_leaf(keys):
     return best
 
 
+FEAT = {"N": lambda k: k[1], "K": lambda k: k[2], "KoverN": lambda k: k[2] / k[1]}
+
+
 def fit(keys):
-    """Best rule with 1, 2 or 3 N leaves: (geomean, total ratio, worst, [(n_lo, cfg), ...])."""
+    if args.feature != "auto":
+        return fit_on(keys, args.feature)
+    key = (lambda r: r[1]) if args.score == "total" else (lambda r: r[0])
+    return min((fit_on(keys, f) for f in FEAT), key=key)
+
+
+def fit_on(keys, feat):
+    """Best rule with 1, 2 or 3 leaves on one feature: (geomean, total ratio, worst, [(lo, cfg), ...], feat)."""
     n = len(keys)
-    Ns = sorted({k[1] for k in keys})
+    fv = FEAT[feat]
+    Ns = sorted({fv(k) for k in keys})
 
     def summarize(leaves):
         lg = sum(s[0] for s, _, _ in leaves)
         tot = sum(s[1] for s, _, _ in leaves)
         bt = sum(s[2] for s, _, _ in leaves)
-        return math.exp(lg / n), tot / bt, max(s[3] for s, _, _ in leaves), [(lo, c) for _, c, lo in leaves]
+        return math.exp(lg / n), tot / bt, max(s[3] for s, _, _ in leaves), [(lo, c) for _, c, lo in leaves], feat
 
     def leaf(lo, hi):
-        ks = [k for k in keys if lo <= k[1] < hi]
+        ks = [k for k in keys if lo <= fv(k) < hi]
         if len(ks) < 3:
             return None
         b = best_leaf(ks)
@@ -132,8 +145,9 @@ while merged:
             break
 
 for ms in buckets:
-    g, tr, w, leaves = get(ms)
-    desc = "; ".join(f"N>={lo}: {c}" if lo else c for lo, c in leaves)
+    g, tr, w, leaves, feat = get(ms)
+    fv = FEAT[feat]
+    desc = "; ".join(f"{feat}>={lo:g}: {c}" if lo else c for lo, c in leaves)
     print(f"M {ms[0]:>3}-{ms[-1]:<3}  geomean {g:.3f}  total {tr:.3f}  worst {w:.2f}  {desc}")
     if len(ms) > 1:
         for m in ms:
@@ -141,7 +155,7 @@ for ms in buckets:
             lg = tot = bt = 0.0
             worst = 1.0
             for k in ks:
-                c = next(c for lo, c in reversed(leaves) if k[1] >= lo)
+                c = next(c for lo, c in reversed(leaves) if fv(k) >= lo)
                 v = t[k]
                 lg += math.log(v[c] / min(v.values()))
                 tot += v[c]
