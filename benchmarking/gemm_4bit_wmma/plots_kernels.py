@@ -27,6 +27,23 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FixedLocator, FuncFormatter, LogLocator, NullLocator
+
+
+def write_manifest(out_dir, name, inputs, **params):
+    """Record the inputs (with SHA-256) and parameters behind a plot, so it can be audited/reproduced."""
+    import hashlib
+    import json
+    import subprocess
+
+    def sha(p):
+        return hashlib.sha256(open(p, "rb").read()).hexdigest()
+
+    try:
+        rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip()
+    except OSError:
+        rev = ""
+    with open(f"{out_dir}/{name}.manifest.json", "w") as f:
+        json.dump({"inputs": {p: sha(p) for p in inputs}, "git": rev, **params}, f, indent=1)
 from shapes import SHAPES
 
 SURF, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e6e5e0"
@@ -174,4 +191,5 @@ for dt in DTYPES:
     fig.tight_layout()
     fig.savefig(f"{OUT}/kernels_per_shape_{dt}{SUFFIX}.png", dpi=110)
     plt.close(fig)
+write_manifest(OUT, f"kernels{SUFFIX}", FILES, peak_gbs=PEAK, gpu=GPU, arch=ARCH, clocks=CLOCKS, blocksize=BLOCKSIZE)
 print(f"wrote {OUT}/kernels_median{SUFFIX}.png and kernels_per_shape_<dtype>{SUFFIX}.png for {DTYPES}")

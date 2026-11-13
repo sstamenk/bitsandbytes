@@ -24,6 +24,23 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
 
+
+def write_manifest(out_dir, name, inputs, **params):
+    """Record the inputs (with SHA-256) and parameters behind a plot, so it can be audited/reproduced."""
+    import hashlib
+    import json
+    import subprocess
+
+    def sha(p):
+        return hashlib.sha256(open(p, "rb").read()).hexdigest()
+
+    try:
+        rev = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, text=True).stdout.strip()
+    except OSError:
+        rev = ""
+    with open(f"{out_dir}/{name}.manifest.json", "w") as f:
+        json.dump({"inputs": {p: sha(p) for p in inputs}, "git": rev, **params}, f, indent=1)
+
 # Same palette and axis style as plots.py (which runs on import, so it is not imported).
 SURF, INK, INK2, GRID = "#fcfcfb", "#0b0b0b", "#52514e", "#e6e5e0"
 COL = {"new": "#2a78d6", "dequant": "#1baf7a"}
@@ -128,4 +145,5 @@ with open(f"{OUT}/speedup_{TAG}.md", "w") as f:
     for dt, M, t, md, mn, mx, w, n, nz in rows:
         nzs = "" if math.isnan(nz) else f"{nz:.3f}"
         f.write(f"| {dt} | {M} | {t:.3f}x | {md:.3f}x | {mn:.2f}x | {mx:.2f}x | {w}/{n} | {nzs} |\n")
+write_manifest(OUT, f"speedup_{TAG}", A_FILES + [B_FILE], kernel=KERN, baseline=A_NAME, new=B_NAME, arch=ARCH, clocks=CLOCKS)
 print(f"wrote {OUT}/speedup_{TAG}.png and .md ({len(rows)} rows)")
