@@ -919,16 +919,25 @@ void launch_gemm_4bit_wmma_arch(
             if (N < 3072)       LAUNCH_WMMA(2, 1, 1, 2, 4, 1);
             else if (N < 25600) LAUNCH_WMMA(2, 2, 1, 1, 4, 2);
             else                LAUNCH_WMMA(2, 1, 1, 2, 2, 2);
-        } else if (M <= 32) {
+        } else if (M <= 24) {
             // M > 16 refitted from a pinned-clock sweep at M = 24, 48, 96, 192 and 384 (the
-            // auto-clock buckets were 1.10-1.12x off the best tile at M = 24-96).
+            // auto-clock buckets were 1.10-1.12x off the best tile at M = 24-96). The bucket tops
+            // M = 25-32 and 49-64 keep the gfx1100 tiles, which measured 2-6% faster there.
             if (K < 8192)       LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
             else if (K < 10240) LAUNCH_WMMA(4, 1, 1, 2, 1, 2);
             else                LAUNCH_WMMA(1, 2, 1, 1, 8, 2);
-        } else if (M <= 64) {
+        } else if (M <= 32) {
+            if (N < 3072)      LAUNCH_WMMA(2, 1, 1, 2, 8, 1);
+            else if (N < 5120) LAUNCH_WMMA(2, 2, 1, 2, 4, 2);
+            else               LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        } else if (M <= 48) {
             if (N < 2816)      LAUNCH_WMMA(2, 1, 1, 4, 2, 2);
             else if (N < 3840) LAUNCH_WMMA(2, 1, 1, 4, 1, 2);
             else               LAUNCH_WMMA(2, 1, 1, 4, 4, 2);
+        } else if (M <= 64) {
+            if (N < 3072)       LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
+            else if (N < 10240) LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+            else                LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
         } else if (M <= 128) {
             if (K < 8192) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
             else          LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
