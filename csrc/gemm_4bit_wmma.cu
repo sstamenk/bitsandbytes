@@ -758,7 +758,7 @@ void launch_wmma_tile(
 /// gfx11: calibrated on gfx1100 (W7900) at pinned clocks (perf level high) over 40 LLM
 /// linear-layer shapes with row-tiles-first block order and fp16 prescaling: up to three
 /// leaves on N or K/N per M bucket (benchmarking/gemm_4bit_wmma/derive_cfg3.py), fp16 total
-/// time within 0.3-4.4% of the best swept tile per shape. Sweeps at default (auto) clocks
+/// time within 0.3-4.4% of the best swept tile per shape (fp32 within 1.5%). Sweeps at default (auto) clocks
 /// are bimodal by ~10% and picked wrong small-M tiles. Narrow N keeps 16-column warp tiles and deeper
 /// split-K so enough warps stream B; wide N uses 32-column warp tiles and 128-K
 /// iterations.
@@ -831,7 +831,7 @@ void launch_gemm_4bit_wmma_arch(
     }
 #endif
     if constexpr (ARCH == 12) {
-        // gfx12 (16-row WMMA): calibrated on gfx1201 (R9700) at default clocks over the same
+        // gfx12 (16-row WMMA): calibrated on gfx1201 (R9700) at pinned clocks over the same
         // 40 shapes, within ~2-6% (bf16/fp16) and ~0-2% (fp32) geomean of the best swept tile.
         // One 16-row tile covers M <= 16, where the kernel is bandwidth-bound; larger M adds
         // warps along N and rows per warp rather than warps along M.
@@ -856,11 +856,11 @@ void launch_gemm_4bit_wmma_arch(
             }
         } else if (M <= 16) {
             // fp16/bf16 refitted at pinned clocks (perf level high) on R9700: total time within
-            // 0.5-3.3% of the best swept tile per shape (the auto-clock rules were 9% off at
+            // 0.1-3.6% of the best swept tile per shape (the auto-clock rules were 9% off at
             // M <= 16 and 12.5% at M = 256).
             if (N < 3840) LAUNCH_WMMA(1, 1, 1, 2, 8, 1);
             else          LAUNCH_WMMA(1, 2, 1, 2, 4, 2);
-        } else if (M <= 48) {
+        } else if (M <= 32) {
             if (N < 2048)      LAUNCH_WMMA(1, 1, 1, 2, 8, 1);
             else if (N < 8192) LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
             else               LAUNCH_WMMA(2, 2, 1, 4, 2, 2);

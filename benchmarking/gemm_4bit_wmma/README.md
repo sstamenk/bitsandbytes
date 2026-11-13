@@ -1,20 +1,28 @@
 # AMD WMMA 4-bit GEMM: benchmark and tuning harness
 
-Harness, data and notes behind the RDNA3/RDNA4 WMMA kernel for the fused 4-bit GEMM
+Harness, data and notes behind the RDNA3/RDNA3.5/RDNA4 WMMA kernel for the fused 4-bit GEMM
 (`csrc/gemm_4bit_wmma.cu`). Use it to re-tune the tile rules and to enable more
 architectures.
 
-Dispatch with `K % 64 == 0` and blocksize >= 32:
+Dispatch with `K % 64 == 0` and blocksize >= 32 (fused vs dequant+`F.linear` is decided in Python,
+`_gemm_4bit_use_custom_rocm`; SIMT vs WMMA in `csrc/gemm_4bit.cu`):
 
-| arch | dtype | kernel choice |
-|---|---|---|
-| RDNA3 (gfx110x) | fp16 / bf16 | WMMA for every M the Python side routes to the custom kernel (M <= 256) |
-| RDNA3 (gfx110x) | fp32 | SIMT for M <= 5, WMMA for M = 6-128 |
-| RDNA4 (gfx1201) | fp16 / bf16 | SIMT for M = 1, WMMA for M = 2-256 |
-| RDNA4 (gfx1201) | fp32 | SIMT for M <= 4; from M = 5, WMMA when N is large enough for its M (SIMT below N = 8192 at M = 5, 4096 at M = 6, 2048 at M = 7-9, 1408 at M = 10-15, 1024 at M = 16-31), otherwise SIMT; fused through M = 512 |
+| arch | dtype | fused kernel used up to | kernel choice |
+|---|---|---|---|
+| RDNA3 (gfx110x) | fp16 / bf16 | M = 384 | WMMA at every M |
+| RDNA3 (gfx110x) | fp32 | M = 128 | SIMT for M <= 4; WMMA when N >= 3072 at M = 5 and N >= 2816 at M = 6-7; WMMA from M = 8 |
+| RDNA3.5 (gfx1151) | fp16 / bf16 | M = 384 | WMMA at every M (own tile rules) |
+| RDNA3.5 (gfx1151) | fp32 | M = 128 | SIMT for M <= 3; WMMA when N >= 2560 at M = 4-5 and N >= 1024 at M = 6-7; WMMA from M = 8 |
+| RDNA4 (gfx1201) | fp16 / bf16 | M = 256 | SIMT for M = 1, WMMA from M = 2 |
+| RDNA4 (gfx1201) | fp32 | M = 512 | SIMT for M <= 4; from M = 5, WMMA when N is large enough for its M (8192 at M = 5, 4096 at M = 6, 2048 at M = 7-9, 1408 at M = 10-15, 1024 at M = 16-31); WMMA from M = 32 |
 
 fp32 is emulated with 3-way split bf16 operands (6 WMMAs per tile) and is fp32-accurate.
-Every other architecture keeps SIMT plus dequant+`F.linear`, unchanged.
+Other gfx110x/gfx115x/gfx120x chips build the kernels but are not calibrated (gfx1103 shares the
+gfx110x rules); every other architecture keeps SIMT plus dequant+`F.linear`, unchanged.
+
+All tile rules and cutoffs are fitted from timings at a pinned performance level (`high`, see
+"Clock mode" below): at the default (auto) level, per-shape timings were bimodal by ~10% (DVFS),
+which picked wrong small-M tiles on gfx1100 and gfx1201.
 
 ## Setup
 
@@ -60,7 +68,11 @@ Dev-only environment variables (these need `-DBNB_WMMA_DEV=ON`):
 - **Per-call timing.** The result is the median of the per-call event deltas.
 - **Real quantized weights.** Always time real NF4-quantized weights. Uniform or uniformly random bytes change the bank-conflict pattern of the LDS lookup table and gave misleading results: a prefetch change looked 1.2x faster in a synthetic harness but was neutral on real weights.
 - **One process per GPU.** `par_bench.sh` and `par_sweep.sh` shard shapes round-robin across GPUs, one process per GPU, and merge the CSVs.
-- **Clock mode.** Never compare timings across clock modes. `power_dpm_force_performance_level=profile_standard`, which is needed for rocprofv3 SQ counters, pins sclk at about 970 MHz and roughly halves WMMA throughput. It also moves the crossovers. All data here was taken at default (auto) clocks.
+- **Clock mode.** Never compare timings across clock modes. `power_dpm_force_performance_level=profile_standard`, which is needed for rocprofv3 SQ counters, pins sclk at about 970 MHz and roughly halves WMMA throughput. It also moves the crossovers. For timing, pin the level to `high` (`sudo amd-smi set -g <idx> -l HIGH`, or write
+  `high` to `/sys/class/drm/cardN/device/power_dpm_force_performance_level` on APUs) and restore `auto` afterwards
+  (an EXIT trap). At `auto`, the same kernel times bimodally (~210 vs ~233 us on one W7900 shape, mixed within a
+  process); at `high` it stays within ~1.5%. amd-smi indices differ from HIP device indices: map them by PCI bus.
+  The `data/<arch>/pinned` files and the rules fitted from them are at `high`; older files in `data/<arch>` are at auto.
 - **Device order.** HIP device order can differ from amd-smi order. Check with `rocminfo` before pinning clocks on a specific GPU.
 - **Exclusive GPUs.** Other users' jobs on a shared machine invalidate timings, also on GPUs you are not using (their host and PCIe traffic still interferes). `amd-smi process` does not show other users' processes; `rocm-smi --showpids` does. On gfx1201 a vLLM job on the other GPUs inflated small-kernel times by up to 10x, while two clean runs 25 minutes apart agreed within ±2% (p5-p95). `runs_guard.sh` wraps a timing job, logs any foreign GPU process during the run, and reports CLEAN or CONTAMINATED.
 

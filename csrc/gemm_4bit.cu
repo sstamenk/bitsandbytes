@@ -88,11 +88,11 @@ static void gemm_4bit(
         // few dozen). The first row with M <= max_m decides: WMMA iff N >= min_n; past the
         // last row WMMA always. Fitted per target from SIMT and WMMA timings at every M up
         // to 32 (benchmarking/gemm_4bit_wmma/fit_fp32_cutoff.py):
-        // - gfx1100 (W7900, pinned clocks): within 2.2% of the per-shape faster kernel in total
-        //   time at M = 4-5 and within 0.6% from M = 6 (SIMT through M = 5 was 1.10x slower at
+        // - gfx1100 (W7900, pinned clocks): within 2.6% of the per-shape faster kernel in total
+        //   time at M = 4-5 and within 1.7% from M = 6 (SIMT through M = 5 was 1.10x slower at
         //   M = 5); WMMA at M = 4 lost to SIMT on tall-K shapes by up to 1.34x.
-        // - gfx1201 (R9700): within 1% at M = 5-32, no shape more than 8% slower (WMMA alone was
-        //   up to 1.6x slower at M = 6).
+        // - gfx1201 (R9700, pinned clocks): within 0.8% in total at M = 5-32; single shapes up
+        //   to 1.14x slower near the N cutoffs (WMMA alone was up to 1.6x slower at M = 6).
         struct Cutoff {
             int max_m, min_n;
         };
