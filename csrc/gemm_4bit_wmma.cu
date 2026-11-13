@@ -935,9 +935,9 @@ void launch_gemm_4bit_wmma_arch(
             else if (N < 3840) LAUNCH_WMMA(2, 1, 1, 4, 1, 2);
             else               LAUNCH_WMMA(2, 1, 1, 4, 4, 2);
         } else if (M <= 64) {
-            if (N < 3072)       LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
-            else if (N < 10240) LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
-            else                LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
+            if (N < 3072)      LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
+            else if (N < 5120) LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+            else               LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
         } else if (M <= 128) {
             if (K < 8192) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
             else          LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
