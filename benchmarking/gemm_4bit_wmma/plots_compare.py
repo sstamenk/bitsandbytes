@@ -109,7 +109,7 @@ for ax, dt in zip(axes[0], DTYPES):
     ax.set_xlabel("batch M (rows)")
     ax.set_title(dt, loc="left", fontsize=11, color=INK)
     ax.grid(True, color=GRID)
-axes[0][0].set_ylabel(f"speedup of {B_NAME} over {A_NAME}")
+axes[0][0].set_ylabel("speedup (baseline time / new time)")
 axes[0][0].legend(frameon=False, loc="upper left", fontsize=8)
 fig.suptitle(
     f"{ARCH} 4-bit GEMM default dispatch: {B_NAME} vs {A_NAME}\n40 LLM shapes, weights streamed from DRAM; {CLOCKS}",

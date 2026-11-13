@@ -120,7 +120,9 @@ for j, dt in enumerate(DTYPES):
         logx(ax)
         ax.set_xlabel("batch M (rows)")
     logy(ax_t)
-    ax_t.set_title(dt, loc="left", fontsize=11, color=INK)
+    # Optional per-dtype caveat, e.g. PLOT_NOTE_fp32="dequant+BLAS hits ROCM-31245".
+    note = os.environ.get(f"PLOT_NOTE_{dt}", "")
+    ax_t.set_title(dt + (f"  ({note})" if note else ""), loc="left", fontsize=11 if not note else 9, color=INK)
     ax_b.set_ylim(0, PEAK * 1.12)
     if j == 0:
         ax_t.set_ylabel("median latency over the shapes (µs, log)")
