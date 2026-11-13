@@ -893,19 +893,23 @@ void launch_gemm_4bit_wmma_arch(
                 else if (N < 3072) LAUNCH_WMMA(1, 1, 1, 4, 4, 1);
                 else               LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
             } else if (M <= 16) {
-                if (N < 2048)      LAUNCH_WMMA(1, 1, 1, 4, 2, 2);
-                else if (N < 4096) LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
-                else               LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+                // M > 8 refitted from a pinned-clock sweep at M = 12, 24, 48 and 96: the previous
+                // buckets (auto-clock sweep, no data at M = 24/48) were 1.13-1.49x off the best tile.
+                if (K < 4608)      LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
+                else if (K < 8192) LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+                else               LAUNCH_WMMA(2, 1, 1, 4, 1, 2);
             } else if (M <= 32) {
-                if (N < 2560)      LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
+                if (K < 3840)       LAUNCH_WMMA(1, 1, 1, 4, 2, 1);
+                else if (K < 17408) LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+                else                LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
+            } else if (M <= 64) {
+                if (N < 3840)       LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+                else if (N < 10240) LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
+                else                LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+            } else {
+                if (N < 2048)      LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
                 else if (N < 3072) LAUNCH_WMMA(2, 2, 1, 2, 1, 1);
                 else               LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
-            } else if (M <= 64) {
-                if (N < 2816)      LAUNCH_WMMA(4, 1, 1, 4, 1, 1);
-                else if (N < 4096) LAUNCH_WMMA(2, 2, 2, 4, 1, 1);
-                else               LAUNCH_WMMA(2, 2, 2, 2, 1, 1);
-            } else {
-                LAUNCH_WMMA(2, 2, 2, 2, 1, 1);
             }
         } else if (M <= 8) {
             if (N < 3072)       LAUNCH_WMMA(1, 1, 1, 1, 4, 1);
@@ -916,17 +920,24 @@ void launch_gemm_4bit_wmma_arch(
             else if (N < 25600) LAUNCH_WMMA(2, 2, 1, 1, 4, 2);
             else                LAUNCH_WMMA(2, 1, 1, 2, 2, 2);
         } else if (M <= 32) {
-            if (N < 3840)      LAUNCH_WMMA(4, 1, 1, 2, 2, 1);
-            else if (N < 6144) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
-            else               LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+            // M > 16 refitted from a pinned-clock sweep at M = 24, 48, 96, 192 and 384 (the
+            // auto-clock buckets were 1.10-1.12x off the best tile at M = 24-96).
+            if (K < 8192)       LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+            else if (K < 10240) LAUNCH_WMMA(4, 1, 1, 2, 1, 2);
+            else                LAUNCH_WMMA(1, 2, 1, 1, 8, 2);
         } else if (M <= 64) {
-            if (N < 2560)      LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
-            else if (N < 3840) LAUNCH_WMMA(4, 2, 1, 2, 2, 1);
-            else               LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+            if (N < 2816)      LAUNCH_WMMA(2, 1, 1, 4, 2, 2);
+            else if (N < 3840) LAUNCH_WMMA(2, 1, 1, 4, 1, 2);
+            else               LAUNCH_WMMA(2, 1, 1, 4, 4, 2);
+        } else if (M <= 128) {
+            if (K < 8192) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
+            else          LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        } else if (M <= 256) {
+            if (5 * (int64_t)K < 6 * (int64_t)N) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
+            else                                  LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
         } else {
-            if (N < 2816)      LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
-            else if (N < 3072) LAUNCH_WMMA(4, 2, 1, 4, 1, 1);
-            else               LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
+            if (K < 21504) LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
+            else           LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
         }
         return;
     } else
