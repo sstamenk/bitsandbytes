@@ -389,7 +389,10 @@ __device__ __forceinline__ void gemm_4bit_wmma_body(
     constexpr int FRAG_WORDS = 16 / SUBS;
     constexpr bool SPLIT32 = GFX12 && GS < SUBS;      // gfx12, blocksize 32
     constexpr int NG = KCH * SUBS / GS;               // scale groups per iteration
-    constexpr int GROUP_SUBS = GS < SUBS ? GS : SUBS; // WMMAs per group within one unit
+    // WMMAs per group within one unit. gfx12 fp32 (split bf16) decodes one fragment at a time:
+    // fewer live registers (256 -> 210 VGPRs, no scratch on the shipped tile) and 1.02-1.07x
+    // total time on R9700 (GPT-6 Astra, pinned clocks); other paths decode the whole group.
+    constexpr int GROUP_SUBS = ARCH == 12 && F32 ? 1 : (GS < SUBS ? GS : SUBS);
     constexpr int UNIT_K = GFX12 ? 64 : 32;           // K between a lane's consecutive units
     // First K of the lane's slice in unit 0 (relative to the chunk start).
     const int k_lane = GFX12 ? (SPLIT32 ? 16 : 32) * half_id : 32 * KCH * half_id;
@@ -833,48 +836,48 @@ void launch_gemm_4bit_wmma_arch(
         // One 16-row tile covers M <= 16, where the kernel is bandwidth-bound; larger M adds
         // warps along N and rows per warp rather than warps along M.
         if constexpr (std::is_same_v<T, float>) {
+            // Refitted at pinned clocks on the one-fragment fp32 kernel: total time within
+            // 0.0-1.4% of the best swept tile per shape.
             if (M <= 16) {
-                LAUNCH_WMMA(1, 1, 1, 4, 2, 1);
-            } else if (M <= 32) {
+                if (N < 3840)      LAUNCH_WMMA(1, 1, 1, 2, 2, 1);
+                else if (N < 4608) LAUNCH_WMMA(1, 1, 1, 4, 2, 1);
+                else               LAUNCH_WMMA(1, 2, 1, 2, 2, 1);
+            } else if (M <= 48) {
                 if (N < 8192) LAUNCH_WMMA(1, 1, 1, 4, 2, 1);
                 else          LAUNCH_WMMA(2, 2, 1, 4, 1, 1);
-            } else if (M <= 48) {
-                LAUNCH_WMMA(1, 1, 1, 4, 2, 1);
-            } else if (M <= 64) {
-                if (N < 4608) LAUNCH_WMMA(2, 1, 1, 4, 1, 1);
+            } else if (M <= 96) {
+                if (N < 3840) LAUNCH_WMMA(2, 1, 1, 4, 1, 1);
                 else          LAUNCH_WMMA(2, 2, 1, 4, 1, 1);
-            } else if (M <= 128) {
-                if (N < 2560) LAUNCH_WMMA(2, 1, 1, 4, 1, 1);
+            } else if (M <= 192) {
+                if (N < 2048) LAUNCH_WMMA(2, 1, 1, 4, 1, 1);
                 else          LAUNCH_WMMA(2, 2, 1, 4, 1, 1);
             } else {
                 LAUNCH_WMMA(2, 2, 1, 4, 1, 1);
             }
         } else if (M <= 16) {
-            if (N < 3840)      LAUNCH_WMMA(1, 1, 1, 2, 8, 1);
-            else if (N < 6144) LAUNCH_WMMA(1, 1, 1, 2, 2, 2);
-            else               LAUNCH_WMMA(1, 1, 1, 2, 4, 2);
-        } else if (M <= 32) {
-            if (N < 2048) LAUNCH_WMMA(1, 1, 1, 2, 8, 1);
-            else          LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
-        } else if (M <= 64) {
-            if (N < 3840) LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
-            else          LAUNCH_WMMA(4, 1, 1, 4, 2, 1);
+            // fp16/bf16 refitted at pinned clocks (perf level high) on R9700: total time within
+            // 0.5-3.3% of the best swept tile per shape (the auto-clock rules were 9% off at
+            // M <= 16 and 12.5% at M = 256).
+            if (N < 3840) LAUNCH_WMMA(1, 1, 1, 2, 8, 1);
+            else          LAUNCH_WMMA(1, 2, 1, 2, 4, 2);
+        } else if (M <= 48) {
+            if (N < 2048)      LAUNCH_WMMA(1, 1, 1, 2, 8, 1);
+            else if (N < 8192) LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
+            else               LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
         } else if (M <= 96) {
-            if (N < 3072) LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
+            if (N < 3840) LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
             else          LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
         } else if (M <= 128) {
-            if (N < 2048) LAUNCH_WMMA(2, 1, 1, 4, 2, 2);
-            else          LAUNCH_WMMA(4, 1, 1, 4, 2, 1);
+            if (N < 3072)      LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
+            else if (N < 8192) LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
+            else               LAUNCH_WMMA(4, 2, 1, 4, 1, 1);
         } else if (M <= 160) {
-            // M = 129-192 swept separately (the 256-row rule below was 1.22-1.25x off here).
-            if (N < 3072) LAUNCH_WMMA(2, 1, 1, 4, 4, 1);
-            else          LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
-        } else if (M <= 192) {
-            if (N < 4608) LAUNCH_WMMA(4, 1, 1, 4, 2, 1);
-            else          LAUNCH_WMMA(4, 2, 1, 4, 1, 1);
+            if (N < 3072) LAUNCH_WMMA(2, 1, 1, 4, 2, 1);
+            else          LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
         } else {
-            if (K < N) LAUNCH_WMMA(4, 1, 2, 4, 1, 1);
-            else       LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
+            if (N < 2816)      LAUNCH_WMMA(2, 2, 1, 4, 2, 2);
+            else if (N < 3840) LAUNCH_WMMA(4, 1, 1, 4, 1, 1);
+            else               LAUNCH_WMMA(4, 2, 1, 4, 1, 1);
         }
         return;
     } else

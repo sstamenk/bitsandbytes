@@ -97,7 +97,7 @@ static void gemm_4bit(
             int max_m, min_n;
         };
         static constexpr Cutoff gfx11_fp32_wmma[] = {{4, INT_MAX}, {5, 3072}, {7, 2816}};
-        static constexpr Cutoff gfx115_fp32_wmma[] = {{3, INT_MAX}, {5, 4096}, {7, 1024}};
+        static constexpr Cutoff gfx115_fp32_wmma[] = {{3, INT_MAX}, {5, 2560}, {7, 1024}};
         static constexpr Cutoff gfx12_fp32_wmma[] = {{4, INT_MAX}, {5, 8192}, {6, 4096}, {9, 2048}, {15, 1408}, {31, 1024}};
         auto pick = [&](const auto& table) {
             for (const auto& row : table)

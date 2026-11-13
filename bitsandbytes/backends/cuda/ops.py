@@ -823,6 +823,12 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
     and on 28-33/40 at M=384 (total time 1.99x at M=128, 1.29-1.33x at M=256,
     1.11-1.13x at M=384); fp32 on 33/40 at M=128 (total 1.20x) but only on 12-19/40
     above, so fp32 stops at M=128.
+    RDNA3.5 gfx1151 (Strix Halo, LPDDR5X) with K % 64 == 0 runs the WMMA kernel (gfx11 kernels, own
+    tile rules) for bf16/fp16 at any M and for fp32 from M=4 (by N through M=7). Calibrated on
+    Radeon 8060S at pinned clocks: bf16/fp16 beat dequant+F.linear on every shape through M=128
+    (total time 7-8x at M<=16, 2.7-3x at M=128) and on 31-32/40 at M=384 (1.7-1.8x); fp32 by
+    5-20x in total but only on 25-28/40 shapes above M=64, so fp32 stops at M=128. Other gfx115x
+    are not calibrated and keep the SIMT-only heuristic below.
     RDNA4 gfx1201 with K % 64 == 0 runs the WMMA kernel for bf16/fp16 from M=2; fp32 uses
     SIMT through M=4 and from M=5 picks SIMT or WMMA by N in the C dispatch (SIMT for narrow
     weights up to M=31). gfx1200 is not calibrated and keeps the SIMT-only heuristic below.
@@ -844,6 +850,8 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
 
     arch = _rocm_gfx_arch(device_index)
     if arch.startswith("gfx110") and K % 64 == 0:  # RDNA3 WMMA
+        return M <= (128 if dtype == torch.float32 else 384)
+    if arch == "gfx1151" and K % 64 == 0:  # RDNA3.5 WMMA (other gfx115x not calibrated)
         return M <= (128 if dtype == torch.float32 else 384)
     if arch == "gfx1201" and K % 64 == 0:  # RDNA4 WMMA (gfx1200 not calibrated)
         return M <= (512 if dtype == torch.float32 else 256)
@@ -944,8 +952,8 @@ if torch.version.hip is None:
     _gemm_4bit_custom_max_m = 1536
 else:
     _gemm_4bit_use_custom_fn = _gemm_4bit_use_custom_rocm
-    # ROCm: the per-arch heuristic above owns RDNA/CDNA thresholds; gfx110x bf16/fp16 keep
-    # the custom kernel through M=384 and gfx1201 fp32 through M=512.
+    # ROCm: the per-arch heuristic above owns RDNA/CDNA thresholds; gfx110x/gfx1151 bf16/fp16
+    # keep the custom kernel through M=384 and gfx1201 fp32 through M=512.
     _gemm_4bit_custom_max_m = 512
 
 
