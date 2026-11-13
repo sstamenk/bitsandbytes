@@ -832,10 +832,10 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
     RDNA4 gfx1201 with K % 64 == 0 runs the WMMA kernel for bf16/fp16 from M=2; fp32 uses
     SIMT through M=4 and from M=5 picks SIMT or WMMA by N in the C dispatch (SIMT for narrow
     weights up to M=31). gfx1200 is not calibrated and keeps the SIMT-only heuristic below.
-    Calibrated on R9700 (gfx1201): bf16/fp16 beat dequant+F.linear on every
-    shape through M=128 and on 37-40/40 at M=192/256 (total time 1.28-1.45x); at M=384 they
-    still win in total but lose on 10-13 shapes. fp32 beats dequant+F.linear on every shape
-    through M=512 (total time 1.36x at M=512), measured with hipBLASLt fixed for ROCM-31245.
+    Calibrated on R9700 (gfx1201) at pinned clocks with the refitted tiles: bf16/fp16 beat
+    dequant+F.linear in total time by 1.29x at M=256, 1.50-1.54x at M=288-320 and 1.33-1.36x at
+    M=352-384 (27-31/40 shapes); above M=384 only 20-28/40 shapes win, so they stop at M=384.
+    fp32 beats dequant+F.linear on every shape through M=512 (total time 1.36x at M=512), measured with hipBLASLt fixed for ROCM-31245.
     Other RDNA3/RDNA4/RDNA3.5 and CDNA5 (gfx125x) cases run SIMT only; calibration keeps
     it through ~M=8. gfx125x is Wave32 but lacks the v_dot2 SIMT instructions, so its
     kernel takes the fp32-FMA CDNA math path; the crossover is left at the gfx12
@@ -854,7 +854,7 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
     if arch == "gfx1151" and K % 64 == 0:  # RDNA3.5 WMMA (other gfx115x not calibrated)
         return M <= (128 if dtype == torch.float32 else 384)
     if arch == "gfx1201" and K % 64 == 0:  # RDNA4 WMMA (gfx1200 not calibrated)
-        return M <= (512 if dtype == torch.float32 else 256)
+        return M <= (512 if dtype == torch.float32 else 384)
     if arch.startswith("gfx11") or arch.startswith("gfx12"):  # RDNA3 / RDNA4 / CDNA5 (gfx125x)
         return M <= 8
     if arch.startswith("gfx9"):  # CDNA1-4 / MI-series (Wave64)
@@ -952,8 +952,8 @@ if torch.version.hip is None:
     _gemm_4bit_custom_max_m = 1536
 else:
     _gemm_4bit_use_custom_fn = _gemm_4bit_use_custom_rocm
-    # ROCm: the per-arch heuristic above owns RDNA/CDNA thresholds; gfx110x/gfx1151 bf16/fp16
-    # keep the custom kernel through M=384 and gfx1201 fp32 through M=512.
+    # ROCm: the per-arch heuristic above owns RDNA/CDNA thresholds; gfx110x/gfx1151/gfx1201
+    # bf16/fp16 keep the custom kernel through M=384 and gfx1201 fp32 through M=512.
     _gemm_4bit_custom_max_m = 512
 
 

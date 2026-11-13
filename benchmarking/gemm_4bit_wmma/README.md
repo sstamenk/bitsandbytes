@@ -13,7 +13,7 @@ Dispatch with `K % 64 == 0` and blocksize >= 32 (fused vs dequant+`F.linear` is 
 | RDNA3 (gfx110x) | fp32 | M = 128 | SIMT for M <= 4; WMMA when N >= 3072 at M = 5 and N >= 2816 at M = 6-7; WMMA from M = 8 |
 | RDNA3.5 (gfx1151) | fp16 / bf16 | M = 384 | WMMA at every M (own tile rules) |
 | RDNA3.5 (gfx1151) | fp32 | M = 128 | SIMT for M <= 3; WMMA when N >= 2560 at M = 4-5 and N >= 1024 at M = 6-7; WMMA from M = 8 |
-| RDNA4 (gfx1201) | fp16 / bf16 | M = 256 | SIMT for M = 1, WMMA from M = 2 |
+| RDNA4 (gfx1201) | fp16 / bf16 | M = 384 | SIMT for M = 1, WMMA from M = 2 |
 | RDNA4 (gfx1201) | fp32 | M = 512 | SIMT for M <= 4; from M = 5, WMMA when N is large enough for its M (8192 at M = 5, 4096 at M = 6, 2048 at M = 7-9, 1408 at M = 10-15, 1024 at M = 16-31); WMMA from M = 32 |
 
 fp32 is emulated with 3-way split bf16 operands (6 WMMAs per tile) and is fp32-accurate.
