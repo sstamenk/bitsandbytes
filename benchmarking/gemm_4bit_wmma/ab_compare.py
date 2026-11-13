@@ -12,10 +12,14 @@ kern = sys.argv[4] if len(sys.argv) > 4 else None
 
 def load(p):
     d = defaultdict(dict)
+    kernels = set()
     for r in csv.DictReader(open(p)):
+        kernels.add(r["kernel"])
         if kern and r["kernel"] != kern:
             continue
         d[(r["dtype"], int(r["M"]))][r["shape"]] = float(r["us"])
+    if not kern and len(kernels) > 1:
+        sys.exit(f"{p} has several kernels {sorted(kernels)}: pass the kernel to compare as the 4th argument")
     return d
 
 

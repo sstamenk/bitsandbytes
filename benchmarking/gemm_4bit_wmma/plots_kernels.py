@@ -2,8 +2,10 @@
 
 Plots SIMT (the GEMV-style kernel), WMMA and dequant+BLAS from bench.py CSVs, with the time it takes to move the
 GEMM's bytes at the GPU's peak DRAM bandwidth: packed 4-bit weights + fp32 absmax (blocksize 64, not nested) +
-activations [M, K] + output [M, N]. That line is a lower bound for a bandwidth-bound kernel; above it the
-kernel is limited by something else (compute, latency, launch overhead). Rows of the same (dtype, shape, M,
+activations [M, K] + output [M, N], each moved once. It is a lower bound, not a roofline: the gap above it
+also includes sustained-vs-theoretical bandwidth, extra traffic (re-reads across row tiles, absmax, the split-K
+reduction) as well as compute, latency and launch overhead, and "achieved bandwidth" is this one-read traffic
+divided by time, not measured DRAM traffic. Rows of the same (dtype, shape, M,
 kernel) in several files (e.g. A/B/A runs) are averaged.
 
 Environment:
@@ -130,8 +132,8 @@ for j, dt in enumerate(DTYPES):
         ax_t.legend(frameon=False, loc="upper left", fontsize=8)
 fig.suptitle(
     f"{gpu_txt} 4-bit GEMM (NF4, blocksize 64): median over {len(shapes)} LLM shapes, weights streamed from DRAM; "
-    f"{CLOCKS}\nbandwidth = (4-bit weights + absmax + A + C bytes) / time; the dashed line is that traffic at "
-    f"the theoretical peak",
+    f"{CLOCKS}\nbandwidth = one read of (4-bit weights + absmax + A + C bytes) / time, not measured DRAM traffic; "
+    f"dashed = that traffic at the theoretical peak",
     fontsize=11,
     x=0.01,
     ha="left",
