@@ -18,6 +18,7 @@ p = argparse.ArgumentParser()
 p.add_argument("sweep")
 p.add_argument("--min-gain", type=float, default=0.01)
 p.add_argument("--merge", type=float, default=0.01, help="merge adjacent M buckets if the joint rule loses <= this")
+p.add_argument("--score", choices=["geomean", "total"], default="geomean", help="objective: geomean of time/best or total time")
 args = p.parse_args()
 
 t = defaultdict(dict)  # (shape, N, K, M) -> cfg -> us
@@ -40,12 +41,16 @@ def score(keys, cfg):
     return lg, tot, best_tot, worst
 
 
+def obj(s):
+    return s[1] if args.score == "total" else s[0]
+
+
 def best_leaf(keys):
     common = set.intersection(*(set(t[k]) for k in keys))
     best = None
     for c in common:
         s = score(keys, c)
-        if s and (best is None or s[0] < best[0][0]):
+        if s and (best is None or obj(s) < obj(best[0])):
             best = (s, c)
     return best
 
@@ -68,13 +73,14 @@ def fit(keys):
         b = best_leaf(ks)
         return (b[0], b[1], lo) if b else None
 
+    key = (lambda r: r[1]) if args.score == "total" else (lambda r: r[0])
     one = summarize([leaf(0, 1 << 30)])
     best2 = one
     for a in Ns[1:]:
         l1, l2 = leaf(0, a), leaf(a, 1 << 30)
         if l1 and l2:
             s = summarize([l1, l2])
-            if s[0] < best2[0]:
+            if key(s) < key(best2):
                 best2 = s
     best3 = best2
     for i, a in enumerate(Ns[1:], 1):
@@ -85,12 +91,12 @@ def fit(keys):
             l2, l3 = leaf(a, b), leaf(b, 1 << 30)
             if l2 and l3:
                 s = summarize([l1, l2, l3])
-                if s[0] < best3[0]:
+                if key(s) < key(best3):
                     best3 = s
     rule = one
-    if best2[0] < rule[0] * (1 - args.min_gain):
+    if key(best2) < key(rule) * (1 - args.min_gain):
         rule = best2
-    if best3[0] < rule[0] * (1 - args.min_gain):
+    if key(best3) < key(rule) * (1 - args.min_gain):
         rule = best3
     return rule
 
@@ -116,7 +122,8 @@ while merged:
     merged = False
     for i in range(len(buckets) - 1):
         a, b = buckets[i], buckets[i + 1]
-        ga, gb, gab = get(a)[0], get(b)[0], get(a + b)[0]
+        ix = 1 if args.score == "total" else 0
+        ga, gb, gab = get(a)[ix], get(b)[ix], get(a + b)[ix]
         na, nb = len(keys_of(a)), len(keys_of(b))
         sep = math.exp((na * math.log(ga) + nb * math.log(gb)) / (na + nb))
         if gab <= sep * (1 + args.merge):

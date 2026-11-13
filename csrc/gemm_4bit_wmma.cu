@@ -748,9 +748,11 @@ void launch_wmma_tile(
 /// @brief Tile selection for one WMMA generation (parameters as launch_gemm_4bit_wmma).
 ///
 /// gfx11: calibrated on gfx1100 (W7900) at default clocks over 40 LLM linear-layer
-/// shapes: one tile per M bucket and N side, within ~3-8% (geomean) of the best swept
-/// tile per shape. Narrow N keeps 16-column warp tiles and deeper split-K so enough
-/// warps stream B; wide N uses 32-column warp tiles and 128-K iterations.
+/// shapes with row-tiles-first block order and fp16 prescaling: up to three N leaves per
+/// M bucket (benchmarking/gemm_4bit_wmma/derive_cfg3.py), fp16 total time within 0.4-7.4%
+/// of the best swept tile per shape. Narrow N keeps 16-column warp tiles and deeper
+/// split-K so enough warps stream B; wide N uses 32-column warp tiles and 128-K
+/// iterations.
 template <int TARGET, typename T>
 void launch_gemm_4bit_wmma_arch(
     // clang-format off
@@ -864,52 +866,60 @@ void launch_gemm_4bit_wmma_arch(
         return;
     } else
     if constexpr (std::is_same_v<T, float>) {
-        // fp32 (three LDS A tiles per stage): calibrated separately at default clocks,
-        // within ~1-5% (geomean) of the best swept tile per shape.
+        // fp32 (three LDS A tiles per stage), fitted separately: total time over the 40 shapes
+        // within 0.1-2.8% of the best swept tile per shape.
         if (M <= 8) {
-            if (N < 5120) LAUNCH_WMMA(1, 1, 1, 2, 4, 1);
-            else          LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
+            if (N < 3840)      LAUNCH_WMMA(1, 1, 1, 1, 4, 1);
+            else if (N < 5120) LAUNCH_WMMA(1, 1, 1, 2, 2, 2);
+            else               LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
         } else if (M <= 16) {
-            if (N < 5120) LAUNCH_WMMA(1, 1, 1, 2, 4, 1);
-            else          LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
+            if (N < 3840)       LAUNCH_WMMA(1, 1, 1, 2, 4, 1);
+            else if (N < 5120)  LAUNCH_WMMA(2, 1, 1, 2, 2, 1);
+            else if (N < 15360) LAUNCH_WMMA(2, 1, 1, 4, 1, 2);
+            else                LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
         } else if (M <= 24) {
             if (N < 3072) LAUNCH_WMMA(1, 1, 1, 2, 4, 1);
             else          LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
-        } else if (M <= 32) {
-            if (N < 2560) LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
-            else          LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
         } else if (M <= 48) {
-            if (N < 5376) LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
-            else          LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
+            if (N < 2560)      LAUNCH_WMMA(1, 2, 1, 2, 2, 2);
+            else if (N < 5376) LAUNCH_WMMA(2, 2, 1, 2, 2, 1);
+            else               LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
         } else {
             LAUNCH_WMMA(4, 1, 1, 4, 1, 1);
         }
         return;
     } else
     if (M <= 8) {
-        if (N < 4096) LAUNCH_WMMA(1, 1, 1, 1, 8, 1);
-        else          LAUNCH_WMMA(1, 1, 1, 1, 8, 2);
+        if (N < 3840)      LAUNCH_WMMA(1, 1, 1, 1, 8, 1);
+        else if (N < 8192) LAUNCH_WMMA(1, 1, 1, 1, 2, 2);
+        else               LAUNCH_WMMA(1, 1, 1, 1, 8, 2);
     } else if (M <= 16) {
         if (N < 5120) LAUNCH_WMMA(2, 1, 1, 2, 8, 1);
         else          LAUNCH_WMMA(2, 2, 1, 2, 4, 2);
     } else if (M <= 24) {
-        if (N < 4608) LAUNCH_WMMA(1, 2, 1, 1, 4, 1);
-        else          LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        if (N < 3072)      LAUNCH_WMMA(1, 2, 1, 1, 8, 1);
+        else if (N < 5120) LAUNCH_WMMA(2, 2, 1, 2, 4, 2);
+        else               LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
     } else if (M <= 32) {
-        if (N < 4096) LAUNCH_WMMA(2, 1, 1, 2, 8, 1);
-        else          LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        if (N < 3072)      LAUNCH_WMMA(2, 1, 1, 2, 8, 1);
+        else if (N < 5120) LAUNCH_WMMA(2, 2, 1, 2, 4, 2);
+        else               LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
     } else if (M <= 48) {
-        if (N < 3840) LAUNCH_WMMA(2, 1, 1, 2, 4, 1);
-        else          LAUNCH_WMMA(2, 2, 1, 2, 2, 2);
+        if (N < 3840)      LAUNCH_WMMA(2, 1, 1, 2, 4, 1);
+        else if (N < 8192) LAUNCH_WMMA(2, 2, 1, 2, 2, 2);
+        else               LAUNCH_WMMA(2, 2, 1, 4, 1, 2);
     } else if (M <= 64) {
-        if (N < 3072) LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
-        else          LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
-    } else if (M <= 128) {
-        if (N < 4096) LAUNCH_WMMA(4, 1, 1, 4, 2, 1);
-        else          LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
+        if (N < 3072)      LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
+        else if (N < 5120) LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        else               LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
+    } else if (M <= 96) {
+        if (N < 3072)      LAUNCH_WMMA(4, 1, 1, 2, 4, 1);
+        else if (N < 8192) LAUNCH_WMMA(4, 2, 1, 4, 2, 2);
+        else               LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
     } else {
-        if (N < 3072) LAUNCH_WMMA(4, 2, 1, 2, 2, 1);
-        else          LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
+        if (N < 2816)      LAUNCH_WMMA(4, 1, 1, 4, 2, 2);
+        else if (N < 3072) LAUNCH_WMMA(4, 2, 1, 4, 2, 1);
+        else               LAUNCH_WMMA(4, 2, 1, 4, 1, 2);
     }
 #undef LAUNCH_WMMA
     // clang-format on
