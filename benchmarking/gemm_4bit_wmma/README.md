@@ -21,6 +21,14 @@ fp32 is emulated with 3-way split bf16 operands (6 WMMAs per tile) and is fp32-a
 Other gfx110x/gfx115x/gfx120x chips build the kernels but are not calibrated (gfx1103 shares the
 gfx110x rules); every other architecture keeps SIMT plus dequant+`F.linear`, unchanged.
 
+Each cap was checked with a dense M scan (56 values of M from 1 to 512, `data/<arch>/pinned/dense` or
+`.../final`, `dispatch_analysis.txt`): below the caps the default dispatch is within 1-3% of a per-shape oracle over
+SIMT, WMMA and dequant+`F.linear` at every M. Near the caps the crossover is jagged rather than a single point: the
+fused kernel's latency steps up at each tile height (rows inside a tile are almost free, the next row tile is not)
+while dequant+BLAS grows smoothly, so the fused path is ahead just below a multiple of the tile height and behind just
+above it (e.g. W7900 bf16 1.18x at M = 416, 1.03x at M = 480, 0.96x at M = 512). The caps sit where most shapes
+still win; a shape- and padding-aware cutover would recover a few percent more near them.
+
 All tile rules and cutoffs are fitted from timings at a pinned performance level (`high`, see
 "Clock mode" below): at the default (auto) level, per-shape timings were bimodal by ~10% (DVFS),
 which picked wrong small-M tiles on gfx1100 and gfx1201.
