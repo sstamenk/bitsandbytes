@@ -97,7 +97,9 @@ static void gemm_4bit(
         struct Cutoff {
             int max_m, min_n;
         };
-        static constexpr Cutoff gfx11_fp32_wmma[] = {{4, INT_MAX}, {5, 3072}, {7, 2816}};
+        // Narrow weights stay on SIMT longer (dense M scan, pinned clocks): with N <= 1024 the
+        // split-bf16 WMMA tiles leave too few blocks, up to 2.4x slower than SIMT at M = 52.
+        static constexpr Cutoff gfx11_fp32_wmma[] = {{4, INT_MAX}, {5, 3072}, {7, 2816}, {8, 2048}, {12, 2816}, {64, 1024}};
         static constexpr Cutoff gfx115_fp32_wmma[] = {{3, INT_MAX}, {5, 2560}, {7, 1024}};
         // gfx1103 (Radeon 760M, 8 CUs, pinned clocks): SIMT through M = 2, WMMA from M = 3 (by N
         // through M = 4): 1.12x faster in total at M = 3 and 1.29x at M = 4 than the gfx1100 table,

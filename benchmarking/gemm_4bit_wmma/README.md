@@ -22,8 +22,11 @@ Other gfx110x/gfx115x/gfx120x chips build the kernels but are not calibrated (gf
 gfx110x rules); every other architecture keeps SIMT plus dequant+`F.linear`, unchanged.
 
 Each cap was checked with a dense M scan (56 values of M from 1 to 512, `data/<arch>/pinned/dense` or
-`.../final`, `dispatch_analysis.txt`): below the caps the default dispatch is within 1-3% of a per-shape oracle over
-SIMT, WMMA and dequant+`F.linear` at every M. Near the caps the crossover is jagged rather than a single point: the
+`.../final`, `dispatch_analysis.txt`): below the caps the default dispatch's total time over the 40 shapes is within
+about 2% of a per-shape oracle over SIMT, WMMA and dequant+`F.linear` at most M; the largest gaps are 3.4% (W7900 fp32,
+M = 9), 3.6% (RX 7900 XTX bf16, M = 1), 1.7% (R9700), 1.8% (Radeon 760M fp16, M = 1) and 6.3% (gfx1151 fp32, M = 3).
+These are totals: single shapes can lose much more (e.g. W7900 fp16 `small square` at M = 384 is 1.37x slower than
+dequant+BLAS), and the oracle mixes separately timed runs, so differences of a percent or two are within noise. Near the caps the crossover is jagged rather than a single point: the
 fused kernel's latency steps up at each tile height (rows inside a tile are almost free, the next row tile is not)
 while dequant+BLAS grows smoothly, so the fused path is ahead just below a multiple of the tile height and behind just
 above it (e.g. W7900 bf16 1.18x at M = 416, 1.03x at M = 480, 0.96x at M = 512). The caps sit where most shapes

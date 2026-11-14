@@ -819,17 +819,18 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
     RDNA3 (gfx110x) with K % 64 == 0 runs the WMMA kernel for bf16/fp16 at any M and
     for fp32 (emulated with split bf16 operands) from M=4, picking SIMT or WMMA by N in
     the C dispatch through M=7. Calibrated on W7900 (gfx1100) over 40 LLM linear shapes:
-    bf16/fp16 beat dequant+F.linear on every shape through M=192, on 37-39/40 at M=256
-    and on 28-33/40 at M=384 (total time 1.99x at M=128, 1.29-1.33x at M=256,
-    1.11-1.13x at M=384); fp32 on 33/40 at M=128 (total 1.20x) but only on 12-19/40
-    above, so fp32 stops at M=128.
+    bf16/fp16 beat dequant+F.linear on every shape through M=192 and on 37-39/40 at M=256
+    (total time 1.99x at M=128, 1.29-1.33x at M=256). M=384 is a near-tie in the dense M scan
+    (fp16 1.02x, 20/40 shapes; bf16 1.05x, 25/40): the crossover is jagged, the fused path wins
+    just below each tile-height multiple (e.g. bf16 1.18x at M=416). fp32 wins on 22/40 at
+    M=128 (total 1.06x) and loses above, so fp32 stops at M=128.
     gfx1103 (Radeon 760M iGPU) shares the tiles but runs fp32 on WMMA from M=3-5 and keeps it
     fused through M=384: there the fused fp32 path is 3.2-3.6x faster than dequant+F.linear on
     every shape at M=128-384.
     RDNA3.5 gfx1151 (Strix Halo, LPDDR5X) with K % 64 == 0 runs the WMMA kernel (gfx11 kernels, own
     tile rules) for bf16/fp16 at any M and for fp32 from M=4 (by N through M=7). Calibrated on
     Radeon 8060S at pinned clocks (dense M scan): bf16/fp16 beat dequant+F.linear on every shape
-    through M=128 (total time 7-8x at M<=16, 2.7-3x at M=128) and on 33-35/40 at M=384-512
+    through M=128 (total time 7-8x at M<=16, 2.7-3x at M=128) and on 33-38/40 at M=384-512
     (1.57-1.86x); fp32 by 8-10x in total at M=128-512 (25-34/40 shapes; hipBLASLt fp32 GEMM is
     slow there), so all dtypes stay fused through M=512. Other gfx115x are not calibrated and
     keep the SIMT-only heuristic below.
