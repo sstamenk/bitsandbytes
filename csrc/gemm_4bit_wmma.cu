@@ -65,7 +65,12 @@ constexpr int wmma_rows(int arch) { return arch == 12 ? 16 : 8; }
 // Tuning targets returned by gemm_4bit_wmma_arch(): 11 (gfx110x), 115 (gfx115x, RDNA3.5)
 // and 12 (gfx120x). gfx115x runs the gfx11 kernels with its own tile rules.
 constexpr int WMMA_TARGET_GFX115X = 115;
-constexpr int wmma_gen(int target) { return target == WMMA_TARGET_GFX115X ? 11 : target; }
+// gfx1103 (Radeon 760M/780M iGPU): gfx110x kernels and tile rules, own fp32 dispatch (see
+// csrc/gemm_4bit.cu and the Python cutover).
+constexpr int WMMA_TARGET_GFX1103 = 113;
+constexpr int wmma_gen(int target) {
+    return target == WMMA_TARGET_GFX115X || target == WMMA_TARGET_GFX1103 ? 11 : target;
+}
 
 // Per-lane operand fragment: 16 (gfx11) or 8 (gfx12) 16-bit values.
 template <int ARCH> using wmma_frag = std::conditional_t<ARCH == 12, wmma_v4u, wmma_v8u>;
@@ -620,7 +625,7 @@ __global__ void __launch_bounds__(KSPLIT* WARPS_M* WARPS_N * 32) gemm_4bit_wmma(
 
 namespace {
 
-// WMMA tuning target for a gcnArchName ("gfx1201" or "gfx1201:xnack-"): 11, 115, 12, or 0.
+// WMMA tuning target for a gcnArchName ("gfx1201" or "gfx1201:xnack-"): 11, 113, 115, 12, or 0.
 // The chips must be ones whose device pass emits the kernel body (IS_RDNA3 / IS_RDNA4 in
 // common.cuh); any other device would launch an empty kernel. gfx1200 is built but not
 // listed: the gfx12 tile rules and cutoffs are calibrated on gfx1201, which has twice its
@@ -629,7 +634,7 @@ int wmma_arch_of(const char* name) {
     static constexpr struct {
         const char* chip;
         int arch;
-    } chips[] = {{"gfx1100", 11}, {"gfx1101", 11}, {"gfx1102", 11}, {"gfx1103", 11},
+    } chips[] = {{"gfx1100", 11}, {"gfx1101", 11}, {"gfx1102", 11}, {"gfx1103", WMMA_TARGET_GFX1103},
                    {"gfx1151", WMMA_TARGET_GFX115X}, {"gfx1201", 12}};
 
     for (const auto& c : chips) {
@@ -675,7 +680,7 @@ bool wmma_row_tiles_first(int target, bool fp32) {
     if (const char* env = std::getenv("BNB_WMMA_ROW_TILES_FIRST"))
         return env[0] == '1';
 #endif
-    if (target == 11)
+    if (target == 11 || target == WMMA_TARGET_GFX1103)
         return !fp32;
     return target == 12 || target == WMMA_TARGET_GFX115X;
 }
@@ -1048,6 +1053,12 @@ bool launch_gemm_4bit_wmma(
 #if BNB_WMMA_EMIT_11
     if (arch == 11) {
         launch_gemm_4bit_wmma_arch<11, T>(
+            A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type, stream
+        );
+        return true;
+    }
+    if (arch == WMMA_TARGET_GFX1103) {
+        launch_gemm_4bit_wmma_arch<WMMA_TARGET_GFX1103, T>(
             A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C, bias, M, N, K, blocksize, quant_type, stream
         );
         return true;

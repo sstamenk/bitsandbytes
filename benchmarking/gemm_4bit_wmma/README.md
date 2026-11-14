@@ -11,6 +11,7 @@ Dispatch with `K % 64 == 0` and blocksize >= 32 (fused vs dequant+`F.linear` is 
 |---|---|---|---|
 | RDNA3 (gfx110x) | fp16 / bf16 | M = 384 | WMMA at every M |
 | RDNA3 (gfx110x) | fp32 | M = 128 | SIMT for M <= 4; WMMA when N >= 3072 at M = 5 and N >= 2816 at M = 6-7; WMMA from M = 8 |
+| RDNA3 iGPU (gfx1103) | fp32 | M = 384 | gfx110x tiles; SIMT through M = 2, WMMA when N >= 3840 at M = 3-4, WMMA from M = 5 (fp32 dequant+BLAS is 3.2-3.6x slower there) |
 | RDNA3.5 (gfx1151) | fp16 / bf16 | M = 384 | WMMA at every M (own tile rules) |
 | RDNA3.5 (gfx1151) | fp32 | M = 128 | SIMT for M <= 3; WMMA when N >= 2560 at M = 4-5 and N >= 1024 at M = 6-7; WMMA from M = 8 |
 | RDNA4 (gfx1201) | fp16 / bf16 | M = 384 | SIMT for M = 1, WMMA from M = 2 |

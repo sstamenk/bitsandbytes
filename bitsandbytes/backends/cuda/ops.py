@@ -823,6 +823,9 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
     and on 28-33/40 at M=384 (total time 1.99x at M=128, 1.29-1.33x at M=256,
     1.11-1.13x at M=384); fp32 on 33/40 at M=128 (total 1.20x) but only on 12-19/40
     above, so fp32 stops at M=128.
+    gfx1103 (Radeon 760M iGPU) shares the tiles but runs fp32 on WMMA from M=3-5 and keeps it
+    fused through M=384: there the fused fp32 path is 3.2-3.6x faster than dequant+F.linear on
+    every shape at M=128-384.
     RDNA3.5 gfx1151 (Strix Halo, LPDDR5X) with K % 64 == 0 runs the WMMA kernel (gfx11 kernels, own
     tile rules) for bf16/fp16 at any M and for fp32 from M=4 (by N through M=7). Calibrated on
     Radeon 8060S at pinned clocks: bf16/fp16 beat dequant+F.linear on every shape through M=128
@@ -849,6 +852,8 @@ def _gemm_4bit_use_custom_rocm(device_index, dtype, M, N, K):
         return True
 
     arch = _rocm_gfx_arch(device_index)
+    if arch == "gfx1103" and K % 64 == 0:  # RDNA3 iGPU WMMA: fp32 hipBLASLt is slow there
+        return M <= 384
     if arch.startswith("gfx110") and K % 64 == 0:  # RDNA3 WMMA
         return M <= (128 if dtype == torch.float32 else 384)
     if arch == "gfx1151" and K % 64 == 0:  # RDNA3.5 WMMA (other gfx115x not calibrated)

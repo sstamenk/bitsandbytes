@@ -81,7 +81,8 @@ static void gemm_4bit(
     // fp32 (six split-bf16 WMMAs per tile) picks by M and N, see below.
     constexpr int GFX12_MIN_M_16BIT = 2;
     const int wmma_arch = K % 64 == 0 && blocksize >= 32 ? gemm_4bit_wmma_arch() : 0;
-    bool use_wmma = (wmma_arch == 11 || wmma_arch == 115) || (wmma_arch == 12 && M >= GFX12_MIN_M_16BIT);
+    bool use_wmma = (wmma_arch == 11 || wmma_arch == 113 || wmma_arch == 115) ||
+                    (wmma_arch == 12 && M >= GFX12_MIN_M_16BIT);
     if (wmma_arch != 0 && is_fp32) {
         // fp32: with few output columns the split-bf16 WMMA tiles leave too few blocks to
         // stream the weights, so SIMT stays faster up to a few rows (gfx12's 16-row tiles: a
@@ -98,6 +99,10 @@ static void gemm_4bit(
         };
         static constexpr Cutoff gfx11_fp32_wmma[] = {{4, INT_MAX}, {5, 3072}, {7, 2816}};
         static constexpr Cutoff gfx115_fp32_wmma[] = {{3, INT_MAX}, {5, 2560}, {7, 1024}};
+        // gfx1103 (Radeon 760M, 8 CUs, pinned clocks): SIMT through M = 2, WMMA from M = 3 (by N
+        // through M = 4): 1.12x faster in total at M = 3 and 1.29x at M = 4 than the gfx1100 table,
+        // which kept SIMT through M = 4. WMMA for wide N at M = 2 measured 2% slower.
+        static constexpr Cutoff gfx1103_fp32_wmma[] = {{2, INT_MAX}, {4, 3840}};
         static constexpr Cutoff gfx12_fp32_wmma[] = {{4, INT_MAX}, {5, 8192}, {6, 4096}, {9, 2048}, {15, 1408}, {31, 1024}};
         auto pick = [&](const auto& table) {
             for (const auto& row : table)
@@ -105,7 +110,10 @@ static void gemm_4bit(
                     return N >= row.min_n;
             return true;
         };
-        use_wmma = wmma_arch == 12 ? pick(gfx12_fp32_wmma) : wmma_arch == 115 ? pick(gfx115_fp32_wmma) : pick(gfx11_fp32_wmma);
+        use_wmma = wmma_arch == 12    ? pick(gfx12_fp32_wmma)
+                   : wmma_arch == 115 ? pick(gfx115_fp32_wmma)
+                   : wmma_arch == 113 ? pick(gfx1103_fp32_wmma)
+                                      : pick(gfx11_fp32_wmma);
     }
 #ifdef BNB_WMMA_DEV
     // Dev-only (cmake -DBNB_WMMA_DEV=ON): BNB_GEMM4BIT_KERNEL=simt|wmma forces the kernel
