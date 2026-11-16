@@ -14,6 +14,7 @@ from tests.helpers import (
     get_available_devices,
     get_test_dims,
     id_formatter,
+    is_rocm_radeon,
     is_supported_on_hpu,
 )
 
@@ -804,8 +805,13 @@ class TestQuantize4BitFunctional:
                 quant_storage=quant_storage,
             )
 
-            # dequant+F.linear reference path.
-            C1 = torch.nn.functional.linear(A, F.dequantize_4bit(qB, state).to(dtype))
+            # dequant+F.linear reference path. On Radeon (RDNA) the fp32 reference is computed in fp64: there the
+            # fp32 BLAS GEMM with M=1 (hipBLASLt/rocBLAS) rounds more than the fused kernel, and the fp32 thresholds
+            # below are meant to measure the kernel's error, not the BLAS library's.
+            if dtype == torch.float32 and is_rocm_radeon(device):
+                C1 = torch.nn.functional.linear(A.double(), F.dequantize_4bit(qB, state).double()).float()
+            else:
+                C1 = torch.nn.functional.linear(A, F.dequantize_4bit(qB, state).to(dtype))
 
             # original matmul reference path.
             C3 = torch.matmul(A, B.t())

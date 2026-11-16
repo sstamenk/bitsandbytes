@@ -18,6 +18,15 @@ BOOLEAN_TUPLES = list(product(TRUE_FALSE, repeat=2))  # all combinations of (boo
 
 
 @functools.cache
+def is_rocm_radeon(device) -> bool:
+    """True for an RDNA (Radeon) GPU under ROCm: gfx10, gfx11 and gfx120x. ROCm devices report as "cuda"."""
+    if not HIP_ENVIRONMENT or torch.device(device).type != "cuda":
+        return False
+    arch = torch.cuda.get_device_properties(torch.device(device)).gcnArchName.split(":")[0]
+    return arch.startswith(("gfx10", "gfx11", "gfx120"))
+
+
+@functools.cache
 def get_available_devices(no_cpu=False):
     if "BNB_TEST_DEVICE" in os.environ:
         # If the environment variable is set, use it directly.
