@@ -5,6 +5,11 @@
 #include <atomic>
 #include <cstdint>
 #include <cstring>
+#ifdef BNB_WMMA_DEV
+#include <algorithm>
+#include <cstdio>
+#include <cstdlib>
+#endif
 #include <type_traits>
 #include <utility>
 
@@ -661,7 +666,13 @@ int wmma_device_arch() {
 /// Whether blocks walk the row tiles of the same N columns first, so they share B in L2
 /// (see gemm_4bit_wmma_body). Only matters with two or more row tiles. fp32 on gfx110x
 /// stays N-first. The tile rules are fitted with this order.
-bool wmma_row_tiles_first(int target, bool fp32) { return wmma_family_main(target) == 1100 ? !fp32 : true; }
+bool wmma_row_tiles_first(int target, bool fp32) {
+#ifdef BNB_WMMA_DEV
+    if (const char* env = std::getenv("BNB_WMMA_ROW_TILES_FIRST"))
+        return env[0] == '1';
+#endif
+    return wmma_family_main(target) == 1100 ? !fp32 : true;
+}
 
 /// Launch one tile configuration. KCH_MAX is lowered to 1 when K is not a multiple
 /// of 128; one absmax covers each half-wave's per-iteration K slice when
@@ -717,6 +728,10 @@ void launch_wmma_tile(
     // contraction layers keep the accumulator-scaled kernel, which every tile has.
     if constexpr (ARCH == 11 && std::is_same_v<T, half>) {
         bool prescale = M >= 96 && WM >= 2 && KCH_MAX == 2 && (M <= 128 || K <= N);
+#ifdef BNB_WMMA_DEV
+        if (const char* force = std::getenv("BNB_WMMA_PRESCALE"))
+            prescale = std::strcmp(force, "1") == 0;
+#endif
         // Nested reconstruction can exceed 65504 even for finite fp16 source weights.
         // Rounding that scale to half would contaminate otherwise finite products.
         prescale = prescale && absmax_8bit == nullptr;
@@ -792,6 +807,59 @@ void launch_wmma_tile_of(
            ...);
 }
 
+#ifdef BNB_WMMA_DEV
+// Dev-only (cmake -DBNB_WMMA_DEV=ON): the tiles BNB_WMMA_CFG can force, for tile sweeps (sweep_table.py reads this
+// list). Each (wm, wn, warps_m, warps_n, ksplit) is built with kch = 1 and 2 where its A stages fit in 48 KB of LDS.
+// clang-format off
+constexpr int wmma_dev_shapes[][5] = {
+    {1, 1, 1, 1, 1}, {1, 1, 1, 1, 2}, {1, 1, 1, 1, 4},
+    {1, 1, 1, 1, 8}, {1, 1, 1, 2, 2}, {1, 1, 1, 2, 4},
+    {1, 1, 1, 2, 8}, {1, 1, 1, 4, 2}, {1, 1, 1, 4, 4},
+    {1, 2, 1, 1, 2}, {1, 2, 1, 1, 4}, {1, 2, 1, 1, 8},
+    {1, 2, 1, 2, 2}, {1, 2, 1, 2, 4}, {2, 1, 1, 1, 4},
+    {2, 1, 1, 1, 8}, {2, 1, 1, 2, 2}, {2, 1, 1, 2, 4},
+    {2, 1, 1, 2, 8}, {2, 1, 1, 4, 1}, {2, 1, 1, 4, 2},
+    {2, 1, 1, 4, 4}, {2, 2, 1, 1, 4}, {2, 2, 1, 2, 1},
+    {2, 2, 1, 2, 2}, {2, 2, 1, 2, 4}, {2, 2, 1, 4, 1},
+    {2, 2, 1, 4, 2}, {4, 1, 1, 2, 1}, {4, 1, 1, 2, 2},
+    {4, 1, 1, 2, 4}, {4, 1, 1, 4, 1}, {4, 1, 1, 4, 2},
+    {4, 1, 1, 4, 4}, {4, 2, 1, 2, 1}, {4, 2, 1, 2, 2},
+    {4, 2, 1, 4, 1}, {4, 2, 1, 4, 2}, {2, 2, 2, 2, 1},
+    {2, 2, 2, 4, 1}, {4, 1, 2, 4, 1}, {4, 1, 2, 2, 1},
+    {2, 1, 2, 4, 1}, {2, 1, 2, 2, 2}, {2, 1, 4, 2, 1},
+    {4, 1, 4, 2, 1}, {1, 1, 2, 2, 2}, {1, 1, 2, 4, 1},
+    {1, 1, 2, 4, 2}, {1, 2, 2, 2, 1}, {1, 2, 2, 2, 2},
+    {1, 2, 2, 4, 1}, {1, 1, 4, 2, 1}, {1, 1, 4, 4, 1},
+    {1, 2, 4, 2, 1},
+};
+// clang-format on
+
+template <int ARCH, typename T> constexpr bool wmma_dev_fits(const int (&s)[5], int kch) {
+    constexpr int planes = std::is_same_v<T, float> ? WMMA_F32_PARTS : 1;
+    return wmma_smem_bytes(s[2] * wmma_rows(ARCH) * s[0], s[3] * 16 * s[1], s[4], kch, planes) <= 48 * 1024;
+}
+
+template <int ARCH, typename T> constexpr int wmma_dev_count() {
+    int n = 0;
+    for (const auto& s : wmma_dev_shapes)
+        for (int kch = 1; kch <= 2; kch++)
+            n += wmma_dev_fits<ARCH, T>(s, kch);
+    return n;
+}
+
+/// The forcible tiles for one WMMA generation and dtype, as a compile-time array.
+template <int ARCH, typename T>
+inline constexpr auto wmma_dev_tiles = [] {
+    std::array<WmmaTile, wmma_dev_count<ARCH, T>()> tiles{};
+    size_t n = 0;
+    for (const auto& s : wmma_dev_shapes)
+        for (int kch = 1; kch <= 2; kch++)
+            if (wmma_dev_fits<ARCH, T>(s, kch))
+                tiles[n++] = WmmaTile{s[0], s[1], s[2], s[3], s[4], kch};
+    return tiles;
+}();
+#endif
+
 /// @brief Pick the tile for (M, N, K) from the target's rule table and launch it (parameters as
 /// launch_gemm_4bit_wmma).
 template <int TARGET, typename T>
@@ -803,6 +871,23 @@ void launch_gemm_4bit_wmma_arch(
     constexpr const auto& RULES = wmma_rules<TARGET, T>();
     constexpr const auto& TILES = wmma_tiles_of<RULES>;
     const bool row_tiles_first = wmma_row_tiles_first(TARGET, std::is_same_v<T, float>);
+#ifdef BNB_WMMA_DEV
+    // Dev-only tile override, used for tile sweeps: BNB_WMMA_CFG="wm,wn,warps_m,warps_n,ksplit,kch".
+    if (const char* env = std::getenv("BNB_WMMA_CFG")) {
+        constexpr const auto& DEV = wmma_dev_tiles<wmma_gen(TARGET), T>;
+        WmmaTile t{};
+        bool ok = std::sscanf(env, "%d,%d,%d,%d,%d,%d", &t.wm, &t.wn, &t.warps_m, &t.warps_n, &t.ksplit, &t.kch) == 6;
+        ok = ok && std::find(DEV.begin(), DEV.end(), t) != DEV.end();
+        if (ok)
+            launch_wmma_tile_of<wmma_gen(TARGET), T, DEV>(
+                t, std::make_index_sequence<DEV.size()>{}, A, B, absmax, absmax_8bit, absmax_code, absmax_offset, C,
+                bias, M, N, K, blocksize, quant_type, row_tiles_first, stream
+            );
+        else
+            std::fprintf(stderr, "gemm_4bit_wmma: BNB_WMMA_CFG=%s not available\n", env);
+        return;
+    }
+#endif
     launch_wmma_tile_of<wmma_gen(TARGET), T, TILES>(
         wmma_pick(RULES, M, N, K), std::make_index_sequence<TILES.size()>{}, A, B, absmax, absmax_8bit, absmax_code,
         absmax_offset, C, bias, M, N, K, blocksize, quant_type, row_tiles_first, stream

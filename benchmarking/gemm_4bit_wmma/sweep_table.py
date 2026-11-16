@@ -1,4 +1,4 @@
-"""Candidate WMMA tiles (the BNB_WMMA_DEV_TRY table compiled into the dev launcher) and the LDS budget check."""
+"""Candidate WMMA tiles (wmma_dev_shapes, compiled into the -DBNB_WMMA_DEV=ON launcher) and the LDS budget check."""
 
 import os
 import re
@@ -10,9 +10,8 @@ import torch
 ROWS = 16 if torch.cuda.get_device_properties(torch.cuda.current_device()).gcnArchName.startswith("gfx120") else 8
 
 _src = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../../csrc/gemm_4bit_wmma.cu")).read()
-TABLE = sorted(
-    {tuple(map(int, t)) for t in re.findall(r"BNB_WMMA_DEV_TRY\((\d+), (\d+), (\d+), (\d+), (\d+)\)", _src)}
-)
+_dev = _src[_src.index("wmma_dev_shapes[][5] = {") : _src.index("};", _src.index("wmma_dev_shapes[][5] = {"))]
+TABLE = sorted({tuple(map(int, t)) for t in re.findall(r"\{(\d+), (\d+), (\d+), (\d+), (\d+)\}", _dev)})
 
 
 def smem_ok(wm, wn, wmp, wnp, ks, kch, planes):

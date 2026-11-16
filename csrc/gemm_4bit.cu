@@ -4,6 +4,10 @@
 
 #include <cstdint>
 #include <type_traits>
+#ifdef BNB_WMMA_DEV
+#include <cstdlib>
+#include <cstring>
+#endif
 
 #include "compat.cuh"
 #include "gemm_4bit_simt.cuh"
@@ -70,7 +74,13 @@ static void gemm_4bit(
     // WMMA needs K % 64 == 0 and at least 32-element quantization blocks; wmma_preferred()
     // (gemm_4bit_wmma_rules.cuh) picks WMMA or SIMT by target, dtype, M and N.
     const int wmma_arch = K % 64 == 0 && blocksize >= 32 ? gemm_4bit_wmma_arch() : 0;
-    const bool use_wmma = wmma_arch != 0 && wmma_preferred(wmma_arch, is_fp32, M, N);
+    bool use_wmma = wmma_arch != 0 && wmma_preferred(wmma_arch, is_fp32, M, N);
+#ifdef BNB_WMMA_DEV
+    // Dev-only (cmake -DBNB_WMMA_DEV=ON): BNB_GEMM4BIT_KERNEL=simt|wmma forces the kernel
+    // for benchmarking; the Python side still decides custom kernel vs dequant+F.linear.
+    if (const char* force = std::getenv("BNB_GEMM4BIT_KERNEL"))
+        use_wmma = std::strcmp(force, "wmma") == 0 && wmma_arch != 0;
+#endif
     if (use_wmma && launch_gemm_4bit_wmma<T>(
                         wmma_arch, A, B, absmax, absmax_8bit, absmax_code, absmax_offset, out, bias, M, N, K, blocksize,
                         quant_type, stream
