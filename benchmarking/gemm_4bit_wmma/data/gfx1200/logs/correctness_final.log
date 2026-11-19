@@ -1,0 +1,11 @@
+Thu Nov 19 01:26:07 UTC 2026
+AMD Radeon RX 9060 XT /home/ubuntu/bnbtune/src_drel/bitsandbytes/__init__.py
+torch.float16 1 relerr 3.84e-04 ['void gemm_4bit_simt<__half, 1>(__half const*, unsigned char const*, fl']
+torch.float16 8 relerr 3.32e-04 ['void gemm_4bit_wmma<12, __half, 1, 1, 1, 2, 8, 1, 4, false>(__half con']
+torch.float16 64 relerr 3.32e-04 ['void gemm_4bit_wmma<12, __half, 2, 2, 1, 4, 2, 2, 4, false>(__half con']
+torch.float32 1 relerr 1.12e-06 ['void gemm_4bit_simt<float, 1>(float const*, unsigned char const*, floa']
+torch.float32 8 relerr 2.58e-06 ['void gemm_4bit_wmma<12, float, 1, 1, 1, 4, 2, 1, 4, false>(float const']
+torch.float32 64 relerr 2.58e-06 ['void gemm_4bit_wmma<12, float, 2, 2, 1, 4, 1, 1, 4, false>(float const']
+fp32 16x2048x2048 ms 0.16884803771972656
+{'torch.float16': (0.0004320399334617751, 5376, 2048, 1, 128, True), 'torch.bfloat16': (0.0029300946747372776, 4096, 1536, 1, 64, True), 'torch.float32': (1.6726595588278129e-06, 5376, 2048, 32, 64, True)}
+Thu Nov 19 01:28:27 UTC 2026
