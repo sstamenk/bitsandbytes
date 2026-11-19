@@ -1,0 +1,30 @@
+== block order, final dev build: BNB_WMMA_ROW_TILES_FIRST=0 / =1 (default dispatch), 2 cycles alternating, separate processes
+fp16 48 rtf0/rtf1 1.415  (c1 1.312 c2 1.519)
+fp16 64 rtf0/rtf1 1.084  (c1 1.084 c2 1.084)
+fp16 96 rtf0/rtf1 1.084  (c1 1.088 c2 1.080)
+fp16 128 rtf0/rtf1 1.093  (c1 1.090 c2 1.097)
+fp16 192 rtf0/rtf1 1.155  (c1 1.155 c2 1.156)
+fp16 256 rtf0/rtf1 1.162  (c1 1.164 c2 1.160)
+fp16 384 rtf0/rtf1 1.175  (c1 1.175 c2 1.174)
+fp16 512 rtf0/rtf1 1.183  (c1 1.180 c2 1.185)
+fp32 48 rtf0/rtf1 1.009  (c1 1.010 c2 1.008)
+fp32 64 rtf0/rtf1 1.001  (c1 1.001 c2 1.001)
+fp32 96 rtf0/rtf1 1.001  (c1 1.001 c2 1.000)
+fp32 128 rtf0/rtf1 1.002  (c1 1.002 c2 1.003)
+fp32 192 rtf0/rtf1 1.005  (c1 1.008 c2 1.003)
+fp32 256 rtf0/rtf1 1.007  (c1 1.010 c2 1.004)
+fp32 384 rtf0/rtf1 1.003  (c1 1.002 c2 1.004)
+fp32 512 rtf0/rtf1 0.999  (c1 0.999 c2 0.999)
+== blocksize 32: auto vs dequant (bench.py, separate processes, one run)
+bs32 fp16 352 fused/dequant 0.667 fused ahead on 36/40
+bs32 fp16 385 fused/dequant 0.788 fused ahead on 31/40
+bs32 fp16 416 fused/dequant 0.778 fused ahead on 32/40
+bs32 fp16 448 fused/dequant 0.821 fused ahead on 29/40
+bs32 fp16 480 fused/dequant 0.875 fused ahead on 23/40
+bs32 fp16 512 fused/dequant 0.919 fused ahead on 21/40
+bs32 bf16 352 fused/dequant 0.663 fused ahead on 35/40
+bs32 bf16 385 fused/dequant 0.790 fused ahead on 30/40
+bs32 bf16 416 fused/dequant 0.783 fused ahead on 30/40
+bs32 bf16 448 fused/dequant 0.824 fused ahead on 27/40
+bs32 bf16 480 fused/dequant 0.876 fused ahead on 23/40
+bs32 bf16 512 fused/dequant 0.920 fused ahead on 21/40

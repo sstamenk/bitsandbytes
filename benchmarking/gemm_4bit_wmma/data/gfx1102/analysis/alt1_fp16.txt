@@ -1,0 +1,20 @@
+== fp16: cfg/A total (cycle-total range) worst-shape | watched shapes cfg/A: phi3 down, 7-8b k/v, gemma4 moe gate_up
+   1 n=40 A=     5443us | B  0.937 (0.936-0.938) w1.10 gemma4-26b dense g [1.07 0.97 0.94] win28
+   2 n=40 A=     5480us | B  0.936 (0.933-0.938) w1.10 gemma4-26b dense g [1.08 0.97 0.93] win30
+   4 n=40 A=     5563us | B  0.930 (0.929-0.931) w1.10 gemma4-26b dense g [1.08 0.96 0.92] win30
+   8 n=40 A=     5711us | B  0.928 (0.923-0.930) w1.17 qwen3-14b o/q squa [1.08 0.96 0.88] win28
+   9 n=40 A=     6476us | B  0.896 (0.894-0.897) w1.13 small GQA k/v      [1.13 1.00 0.83] win37
+  12 n=40 A=     6541us | B  0.901 (0.899-0.904) w1.12 small GQA k/v      [1.12 1.00 0.82] win36
+  16 n=40 A=     6556us | B  0.903 (0.901-0.910) w1.14 small GQA k/v      [1.14 0.99 0.83] win35
+  17 n=40 A=     8736us | B  0.875 (0.873-0.878) w1.11 gemma3-4b gate/up  [0.97 0.91 0.99] win37
+  20 n=40 A=     8737us | B  0.876 (0.874-0.881) w1.12 gemma3-4b gate/up  [0.97 0.90 1.00] win36
+  24 n=40 A=     8760us | B  0.880 (0.877-0.880) w1.12 gemma3-4b gate/up  [0.97 0.89 1.01] win36
+  31 n=40 A=     8873us | B  0.874 (0.873-0.878) w1.13 gemma3-4b gate/up  [0.96 0.99 1.01] win36
+  32 n=40 A=     8863us | B  0.876 (0.874-0.879) w1.13 gemma3-4b gate/up  [0.97 0.99 1.02] win36
+  33 n=40 A=    13636us | B  0.962 (0.960-0.964) w1.11 llama3-8b/mistral- [0.95 1.11 0.93] win29
+  40 n=40 A=    13708us | B  0.960 (0.956-0.962) w1.12 llama3-8b/mistral- [0.96 1.10 0.92] win27
+  48 n=40 A=    13798us | B  0.957 (0.954-0.961) w1.12 llama3-8b/mistral- [0.95 1.10 0.93] win29
+  49 n=40 A=    14363us | B  0.939 (0.939-0.941) w1.14 small GQA k/v      [1.14 0.95 0.91] win29
+  56 n=40 A=    14353us | B  0.942 (0.940-0.944) w1.13 small GQA k/v      [1.13 0.95 0.91] win28
+  64 n=40 A=    14433us | B  0.939 (0.939-0.942) w1.14 qwen3.5-122b-moe e [1.14 0.95 0.90] win30
+  65 n=40 A=    19349us | B  1.000 (0.999-1.001) w1.01 qwen3-235b-moe exp [1.00 1.00 1.00] win18

@@ -1,0 +1,124 @@
+== fp16: M  B/A  (A2/A1  B2/B1)  worst-shape B/A  best-shape
+   1  0.938 (1.000 1.000)  1.10 gemma4-26b dense gate_up 0.77 llama3-8b/mistral-7b gat
+   2  0.936 (1.000 1.003)  1.10 gemma4-26b dense gate_up 0.76 llama3-8b/mistral-7b gat
+   3  0.930 (0.999 1.000)  1.10 gemma4-26b dense gate_up 0.77 qwen3-8b gate/up
+   4  0.928 (1.001 1.000)  1.10 gemma4-26b dense gate_up 0.76 llama3-8b/mistral-7b gat
+   5  0.926 (1.001 1.000)  1.09 gemma4-26b dense gate_up 0.75 llama3-8b/mistral-7b gat
+   6  0.924 (1.000 1.000)  1.10 gemma4-26b dense gate_up 0.75 llama3-8b/mistral-7b gat
+   7  0.927 (1.001 0.998)  1.11 qwen3-14b o/q square     0.76 llama3-8b/mistral-7b gat
+   8  0.927 (0.999 0.999)  1.17 qwen3-14b o/q square     0.75 llama3-8b/mistral-7b gat
+   9  0.897 (1.001 1.000)  1.12 small GQA k/v            0.59 llama3-8b/mistral-7b o/q
+  10  0.895 (1.000 1.001)  1.13 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  11  0.898 (0.999 1.000)  1.13 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  12  0.903 (1.001 1.001)  1.13 small GQA k/v            0.59 llama3-8b/mistral-7b o/q
+  13  0.901 (1.001 1.003)  1.14 small GQA k/v            0.57 llama3-8b/mistral-7b o/q
+  14  0.899 (1.001 1.001)  1.13 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  15  0.898 (1.001 1.000)  1.14 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  16  0.902 (1.001 0.999)  1.14 small GQA k/v            0.57 llama3-8b/mistral-7b o/q
+  17  0.872 (1.001 1.005)  1.10 qwen3.5-35b-moe expert g 0.60 llama3-8b/mistral-7b o/q
+  18  0.871 (1.000 0.997)  1.10 qwen3.5-35b-moe expert g 0.59 llama3-8b/mistral-7b o/q
+  20  0.873 (0.999 0.997)  1.12 gemma3-4b gate/up        0.59 llama3-8b/mistral-7b o/q
+  22  0.872 (0.999 1.001)  1.13 gemma3-4b gate/up        0.59 qwen3-235b-moe expert ga
+  24  0.875 (1.001 0.999)  1.13 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  26  0.869 (1.001 1.004)  1.12 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  28  0.871 (1.000 1.007)  1.13 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  30  0.872 (1.000 0.997)  1.12 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  31  0.871 (1.000 1.004)  1.12 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  32  0.871 (1.000 1.005)  1.13 gemma3-4b gate/up        0.57 llama3-8b/mistral-7b o/q
+  33  0.962 (1.001 1.001)  1.13 llama3-8b/mistral-7b o/q 0.76 qwen3-235b-moe expert ga
+  36  0.962 (0.999 1.000)  1.13 llama3-8b/mistral-7b o/q 0.75 qwen3-235b-moe expert ga
+  40  0.956 (0.999 1.000)  1.13 llama3-8b/mistral-7b o/q 0.75 qwen3-235b-moe expert ga
+  44  0.960 (0.999 0.998)  1.13 llama3-8b/mistral-7b o/q 0.76 qwen3-235b-moe expert ga
+  48  0.953 (0.997 0.998)  1.12 llama3-8b/mistral-7b o/q 0.75 qwen3-235b-moe expert ga
+  49  0.946 (1.000 0.999)  1.14 small GQA k/v            0.83 qwen3.5-35b-moe expert g
+  52  0.946 (1.000 1.000)  1.14 small GQA k/v            0.82 llama3-8b/mistral-7b o/q
+  56  0.946 (1.000 1.000)  1.14 small GQA k/v            0.82 llama3-8b/mistral-7b o/q
+  60  0.945 (1.000 1.000)  1.14 small GQA k/v            0.82 llama3-8b/mistral-7b o/q
+  64  0.946 (0.999 1.000)  1.13 small GQA k/v            0.82 llama3-8b/mistral-7b o/q
+  65  0.999 (1.001 0.999)  1.00 llama3-8b/mistral-7b o/q 0.99 qwen3-8b gate/up
+  72  1.000 (1.000 1.000)  1.01 llama3-70b o/q square    0.99 llama3-8b/mistral-7b o/q
+  80  1.000 (1.000 1.000)  1.01 llama3-70b o/q square    0.99 qwen3-235b-moe expert ga
+  88  1.001 (0.999 0.999)  1.01 llama3-8b/mistral-7b gat 0.99 qwen3.5-35b-moe expert d
+  96  1.000 (0.999 1.001)  1.01 llama3-8b/mistral-7b o/q 0.99 qwen3-235b-moe expert ga
+ 104  1.000 (0.999 1.000)  1.01 qwen3.5-35b-moe expert d 1.00 llama3-8b/mistral-7b gat
+ 112  1.000 (1.000 1.000)  1.00 qwen3-8b gate/up         0.99 qwen3.5-35b-moe expert d
+ 120  1.000 (1.000 1.000)  1.01 qwen3-235b-moe expert do 0.99 qwen3.5-35b-moe expert d
+ 128  1.001 (1.000 1.000)  1.03 qwen3.5-35b-moe expert d 0.99 qwen3-235b-moe expert do
+ 144  1.000 (0.999 1.000)  1.01 qwen3-8b down            1.00 qwen3-235b-moe expert do
+ 160  1.000 (1.000 1.000)  1.01 qwen3-235b-moe expert do 0.98 qwen3.5-35b-moe expert d
+ 176  1.000 (1.000 0.999)  1.01 small square             0.99 qwen3-30b-moe expert dow
+ 192  1.000 (1.000 0.999)  1.04 qwen3.5-35b-moe expert d 1.00 llama3-8b/mistral-7b gat
+ 208  1.000 (1.000 1.000)  1.01 qwen3-235b-moe expert do 0.98 qwen3.5-122b-moe expert
+ 224  1.000 (1.000 1.000)  1.01 small square             0.98 qwen3-30b-moe expert dow
+ 240  1.000 (1.000 1.000)  1.02 qwen3.5-35b-moe expert d 0.99 qwen3.5-122b-moe expert
+ 256  1.000 (1.000 1.000)  1.01 qwen3-30b-moe expert dow 0.99 qwen3.5-122b-moe expert
+ 288  1.000 (1.000 1.000)  1.01 small square             0.99 qwen3.5-35b-moe expert d
+ 320  1.000 (1.000 1.000)  1.01 qwen3.5-35b-moe expert g 0.99 small square
+ 352  1.000 (1.000 0.997)  1.03 7-8b k/v                 0.99 llama3-70b gate/up
+ 384  1.000 (1.000 1.000)  1.02 qwen3.5-122b-moe expert  0.97 qwen3.5-35b-moe expert d
+ 416  1.002 (0.999 1.002)  1.01 qwen3.5-35b-moe expert g 0.98 qwen3.5-35b-moe expert d
+ 448  1.000 (0.999 1.001)  1.02 qwen3-235b-moe expert do 0.98 qwen3.5-122b-moe expert
+ 480  0.999 (1.000 0.999)  1.02 qwen3.5-122b-moe expert  0.99 gemma2-27b down
+ 512  1.000 (1.002 1.001)  1.02 qwen3.5-35b-moe expert g 0.97 qwen3-235b-moe expert do
+== bf16: M  B/A  (A2/A1  B2/B1)  worst-shape B/A  best-shape
+   1  1.019 (1.152 1.000)  1.41 llama3-70b gate/up       0.77 llama3-8b/mistral-7b gat
+   2  1.093 (1.002 0.999)  2.34 llama3-70b gate/up       0.78 llama3-8b/mistral-7b gat
+   3  0.931 (1.000 0.997)  1.10 gemma4-26b dense gate_up 0.76 llama3-8b/mistral-7b gat
+   4  0.927 (0.998 0.998)  1.10 gemma4-26b dense gate_up 0.76 llama3-8b/mistral-7b gat
+   5  0.925 (1.000 0.999)  1.09 gemma4-26b dense gate_up 0.75 llama3-8b/mistral-7b gat
+   6  0.924 (1.001 1.000)  1.10 gemma4-26b dense gate_up 0.76 llama3-8b/mistral-7b gat
+   7  0.925 (1.002 1.000)  1.09 gemma4-26b dense gate_up 0.76 llama3-8b/mistral-7b gat
+   8  0.927 (1.000 1.001)  1.17 qwen3-14b o/q square     0.75 llama3-8b/mistral-7b gat
+   9  0.896 (0.997 1.003)  1.12 small GQA k/v            0.59 llama3-8b/mistral-7b o/q
+  10  0.897 (1.000 1.002)  1.12 small GQA k/v            0.59 llama3-8b/mistral-7b o/q
+  11  0.895 (1.000 1.001)  1.12 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  12  0.905 (1.003 0.996)  1.13 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  13  0.901 (1.002 0.994)  1.14 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  14  0.899 (1.001 1.000)  1.12 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  15  0.900 (1.000 0.997)  1.14 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  16  0.901 (1.002 0.995)  1.14 small GQA k/v            0.58 llama3-8b/mistral-7b o/q
+  17  0.873 (0.999 0.999)  1.12 gemma3-4b gate/up        0.60 qwen3-235b-moe expert ga
+  18  0.873 (1.000 1.000)  1.11 gemma3-4b gate/up        0.60 llama3-8b/mistral-7b o/q
+  20  0.875 (1.000 0.997)  1.13 gemma3-4b gate/up        0.59 llama3-8b/mistral-7b o/q
+  22  0.872 (0.999 1.000)  1.13 gemma3-4b gate/up        0.59 qwen3-235b-moe expert ga
+  24  0.875 (1.000 1.000)  1.13 gemma3-4b gate/up        0.59 llama3-8b/mistral-7b o/q
+  26  0.871 (1.001 1.002)  1.12 gemma3-4b gate/up        0.59 llama3-8b/mistral-7b o/q
+  28  0.870 (1.001 1.003)  1.13 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  30  0.874 (1.000 1.003)  1.13 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  31  0.872 (1.001 0.997)  1.13 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  32  0.874 (1.000 1.003)  1.12 gemma3-4b gate/up        0.58 llama3-8b/mistral-7b o/q
+  33  0.963 (0.998 0.999)  1.12 llama3-8b/mistral-7b o/q 0.75 qwen3-235b-moe expert ga
+  36  0.962 (1.000 1.000)  1.13 llama3-8b/mistral-7b o/q 0.75 qwen3-235b-moe expert ga
+  40  0.959 (0.998 1.001)  1.13 llama3-8b/mistral-7b o/q 0.76 qwen3-235b-moe expert ga
+  44  0.957 (0.997 1.000)  1.13 llama3-8b/mistral-7b o/q 0.75 qwen3-235b-moe expert ga
+  48  0.951 (1.003 1.001)  1.13 llama3-8b/mistral-7b o/q 0.74 qwen3-235b-moe expert ga
+  49  0.945 (1.000 1.001)  1.14 small GQA k/v            0.81 llama3-8b/mistral-7b o/q
+  52  0.945 (0.999 1.000)  1.14 small GQA k/v            0.81 llama3-8b/mistral-7b o/q
+  56  0.947 (1.000 1.000)  1.14 small GQA k/v            0.81 llama3-8b/mistral-7b o/q
+  60  0.947 (1.000 1.000)  1.14 small GQA k/v            0.81 llama3-8b/mistral-7b o/q
+  64  0.943 (1.002 1.000)  1.14 small GQA k/v            0.82 llama3-8b/mistral-7b o/q
+  65  1.000 (0.999 1.000)  1.01 llama3-8b/mistral-7b gat 0.99 llama3-70b o/q square
+  72  1.000 (1.002 1.000)  1.01 qwen3-8b gate/up         0.99 llama3-70b o/q square
+  80  1.000 (1.000 1.001)  1.01 qwen3-235b-moe expert ga 0.99 llama3-8b/mistral-7b o/q
+  88  1.000 (0.999 1.000)  1.01 qwen3-30b-moe expert dow 0.99 llama3-8b/mistral-7b gat
+  96  1.000 (0.999 1.000)  1.01 qwen3.5-35b-moe expert d 0.99 llama3-70b o/q square
+ 104  1.003 (1.002 1.006)  1.03 gemma2-27b down          0.99 qwen3.5-35b-moe expert d
+ 112  1.001 (1.006 0.996)  1.03 qwen3.5-35b-moe expert g 0.98 llama3-8b/mistral-7b o/q
+ 120  0.999 (0.999 0.999)  1.03 qwen3.5-35b-moe expert g 0.99 gemma2-27b down
+ 128  0.998 (1.004 1.002)  1.02 qwen3.5-35b-moe expert d 0.94 qwen3.5-35b-moe expert g
+ 144  1.000 (1.000 1.001)  1.01 qwen3-235b-moe expert do 0.99 qwen3-30b-moe expert dow
+ 160  1.000 (1.000 1.000)  1.01 qwen3-235b-moe expert do 0.98 llama3-8b/mistral-7b o/q
+ 176  1.000 (1.000 1.000)  1.02 qwen3.5-35b-moe expert d 0.99 qwen3-235b-moe expert ga
+ 192  1.000 (1.000 1.000)  1.00 gemma4-26b-moe expert do 0.98 qwen3.5-35b-moe expert d
+ 208  1.000 (1.000 1.000)  1.01 qwen3.5-122b-moe expert  0.99 qwen3-30b-moe expert dow
+ 224  1.000 (1.000 1.000)  1.01 qwen3.5-35b-moe expert d 0.98 small square
+ 240  1.000 (1.000 1.000)  1.02 qwen3.5-35b-moe expert d 0.95 qwen3.5-35b-moe expert g
+ 256  1.000 (1.000 1.000)  1.00 qwen3-235b-moe expert do 0.97 7-8b k/v
+ 288  1.000 (1.000 1.000)  1.01 7-8b k/v                 0.99 small square
+ 320  1.000 (1.000 1.000)  1.01 qwen3.5-35b-moe expert d 0.99 small square
+ 352  1.000 (1.000 0.999)  1.01 gemma2-27b down          0.98 qwen3-30b-moe expert dow
+ 384  0.999 (1.001 0.999)  1.01 qwen3.5-122b-moe expert  0.99 gemma2-27b down
+ 416  1.000 (0.998 1.004)  1.01 qwen3.5-122b-moe expert  0.99 qwen3.5-35b-moe expert g
+ 448  0.998 (1.002 1.000)  1.01 qwen3.5-35b-moe expert d 0.99 qwen3-30b-moe expert dow
+ 480  1.000 (0.997 1.002)  1.02 qwen3-30b-moe expert dow 0.99 llama3-70b down
+ 512  0.999 (0.996 1.002)  1.02 qwen3-235b-moe expert do 0.99 qwen3-coder-480b-moe exp

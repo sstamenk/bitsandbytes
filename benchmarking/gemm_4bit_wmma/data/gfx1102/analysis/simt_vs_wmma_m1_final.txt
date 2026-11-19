@@ -1,0 +1,7 @@
+SIMT (A build) vs default dispatch of the final build (WMMA), 3 alternating cycles, medians; llama3-70b gate/up excluded (first-in-process artifact)
+fp16 1 simt/wmma 1.049 wmma/orc 1.003 simt/orc 1.053 simt faster on 10/39
+fp16 2 simt/wmma 1.273 wmma/orc 1.000 simt/orc 1.273 simt faster on 1/39
+fp16 3 simt/wmma 1.549 wmma/orc 1.000 simt/orc 1.549 simt faster on 0/39
+bf16 1 simt/wmma 1.049 wmma/orc 1.003 simt/orc 1.052 simt faster on 10/39
+bf16 2 simt/wmma 1.253 wmma/orc 1.000 simt/orc 1.253 simt faster on 1/39
+bf16 3 simt/wmma 1.526 wmma/orc 1.000 simt/orc 1.526 simt faster on 0/39

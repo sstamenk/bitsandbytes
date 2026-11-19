@@ -1,0 +1,7 @@
+== bf16: cfg/dequant total (cycle-total range) worst-shape | watched shapes cfg/dequant: phi3 down, 7-8b k/v, gemma4 moe gate_up
+ 352 n=40 dequant=   105305us | A  0.601 (0.600-0.602) w1.11 gemma4-26b-moe exp [0.70 0.90 0.61] win38
+ 385 n=40 dequant=   103760us | A  0.717 (0.716-0.717) w1.14 qwen3-30b-moe expe [0.85 1.01 0.76] win33
+ 416 n=40 dequant=   105009us | A  0.710 (0.708-0.711) w1.09 qwen3.5-35b-moe ex [0.91 1.00 0.76] win34
+ 448 n=40 dequant=   107082us | A  0.749 (0.746-0.748) w1.18 qwen3.5-35b-moe ex [0.81 1.09 0.82] win32
+ 480 n=40 dequant=   107909us | A  0.797 (0.793-0.799) w1.29 qwen3-30b-moe expe [0.85 1.10 0.87] win31
+ 512 n=40 dequant=   108798us | A  0.838 (0.839-0.841) w1.44 qwen3-30b-moe expe [1.05 1.30 0.92] win25

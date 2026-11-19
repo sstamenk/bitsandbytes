@@ -1,0 +1,19 @@
+[W1119 21:50:35.948145380 Context.cpp:599] Warning: Attempting to use CK GEMM on an unsupported architecture! Cannot set blas backend to CK (function operator())
+[W1119 21:50:36.718917159 Context.cpp:629] Warning: torch.backends.cuda.preferred_blas_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+[W1119 21:50:36.718937099 Context.cpp:555] Warning: Attempting to use hipBLASLt on an unsupported architecture! Overriding blas backend to hipblas (function operator())
+torch 2.14.0+rocm10.2.0a20260928 default preferred blas: _BlasBackend.Cublas
+cublas _BlasBackend.Cublas torch.float32 38.28 ms 1.80 TFLOPS
+cublas _BlasBackend.Cublas torch.float16 3.11 ms 22.06 TFLOPS
+cublaslt _BlasBackend.Cublas torch.float32 36.45 ms 1.89 TFLOPS
+cublaslt _BlasBackend.Cublas torch.float16 2.52 ms 27.27 TFLOPS
+loaded: ['/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_core/lib/host-math/lib/librocm-openblas.so.0', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_libraries/lib/libhipblas.so.3', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_libraries/lib/libhipblaslt.so.1', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_libraries/lib/librocblas.so.5', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-4b78795a.so']
+--- with hipBLASLt #12465 overlay
+[W1119 21:50:38.098573019 Context.cpp:599] Warning: Attempting to use CK GEMM on an unsupported architecture! Cannot set blas backend to CK (function operator())
+[W1119 21:50:39.811347553 Context.cpp:629] Warning: torch.backends.cuda.preferred_blas_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+[W1119 21:50:39.811366243 Context.cpp:555] Warning: Attempting to use hipBLASLt on an unsupported architecture! Overriding blas backend to hipblas (function operator())
+torch 2.14.0+rocm10.2.0a20260928 default preferred blas: _BlasBackend.Cublas
+cublas _BlasBackend.Cublas torch.float32 37.96 ms 1.81 TFLOPS
+cublas _BlasBackend.Cublas torch.float16 2.55 ms 26.98 TFLOPS
+cublaslt _BlasBackend.Cublas torch.float32 36.31 ms 1.89 TFLOPS
+cublaslt _BlasBackend.Cublas torch.float16 2.50 ms 27.45 TFLOPS
+loaded: ['/home/ubuntu/bnbtune/hipblaslt_fix/libhipblaslt.so.1', '/home/ubuntu/bnbtune/hipblaslt_fix/libtensilelite-host.so.1', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_core/lib/host-math/lib/librocm-openblas.so.0', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_libraries/lib/libhipblas.so.3', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_libraries/lib/librocblas.so.5', '/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/numpy.libs/libscipy_openblas64_-4b78795a.so']
