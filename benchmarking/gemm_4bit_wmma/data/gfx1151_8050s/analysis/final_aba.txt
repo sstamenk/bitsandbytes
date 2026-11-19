@@ -1,0 +1,19 @@
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+bf16    16      7518      7519  1.000  0.986     24     1.022 gemma2-27b gate/up
+bf16    17     11013     10150  1.085  0.967     23     1.190 gemma4-26b-moe expert gate_up
+bf16    24     11284     10367  1.088  0.957     20     1.091 llama3-70b gate/up
+bf16    48     17251     17210  1.002  0.928     23     1.271 phi3-mini/llama3.2-3b down
+bf16    96     26534     27214  0.975  0.934     22     1.107 gemma2-27b gate/up
+bf16   128     34755     35608  0.976  0.933     21     1.358 7-8b k/v
+bf16   256     68042     65604  1.037  0.954     31     1.265 qwen3-30b-moe expert down
+bf16   384     91631     95443  0.960  0.952     11     1.153 gemma2-27b gate/up
+bf16   512    121442    125444  0.968  0.966     11     1.164 gemma2-27b gate/up
+fp16    16      7550      7479  1.010  1.012     27     1.025 qwen3-14b down
+fp16    17     11122      9974  1.115  1.047     26     1.121 llama3-70b gate/up
+fp16    24     11432     10139  1.127  1.066     28     1.326 gemma4-26b-moe expert gate_up
+fp16    48     17543     16045  1.093  1.095     26     1.256 phi3-mini/llama3.2-3b down
+fp16    96     25848     22622  1.143  1.117     30     1.269 gemma4-26b-moe expert gate_up
+fp16   128     34019     29236  1.164  1.122     28     1.418 7-8b k/v
+fp16   256     66320     57651  1.150  1.139     35     1.188 gemma4-26b-moe expert down
+fp16   384     95777     84767  1.130  1.145     34     1.021 qwen3.5-35b-moe expert down
+fp16   512    127773    112587  1.135  1.150     31     1.018 qwen3-coder-480b-moe expert down

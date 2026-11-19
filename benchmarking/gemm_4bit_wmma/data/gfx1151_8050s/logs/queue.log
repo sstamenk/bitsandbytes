@@ -1,0 +1,42 @@
+01:49:32 START ev_fp16 python bench.py --kernels auto,wmma,dequant --dtypes fp16 --ms 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,22,24,26,28,30,32,36,40,44,48,52,56,60,64,72,80,88,96,104,112,120,128,144,160,176,192,208,224,240,256,288,320,352,384,416,448,480,512 --out ~/bnbtune/data/ev_fp16.csv
+02:51:12 END rc=0 ev_fp16 python bench.py --kernels auto,wmma,dequant --dtypes fp16 --ms 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,18,20,22,24,26,28,30,32,36,40,44,48,52,56,60,64,72,80,88,96,104,112,120,128,144,160,176,192,208,224,240,256,288,320,352,384,416,448,480,512 --out ~/bnbtune/data/ev_fp16.csv
+02:51:12 START kname_prof rocprofv3 --kernel-trace --stats -d ~/bnbtune/logs/kprof -o kp -- python ~/bnbtune/kname.py
+02:51:17 END rc=0 kname_prof rocprofv3 --kernel-trace --stats -d ~/bnbtune/logs/kprof -o kp -- python ~/bnbtune/kname.py
+02:51:17 START ev_fp32 python bench.py --kernels auto,wmma,dequant --dtypes fp32 --ms 1,2,3,4,5,6,7,8,9,10,12,14,16,20,24,32,48,64,96,128,192,256,320,384,448,512 --out ~/bnbtune/data/ev_fp32.csv
+03:30:46 END rc=0 ev_fp32 python bench.py --kernels auto,wmma,dequant --dtypes fp32 --ms 1,2,3,4,5,6,7,8,9,10,12,14,16,20,24,32,48,64,96,128,192,256,320,384,448,512 --out ~/bnbtune/data/ev_fp32.csv
+03:30:46 START ev_simt python bench.py --kernels simt --dtypes fp16,fp32 --ms 1,2,3,4,5,6,7,8,9,10,12,14,16,24,32 --out ~/bnbtune/data/ev_simt.csv
+03:41:40 END rc=0 ev_simt python bench.py --kernels simt --dtypes fp16,fp32 --ms 1,2,3,4,5,6,7,8,9,10,12,14,16,24,32 --out ~/bnbtune/data/ev_simt.csv
+03:41:40 START sweep_fp16 python sweep.py --shapes 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --dtype fp16 --ms 4,8,16,24,48,96,192,384 --out ~/bnbtune/data/sweep_fp16.csv
+04:43:22 END rc=0 sweep_fp16 python sweep.py --shapes 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --dtype fp16 --ms 4,8,16,24,48,96,192,384 --out ~/bnbtune/data/sweep_fp16.csv
+04:43:22 START sweep_fp16b python sweep.py --shapes 13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --dtype fp16 --ms 16,24,48,96,192,384 --out ~/bnbtune/data/sweep_fp16b.csv
+06:16:54 END rc=0 sweep_fp16b python sweep.py --shapes 13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --dtype fp16 --ms 16,24,48,96,192,384 --out ~/bnbtune/data/sweep_fp16b.csv
+06:16:54 START profexp bash ~/bnbtune/profile_exp.sh p1
+06:24:07 END rc=0 profexp bash ~/bnbtune/profile_exp.sh p1
+06:24:07 START build_b bash ~/bnbtune/build.sh srcb 1
+06:24:52 END rc=0 build_b bash ~/bnbtune/build.sh srcb 1
+06:24:52 START aba1 bash ~/bnbtune/aba.sh aba1 8,16,17,20,24,32,33,40,48,64,65,96,128,129,192,256,257,384,512 fp16
+06:45:40 END rc=0 aba1 bash ~/bnbtune/aba.sh aba1 8,16,17,20,24,32,33,40,48,64,65,96,128,129,192,256,257,384,512 fp16
+06:45:40 START sweep_fp32 python sweep.py --shapes 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --dtype fp32 --ms 24 --out ~/bnbtune/data/sweep_fp32.csv
+07:01:52 END rc=0 sweep_fp32 python sweep.py --shapes 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --dtype fp32 --ms 24 --out ~/bnbtune/data/sweep_fp32.csv
+07:01:52 START aba2 env ORDER="b1:srcb a:src b2:srcb" bash ~/bnbtune/aba2.sh aba2 17,24,32,40,64,96,128,192,256,384,512 fp16
+07:14:08 END rc=0 aba2 env ORDER="b1:srcb a:src b2:srcb" bash ~/bnbtune/aba2.sh aba2 17,24,32,40,64,96,128,192,256,384,512 fp16
+07:14:08 START ev_bf16 python bench.py --kernels auto,dequant --dtypes bf16 --ms 1,4,16,24,48,96,192,384,512 --out ~/bnbtune/data/ev_bf16.csv
+07:21:03 END rc=0 ev_bf16 python bench.py --kernels auto,dequant --dtypes bf16 --ms 1,4,16,24,48,96,192,384,512 --out ~/bnbtune/data/ev_bf16.csv
+07:21:03 START checkp bash ~/bnbtune/checkp.sh
+07:23:48 END rc=0 checkp bash ~/bnbtune/checkp.sh
+07:23:48 START final_aba env ORDER="a1:src b:srcp a2:src" bash ~/bnbtune/aba2.sh final 16,17,24,48,96,128,256,384,512 fp16,bf16
+07:44:03 END rc=0 final_aba env ORDER="a1:src b:srcp a2:src" bash ~/bnbtune/aba2.sh final 16,17,24,48,96,128,256,384,512 fp16,bf16
+07:44:03 START kcheck bash ~/bnbtune/kcheck.sh
+07:44:14 END rc=0 kcheck bash ~/bnbtune/kcheck.sh
+07:44:14 START plots bash ~/bnbtune/plots.sh
+07:44:18 END rc=0 plots bash ~/bnbtune/plots.sh
+07:44:18 QUEUE EMPTY
+07:44:40 START alt_fp16 python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dtype fp16 --ms 17,24,40,48,96,128,192,256,384,512 --cycles 5 --out ~/bnbtune/data/alt_fp16.csv
+08:16:05 END rc=0 alt_fp16 python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dtype fp16 --ms 17,24,40,48,96,128,192,256,384,512 --cycles 5 --out ~/bnbtune/data/alt_fp16.csv
+08:16:05 START alt_fp16b python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dtype fp16 --shapes 23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --ms 17,24,40,48,96,128,192,256,384,512 --cycles 3 --out ~/bnbtune/data/alt_fp16b.csv
+08:29:09 END rc=0 alt_fp16b python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dtype fp16 --shapes 23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39 --ms 17,24,40,48,96,128,192,256,384,512 --cycles 3 --out ~/bnbtune/data/alt_fp16b.csv
+08:29:09 START alt_bf16 python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dtype bf16 --ms 24,48,96,128,256 --cycles 2 --out ~/bnbtune/data/alt_bf16.csv
+08:39:36 END rc=0 alt_bf16 python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dtype bf16 --ms 24,48,96,128,256 --cycles 2 --out ~/bnbtune/data/alt_bf16.csv
+08:39:36 START alt_cap python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dequant --dtype bf16 --ms 384,512 --cycles 2 --out ~/bnbtune/data/alt_cap_bf16.csv
+08:45:41 END rc=0 alt_cap python alt.py --tables A=f16,B=rulesB.py,J2=rulesJ2.py --dequant --dtype bf16 --ms 384,512 --cycles 2 --out ~/bnbtune/data/alt_cap_bf16.csv
+08:45:41 QUEUE EMPTY

@@ -1,0 +1,34 @@
+W1119 07:44:09.291510   67028 simple_timer.cpp:55] [rocprofv3] tool initialization ::     0.000352 sec
+W1119 07:44:09.291738   67028 simple_timer.cpp:55] [rocprofv3] 'python /home/ubuntu/bnbtune/kname2.py' ::     0.000000 sec
+W1119 07:44:10.310507   67028 tool.cpp:3726] HAS version 1.21.0 initialized (instance=0)
+torch.float16 24 relerr=3.31e-04
+torch.float16 48 relerr=3.31e-04
+torch.float16 384 relerr=3.30e-04
+torch.bfloat16 24 relerr=2.60e-03
+torch.bfloat16 48 relerr=2.59e-03
+torch.bfloat16 384 relerr=2.60e-03
+W1119 07:44:12.738719   67028 simple_timer.cpp:55] [rocprofv3] 'python /home/ubuntu/bnbtune/kname2.py' ::     3.446980 sec
+W1119 07:44:12.755096   67028 generateRocpd.cpp:1051] writing SQL database for process 67028 on node 3201168545
+E1119 07:44:12.755898   67028 generateRocpd.cpp:1075] Opened result file: /home/ubuntu/bnbtune/logs/kprof2_srcp/kp_results.db (UUID=00000191-5222-7222-8272-7885e9e37b1a)
+W1119 07:44:14.083802   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_string             ::     0.050127 sec
+W1119 07:44:14.083872   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_node          ::     0.000021 sec
+W1119 07:44:14.084351   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_process       ::     0.000474 sec
+W1119 07:44:14.084564   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_agent         ::     0.000204 sec
+W1119 07:44:14.084580   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_pmc           ::     0.000002 sec
+W1119 07:44:14.139797   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd kernel info        ::     0.055211 sec
+W1119 07:44:14.140505   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_region             ::     0.000048 sec
+W1119 07:44:14.144337   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_kernel_dispatch    ::     0.003826 sec
+W1119 07:44:14.144353   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_pmc_event          ::     0.000003 sec
+W1119 07:44:14.144357   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_memory_copy        ::     0.000002 sec
+W1119 07:44:14.144360   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_hip_event          ::     0.000002 sec
+W1119 07:44:14.144364   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_graph_launch       ::     0.000002 sec
+W1119 07:44:14.144369   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_memory_allocate    ::     0.000004 sec
+W1119 07:44:14.159989   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_pmc: kfd      ::     0.015618 sec
+W1119 07:44:14.160001   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_pmc_event: kfd     ::     0.000000 sec
+W1119 07:44:14.163981   67028 simple_timer.cpp:55] SQLite3 generation :: rocpd_flush_pending      ::     0.003970 sec
+W1119 07:44:14.164457   67028 simple_timer.cpp:55] SQLite3 generation :: SQL indexing             ::     0.000464 sec
+W1119 07:44:14.187772   67028 simple_timer.cpp:55] SQLite3 generation :: total                    ::     1.432683 sec
+W1119 07:44:14.189626   67028 simple_timer.cpp:55] [rocprofv3] output generation ::     1.446007 sec
+W1119 07:44:14.191407   67028 simple_timer.cpp:55] [rocprofv3] tool finalization ::     1.447809 sec
+W1119 07:44:14.191720   67033 tool.cpp:4614] [PPID=67027][PID=67028][TID=67033][signal_finalization_worker] rocprofv3 finalizing after signal 0...
+W1119 07:44:14.191779   67033 tool.cpp:4539] [PPID=67027][PID=67028][TID=67033][signal_finalization_worker] rocprofv3 waiting for 0 children to exit

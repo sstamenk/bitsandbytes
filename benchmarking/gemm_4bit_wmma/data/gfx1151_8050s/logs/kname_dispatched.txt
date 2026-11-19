@@ -1,0 +1,19 @@
+['id', 'guid', 'tid', 'category', 'region', 'name', 'nid', 'pid', 'agent_abs_index', 'agent_log_index', 'agent_type_index', 'agent_type', 'code_object_id', 'kernel_id', 'dispatch_id', 'stream_id', 'queue_id', 'graph_exec_id', 'graph_node_id', 'queue', 'stream', 'start', 'end', 'duration', 'grid_x', 'grid_y', 'grid_z', 'workgroup_x', 'workgroup_y', 'workgroup_z', 'lds_size', 'scratch_size', 'vgpr_count', 'accum_vgpr_count', 'sgpr_count', 'static_lds_size', 'static_scratch_size', 'event_id', 'stack_id', 'parent_stack_id', 'corr_id']
+void gemm_4bit_wmma<11, __half, 1, 1, 1, 1, 8, 2, 4, false>(__half const*, unsigned char const*, float const*,
+void gemm_4bit_wmma<11, __half, 1, 1, 1, 1, 8, 2, 4, false>(__half const*, unsigned char const*, float const*,
+void gemm_4bit_wmma<11, __half, 2, 2, 1, 1, 4, 2, 4, false>(__half const*, unsigned char const*, float const*,
+void gemm_4bit_wmma<11, __half, 2, 2, 1, 1, 4, 2, 4, false>(__half const*, unsigned char const*, float const*,
+void gemm_4bit_wmma<11, __half, 4, 2, 1, 4, 2, 2, 4, true>(__half const*, unsigned char const*, float const*,
+void gemm_4bit_wmma<11, __half, 4, 2, 1, 4, 2, 2, 4, true>(__half const*, unsigned char const*, float const*,
+void gemm_4bit_wmma<11, __hip_bfloat16, 1, 1, 1, 1, 8, 2, 4, false>(__hip_bfloat16 const*, unsigned char const
+void gemm_4bit_wmma<11, __hip_bfloat16, 1, 1, 1, 1, 8, 2, 4, false>(__hip_bfloat16 const*, unsigned char const
+void gemm_4bit_wmma<11, __hip_bfloat16, 2, 2, 1, 1, 4, 2, 4, false>(__hip_bfloat16 const*, unsigned char const
+void gemm_4bit_wmma<11, __hip_bfloat16, 2, 2, 1, 1, 4, 2, 4, false>(__hip_bfloat16 const*, unsigned char const
+void gemm_4bit_wmma<11, __hip_bfloat16, 4, 2, 1, 4, 2, 2, 4, false>(__hip_bfloat16 const*, unsigned char const
+void gemm_4bit_wmma<11, __hip_bfloat16, 4, 2, 1, 4, 2, 2, 4, false>(__hip_bfloat16 const*, unsigned char const
+void gemm_4bit_simt<float, 1>(float const*, unsigned char const*, float const*, unsigned char const*, float co
+void gemm_4bit_simt<float, 1>(float const*, unsigned char const*, float const*, unsigned char const*, float co
+void gemm_4bit_wmma<11, float, 2, 2, 1, 2, 2, 1, 2, false>(float const*, unsigned char const*, float const*, u
+void gemm_4bit_wmma<11, float, 2, 2, 1, 2, 2, 1, 2, false>(float const*, unsigned char const*, float const*, u
+void gemm_4bit_wmma<11, float, 2, 2, 1, 4, 1, 2, 4, false>(float const*, unsigned char const*, float const*, u
+void gemm_4bit_wmma<11, float, 2, 2, 1, 4, 1, 2, 4, false>(float const*, unsigned char const*, float const*, u

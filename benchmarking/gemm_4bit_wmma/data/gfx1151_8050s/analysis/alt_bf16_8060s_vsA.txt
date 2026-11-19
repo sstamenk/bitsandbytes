@@ -1,0 +1,9 @@
+== bf16: cfg/A total (cycle-total range) worst-shape | watched shapes cfg/A: phi3 down, 7-8b k/v, gemma4 moe gate_up
+  17 n=40 A=     8148us | B  1.052 (1.051-1.059) w1.28 llama3-70b gate/up [1.17 1.00 1.00] win19 | J2  1.037 (1.037-1.038) w1.40 gemma4-26b-moe exp [1.05 1.07 1.40] win8
+  24 n=40 A=     8275us | B  1.058 (1.057-1.060) w1.30 llama3-70b gate/up [1.18 1.00 1.00] win14 | J2  1.043 (1.040-1.044) w1.38 gemma4-26b-moe exp [1.06 1.08 1.38] win13
+  40 n=40 A=    11674us | B  1.027 (1.026-1.029) w1.26 phi3-mini/llama3.2 [1.26 0.97 0.88] win13 | J2  0.989 (0.988-0.993) w1.30 7-8b k/v           [1.26 1.30 0.99] win17
+  48 n=40 A=    11799us | B  1.030 (1.025-1.033) w1.28 phi3-mini/llama3.2 [1.28 0.97 0.89] win16 | J2  0.987 (0.986-0.990) w1.30 qwen3.5-35b-moe ex [1.27 1.30 0.99] win19
+  96 n=40 A=    17469us | B  1.030 (1.025-1.033) w1.28 gemma3-12b down    [0.99 0.79 1.18] win23 | J2  1.029 (1.026-1.030) w1.31 gemma3-4b down     [1.13 1.00 1.00] win14
+ 128 n=40 A=    22023us | B  1.024 (1.022-1.027) w1.15 llama3-8b/mistral- [0.72 1.04 0.73] win21 | J2  1.019 (1.017-1.019) w1.16 llama3-8b/mistral- [1.08 1.00 1.00] win16
+ 192 n=40 A=    31367us | B  1.147 (1.135-1.152) w1.84 gemma2-27b down    [1.05 1.00 1.15] win24 | J2  1.024 (1.024-1.025) w1.37 small GQA k/v      [1.08 0.88 1.23] win13
+ 256 n=40 A=    41370us | B  1.057 (1.050-1.065) w1.73 gemma2-27b down    [0.97 0.96 1.01] win25 | J2  1.023 (1.020-1.025) w1.25 gemma4-26b-moe exp [1.02 1.11 1.25] win11

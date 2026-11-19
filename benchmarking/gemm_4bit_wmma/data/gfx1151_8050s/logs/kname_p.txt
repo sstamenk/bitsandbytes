@@ -1,0 +1,55 @@
+W1119 07:23:43.327617   64269 simple_timer.cpp:55] [rocprofv3] tool initialization ::     0.000573 sec
+W1119 07:23:43.327796   64269 simple_timer.cpp:55] [rocprofv3] 'python /home/ubuntu/bnbtune/kname.py' ::     0.000000 sec
+W1119 07:23:44.441980   64269 tool.cpp:3726] HAS version 1.21.0 initialized (instance=0)
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-19 07:23:45 64269:64269 SyncActivityProfilerHandler.cpp:46] profiler_stop
+torch.float16 1 relerr=3.19e-04 []
+torch.float16 16 relerr=3.33e-04 []
+torch.float16 128 relerr=3.82e-04 []
+torch.bfloat16 1 relerr=2.54e-03 []
+torch.bfloat16 16 relerr=2.58e-03 []
+torch.bfloat16 128 relerr=2.59e-03 []
+torch.float32 1 relerr=1.13e-06 []
+torch.float32 16 relerr=1.16e-06 []
+torch.float32 128 relerr=1.39e-06 []
+W1119 07:23:46.523272   64269 simple_timer.cpp:55] [rocprofv3] 'python /home/ubuntu/bnbtune/kname.py' ::     3.195474 sec
+W1119 07:23:46.540146   64269 generateRocpd.cpp:1051] writing SQL database for process 64269 on node 3201168545
+E1119 07:23:46.540938   64269 generateRocpd.cpp:1075] Opened result file: /home/ubuntu/bnbtune/logs/kprof_p/kp_results.db (UUID=0000017e-9d3c-7d3c-8892-a18b00cf7928)
+W1119 07:23:47.683357   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_string             ::     0.051078 sec
+W1119 07:23:47.683475   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_node          ::     0.000007 sec
+W1119 07:23:47.683865   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_process       ::     0.000384 sec
+W1119 07:23:47.684044   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_agent         ::     0.000168 sec
+W1119 07:23:47.684051   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_pmc           ::     0.000002 sec
+W1119 07:23:47.738700   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd kernel info        ::     0.054647 sec
+W1119 07:23:47.738867   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_region             ::     0.000028 sec
+W1119 07:23:47.743105   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_kernel_dispatch    ::     0.004236 sec
+W1119 07:23:47.743118   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_pmc_event          ::     0.000003 sec
+W1119 07:23:47.743122   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_memory_copy        ::     0.000002 sec
+W1119 07:23:47.743126   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_hip_event          ::     0.000002 sec
+W1119 07:23:47.743129   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_graph_launch       ::     0.000002 sec
+W1119 07:23:47.743134   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_memory_allocate    ::     0.000004 sec
+W1119 07:23:47.758700   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_info_pmc: kfd      ::     0.015560 sec
+W1119 07:23:47.758712   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_pmc_event: kfd     ::     0.000000 sec
+W1119 07:23:47.760743   64269 simple_timer.cpp:55] SQLite3 generation :: rocpd_flush_pending      ::     0.002022 sec
+W1119 07:23:47.761224   64269 simple_timer.cpp:55] SQLite3 generation :: SQL indexing             ::     0.000472 sec
+W1119 07:23:47.781461   64269 simple_timer.cpp:55] SQLite3 generation :: total                    ::     1.241323 sec
+W1119 07:23:47.782984   64269 simple_timer.cpp:55] [rocprofv3] output generation ::     1.254185 sec
+W1119 07:23:47.784738   64269 simple_timer.cpp:55] [rocprofv3] tool finalization ::     1.255966 sec
+W1119 07:23:47.785496   64272 tool.cpp:4614] [PPID=63443][PID=64269][TID=64272][signal_finalization_worker] rocprofv3 finalizing after signal 0...
+W1119 07:23:47.785684   64272 tool.cpp:4539] [PPID=63443][PID=64269][TID=64272][signal_finalization_worker] rocprofv3 waiting for 0 children to exit

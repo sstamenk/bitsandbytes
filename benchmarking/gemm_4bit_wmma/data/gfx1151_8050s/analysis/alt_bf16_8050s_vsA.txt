@@ -1,0 +1,6 @@
+== bf16: cfg/A total (cycle-total range) worst-shape | watched shapes cfg/A: phi3 down, 7-8b k/v, gemma4 moe gate_up
+  24 n=40 A=    10701us | B  0.918 (0.916-0.920) w1.12 llama3-70b o/q squ [1.08 1.00 1.01] win26 | J2  0.906 (0.903-0.909) w1.51 small square       [1.05 1.04 1.33] win18
+  48 n=40 A=    16274us | B  0.956 (0.956-0.956) w1.34 phi3-mini/llama3.2 [1.34 0.94 1.02] win26 | J2  0.971 (0.969-0.973) w1.32 phi3-mini/llama3.2 [1.32 1.27 1.04] win22
+  96 n=40 A=    25333us | B  0.987 (0.987-0.988) w1.05 gemma4-26b-moe exp [0.85 0.79 1.05] win27 | J2  0.997 (0.997-0.998) w1.23 phi3-mini/llama3.2 [1.23 1.00 1.00] win23
+ 128 n=40 A=    33257us | B  0.983 (0.980-0.986) w1.37 7-8b k/v           [0.74 1.37 0.83] win24 | J2  0.993 (0.991-0.996) w1.23 small square       [1.00 1.00 1.00] win18
+ 256 n=40 A=    65945us | B  0.878 (0.877-0.879) w1.27 qwen3-30b-moe expe [0.86 0.84 0.80] win34 | J2  0.988 (0.988-0.988) w1.11 qwen3.5-35b-moe ex [0.96 1.04 0.94] win20

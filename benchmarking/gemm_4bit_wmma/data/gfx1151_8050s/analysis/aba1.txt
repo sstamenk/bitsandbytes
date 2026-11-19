@@ -1,0 +1,20 @@
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+fp16     8      6150      6134  1.003  1.005     22     1.014 qwen3-14b gate/up
+fp16    16      7560      7553  1.001  1.024     16     1.030 qwen3-32b down
+fp16    17     11157     10133  1.101  1.046     22     1.334 gemma4-26b-moe expert gate_up
+fp16    20     11330     10269  1.103  1.050     23     1.317 gemma4-26b-moe expert gate_up
+fp16    24     11446     10414  1.099  1.057     25     1.093 llama3-70b o/q square
+fp16    32     10886     10852  1.003  1.048     22     1.065 qwen3-32b gate/up
+fp16    33     17039     16303  1.045  1.077     28     1.280 phi3-mini/llama3.2-3b down
+fp16    40     17322     16532  1.048  1.093     25     1.267 phi3-mini/llama3.2-3b down
+fp16    48     17605     16821  1.047  1.095     28     1.233 phi3-mini/llama3.2-3b down
+fp16    64     18582     18574  1.000  1.073     15     1.066 qwen3-32b down
+fp16    65     26116     25502  1.024  1.092     30     1.078 qwen3-coder-480b-moe expert down
+fp16    96     25954     23749  1.093  1.118     30     1.311 gemma4-26b-moe expert gate_up
+fp16   128     34027     30642  1.110  1.135     26     1.423 7-8b k/v
+fp16   129     40563     39744  1.021  1.124     28     1.181 small GQA k/v
+fp16   192     49817     47549  1.048  1.141     31     1.254 qwen3.5-122b-moe expert down
+fp16   256     66457     61086  1.088  1.145     28     1.222 gemma4-26b-moe expert down
+fp16   257     71537     67416  1.061  1.132     27     1.131 qwen3-coder-480b-moe expert down
+fp16   384     97695     89848  1.087  1.111     28     1.136 qwen3.5-122b-moe expert down
+fp16   512    134035    119351  1.123  1.049     27     1.223 qwen3-coder-480b-moe expert down

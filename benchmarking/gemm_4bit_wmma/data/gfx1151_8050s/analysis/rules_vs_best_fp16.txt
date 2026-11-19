@@ -1,0 +1,90 @@
+=== f16 on 8050S sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+   4    1.033    1.050   1.22 llama3-8b/mistral-7b gate/up 0 14
+   8    1.035    1.053   1.22 llama3-70b o/q square        0 14
+  16    1.059    1.071   1.22 qwen3-235b-moe expert down   0 40
+  24    1.175    1.120   1.48 llama3-8b/mistral-7b down    0 40
+  48    1.095    1.096   1.28 qwen3.5-122b-moe expert down 0 40
+  96    1.098    1.088   1.29 gemma3-4b down               0 40
+ 192    1.050    1.061   1.24 qwen3.5-122b-moe expert gate 0 40
+ 384    1.069    1.025   1.30 llama3-70b down              0 40
+all    1.073
+=== f16 on 8060S pinned gapM sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+  24    1.050    1.078   1.44 7-8b k/v                     0 40
+  48    1.050    1.060   1.25 llama3-8b/mistral-7b o/q squ 0 40
+  96    1.034    1.084   1.42 gemma4-26b dense down        0 40
+ 192    1.014    1.054   1.33 gemma4-26b dense down        0 40
+ 384    1.016    1.033   1.28 qwen3-30b-moe expert gate_up 0 40
+all    1.024
+=== f16 on 8060S default-clock sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+   1    1.021    1.036   1.20 gemma3-4b down               0 40
+   4    1.021    1.039   1.22 gemma3-4b down               0 40
+   8    1.022    1.039   1.23 gemma3-4b down               0 40
+  16    1.028    1.046   1.32 7-8b k/v                     0 40
+  32    1.122    1.133   1.47 gemma3-4b down               0 40
+  64    1.061    1.105   1.47 gemma3-4b down               0 40
+ 128    1.081    1.071   1.37 phi3-mini/llama3.2-3b down   0 40
+ 256    1.043    1.045   1.20 gemma3-12b down              0 40
+all    1.054
+=== rulesB.py on 8050S sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+   4    1.033    1.050   1.22 llama3-8b/mistral-7b gate/up 0 14
+   8    1.035    1.053   1.22 llama3-70b o/q square        0 14
+  16    1.059    1.071   1.22 qwen3-235b-moe expert down   0 40
+  24    1.068    1.071   1.34 small GQA k/v                0 40
+  48    1.042    1.067   1.32 phi3-mini/llama3.2-3b down   0 40
+  96    1.012    1.029   1.28 gemma4-26b-moe expert gate_u 0 40
+ 192    1.019    1.023   1.19 small GQA k/v                0 40
+ 384    1.000    1.006   1.07 qwen3-30b-moe expert gate_up 0 40
+all    1.016
+=== rulesB.py on 8060S pinned gapM sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+  24    1.116    1.087   1.44 7-8b k/v                     0 40
+  48    1.098    1.094   1.41 phi3-mini/llama3.2-3b down   0 40
+  96    1.111    1.089   1.32 qwen3.5-35b-moe expert gate_ 0 40
+ 192    1.278    1.116   1.70 llama3-70b down              0 40
+ 384    1.072    1.045   1.43 gemma2-27b down              0 40
+all    1.133
+=== rulesB.py on 8060S default-clock sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+   1    1.021    1.036   1.20 gemma3-4b down               0 40
+   4    1.021    1.039   1.22 gemma3-4b down               0 40
+   8    1.022    1.039   1.23 gemma3-4b down               0 40
+  16    1.028    1.046   1.32 7-8b k/v                     0 40
+  32    1.122    1.133   1.47 gemma3-4b down               0 40
+  64    1.061    1.105   1.47 gemma3-4b down               0 40
+ 128    1.004    1.016   1.29 gemma4-26b-moe expert gate_u 0 40
+ 256    1.045    1.033   1.20 gemma2-27b down              0 40
+all    1.040
+=== rulesJ.py on 8050S sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+   4    1.033    1.050   1.22 llama3-8b/mistral-7b gate/up 0 14
+   8    1.035    1.053   1.22 llama3-70b o/q square        0 14
+  16    1.059    1.071   1.22 qwen3-235b-moe expert down   0 40
+  24    1.056    1.113   1.51 small square                 0 40
+  48    1.061    1.086   1.34 small GQA k/v                0 40
+  96    1.017    1.070   1.84 small GQA k/v                0 40
+ 192    1.044    1.086   1.30 small GQA k/v                0 40
+ 384    1.002    1.029   1.30 qwen3.5-35b-moe expert down  0 40
+all    1.024
+=== rulesJ.py on 8060S pinned gapM sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+  24    1.105    1.113   1.58 7-8b k/v                     0 40
+  48    1.048    1.093   1.41 7-8b k/v                     0 40
+  96    1.115    1.121   1.93 small GQA k/v                0 40
+ 192    1.040    1.092   1.70 small GQA k/v                0 40
+ 384    1.073    1.057   1.43 gemma2-27b down              0 40
+all    1.071
+=== rulesJ.py on 8060S default-clock sweep
+   M  rule/best(total) geomean worst(shape)  missing  n
+   1    1.021    1.036   1.20 gemma3-4b down               0 40
+   4    1.021    1.039   1.22 gemma3-4b down               0 40
+   8    1.022    1.039   1.23 gemma3-4b down               0 40
+  16    1.028    1.046   1.32 7-8b k/v                     0 40
+  32    1.122    1.133   1.47 gemma3-4b down               0 40
+  64    1.061    1.105   1.47 gemma3-4b down               0 40
+ 128    1.008    1.058   1.70 small GQA k/v                0 40
+ 256    1.023    1.061   1.29 gemma4-26b-moe expert gate_u 0 40
+all    1.032
