@@ -1,0 +1,14 @@
+== fp32: cfg/rtf0 total (cycle-total range) worst-shape | watched shapes cfg/rtf0: small GQA k/v, 7-8b k/v, llama3-8b gate/up, gemma3-12b gate/up
+  24 n=40 rtf0=    23165us | rtf1  0.995 (0.995-0.997) w1.00 qwen3-14b down     [1.00 1.00 0.99 0.99] win36
+  48 n=40 rtf0=    35321us | rtf1  0.998 (0.997-0.998) w1.01 qwen3-32b gate/up  [1.00 1.00 0.99 0.99] win35
+  64 n=40 rtf0=    49959us | rtf1  1.001 (0.999-1.002) w1.01 qwen3-14b gate/up  [1.00 1.00 1.00 1.00] win19
+ 128 n=40 rtf0=    90492us | rtf1  0.999 (0.996-1.002) w1.01 gemma4-26b-moe exp [1.00 1.00 1.01 1.00] win21
+ 256 n=40 rtf0=   170444us | rtf1  1.000 (0.999-1.001) w1.02 qwen3-14b o/q squa [1.00 1.00 1.00 1.00] win24
+ 512 n=40 rtf0=   326433us | rtf1  0.998 (0.998-0.999) w1.01 gemma3-4b down     [1.00 1.00 0.99 1.00] win26
+== fp16: cfg/rtf0 total (cycle-total range) worst-shape | watched shapes cfg/rtf0: small GQA k/v, 7-8b k/v, llama3-8b gate/up, gemma3-12b gate/up
+  24 n=40 rtf0=     5369us | rtf1  1.000 (1.000-1.001) w1.02 qwen3-30b-moe expe [1.00 1.00 1.00 1.00] win10
+  48 n=40 rtf0=    11108us | rtf1  0.781 (0.775-0.783) w1.01 llama3-8b/mistral- [0.99 0.99 0.78 0.82] win36
+  64 n=40 rtf0=    10065us | rtf1  0.922 (0.919-0.921) w1.06 llama3-8b/mistral- [1.00 1.00 1.06 0.98] win27
+ 128 n=40 rtf0=    18475us | rtf1  0.893 (0.893-0.895) w1.01 small GQA k/v      [1.01 1.00 0.97 0.96] win35
+ 256 n=40 rtf0=    35802us | rtf1  0.924 (0.920-0.927) w1.01 qwen3.5-35b-moe ex [1.00 1.00 0.98 0.98] win35
+ 512 n=40 rtf0=    69447us | rtf1  0.920 (0.918-0.923) w1.02 llama3-8b/mistral- [0.98 0.99 1.02 1.00] win35

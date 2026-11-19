@@ -1,0 +1,57 @@
+[W1119 15:13:04.574447107 Context.cpp:599] Warning: Attempting to use CK GEMM on an unsupported architecture! Cannot set blas backend to CK (function operator())
+[W1119 15:13:05.559910000 Context.cpp:629] Warning: torch.backends.cuda.preferred_blas_library is an experimental feature. If you see any error or unexpected behavior when this flag is set please file an issue on GitHub. (function operator())
+gfx1101 2.14.0+rocm10.2.0a20260928 default blas: _BlasBackend.Cublaslt
+default  float32  N=14336 K= 4096 M=  1    0.895 ms    0.13 TFLOP/s
+default  float32  N=14336 K= 4096 M= 64    3.947 ms    1.90 TFLOP/s
+default  float32  N=14336 K= 4096 M=384   31.634 ms    1.43 TFLOP/s
+default  float32  N= 4096 K=14336 M=  1    0.875 ms    0.13 TFLOP/s
+default  float32  N= 4096 K=14336 M= 64    3.890 ms    1.93 TFLOP/s
+default  float32  N= 4096 K=14336 M=384   33.526 ms    1.35 TFLOP/s
+default  float32  N= 8192 K= 8192 M=  1    0.968 ms    0.14 TFLOP/s
+default  float32  N= 8192 K= 8192 M= 64    4.966 ms    1.73 TFLOP/s
+default  float32  N= 8192 K= 8192 M=384   36.234 ms    1.42 TFLOP/s
+default  float16  N=14336 K= 4096 M=  1    0.297 ms    0.39 TFLOP/s
+default  float16  N=14336 K= 4096 M= 64    0.321 ms   23.42 TFLOP/s
+default  float16  N=14336 K= 4096 M=384    0.978 ms   46.13 TFLOP/s
+default  float16  N= 4096 K=14336 M=  1    0.325 ms    0.36 TFLOP/s
+default  float16  N= 4096 K=14336 M= 64    0.315 ms   23.83 TFLOP/s
+default  float16  N= 4096 K=14336 M=384    1.250 ms   36.08 TFLOP/s
+default  float16  N= 8192 K= 8192 M=  1    0.339 ms    0.40 TFLOP/s
+default  float16  N= 8192 K= 8192 M= 64    0.372 ms   23.11 TFLOP/s
+default  float16  N= 8192 K= 8192 M=384    1.046 ms   49.27 TFLOP/s
+cublas   float32  N=14336 K= 4096 M=  1    0.568 ms    0.21 TFLOP/s
+cublas   float32  N=14336 K= 4096 M= 64    2.331 ms    3.22 TFLOP/s
+cublas   float32  N=14336 K= 4096 M=384    6.015 ms    7.50 TFLOP/s
+cublas   float32  N= 4096 K=14336 M=  1    0.599 ms    0.20 TFLOP/s
+cublas   float32  N= 4096 K=14336 M= 64    2.773 ms    2.71 TFLOP/s
+cublas   float32  N= 4096 K=14336 M=384    6.809 ms    6.62 TFLOP/s
+cublas   float32  N= 8192 K= 8192 M=  1    0.659 ms    0.20 TFLOP/s
+cublas   float32  N= 8192 K= 8192 M= 64    2.606 ms    3.30 TFLOP/s
+cublas   float32  N= 8192 K= 8192 M=384    7.202 ms    7.16 TFLOP/s
+cublas   float16  N=14336 K= 4096 M=  1    0.375 ms    0.31 TFLOP/s
+cublas   float16  N=14336 K= 4096 M= 64    0.471 ms   15.96 TFLOP/s
+cublas   float16  N=14336 K= 4096 M=384    1.488 ms   30.32 TFLOP/s
+cublas   float16  N= 4096 K=14336 M=  1    0.360 ms    0.33 TFLOP/s
+cublas   float16  N= 4096 K=14336 M= 64    0.331 ms   22.69 TFLOP/s
+cublas   float16  N= 4096 K=14336 M=384    1.714 ms   26.31 TFLOP/s
+cublas   float16  N= 8192 K= 8192 M=  1    0.530 ms    0.25 TFLOP/s
+cublas   float16  N= 8192 K= 8192 M= 64    0.412 ms   20.86 TFLOP/s
+cublas   float16  N= 8192 K= 8192 M=384    1.899 ms   27.14 TFLOP/s
+cublaslt float32  N=14336 K= 4096 M=  1    0.905 ms    0.13 TFLOP/s
+cublaslt float32  N=14336 K= 4096 M= 64    3.924 ms    1.92 TFLOP/s
+cublaslt float32  N=14336 K= 4096 M=384   31.480 ms    1.43 TFLOP/s
+cublaslt float32  N= 4096 K=14336 M=  1    0.876 ms    0.13 TFLOP/s
+cublaslt float32  N= 4096 K=14336 M= 64    3.853 ms    1.95 TFLOP/s
+cublaslt float32  N= 4096 K=14336 M=384   32.837 ms    1.37 TFLOP/s
+cublaslt float32  N= 8192 K= 8192 M=  1    0.971 ms    0.14 TFLOP/s
+cublaslt float32  N= 8192 K= 8192 M= 64    4.935 ms    1.74 TFLOP/s
+cublaslt float32  N= 8192 K= 8192 M=384   37.683 ms    1.37 TFLOP/s
+cublaslt float16  N=14336 K= 4096 M=  1    0.297 ms    0.40 TFLOP/s
+cublaslt float16  N=14336 K= 4096 M= 64    0.320 ms   23.45 TFLOP/s
+cublaslt float16  N=14336 K= 4096 M=384    0.925 ms   48.74 TFLOP/s
+cublaslt float16  N= 4096 K=14336 M=  1    0.325 ms    0.36 TFLOP/s
+cublaslt float16  N= 4096 K=14336 M= 64    0.316 ms   23.82 TFLOP/s
+cublaslt float16  N= 4096 K=14336 M=384    1.175 ms   38.38 TFLOP/s
+cublaslt float16  N= 8192 K= 8192 M=  1    0.339 ms    0.40 TFLOP/s
+cublaslt float16  N= 8192 K= 8192 M= 64    0.370 ms   23.20 TFLOP/s
+cublaslt float16  N= 8192 K= 8192 M=384    1.046 ms   49.26 TFLOP/s

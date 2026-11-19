@@ -1,0 +1,10 @@
+## cap_bs32_alt_fp16
+== fp16: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+ 416  0.933 (0.931-0.937)  29/40  worst 1.18 gemma4-26b-moe expert gate  fused 59.5 ms dequant 63.8 ms
+ 448  1.004 (1.000-1.009)  14/40  worst 1.32 gemma3-12b down  fused 63.5 ms dequant 63.2 ms
+ 480  1.064 (1.059-1.069)   6/40  worst 1.40 qwen3-235b-moe expert gate  fused 67.5 ms dequant 63.4 ms
+## cap_bs32_alt_bf16
+== bf16: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+ 416  0.998 (0.995-0.999)  25/40  worst 1.21 qwen3-8b gate/up  fused 63.2 ms dequant 63.3 ms
+ 448  1.070 (1.068-1.071)   8/40  worst 1.34 gemma3-12b down  fused 67.4 ms dequant 63.1 ms
+ 480  1.130 (1.129-1.130)   3/40  worst 1.36 qwen3-8b gate/up  fused 71.6 ms dequant 63.4 ms

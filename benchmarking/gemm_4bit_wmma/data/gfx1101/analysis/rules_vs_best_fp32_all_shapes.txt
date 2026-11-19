@@ -1,0 +1,19 @@
+== rules/gfx11_f32.py
+   M  rule/best(total) geomean worst  miss  worst-shape
+   4    1.083    1.091   1.31    0  gemma2-27b down
+   6    1.082    1.091   1.31    0  gemma2-27b down
+   8    1.082    1.092   1.31    0  gemma2-27b down
+  12    1.101    1.091   1.50    0  gemma2-27b down
+  16    1.101    1.090   1.50    0  gemma2-27b down
+  20    1.016    1.041   1.15    0  gemma4-26b-moe expert gate_up
+  24    1.015    1.040   1.16    0  gemma4-26b-moe expert gate_up
+  32    1.043    1.067   1.31    0  qwen3-30b-moe expert down
+  48    1.028    1.074   1.30    0  qwen3.5-122b-moe expert down
+  64    1.012    1.007   1.10    0  gemma2-27b down
+  96    1.003    1.012   1.14    0  gemma4-26b-moe expert down
+ 128    1.002    1.013   1.23    0  qwen3.5-35b-moe expert down
+ 192    1.000    1.001   1.03    0  gemma4-26b-moe expert gate_up
+ 256    1.000    1.000   1.00    0  small square
+ 384    1.000    1.000   1.00    0  small square
+ 512    1.000    1.001   1.02    0  small GQA k/v
+all    1.007

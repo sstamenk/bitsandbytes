@@ -1,0 +1,103 @@
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+bf16     1      3657      3539  1.033  1.000     26     1.104 qwen3-coder-480b-moe expert down
+bf16     2      3669      3549  1.034  1.000     26     1.100 7-8b k/v
+bf16     3      3681      3559  1.034  1.001     25     1.099 7-8b k/v
+bf16     4      3711      3566  1.041  1.001     23     1.099 qwen3-coder-480b-moe expert down
+bf16     5      3714      3567  1.041  0.999     24     1.097 7-8b k/v
+bf16     6      3700      3569  1.037  1.000     23     1.097 7-8b k/v
+bf16     7      3702      3573  1.036  1.001     23     1.096 7-8b k/v
+bf16     8      3705      3574  1.036  1.000     23     1.097 qwen3-coder-480b-moe expert down
+bf16     9      4055      3911  1.037  1.002     29     1.121 qwen3-30b-moe expert gate_up
+bf16    10      4058      3913  1.037  1.000     27     1.121 qwen3-30b-moe expert gate_up
+bf16    12      4068      3925  1.036  1.002     27     1.125 qwen3-30b-moe expert gate_up
+bf16    13      4078      3935  1.036  1.000     28     1.128 qwen3-30b-moe expert gate_up
+bf16    14      4078      3944  1.034  1.001     26     1.126 qwen3-30b-moe expert gate_up
+bf16    16      4084      3952  1.033  0.999     27     1.127 qwen3-30b-moe expert gate_up
+bf16    17      5736      5384  1.066  0.999     27     1.236 small GQA k/v
+bf16    20      5746      5383  1.068  0.999     26     1.239 small GQA k/v
+bf16    24      5766      5405  1.067  1.001     27     1.233 small GQA k/v
+bf16    28      5785      5414  1.069  1.001     28     1.122 small GQA k/v
+bf16    32      5792      5421  1.068  1.000     26     1.121 small GQA k/v
+bf16    33      9298      8729  1.065  1.000     27     1.088 small GQA k/v
+bf16    40      9288      8725  1.064  0.999     25     1.091 small GQA k/v
+bf16    48      9321      8760  1.064  0.999     29     1.086 small GQA k/v
+bf16    49      9903      9230  1.073  1.000     23     1.046 qwen3.5-122b-moe expert gate_up
+bf16    56      9917      9291  1.067  0.999     23     1.046 qwen3.5-122b-moe expert gate_up
+bf16    64      9952      9337  1.066  1.001     22     1.045 qwen3.5-122b-moe expert gate_up
+bf16    65     14216     14231  0.999  0.999     18     1.013 gemma2-27b down
+bf16    72     14218     14231  0.999  0.998     18     1.012 gemma2-27b down
+bf16    96     14310     14282  1.002  1.001     20     1.009 qwen3.5-122b-moe expert down
+bf16    97     17762     17766  1.000  0.999     19     1.009 qwen3-32b down
+bf16   128     17954     17972  0.999  0.999     18     1.010 qwen3-235b-moe expert down
+bf16   192     26897     26865  1.001  1.000     20     1.012 qwen3-30b-moe expert down
+bf16   256     33879     33841  1.001  1.000     28     1.022 gemma4-26b-moe expert down
+bf16   384     49565     49801  0.995  1.001     14     1.115 qwen3-8b gate/up
+bf16   512     64103     64173  0.999  0.997     20     1.016 qwen3.5-35b-moe expert down
+fp16     1      3654      3539  1.033  1.001     25     1.106 qwen3-coder-480b-moe expert down
+fp16     2      3668      3553  1.032  1.000     24     1.108 7-8b k/v
+fp16     3      3682      3558  1.035  1.002     25     1.103 7-8b k/v
+fp16     4      3713      3567  1.041  1.000     24     1.104 7-8b k/v
+fp16     5      3714      3567  1.041  1.000     23     1.105 7-8b k/v
+fp16     6      3697      3569  1.036  1.000     23     1.105 7-8b k/v
+fp16     7      3701      3571  1.036  1.002     23     1.103 7-8b k/v
+fp16     8      3707      3575  1.037  1.001     23     1.105 7-8b k/v
+fp16     9      4058      3915  1.037  0.999     27     1.121 qwen3-30b-moe expert gate_up
+fp16    10      4059      3911  1.038  1.000     27     1.122 qwen3-30b-moe expert gate_up
+fp16    12      4071      3926  1.037  0.999     25     1.118 qwen3-30b-moe expert gate_up
+fp16    13      4078      3934  1.037  1.001     28     1.123 qwen3-30b-moe expert gate_up
+fp16    14      4079      3937  1.036  1.001     26     1.126 qwen3-30b-moe expert gate_up
+fp16    16      4086      3949  1.035  0.999     28     1.125 qwen3-30b-moe expert gate_up
+fp16    17      5733      5381  1.065  0.999     26     1.237 small GQA k/v
+fp16    20      5739      5385  1.066  0.999     29     1.232 small GQA k/v
+fp16    24      5764      5403  1.067  1.001     25     1.233 small GQA k/v
+fp16    28      5788      5406  1.071  1.000     34     1.126 small GQA k/v
+fp16    32      5793      5421  1.069  1.000     30     1.122 small GQA k/v
+fp16    33      9307      8732  1.066  0.999     27     1.085 small GQA k/v
+fp16    40      9297      8734  1.065  0.998     25     1.084 small GQA k/v
+fp16    48      9332      8763  1.065  1.002     29     1.079 small GQA k/v
+fp16    49      9899      9260  1.069  0.997     24     1.047 qwen3.5-122b-moe expert gate_up
+fp16    56      9931      9289  1.069  0.999     22     1.046 qwen3.5-122b-moe expert gate_up
+fp16    64      9956      9365  1.063  0.999     24     1.066 llama3-8b/mistral-7b gate/up
+fp16    65     14241     14230  1.001  0.997     22     1.016 gemma2-27b down
+fp16    72     14226     14237  0.999  0.997     18     1.009 gemma2-27b down
+fp16    96     13054     13083  0.998  1.000     19     1.053 qwen3-235b-moe expert down
+fp16    97     16732     16747  0.999  0.995     21     1.010 qwen3-32b down
+fp16   128     16948     16972  0.999  0.998     19     1.013 qwen3-14b gate/up
+fp16   192     26485     26476  1.000  1.000     22     1.006 llama3-70b o/q square
+fp16   256     33472     33507  0.999  1.000     19     1.007 llama3-70b o/q square
+fp16   384     48949     49053  0.998  0.999     14     1.022 qwen3-8b gate/up
+fp16   512     63513     63534  1.000  0.997     23     1.010 llama3-8b/mistral-7b down
+fp32     1      3794      3795  1.000  1.000     19     1.008 qwen3-30b-moe expert down
+fp32     2      5035      5041  0.999  1.005     15     1.010 gemma2-27b down
+fp32     3      6426      6429  1.000  1.001     19     1.011 gemma2-27b down
+fp32     4      7966      7950  1.002  1.003     17     1.009 qwen3-14b down
+fp32     5      8662      8119  1.067  1.000     22     1.051 qwen3-8b gate/up
+fp32     6      8713      8160  1.068  0.998     22     1.056 qwen3-8b gate/up
+fp32     7      8771      8223  1.067  0.999     23     1.052 qwen3-8b gate/up
+fp32     8      8743      8164  1.071  1.000     27     1.053 qwen3-8b gate/up
+fp32     9     14265     13027  1.095  1.004     30     1.010 llama3-8b/mistral-7b gate/up
+fp32    10     14261     13052  1.093  1.000     33     1.030 llama3-70b o/q square
+fp32    12     14345     13154  1.091  1.000     29     1.030 llama3-70b o/q square
+fp32    13     14386     13126  1.096  1.003     31     1.135 7-8b k/v
+fp32    14     14407     13131  1.097  0.996     30     1.133 7-8b k/v
+fp32    16     14384     13156  1.093  0.999     27     1.136 7-8b k/v
+fp32    17     23116     23102  1.001  0.998     21     1.051 qwen3-235b-moe expert gate_up
+fp32    20     23201     23225  0.999  0.999     19     1.009 llama3-70b gate/up
+fp32    24     23310     23299  1.000  1.000     21     1.005 qwen3-coder-480b-moe expert down
+fp32    28     24962     24928  1.001  1.001     30     1.002 qwen3-32b down
+fp32    32     25036     25060  0.999  0.998     19     1.058 llama3-8b/mistral-7b o/q square
+fp32    33     34854     34862  1.000  1.000     22     1.007 qwen3-32b gate/up
+fp32    40     35096     35107  1.000  0.999     22     1.009 qwen3-14b gate/up
+fp32    48     35462     35427  1.001  0.999     28     1.018 llama3-8b/mistral-7b down
+fp32    49     49271     49275  1.000  1.001     18     1.008 qwen3-8b gate/up
+fp32    56     49481     49438  1.001  1.000     24     1.007 qwen3-14b down
+fp32    64     49651     49626  1.001  1.000     22     1.004 qwen3-32b down
+fp32    65     68095     68090  1.000  1.000     22     1.005 gemma2-27b down
+fp32    72     68314     68214  1.001  1.001     23     1.010 llama3-8b/mistral-7b gate/up
+fp32    96     68974     68917  1.001  0.999     27     1.005 qwen3-14b down
+fp32    97     88327     88245  1.001  0.999     24     1.009 qwen3-14b o/q square
+fp32   128     88967     89543  0.994  0.999     16     1.266 gemma3-4b gate/up
+fp32   192    128564    128523  1.000  1.002     22     1.011 small square
+fp32   256    167604    167521  1.000  1.000     24     1.031 qwen3-235b-moe expert gate_up
+fp32   384    245744    245716  1.000  1.000     28     1.019 qwen3-30b-moe expert down
+fp32   512    323101    323102  1.000  1.000     24     1.010 qwen3-coder-480b-moe expert down

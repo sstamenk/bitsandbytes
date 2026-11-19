@@ -1,0 +1,10 @@
+gfx1101
+float16 M=1 N=4096 K=4096 relerr=3.25e-04 ['void gemm_4bit_wmma<11, __half, 1, 1, 1, 1, 4, 1, 2, false>
+float16 M=16 N=4096 K=4096 relerr=3.34e-04 ['void gemm_4bit_wmma<11, __half, 2, 2, 1, 1, 4, 1, 2, false>
+float16 M=40 N=4096 K=4096 relerr=3.31e-04 ['void gemm_4bit_wmma<11, __half, 2, 2, 1, 4, 1, 2, 4, false>
+float16 M=128 N=4096 K=4096 relerr=3.81e-04 ['void gemm_4bit_wmma<11, __half, 4, 2, 1, 4, 1, 2, 4, true>
+bfloat16 M=40 N=4096 K=4096 relerr=2.60e-03 ['void gemm_4bit_wmma<11, __hip_bfloat16, 2, 2, 1, 4, 1, 2, 4, false>
+float32 M=1 N=4096 K=4096 relerr=1.08e-06 ['void gemm_4bit_simt<float, 1>
+float32 M=8 N=4096 K=4096 relerr=1.16e-06 ['void gemm_4bit_wmma<11, float, 1, 1, 1, 2, 2, 1, 2, false>
+float32 M=16 N=4096 K=4096 relerr=1.16e-06 ['void gemm_4bit_wmma<11, float, 2, 2, 1, 2, 2, 1, 2, false>
+float32 M=128 N=4096 K=4096 relerr=1.16e-06 ['void gemm_4bit_wmma<11, float, 4, 1, 1, 4, 1, 1, 2, false>

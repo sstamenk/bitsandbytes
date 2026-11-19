@@ -1,0 +1,74 @@
+## cap_fp16
+== fp16: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+ 352  0.827 (0.823-0.829)  30/40  worst 1.29 gemma4-26b-moe expert gate  fused 45.9 ms dequant 55.5 ms
+ 384  0.886 (0.882-0.890)  24/40  worst 1.37 gemma4-26b-moe expert gate  fused 49.3 ms dequant 55.7 ms
+ 400  0.987 (0.984-0.987)  21/40  worst 1.21 qwen3.5-35b-moe expert gat  fused 53.3 ms dequant 54.0 ms
+ 416  0.846 (0.844-0.847)  36/40  worst 1.10 gemma4-26b-moe expert down  fused 53.5 ms dequant 63.2 ms
+ 432  0.902 (0.898-0.905)  29/40  worst 1.20 qwen3.5-122b-moe expert ga  fused 57.0 ms dequant 63.2 ms
+ 448  0.907 (0.907-0.910)  28/40  worst 1.22 gemma4-26b-moe expert gate  fused 57.2 ms dequant 63.0 ms
+ 464  0.955 (0.953-0.957)  21/40  worst 1.27 gemma3-4b down  fused 60.6 ms dequant 63.4 ms
+ 480  0.960 (0.958-0.962)  20/40  worst 1.28 7-8b k/v  fused 60.8 ms dequant 63.3 ms
+ 496  0.979 (0.971-0.985)  20/40  worst 1.44 7-8b k/v  fused 64.2 ms dequant 65.6 ms
+ 512  0.980 (0.977-0.983)  18/40  worst 1.44 7-8b k/v  fused 64.4 ms dequant 65.7 ms
+## cap_bf16
+== bf16: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+ 352  0.835 (0.832-0.834)  34/40  worst 1.13 gemma4-26b-moe expert gate  fused 46.5 ms dequant 55.8 ms
+ 384  0.904 (0.903-0.904)  28/40  worst 1.29 small GQA k/v  fused 50.2 ms dequant 55.5 ms
+ 400  1.004 (1.002-1.006)  21/40  worst 1.22 qwen3-8b down  fused 54.3 ms dequant 54.1 ms
+ 416  0.861 (0.859-0.863)  37/40  worst 1.09 gemma4-26b-moe expert gate  fused 54.5 ms dequant 63.3 ms
+ 432  0.915 (0.914-0.917)  29/40  worst 1.13 gemma4-26b-moe expert gate  fused 58.1 ms dequant 63.5 ms
+ 448  0.920 (0.920-0.924)  27/40  worst 1.12 qwen3.5-35b-moe expert gat  fused 58.1 ms dequant 63.1 ms
+ 464  0.970 (0.971-0.971)  26/40  worst 1.15 qwen3-8b gate/up  fused 61.7 ms dequant 63.6 ms
+ 480  0.975 (0.973-0.975)  24/40  worst 1.18 7-8b k/v  fused 61.9 ms dequant 63.5 ms
+ 496  0.990 (0.989-0.992)  17/40  worst 1.32 7-8b k/v  fused 65.5 ms dequant 66.1 ms
+ 512  0.994 (0.992-0.997)  16/40  worst 1.32 qwen3-30b-moe expert down  fused 65.6 ms dequant 66.0 ms
+## cap2_fp16
+== fp16: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+ 392  0.987 (0.983-0.989)  19/40  worst 1.30 gemma3-4b down  fused 53.3 ms dequant 54.1 ms
+ 408  0.846 (0.844-0.849)  36/40  worst 1.17 gemma4-26b-moe expert gate  fused 53.3 ms dequant 63.1 ms
+ 424  0.902 (0.897-0.906)  25/40  worst 1.22 gemma4-26b-moe expert gate  fused 56.9 ms dequant 63.1 ms
+ 440  0.902 (0.901-0.908)  30/40  worst 1.21 gemma4-26b-moe expert gate  fused 57.0 ms dequant 63.2 ms
+ 447  0.905 (0.904-0.907)  25/40  worst 1.21 gemma4-26b-moe expert gate  fused 56.9 ms dequant 62.9 ms
+ 449  0.951 (0.951-0.957)  24/40  worst 1.26 7-8b k/v  fused 60.4 ms dequant 63.5 ms
+ 456  0.957 (0.950-0.959)  22/40  worst 1.26 7-8b k/v  fused 60.5 ms dequant 63.3 ms
+ 465  0.952 (0.952-0.955)  23/40  worst 1.18 qwen3-235b-moe expert gate  fused 60.5 ms dequant 63.5 ms
+ 472  0.952 (0.953-0.955)  22/40  worst 1.18 qwen3-235b-moe expert gate  fused 60.5 ms dequant 63.5 ms
+ 479  0.950 (0.948-0.952)  21/40  worst 1.21 qwen3.5-35b-moe expert gat  fused 60.6 ms dequant 63.8 ms
+ 481  0.973 (0.969-0.976)  19/40  worst 1.44 7-8b k/v  fused 64.0 ms dequant 65.8 ms
+## cap2_bf16
+== bf16: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+ 392  0.999 (0.998-1.001)  23/40  worst 1.22 qwen3-8b down  fused 54.2 ms dequant 54.2 ms
+ 408  0.858 (0.858-0.859)  37/40  worst 1.06 gemma4-26b-moe expert gate  fused 54.3 ms dequant 63.3 ms
+ 424  0.913 (0.911-0.917)  29/40  worst 1.12 gemma4-26b dense gate_up  fused 57.8 ms dequant 63.3 ms
+ 440  0.918 (0.918-0.919)  28/40  worst 1.12 qwen3.5-35b-moe expert gat  fused 57.9 ms dequant 63.1 ms
+ 447  0.920 (0.919-0.920)  29/40  worst 1.13 gemma4-26b-moe expert gate  fused 57.9 ms dequant 63.0 ms
+ 449  0.969 (0.967-0.971)  26/40  worst 1.15 gemma3-4b down  fused 61.4 ms dequant 63.3 ms
+ 456  0.970 (0.966-0.973)  25/40  worst 1.16 qwen3-8b gate/up  fused 61.5 ms dequant 63.4 ms
+ 465  0.968 (0.967-0.969)  25/40  worst 1.15 gemma3-4b down  fused 61.5 ms dequant 63.5 ms
+ 472  0.967 (0.965-0.968)  26/40  worst 1.15 qwen3-8b gate/up  fused 61.6 ms dequant 63.7 ms
+ 479  0.968 (0.968-0.970)  25/40  worst 1.16 7-8b k/v  fused 61.6 ms dequant 63.6 ms
+ 481  0.989 (0.990-0.990)  19/40  worst 1.32 7-8b k/v  fused 65.1 ms dequant 65.9 ms
+## cap_fp32_lt
+== fp32: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+  64  0.274 (0.274-0.276)  40/40  worst 0.69 small GQA k/v  fused 50.1 ms dequant 182.4 ms
+  96  0.207 (0.207-0.209)  40/40  worst 0.35 gemma4-26b-moe expert down  fused 70.1 ms dequant 337.7 ms
+ 128  0.213 (0.211-0.213)  40/40  worst 0.37 small GQA k/v  fused 91.4 ms dequant 430.2 ms
+ 160  0.313 (0.312-0.314)  40/40  worst 0.46 small GQA k/v  fused 112.2 ms dequant 357.9 ms
+ 192  0.316 (0.316-0.317)  40/40  worst 0.39 gemma4-26b-moe expert gate  fused 132.3 ms dequant 418.2 ms
+ 256  0.321 (0.320-0.321)  40/40  worst 0.37 small GQA k/v  fused 173.0 ms dequant 539.7 ms
+ 320  0.277 (0.276-0.278)  40/40  worst 0.46 gemma4-26b-moe expert down  fused 212.9 ms dequant 769.3 ms
+ 384  0.201 (0.199-0.202)  40/40  worst 0.42 small GQA k/v  fused 252.6 ms dequant 1257.9 ms
+ 448  0.277 (0.276-0.278)  40/40  worst 0.48 small GQA k/v  fused 292.2 ms dequant 1055.1 ms
+ 512  0.323 (0.322-0.324)  40/40  worst 0.40 small GQA k/v  fused 330.3 ms dequant 1022.0 ms
+## cap_fp32_rocblas
+== fp32: fused/dequant total (per-cycle range)  fused-faster shapes  worst
+  64  0.431 (0.430-0.432)  40/40  worst 0.54 qwen3-235b-moe expert down  fused 50.3 ms dequant 116.8 ms
+  96  0.599 (0.597-0.604)  40/40  worst 0.87 qwen3-235b-moe expert gate  fused 70.2 ms dequant 117.0 ms
+ 128  0.775 (0.777-0.779)  39/40  worst 1.01 phi3-mini/llama3.2-3b down  fused 91.1 ms dequant 117.5 ms
+ 160  0.593 (0.592-0.595)  40/40  worst 0.82 qwen3-30b-moe expert gate_  fused 111.8 ms dequant 188.4 ms
+ 192  0.699 (0.697-0.701)  40/40  worst 0.82 gemma4-26b-moe expert gate  fused 131.9 ms dequant 188.8 ms
+ 256  0.908 (0.906-0.909)  37/40  worst 1.05 qwen3-235b-moe expert down  fused 171.9 ms dequant 189.4 ms
+ 320  0.815 (0.814-0.816)  40/40  worst 0.93 gemma4-26b dense down  fused 211.5 ms dequant 259.4 ms
+ 384  0.963 (0.961-0.964)  23/40  worst 1.09 gemma4-26b dense down  fused 250.4 ms dequant 259.8 ms
+ 448  0.878 (0.877-0.879)  40/40  worst 0.96 gemma4-26b dense gate_up  fused 289.4 ms dequant 329.6 ms
+ 512  0.994 (0.993-0.995)  16/40  worst 1.09 gemma4-26b-moe expert down  fused 327.8 ms dequant 329.6 ms
