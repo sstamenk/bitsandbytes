@@ -56,3 +56,6 @@ fp32 baseline was measured with hipBLASLt rebuilt with ROCm/rocm-libraries#12465
 | `pinned/fp32_simt_wmma.csv` | Forced fp32 SIMT and WMMA runs the fp32 cutoff tables were fitted from. |
 
 gfx1103 has no sweeps: it uses the gfx1100 tile rules with its own fp32 table.
+gfx1150 (Radeon 890M) has its own tile rules and fp32 cutoffs; its data, A/B/A runs and notes are in `data/gfx1150/`
+(`NOTES.md`), the validation of the final tables in `data/gfx1150/pinned/paired/`, and `data/gfx1150/pinned/eval_final.csv`
+(final tables, assembled from several sessions) for the plots.

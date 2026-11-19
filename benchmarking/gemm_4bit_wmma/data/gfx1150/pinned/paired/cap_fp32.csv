@@ -1,0 +1,401 @@
+shape,N,K,M,dtype,cycle,order,variant,kernel,cfg,us
+llama3-70b gate/up,28672,8192,512,fp32,0,on,old,auto,,103912.52899169922
+llama3-70b gate/up,28672,8192,512,fp32,0,on,new,dequant,,349949.15771484375
+llama3-70b gate/up,28672,8192,512,fp32,1,no,old,auto,,111788.26904296875
+llama3-70b gate/up,28672,8192,512,fp32,1,no,new,dequant,,350558.349609375
+llama3-70b gate/up,28672,8192,512,fp32,2,on,old,auto,,111820.75500488281
+llama3-70b gate/up,28672,8192,512,fp32,2,on,new,dequant,,351828.7658691406
+llama3-70b gate/up,28672,8192,512,fp32,3,no,old,auto,,112418.41888427734
+llama3-70b gate/up,28672,8192,512,fp32,3,no,new,dequant,,351569.091796875
+llama3-70b gate/up,28672,8192,512,fp32,4,on,old,auto,,112426.05590820312
+llama3-70b gate/up,28672,8192,512,fp32,4,on,new,dequant,,352454.2541503906
+llama3-70b down,8192,28672,512,fp32,0,on,old,auto,,110092.43774414062
+llama3-70b down,8192,28672,512,fp32,0,on,new,dequant,,450529.8767089844
+llama3-70b down,8192,28672,512,fp32,1,no,old,auto,,109726.52435302734
+llama3-70b down,8192,28672,512,fp32,1,no,new,dequant,,452940.6433105469
+llama3-70b down,8192,28672,512,fp32,2,on,old,auto,,109541.97692871094
+llama3-70b down,8192,28672,512,fp32,2,on,new,dequant,,450720.3063964844
+llama3-70b down,8192,28672,512,fp32,3,no,old,auto,,109384.0560913086
+llama3-70b down,8192,28672,512,fp32,3,no,new,dequant,,444553.52783203125
+llama3-70b down,8192,28672,512,fp32,4,on,old,auto,,109492.7749633789
+llama3-70b down,8192,28672,512,fp32,4,on,new,dequant,,449545.83740234375
+llama3-70b o/q square,8192,8192,512,fp32,0,on,old,auto,,30534.448623657227
+llama3-70b o/q square,8192,8192,512,fp32,0,on,new,dequant,,93960.28137207031
+llama3-70b o/q square,8192,8192,512,fp32,1,no,old,auto,,30399.852752685547
+llama3-70b o/q square,8192,8192,512,fp32,1,no,new,dequant,,93867.47741699219
+llama3-70b o/q square,8192,8192,512,fp32,2,on,old,auto,,29911.663055419922
+llama3-70b o/q square,8192,8192,512,fp32,2,on,new,dequant,,93967.84210205078
+llama3-70b o/q square,8192,8192,512,fp32,3,no,old,auto,,30316.33186340332
+llama3-70b o/q square,8192,8192,512,fp32,3,no,new,dequant,,94329.74243164062
+llama3-70b o/q square,8192,8192,512,fp32,4,on,old,auto,,30058.420181274414
+llama3-70b o/q square,8192,8192,512,fp32,4,on,new,dequant,,94088.31024169922
+qwen3-32b gate/up,25600,5120,512,fp32,0,on,old,auto,,63279.876708984375
+qwen3-32b gate/up,25600,5120,512,fp32,0,on,new,dequant,,169773.62060546875
+qwen3-32b gate/up,25600,5120,512,fp32,1,no,old,auto,,62851.40609741211
+qwen3-32b gate/up,25600,5120,512,fp32,1,no,new,dequant,,170487.94555664062
+qwen3-32b gate/up,25600,5120,512,fp32,2,on,old,auto,,62703.529357910156
+qwen3-32b gate/up,25600,5120,512,fp32,2,on,new,dequant,,170067.81005859375
+qwen3-32b gate/up,25600,5120,512,fp32,3,no,old,auto,,62822.36862182617
+qwen3-32b gate/up,25600,5120,512,fp32,3,no,new,dequant,,169811.3250732422
+qwen3-32b gate/up,25600,5120,512,fp32,4,on,old,auto,,62657.25326538086
+qwen3-32b gate/up,25600,5120,512,fp32,4,on,new,dequant,,170368.63708496094
+qwen3-32b down,5120,25600,512,fp32,0,on,old,auto,,61711.92169189453
+qwen3-32b down,5120,25600,512,fp32,0,on,new,dequant,,265465.3625488281
+qwen3-32b down,5120,25600,512,fp32,1,no,old,auto,,61783.39767456055
+qwen3-32b down,5120,25600,512,fp32,1,no,new,dequant,,262121.2158203125
+qwen3-32b down,5120,25600,512,fp32,2,on,old,auto,,61123.016357421875
+qwen3-32b down,5120,25600,512,fp32,2,on,new,dequant,,264679.26025390625
+qwen3-32b down,5120,25600,512,fp32,3,no,old,auto,,61182.17086791992
+qwen3-32b down,5120,25600,512,fp32,3,no,new,dequant,,263043.7316894531
+qwen3-32b down,5120,25600,512,fp32,4,on,old,auto,,61211.692810058594
+qwen3-32b down,5120,25600,512,fp32,4,on,new,dequant,,263865.66162109375
+qwen3-14b gate/up,17408,5120,512,fp32,0,on,old,auto,,43022.90725708008
+qwen3-14b gate/up,17408,5120,512,fp32,0,on,new,dequant,,114250.84686279297
+qwen3-14b gate/up,17408,5120,512,fp32,1,no,old,auto,,42721.99630737305
+qwen3-14b gate/up,17408,5120,512,fp32,1,no,new,dequant,,114396.88110351562
+qwen3-14b gate/up,17408,5120,512,fp32,2,on,old,auto,,42640.80047607422
+qwen3-14b gate/up,17408,5120,512,fp32,2,on,new,dequant,,114196.25091552734
+qwen3-14b gate/up,17408,5120,512,fp32,3,no,old,auto,,42756.431579589844
+qwen3-14b gate/up,17408,5120,512,fp32,3,no,new,dequant,,113962.41760253906
+qwen3-14b gate/up,17408,5120,512,fp32,4,on,old,auto,,42731.754302978516
+qwen3-14b gate/up,17408,5120,512,fp32,4,on,new,dequant,,114334.35821533203
+qwen3-14b down,5120,17408,512,fp32,0,on,old,auto,,42095.970153808594
+qwen3-14b down,5120,17408,512,fp32,0,on,new,dequant,,132277.3895263672
+qwen3-14b down,5120,17408,512,fp32,1,no,old,auto,,41808.18176269531
+qwen3-14b down,5120,17408,512,fp32,1,no,new,dequant,,132236.75537109375
+qwen3-14b down,5120,17408,512,fp32,2,on,old,auto,,42076.690673828125
+qwen3-14b down,5120,17408,512,fp32,2,on,new,dequant,,131828.2012939453
+qwen3-14b down,5120,17408,512,fp32,3,no,old,auto,,41693.22204589844
+qwen3-14b down,5120,17408,512,fp32,3,no,new,dequant,,131730.28564453125
+qwen3-14b down,5120,17408,512,fp32,4,on,old,auto,,41570.14846801758
+qwen3-14b down,5120,17408,512,fp32,4,on,new,dequant,,131022.8271484375
+qwen3-14b o/q square,5120,5120,512,fp32,0,on,old,auto,,11737.560272216797
+qwen3-14b o/q square,5120,5120,512,fp32,0,on,new,dequant,,30294.45457458496
+qwen3-14b o/q square,5120,5120,512,fp32,1,no,old,auto,,11752.239227294922
+qwen3-14b o/q square,5120,5120,512,fp32,1,no,new,dequant,,30278.89633178711
+qwen3-14b o/q square,5120,5120,512,fp32,2,on,old,auto,,11692.041397094727
+qwen3-14b o/q square,5120,5120,512,fp32,2,on,new,dequant,,30178.417205810547
+qwen3-14b o/q square,5120,5120,512,fp32,3,no,old,auto,,11685.161590576172
+qwen3-14b o/q square,5120,5120,512,fp32,3,no,new,dequant,,30290.973663330078
+qwen3-14b o/q square,5120,5120,512,fp32,4,on,old,auto,,11683.880805969238
+qwen3-14b o/q square,5120,5120,512,fp32,4,on,new,dequant,,30622.323989868164
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,0,on,old,auto,,26374.919891357422
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,0,on,new,dequant,,74115.17333984375
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,1,no,old,auto,,26439.760208129883
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,1,no,new,dequant,,73529.83856201172
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,2,on,old,auto,,26368.560791015625
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,2,on,new,dequant,,73989.38751220703
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,3,no,old,auto,,26543.476104736328
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,3,no,new,dequant,,73369.88067626953
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,4,on,old,auto,,26400.60043334961
+llama3-8b/mistral-7b gate/up,14336,4096,512,fp32,4,on,new,dequant,,73752.38800048828
+llama3-8b/mistral-7b down,4096,14336,512,fp32,0,on,old,auto,,25484.905242919922
+llama3-8b/mistral-7b down,4096,14336,512,fp32,0,on,new,dequant,,85010.32257080078
+llama3-8b/mistral-7b down,4096,14336,512,fp32,1,no,old,auto,,25507.863998413086
+llama3-8b/mistral-7b down,4096,14336,512,fp32,1,no,new,dequant,,82372.10845947266
+llama3-8b/mistral-7b down,4096,14336,512,fp32,2,on,old,auto,,25601.102828979492
+llama3-8b/mistral-7b down,4096,14336,512,fp32,2,on,new,dequant,,84975.15869140625
+llama3-8b/mistral-7b down,4096,14336,512,fp32,3,no,old,auto,,25556.983947753906
+llama3-8b/mistral-7b down,4096,14336,512,fp32,3,no,new,dequant,,82416.8701171875
+llama3-8b/mistral-7b down,4096,14336,512,fp32,4,on,old,auto,,25585.74104309082
+llama3-8b/mistral-7b down,4096,14336,512,fp32,4,on,new,dequant,,83183.57849121094
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,0,on,old,auto,,7544.633865356445
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,0,on,new,dequant,,18751.24740600586
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,1,no,old,auto,,7546.474933624268
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,1,no,new,dequant,,18638.132095336914
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,2,on,old,auto,,7549.074172973633
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,2,on,new,dequant,,18688.650131225586
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,3,no,old,auto,,7542.035102844238
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,3,no,new,dequant,,18716.049194335938
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,4,on,old,auto,,7543.153762817383
+llama3-8b/mistral-7b o/q square,4096,4096,512,fp32,4,on,new,dequant,,18758.888244628906
+qwen3-8b gate/up,12288,4096,512,fp32,0,on,old,auto,,22631.303787231445
+qwen3-8b gate/up,12288,4096,512,fp32,0,on,new,dequant,,62688.331604003906
+qwen3-8b gate/up,12288,4096,512,fp32,1,no,old,auto,,22659.061431884766
+qwen3-8b gate/up,12288,4096,512,fp32,1,no,new,dequant,,62483.734130859375
+qwen3-8b gate/up,12288,4096,512,fp32,2,on,old,auto,,22626.02424621582
+qwen3-8b gate/up,12288,4096,512,fp32,2,on,new,dequant,,62545.29571533203
+qwen3-8b gate/up,12288,4096,512,fp32,3,no,old,auto,,22637.42446899414
+qwen3-8b gate/up,12288,4096,512,fp32,3,no,new,dequant,,63043.36166381836
+qwen3-8b gate/up,12288,4096,512,fp32,4,on,old,auto,,22772.499084472656
+qwen3-8b gate/up,12288,4096,512,fp32,4,on,new,dequant,,62708.7287902832
+qwen3-8b down,4096,12288,512,fp32,0,on,old,auto,,22309.35287475586
+qwen3-8b down,4096,12288,512,fp32,0,on,new,dequant,,66548.34747314453
+qwen3-8b down,4096,12288,512,fp32,1,no,old,auto,,22208.07647705078
+qwen3-8b down,4096,12288,512,fp32,1,no,new,dequant,,66055.96160888672
+qwen3-8b down,4096,12288,512,fp32,2,on,old,auto,,22367.47169494629
+qwen3-8b down,4096,12288,512,fp32,2,on,new,dequant,,66636.8637084961
+qwen3-8b down,4096,12288,512,fp32,3,no,old,auto,,22396.66748046875
+qwen3-8b down,4096,12288,512,fp32,3,no,new,dequant,,66122.35260009766
+qwen3-8b down,4096,12288,512,fp32,4,on,old,auto,,22326.99203491211
+qwen3-8b down,4096,12288,512,fp32,4,on,new,dequant,,66128.35693359375
+gemma2-27b gate/up,36864,4608,512,fp32,0,on,old,auto,,82022.07946777344
+gemma2-27b gate/up,36864,4608,512,fp32,0,on,new,dequant,,213905.91430664062
+gemma2-27b gate/up,36864,4608,512,fp32,1,no,old,auto,,81533.17260742188
+gemma2-27b gate/up,36864,4608,512,fp32,1,no,new,dequant,,214146.39282226562
+gemma2-27b gate/up,36864,4608,512,fp32,2,on,old,auto,,81481.53686523438
+gemma2-27b gate/up,36864,4608,512,fp32,2,on,new,dequant,,213851.806640625
+gemma2-27b gate/up,36864,4608,512,fp32,3,no,old,auto,,81649.13940429688
+gemma2-27b gate/up,36864,4608,512,fp32,3,no,new,dequant,,213545.4559326172
+gemma2-27b gate/up,36864,4608,512,fp32,4,on,old,auto,,81468.37615966797
+gemma2-27b gate/up,36864,4608,512,fp32,4,on,new,dequant,,214056.53381347656
+gemma2-27b down,4608,36864,512,fp32,0,on,old,auto,,79866.78314208984
+gemma2-27b down,4608,36864,512,fp32,0,on,new,dequant,,348953.61328125
+gemma2-27b down,4608,36864,512,fp32,1,no,old,auto,,79494.35424804688
+gemma2-27b down,4608,36864,512,fp32,1,no,new,dequant,,344692.9626464844
+gemma2-27b down,4608,36864,512,fp32,2,on,old,auto,,78969.24591064453
+gemma2-27b down,4608,36864,512,fp32,2,on,new,dequant,,347146.54541015625
+gemma2-27b down,4608,36864,512,fp32,3,no,old,auto,,79853.74450683594
+gemma2-27b down,4608,36864,512,fp32,3,no,new,dequant,,339429.6569824219
+gemma2-27b down,4608,36864,512,fp32,4,on,old,auto,,78986.72485351562
+gemma2-27b down,4608,36864,512,fp32,4,on,new,dequant,,346230.9875488281
+gemma3-27b gate/up,21504,5376,512,fp32,0,on,old,auto,,55691.84112548828
+gemma3-27b gate/up,21504,5376,512,fp32,0,on,new,dequant,,143132.09533691406
+gemma3-27b gate/up,21504,5376,512,fp32,1,no,old,auto,,55395.64895629883
+gemma3-27b gate/up,21504,5376,512,fp32,1,no,new,dequant,,143011.1083984375
+gemma3-27b gate/up,21504,5376,512,fp32,2,on,old,auto,,55284.53063964844
+gemma3-27b gate/up,21504,5376,512,fp32,2,on,new,dequant,,142915.17639160156
+gemma3-27b gate/up,21504,5376,512,fp32,3,no,old,auto,,55472.286224365234
+gemma3-27b gate/up,21504,5376,512,fp32,3,no,new,dequant,,142984.71069335938
+gemma3-27b gate/up,21504,5376,512,fp32,4,on,old,auto,,55306.49185180664
+gemma3-27b gate/up,21504,5376,512,fp32,4,on,new,dequant,,142557.70874023438
+gemma3-27b down,5376,21504,512,fp32,0,on,old,auto,,54700.78659057617
+gemma3-27b down,5376,21504,512,fp32,0,on,new,dequant,,203556.18286132812
+gemma3-27b down,5376,21504,512,fp32,1,no,old,auto,,54326.00021362305
+gemma3-27b down,5376,21504,512,fp32,1,no,new,dequant,,201694.9005126953
+gemma3-27b down,5376,21504,512,fp32,2,on,old,auto,,54107.0442199707
+gemma3-27b down,5376,21504,512,fp32,2,on,new,dequant,,203252.22778320312
+gemma3-27b down,5376,21504,512,fp32,3,no,old,auto,,54195.281982421875
+gemma3-27b down,5376,21504,512,fp32,3,no,new,dequant,,202417.32788085938
+gemma3-27b down,5376,21504,512,fp32,4,on,old,auto,,54049.44610595703
+gemma3-27b down,5376,21504,512,fp32,4,on,new,dequant,,202805.87768554688
+gemma3-12b gate/up,15360,3840,512,fp32,0,on,old,auto,,26445.919036865234
+gemma3-12b gate/up,15360,3840,512,fp32,0,on,new,dequant,,69749.9771118164
+gemma3-12b gate/up,15360,3840,512,fp32,1,no,old,auto,,26456.439971923828
+gemma3-12b gate/up,15360,3840,512,fp32,1,no,new,dequant,,69110.64147949219
+gemma3-12b gate/up,15360,3840,512,fp32,2,on,old,auto,,26444.040298461914
+gemma3-12b gate/up,15360,3840,512,fp32,2,on,new,dequant,,69169.50988769531
+gemma3-12b gate/up,15360,3840,512,fp32,3,no,old,auto,,26455.68084716797
+gemma3-12b gate/up,15360,3840,512,fp32,3,no,new,dequant,,69230.14831542969
+gemma3-12b gate/up,15360,3840,512,fp32,4,on,old,auto,,26452.360153198242
+gemma3-12b gate/up,15360,3840,512,fp32,4,on,new,dequant,,69230.99517822266
+gemma3-12b down,3840,15360,512,fp32,0,on,old,auto,,26194.965362548828
+gemma3-12b down,3840,15360,512,fp32,0,on,new,dequant,,80974.59411621094
+gemma3-12b down,3840,15360,512,fp32,1,no,old,auto,,26069.32830810547
+gemma3-12b down,3840,15360,512,fp32,1,no,new,dequant,,80660.75897216797
+gemma3-12b down,3840,15360,512,fp32,2,on,old,auto,,26041.250228881836
+gemma3-12b down,3840,15360,512,fp32,2,on,new,dequant,,80147.25494384766
+gemma3-12b down,3840,15360,512,fp32,3,no,old,auto,,26040.210723876953
+gemma3-12b down,3840,15360,512,fp32,3,no,new,dequant,,81535.21728515625
+gemma3-12b down,3840,15360,512,fp32,4,on,old,auto,,26069.049835205078
+gemma3-12b down,3840,15360,512,fp32,4,on,new,dequant,,82046.63848876953
+gemma3-4b gate/up,10240,2560,512,fp32,0,on,old,auto,,11995.952606201172
+gemma3-4b gate/up,10240,2560,512,fp32,0,on,new,dequant,,29490.116119384766
+gemma3-4b gate/up,10240,2560,512,fp32,1,no,old,auto,,11919.67487335205
+gemma3-4b gate/up,10240,2560,512,fp32,1,no,new,dequant,,29223.403930664062
+gemma3-4b gate/up,10240,2560,512,fp32,2,on,old,auto,,11940.154075622559
+gemma3-4b gate/up,10240,2560,512,fp32,2,on,new,dequant,,29275.7625579834
+gemma3-4b gate/up,10240,2560,512,fp32,3,no,old,auto,,11939.51416015625
+gemma3-4b gate/up,10240,2560,512,fp32,3,no,new,dequant,,29295.242309570312
+gemma3-4b gate/up,10240,2560,512,fp32,4,on,old,auto,,11936.63501739502
+gemma3-4b gate/up,10240,2560,512,fp32,4,on,new,dequant,,29257.923126220703
+gemma3-4b down,2560,10240,512,fp32,0,on,old,auto,,13081.562995910645
+gemma3-4b down,2560,10240,512,fp32,0,on,new,dequant,,31053.953170776367
+gemma3-4b down,2560,10240,512,fp32,1,no,old,auto,,13090.763092041016
+gemma3-4b down,2560,10240,512,fp32,1,no,new,dequant,,30508.968353271484
+gemma3-4b down,2560,10240,512,fp32,2,on,old,auto,,12997.405052185059
+gemma3-4b down,2560,10240,512,fp32,2,on,new,dequant,,31071.672439575195
+gemma3-4b down,2560,10240,512,fp32,3,no,old,auto,,12997.004508972168
+gemma3-4b down,2560,10240,512,fp32,3,no,new,dequant,,30832.92007446289
+gemma3-4b down,2560,10240,512,fp32,4,on,old,auto,,13075.843811035156
+gemma3-4b down,2560,10240,512,fp32,4,on,new,dequant,,31029.55436706543
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,0,on,old,auto,,11372.969627380371
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,0,on,new,dequant,,28569.379806518555
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,1,no,old,auto,,11421.009063720703
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,1,no,new,dequant,,28454.343795776367
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,2,on,old,auto,,11368.68953704834
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,2,on,new,dequant,,28387.985229492188
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,3,no,old,auto,,11415.008544921875
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,3,no,new,dequant,,28423.9444732666
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,4,on,old,auto,,11363.16967010498
+phi3-mini/llama3.2-3b gate/up,8192,3072,512,fp32,4,on,new,dequant,,28305.10711669922
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,0,on,old,auto,,11214.73503112793
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,0,on,new,dequant,,32749.66812133789
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,1,no,old,auto,,11233.69312286377
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,1,no,new,dequant,,32443.675994873047
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,2,on,old,auto,,11188.055038452148
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,2,on,new,dequant,,32966.25900268555
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,3,no,old,auto,,11231.094360351562
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,3,no,new,dequant,,32686.626434326172
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,4,on,old,auto,,11202.775001525879
+phi3-mini/llama3.2-3b down,3072,8192,512,fp32,4,on,new,dequant,,32463.516235351562
+small square,2048,2048,512,fp32,0,on,old,auto,,2278.938055038452
+small square,2048,2048,512,fp32,0,on,new,dequant,,4304.963111877441
+small square,2048,2048,512,fp32,1,no,old,auto,,2280.2178859710693
+small square,2048,2048,512,fp32,1,no,new,dequant,,4262.642860412598
+small square,2048,2048,512,fp32,2,on,old,auto,,2278.657913208008
+small square,2048,2048,512,fp32,2,on,new,dequant,,4225.365161895752
+small square,2048,2048,512,fp32,3,no,old,auto,,2280.3380489349365
+small square,2048,2048,512,fp32,3,no,new,dequant,,4232.964992523193
+small square,2048,2048,512,fp32,4,on,old,auto,,2279.3779373168945
+small square,2048,2048,512,fp32,4,on,new,dequant,,4221.724033355713
+7-8b k/v,1024,4096,512,fp32,0,on,old,auto,,1892.0689821243286
+7-8b k/v,1024,4096,512,fp32,0,on,new,dequant,,4304.603099822998
+7-8b k/v,1024,4096,512,fp32,1,no,old,auto,,1888.3880376815796
+7-8b k/v,1024,4096,512,fp32,1,no,new,dequant,,4321.321964263916
+7-8b k/v,1024,4096,512,fp32,2,on,old,auto,,1890.2679681777954
+7-8b k/v,1024,4096,512,fp32,2,on,new,dequant,,4304.361820220947
+7-8b k/v,1024,4096,512,fp32,3,no,old,auto,,1891.7089700698853
+7-8b k/v,1024,4096,512,fp32,3,no,new,dequant,,4335.721969604492
+7-8b k/v,1024,4096,512,fp32,4,on,old,auto,,1891.3079500198364
+7-8b k/v,1024,4096,512,fp32,4,on,new,dequant,,4302.802085876465
+small GQA k/v,512,2048,512,fp32,0,on,old,auto,,504.1459798812866
+small GQA k/v,512,2048,512,fp32,0,on,new,dequant,,1052.2509813308716
+small GQA k/v,512,2048,512,fp32,1,no,old,auto,,496.7469871044159
+small GQA k/v,512,2048,512,fp32,1,no,new,dequant,,1051.9720315933228
+small GQA k/v,512,2048,512,fp32,2,on,old,auto,,503.3869743347168
+small GQA k/v,512,2048,512,fp32,2,on,new,dequant,,1051.1319637298584
+small GQA k/v,512,2048,512,fp32,3,no,old,auto,,504.54699993133545
+small GQA k/v,512,2048,512,fp32,3,no,new,dequant,,1051.2510538101196
+small GQA k/v,512,2048,512,fp32,4,on,old,auto,,503.1859874725342
+small GQA k/v,512,2048,512,fp32,4,on,new,dequant,,1051.2909889221191
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,0,on,old,auto,,1465.399980545044
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,0,on,new,dequant,,3209.7129821777344
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,1,no,old,auto,,1463.2400274276733
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,1,no,new,dequant,,3211.153030395508
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,2,on,old,auto,,1464.7610187530518
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,2,on,new,dequant,,3208.0330848693848
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,3,no,old,auto,,1464.5999670028687
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,3,no,new,dequant,,3212.991952896118
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,4,on,old,auto,,1465.399980545044
+qwen3-30b-moe expert gate_up,1536,2048,512,fp32,4,on,new,dequant,,3213.831901550293
+qwen3-30b-moe expert down,2048,768,512,fp32,0,on,old,auto,,882.0559978485107
+qwen3-30b-moe expert down,2048,768,512,fp32,0,on,new,dequant,,1546.9180345535278
+qwen3-30b-moe expert down,2048,768,512,fp32,1,no,old,auto,,885.7759833335876
+qwen3-30b-moe expert down,2048,768,512,fp32,1,no,new,dequant,,1546.3980436325073
+qwen3-30b-moe expert down,2048,768,512,fp32,2,on,old,auto,,883.296012878418
+qwen3-30b-moe expert down,2048,768,512,fp32,2,on,new,dequant,,1547.4779605865479
+qwen3-30b-moe expert down,2048,768,512,fp32,3,no,old,auto,,885.8559727668762
+qwen3-30b-moe expert down,2048,768,512,fp32,3,no,new,dequant,,1545.8379983901978
+qwen3-30b-moe expert down,2048,768,512,fp32,4,on,old,auto,,885.5360150337219
+qwen3-30b-moe expert down,2048,768,512,fp32,4,on,new,dequant,,1546.3180541992188
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,0,on,old,auto,,5675.364971160889
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,0,on,new,dequant,,14158.734321594238
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,1,no,old,auto,,5689.724922180176
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,1,no,new,dequant,,14130.974769592285
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,2,on,old,auto,,5704.004764556885
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,2,on,new,dequant,,14259.771347045898
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,3,no,old,auto,,5660.524845123291
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,3,no,new,dequant,,14187.414169311523
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,4,on,old,auto,,5690.645217895508
+qwen3-235b-moe expert gate_up,3072,4096,512,fp32,4,on,new,dequant,,14235.852241516113
+qwen3-235b-moe expert down,4096,1536,512,fp32,0,on,old,auto,,2962.639093399048
+qwen3-235b-moe expert down,4096,1536,512,fp32,0,on,new,dequant,,6904.091835021973
+qwen3-235b-moe expert down,4096,1536,512,fp32,1,no,old,auto,,2963.038921356201
+qwen3-235b-moe expert down,4096,1536,512,fp32,1,no,new,dequant,,6904.651165008545
+qwen3-235b-moe expert down,4096,1536,512,fp32,2,on,old,auto,,2963.718891143799
+qwen3-235b-moe expert down,4096,1536,512,fp32,2,on,new,dequant,,6900.812149047852
+qwen3-235b-moe expert down,4096,1536,512,fp32,3,no,old,auto,,2961.479902267456
+qwen3-235b-moe expert down,4096,1536,512,fp32,3,no,new,dequant,,6899.8918533325195
+qwen3-235b-moe expert down,4096,1536,512,fp32,4,on,old,auto,,2958.559036254883
+qwen3-235b-moe expert down,4096,1536,512,fp32,4,on,new,dequant,,6898.652076721191
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,0,on,old,auto,,984.0539693832397
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,0,on,new,dequant,,2081.3040733337402
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,1,no,old,auto,,979.5730113983154
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,1,no,new,dequant,,2080.7039737701416
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,2,on,old,auto,,981.4940094947815
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,2,on,new,dequant,,2080.7840824127197
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,3,no,old,auto,,979.8929691314697
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,3,no,new,dequant,,2081.8231105804443
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,4,on,old,auto,,977.8140187263489
+qwen3.5-35b-moe expert gate_up,1024,2048,512,fp32,4,on,new,dequant,,2080.3439617156982
+qwen3.5-35b-moe expert down,2048,512,512,fp32,0,on,old,auto,,610.9830141067505
+qwen3.5-35b-moe expert down,2048,512,512,fp32,0,on,new,dequant,,1042.3320531845093
+qwen3.5-35b-moe expert down,2048,512,512,fp32,1,no,old,auto,,612.4230027198792
+qwen3.5-35b-moe expert down,2048,512,512,fp32,1,no,new,dequant,,1035.6919765472412
+qwen3.5-35b-moe expert down,2048,512,512,fp32,2,on,old,auto,,612.384021282196
+qwen3.5-35b-moe expert down,2048,512,512,fp32,2,on,new,dequant,,1033.6519479751587
+qwen3.5-35b-moe expert down,2048,512,512,fp32,3,no,old,auto,,609.263002872467
+qwen3.5-35b-moe expert down,2048,512,512,fp32,3,no,new,dequant,,1034.1719388961792
+qwen3.5-35b-moe expert down,2048,512,512,fp32,4,on,old,auto,,608.5439920425415
+qwen3.5-35b-moe expert down,2048,512,512,fp32,4,on,new,dequant,,1034.8520278930664
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,0,on,old,auto,,3315.0699138641357
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,0,on,new,dequant,,6712.216854095459
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,1,no,old,auto,,3319.8699951171875
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,1,no,new,dequant,,6721.696853637695
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,2,on,old,auto,,3322.788953781128
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,2,on,new,dequant,,6740.335941314697
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,3,no,old,auto,,3331.389904022217
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,3,no,new,dequant,,6714.33687210083
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,4,on,old,auto,,3322.5889205932617
+qwen3.5-122b-moe expert gate_up,2048,3072,512,fp32,4,on,new,dequant,,6717.737197875977
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,0,on,old,auto,,1530.5980443954468
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,0,on,new,dequant,,3114.995002746582
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,1,no,old,auto,,1517.7589654922485
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,1,no,new,dequant,,3114.715099334717
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,2,on,old,auto,,1521.319031715393
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,2,on,new,dequant,,3109.915018081665
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,3,no,old,auto,,1524.4380235671997
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,3,no,new,dequant,,3113.1949424743652
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,4,on,old,auto,,1518.2780027389526
+qwen3.5-122b-moe expert down,3072,1024,512,fp32,4,on,new,dequant,,3122.075080871582
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,0,on,old,auto,,14065.576553344727
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,0,on,new,dequant,,37115.108489990234
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,1,no,old,auto,,14005.098342895508
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,1,no,new,dequant,,37451.93862915039
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,2,on,old,auto,,14014.296531677246
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,2,on,new,dequant,,37884.56726074219
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,3,no,old,auto,,14082.736015319824
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,3,no,new,dequant,,37373.37875366211
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,4,on,old,auto,,14028.377532958984
+qwen3-coder-480b-moe expert gate_up,5120,6144,512,fp32,4,on,new,dequant,,38055.56106567383
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,0,on,old,auto,,7203.763008117676
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,0,on,new,dequant,,17212.812423706055
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,1,no,old,auto,,7165.804862976074
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,1,no,new,dequant,,17230.009078979492
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,2,on,old,auto,,7163.603782653809
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,2,on,new,dequant,,17286.68785095215
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,3,no,old,auto,,7151.885032653809
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,3,no,new,dequant,,17179.292678833008
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,4,on,old,auto,,7180.284023284912
+qwen3-coder-480b-moe expert down,6144,2560,512,fp32,4,on,new,dequant,,17268.369674682617
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,0,on,old,auto,,1817.3500299453735
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,0,on,new,dequant,,4414.5188331604
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,1,no,old,auto,,1818.550944328308
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,1,no,new,dequant,,4438.9190673828125
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,2,on,old,auto,,1821.5500116348267
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,2,on,new,dequant,,4421.440124511719
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,3,no,old,auto,,1819.1100358963013
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,3,no,new,dequant,,4425.6391525268555
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,4,on,old,auto,,1818.9899921417236
+gemma4-26b-moe expert gate_up,1408,2816,512,fp32,4,on,new,dequant,,4422.679901123047
+gemma4-26b-moe expert down,2816,704,512,fp32,0,on,old,auto,,1108.2899570465088
+gemma4-26b-moe expert down,2816,704,512,fp32,0,on,new,dequant,,1971.3070392608643
+gemma4-26b-moe expert down,2816,704,512,fp32,1,no,old,auto,,1105.5699586868286
+gemma4-26b-moe expert down,2816,704,512,fp32,1,no,new,dequant,,1958.0669403076172
+gemma4-26b-moe expert down,2816,704,512,fp32,2,on,old,auto,,1111.1700534820557
+gemma4-26b-moe expert down,2816,704,512,fp32,2,on,new,dequant,,1955.9069871902466
+gemma4-26b-moe expert down,2816,704,512,fp32,3,no,old,auto,,1107.409954071045
+gemma4-26b-moe expert down,2816,704,512,fp32,3,no,new,dequant,,1957.826018333435
+gemma4-26b-moe expert down,2816,704,512,fp32,4,on,old,auto,,1107.9699993133545
+gemma4-26b-moe expert down,2816,704,512,fp32,4,on,new,dequant,,1954.746961593628
+gemma4-26b dense gate_up,2112,2816,512,fp32,0,on,old,auto,,3161.194086074829
+gemma4-26b dense gate_up,2112,2816,512,fp32,0,on,new,dequant,,6541.021823883057
+gemma4-26b dense gate_up,2112,2816,512,fp32,1,no,old,auto,,3161.7939472198486
+gemma4-26b dense gate_up,2112,2816,512,fp32,1,no,new,dequant,,6563.701152801514
+gemma4-26b dense gate_up,2112,2816,512,fp32,2,on,old,auto,,3155.4739475250244
+gemma4-26b dense gate_up,2112,2816,512,fp32,2,on,new,dequant,,6522.822856903076
+gemma4-26b dense gate_up,2112,2816,512,fp32,3,no,old,auto,,3151.834011077881
+gemma4-26b dense gate_up,2112,2816,512,fp32,3,no,new,dequant,,6523.101806640625
+gemma4-26b dense gate_up,2112,2816,512,fp32,4,on,old,auto,,3155.3940773010254
+gemma4-26b dense gate_up,2112,2816,512,fp32,4,on,new,dequant,,6528.381824493408
+gemma4-26b dense down,2816,2112,512,fp32,0,on,old,auto,,3212.831974029541
+gemma4-26b dense down,2816,2112,512,fp32,0,on,new,dequant,,6113.8739585876465
+gemma4-26b dense down,2816,2112,512,fp32,1,no,old,auto,,3195.873022079468
+gemma4-26b dense down,2816,2112,512,fp32,1,no,new,dequant,,6114.593029022217
+gemma4-26b dense down,2816,2112,512,fp32,2,on,old,auto,,3190.6330585479736
+gemma4-26b dense down,2816,2112,512,fp32,2,on,new,dequant,,6112.712860107422
+gemma4-26b dense down,2816,2112,512,fp32,3,no,old,auto,,3195.7530975341797
+gemma4-26b dense down,2816,2112,512,fp32,3,no,new,dequant,,6146.792888641357
+gemma4-26b dense down,2816,2112,512,fp32,4,on,old,auto,,3196.913003921509
+gemma4-26b dense down,2816,2112,512,fp32,4,on,new,dequant,,6117.632865905762

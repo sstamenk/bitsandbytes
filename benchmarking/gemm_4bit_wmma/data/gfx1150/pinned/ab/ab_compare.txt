@@ -1,0 +1,159 @@
+# A/B/A runs (bench.py --kernels auto, BNB_BENCH_SLEEP_CYCLES=1.5e7, pinned clocks). python ../../../../ab_compare.py A1 B A2 auto
+
+## ab16_A1 / ab16_B / ab16_A2
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+bf16     1     13065     12643  1.033  0.998     31     1.098 gemma4-26b-moe expert down
+bf16     2     13158     12749  1.032  0.997     27     1.085 gemma4-26b-moe expert down
+bf16     4     13490     13106  1.029  0.998     24     1.100 gemma4-26b-moe expert down
+bf16     8     13661     13204  1.035  0.999     28     1.085 gemma4-26b-moe expert down
+bf16    12     15066     14592  1.032  0.998     25     1.152 small square
+bf16    16     15274     14767  1.034  0.999     25     1.157 small square
+bf16    24     19479     16985  1.147  1.003     32     1.272 qwen3.5-35b-moe expert gate_up
+bf16    32     19158     17575  1.090  0.996     34     1.242 qwen3.5-35b-moe expert gate_up
+bf16    48     31543     28455  1.109  0.999     34     1.490 small GQA k/v
+bf16    64     30372     29104  1.044  0.999     31     1.218 qwen3.5-122b-moe expert down
+bf16    96     46953     42358  1.108  1.009     27     1.493 qwen3.5-35b-moe expert down
+bf16   128     66434     53103  1.251  0.987     36     1.199 qwen3.5-35b-moe expert down
+bf16   192    109435     79530  1.376  1.004     37     1.081 qwen3.5-35b-moe expert down
+bf16   256    153822    108456  1.418  0.988     38     1.026 qwen3.5-35b-moe expert down
+bf16   384    213999    178576  1.198  1.014     24     1.021 gemma3-12b down
+bf16   512    296821    245346  1.210  1.010     23     1.023 gemma3-12b down
+fp16     1     13056     12646  1.032  0.999     28     1.100 gemma4-26b-moe expert down
+fp16     2     13147     12744  1.032  1.000     25     1.099 gemma4-26b-moe expert down
+fp16     4     13522     13092  1.033  1.003     27     1.101 gemma4-26b-moe expert down
+fp16     8     13681     13197  1.037  1.004     29     1.091 gemma4-26b-moe expert down
+fp16    12     15087     14619  1.032  1.000     24     1.154 small square
+fp16    16     15289     14806  1.033  0.998     26     1.154 small square
+fp16    24     19541     16997  1.150  0.994     31     1.280 qwen3.5-35b-moe expert gate_up
+fp16    32     19192     17653  1.087  1.000     30     1.250 qwen3.5-35b-moe expert gate_up
+fp16    48     31560     28466  1.109  0.995     35     1.488 small GQA k/v
+fp16    64     30601     29373  1.042  0.999     29     1.196 qwen3.5-122b-moe expert down
+fp16    96     46527     42788  1.087  0.990     34     1.050 gemma4-26b-moe expert gate_up
+fp16   128     62132     54877  1.132  0.992     34     1.185 qwen3.5-35b-moe expert down
+fp16   192    108879     79544  1.369  0.993     36     1.185 qwen3.5-35b-moe expert down
+fp16   256    154125    107816  1.430  1.001     39     1.071 qwen3-30b-moe expert down
+fp16   384    212523    177100  1.200  0.996     20     1.052 qwen3-14b down
+fp16   512    294145    242447  1.213  1.001     19     1.029 gemma4-26b dense down
+
+## ab32_A1 / ab32_C / ab32_A2
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+fp32     1     15038     15040  1.000  1.002     18     1.068 qwen3-235b-moe expert down
+fp32     2     17538     17617  0.996  1.002     18     1.243 qwen3.5-35b-moe expert gate_up
+fp32     3     20811     20907  0.995  1.000     18     1.038 gemma3-4b gate/up
+fp32     4     23481     23321  1.007  0.994     19     1.023 gemma4-26b-moe expert down
+fp32     5     23783     23587  1.008  0.999     21     1.031 gemma4-26b-moe expert down
+fp32     6     23907     23623  1.012  0.995     24     1.095 qwen3-30b-moe expert down
+fp32     7     24095     23821  1.012  0.998     25     1.093 qwen3-30b-moe expert down
+fp32     8     24132     23846  1.012  0.997     22     1.093 qwen3-30b-moe expert down
+fp32    12     37232     33545  1.110  0.996     27     1.304 small GQA k/v
+fp32    16     37918     34117  1.111  0.997     29     1.303 small GQA k/v
+fp32    24     63427     61872  1.025  0.997     22     1.186 gemma4-26b-moe expert down
+fp32    32     72530     63696  1.139  0.998     31     1.008 gemma3-12b down
+fp32    48     99854     92188  1.083  0.999     25     1.031 gemma4-26b-moe expert down
+fp32    64    131387    120964  1.086  0.996     23     1.089 gemma4-26b dense down
+fp32    96    181853    181452  1.002  0.995     14     1.006 qwen3.5-122b-moe expert down
+fp32   128    241616    241467  1.001  0.996     19     1.014 small GQA k/v
+fp32   192    365053    364674  1.001  0.999     20     1.008 qwen3-32b down
+fp32   256    495143    493847  1.003  0.994     20     1.009 qwen3.5-35b-moe expert gate_up
+fp32   384    747535    745979  1.002  0.996     21     1.020 qwen3-14b gate/up
+fp32   512    998877    996489  1.002  0.996     23     1.034 llama3-70b o/q square
+
+## abD_C1 / abD_D / abD_C2
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+bf16    17     16635     16616  1.001  0.999     20     1.109 small GQA k/v
+bf16    20     16852     16804  1.003  0.999     24     1.102 small GQA k/v
+bf16    24     16955     16955  1.000  1.000     23     1.104 small GQA k/v
+bf16    28     17298     17307  0.999  1.000     20     1.118 small GQA k/v
+bf16    32     17588     17565  1.001  1.005     22     1.114 small GQA k/v
+bf16    36     27612     27672  0.998  1.002     15     1.020 qwen3-coder-480b-moe expert gate_u
+bf16    40     27848     27885  0.999  0.998     20     1.018 gemma3-4b down
+bf16    44     27988     28025  0.999  0.999     24     1.021 qwen3-8b down
+bf16    48     28184     28141  1.002  0.998     16     1.020 phi3-mini/llama3.2-3b down
+bf16    66     40330     40060  1.007  1.003     25     1.012 qwen3-8b down
+bf16    72     40655     40494  1.004  1.004     24     1.023 gemma3-4b down
+bf16    80     41199     41126  1.002  1.006     23     1.024 llama3-70b gate/up
+bf16    88     41789     41494  1.007  0.997     28     1.017 gemma2-27b down
+bf16    96     42264     42238  1.001  1.006     24     1.030 gemma2-27b down
+fp16    17     16634     16627  1.000  0.998     20     1.111 small GQA k/v
+fp16    20     16862     16861  1.000  0.998     25     1.106 small GQA k/v
+fp16    24     16974     16954  1.001  1.002     21     1.107 small GQA k/v
+fp16    28     17303     17265  1.002  1.000     20     1.114 small GQA k/v
+fp16    32     17612     17563  1.003  1.000     18     1.113 small GQA k/v
+fp16    36     27727     27728  1.000  0.992     15     1.016 gemma2-27b down
+fp16    40     27985     27921  1.002  0.989     18     1.014 gemma2-27b down
+fp16    44     28134     28146  1.000  0.996     17     1.019 phi3-mini/llama3.2-3b gate/up
+fp16    48     28321     28363  0.999  0.993     21     1.019 small square
+fp16    66     40415     40131  1.007  0.999     25     1.038 qwen3-14b down
+fp16    72     40917     40704  1.005  0.997     30     1.044 gemma2-27b down
+fp16    80     41413     41014  1.010  1.002     23     1.012 qwen3-8b gate/up
+fp16    88     41949     41958  1.000  0.993     24     1.029 llama3-70b down
+fp16    96     42594     42634  0.999  0.990     23     1.089 gemma4-26b dense gate_up
+
+## abD32_C1 / abD32_D / abD32_C2
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+fp32     9     33180     33148  1.001  0.998     21     1.021 qwen3-32b gate/up
+fp32    10     33312     33313  1.000  0.998     20     1.016 llama3-8b/mistral-7b o/q square
+fp32    12     33205     33141  1.002  1.002     20     1.008 qwen3-235b-moe expert gate_up
+fp32    14     33542     33529  1.000  1.001     20     1.015 gemma2-27b down
+fp32    16     33753     33669  1.003  1.001     21     1.007 qwen3-8b gate/up
+
+## abE_D1 / abE_E / abE_D2
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+bf16    17     16603     16559  1.003  0.999     25     1.007 llama3-70b down
+bf16    20     16772     16792  0.999  0.999     18     1.016 llama3-70b down
+bf16    24     16884     16885  1.000  1.001     16     1.017 gemma3-4b down
+bf16    28     17229     17253  0.999  1.001     18     1.020 gemma3-4b gate/up
+bf16    32     17540     17528  1.001  1.002     22     1.018 qwen3-8b down
+fp16    17     16607     16604  1.000  1.001     23     1.042 gemma3-4b down
+fp16    20     16822     16814  1.000  0.999     25     1.016 llama3-8b/mistral-7b o/q square
+fp16    24     16984     16920  1.004  1.006     23     1.020 gemma3-4b down
+fp16    28     17288     17281  1.000  0.997     23     1.084 phi3-mini/llama3.2-3b down
+fp16    32     17543     17514  1.002  0.996     27     1.011 gemma3-4b down
+
+## abF_E1 / abF_F / abF_E2
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+bf16    52     28879     28900  0.999  0.997     20     1.051 gemma4-26b-moe expert gate_up
+bf16    56     28974     28860  1.004  1.007     23     1.046 gemma3-4b down
+bf16    60     29063     29042  1.001  0.996     23     1.055 gemma4-26b-moe expert gate_up
+bf16    64     29201     29251  0.998  0.998     23     1.057 gemma4-26b-moe expert gate_up
+bf16    72     40622     40605  1.000  0.996     18     1.187 qwen3.5-35b-moe expert down
+bf16    80     41197     41159  1.001  1.006     23     1.185 qwen3.5-35b-moe expert down
+bf16    88     41788     41882  0.998  1.005     19     1.170 qwen3.5-35b-moe expert down
+bf16    96     42185     42337  0.996  1.002     17     1.150 qwen3.5-35b-moe expert down
+bf16   104     51897     51921  1.000  0.999     22     1.097 qwen3.5-122b-moe expert down
+bf16   112     52394     52403  1.000  0.999     18     1.109 qwen3.5-122b-moe expert down
+bf16   128     53305     53259  1.001  1.002     17     1.094 qwen3.5-122b-moe expert down
+bf16   160     66842     67066  0.997  1.000     22     1.046 qwen3.5-122b-moe expert down
+bf16   192     79844     80361  0.994  1.003     22     1.088 qwen3-30b-moe expert down
+bf16   224     95253     95162  1.001  0.991     22     1.022 qwen3.5-122b-moe expert down
+bf16   256    109645    108722  1.008  0.998     20     1.095 qwen3.5-122b-moe expert down
+bf16   288    128559    128016  1.004  0.997     24     1.030 gemma3-4b down
+bf16   384    179339    178962  1.002  1.002     26     1.042 gemma3-27b down
+bf16   512    244264    244823  0.998  0.996     16     1.050 gemma3-12b down
+fp16    52     29047     29061  1.000  0.995     20     1.051 gemma4-26b-moe expert gate_up
+fp16    56     29293     29237  1.002  0.998     23     1.051 gemma4-26b-moe expert gate_up
+fp16    60     29119     29134  0.999  1.000     16     1.088 qwen3.5-122b-moe expert down
+fp16    64     29367     29437  0.998  0.995     16     1.062 gemma4-26b-moe expert gate_up
+fp16    72     40911     40898  1.000  0.997     18     1.198 qwen3.5-35b-moe expert down
+fp16    80     41404     41243  1.004  0.988     21     1.186 qwen3.5-35b-moe expert down
+fp16    88     42025     41997  1.001  1.000     19     1.177 qwen3.5-35b-moe expert down
+fp16    96     42546     42703  0.996  0.995     14     1.175 qwen3.5-35b-moe expert down
+fp16   104     53862     53975  0.998  0.995     21     1.027 gemma2-27b gate/up
+fp16   112     54035     54213  0.997  0.997     16     1.012 llama3-8b/mistral-7b down
+fp16   128     54959     54883  1.001  0.994     20     1.014 qwen3-14b down
+fp16   160     66417     66554  0.998  0.995     15     1.061 qwen3.5-122b-moe expert down
+fp16   192     79726     80386  0.992  1.001     21     1.056 llama3-70b down
+fp16   224     95375     95408  1.000  1.001     13     1.035 gemma2-27b down
+fp16   256    108116    108116  1.000  0.993     20     1.078 qwen3.5-122b-moe expert down
+fp16   288    128060    127814  1.002  0.992     20     1.025 gemma3-27b down
+fp16   384    177621    177810  0.999  0.993     20     1.019 gemma2-27b down
+fp16   512    241904    242371  0.998  0.997     26     1.085 qwen3-14b down
+
+## abG_F1 / abG_G / abG_F2
+dtype    M      A us      B us    A/B  a1/a2 B wins worst B/A worst shape
+fp32     3     21312     21378  0.997  1.011     20     1.095 qwen3-8b down
+fp32     4     23364     23213  1.007  0.997     30     1.180 qwen3-30b-moe expert down
+fp32     5     23308     23092  1.009  0.996     29     1.057 qwen3-30b-moe expert down
+fp32     6     23313     23232  1.003  0.992     22     1.025 phi3-mini/llama3.2-3b gate/up
+fp32     7     23508     23448  1.003  0.996     23     1.018 small square
+fp32     8     23563     23533  1.001  0.998     25     1.027 gemma3-4b gate/up

@@ -1,0 +1,86 @@
+dtype    M  old/new  geomean  per-cycle old/new  >5%  >10%  worst new/old          best new/old
+bf16    1  1.032   1.052    1.031-1.033       1    0  1.10 gemma4-26b-moe e  0.77 small square
+bf16    4  1.030   1.054    1.029-1.031       1    0  1.09 gemma4-26b-moe e  0.76 qwen3-30b-moe ex
+bf16    8  1.034   1.058    1.034-1.034       1    0  1.09 gemma4-26b-moe e  0.70 gemma4-26b-moe e
+bf16   12  1.032   1.034    1.030-1.032       3    2  1.15 qwen3-235b-moe e  0.79 gemma4-26b-moe e
+bf16   16  1.033   1.036    1.030-1.036       3    2  1.16 small square      0.79 gemma4-26b-moe e
+bf16   20  1.149   1.122    1.147-1.151       1    0  1.05 small square      0.67 gemma4-26b-moe e
+bf16   24  1.147   1.120    1.144-1.156       1    0  1.05 small square      0.68 gemma4-26b-moe e
+bf16   32  1.089   1.151    1.087-1.093       2    0  1.07 small GQA k/v     0.59 qwen3-235b-moe e
+bf16   36  1.118   1.119    1.112-1.121       2    1  1.17 gemma4-26b-moe e  0.74 qwen3-30b-moe ex
+bf16   40  1.118   1.120    1.115-1.121       2    2  1.18 gemma4-26b-moe e  0.74 qwen3-30b-moe ex
+bf16   48  1.113   1.112    1.110-1.117       3    2  1.16 gemma4-26b-moe e  0.74 qwen3-30b-moe ex
+bf16   56  1.046   1.112    1.041-1.049       1    0  1.05 qwen3-14b o/q sq  0.63 qwen3.5-122b-moe
+bf16   64  1.046   1.110    1.039-1.050       2    1  1.14 qwen3.5-35b-moe   0.63 qwen3.5-122b-moe
+bf16   72  1.086   1.077    1.085-1.088       5    2  1.28 qwen3-30b-moe ex  0.71 qwen3.5-35b-moe
+bf16   80  1.096   1.081    1.083-1.102       4    1  1.26 qwen3-30b-moe ex  0.71 qwen3.5-35b-moe
+bf16   88  1.114   1.085    1.110-1.119       3    2  1.24 qwen3-30b-moe ex  0.71 qwen3.5-35b-moe
+bf16   96  1.111   1.084    1.095-1.116       3    2  1.22 qwen3-30b-moe ex  0.72 qwen3.5-35b-moe
+bf16  112  1.205   1.133    1.198-1.210       4    2  1.23 qwen3.5-35b-moe   0.66 llama3-70b down
+bf16  128  1.259   1.153    1.253-1.262       4    2  1.20 qwen3.5-35b-moe   0.59 llama3-70b down
+bf16  160  1.337   1.166    1.330-1.343       2    1  1.23 qwen3.5-35b-moe   0.52 llama3-70b down
+bf16  192  1.361   1.202    1.357-1.374       2    0  1.08 qwen3.5-35b-moe   0.56 qwen3-32b down
+bf16  224  1.396   1.231    1.388-1.403       2    2  1.11 qwen3.5-35b-moe   0.52 qwen3-32b down
+bf16  256  1.405   1.295    1.402-1.406       0    0  1.03 qwen3.5-35b-moe   0.52 qwen3-32b down
+bf16  288  1.239   1.066    1.233-1.247       0    0  1.00 llama3-70b gate/  0.51 gemma3-27b down
+bf16  384  1.199   1.059    1.195-1.202       0    0  1.00 llama3-70b gate/  0.54 gemma3-27b down
+bf16  448  1.209   1.059    1.206-1.211       0    0  1.00 llama3-70b gate/  0.56 gemma3-27b down
+bf16  512  1.209   1.059    1.206-1.209       0    0  1.00 llama3-70b gate/  0.56 gemma3-27b down
+fp16    1  1.032   1.056    1.031-1.033       1    0  1.10 gemma4-26b-moe e  0.73 gemma4-26b-moe e
+fp16    4  1.030   1.055    1.029-1.031       1    0  1.09 gemma4-26b-moe e  0.75 gemma4-26b-moe e
+fp16    8  1.034   1.058    1.033-1.034       1    0  1.09 gemma4-26b-moe e  0.71 gemma4-26b-moe e
+fp16   12  1.031   1.033    1.030-1.032       4    2  1.16 small square      0.78 gemma4-26b-moe e
+fp16   16  1.033   1.037    1.032-1.036       3    2  1.15 small square      0.79 gemma4-26b-moe e
+fp16   20  1.149   1.121    1.147-1.152       0    0  1.02 small square      0.67 gemma4-26b-moe e
+fp16   24  1.151   1.122    1.148-1.160       0    0  1.04 small square      0.68 gemma4-26b-moe e
+fp16   32  1.090   1.151    1.089-1.094       2    0  1.07 qwen3.5-122b-moe  0.58 qwen3-235b-moe e
+fp16   36  1.114   1.119    1.113-1.115       2    1  1.17 gemma4-26b-moe e  0.73 qwen3-30b-moe ex
+fp16   40  1.114   1.117    1.111-1.116       2    2  1.15 gemma4-26b-moe e  0.74 qwen3-30b-moe ex
+fp16   48  1.118   1.116    1.112-1.119       2    2  1.16 gemma4-26b-moe e  0.74 qwen3-30b-moe ex
+fp16   56  1.050   1.110    1.046-1.050       1    1  1.14 qwen3.5-35b-moe   0.63 qwen3.5-122b-moe
+fp16   64  1.040   1.109    1.036-1.045       2    1  1.14 qwen3.5-35b-moe   0.62 qwen3.5-122b-moe
+fp16   72  1.090   1.084    1.088-1.094       3    2  1.27 qwen3-30b-moe ex  0.71 qwen3.5-35b-moe
+fp16   80  1.086   1.082    1.084-1.090       5    1  1.26 qwen3-30b-moe ex  0.71 qwen3.5-35b-moe
+fp16   88  1.110   1.086    1.098-1.123       4    2  1.24 qwen3-30b-moe ex  0.71 qwen3.5-35b-moe
+fp16   96  1.091   1.099    1.090-1.094       1    1  1.13 gemma4-26b-moe e  0.69 qwen3.5-35b-moe
+fp16  112  1.130   1.088    1.129-1.135       3    3  1.28 qwen3-30b-moe ex  0.81 qwen3.5-35b-moe
+fp16  128  1.133   1.092    1.129-1.148       3    3  1.18 qwen3.5-35b-moe   0.80 qwen3.5-35b-moe
+fp16  160  1.324   1.181    1.314-1.332       0    0  1.03 qwen3.5-35b-moe   0.56 llama3-70b down
+fp16  192  1.376   1.195    1.367-1.380       2    2  1.19 qwen3.5-35b-moe   0.55 llama3-70b down
+fp16  224  1.408   1.238    1.400-1.416       0    0  1.05 qwen3-30b-moe ex  0.53 qwen3-32b down
+fp16  256  1.436   1.298    1.425-1.445       1    0  1.07 qwen3-30b-moe ex  0.53 qwen3-32b down
+fp16  288  1.243   1.062    1.235-1.246       0    0  1.02 gemma4-26b dense  0.52 qwen3-32b down
+fp16  384  1.195   1.053    1.192-1.198       1    0  1.05 gemma4-26b dense  0.55 gemma3-27b down
+fp16  448  1.215   1.055    1.213-1.218       0    0  1.04 gemma4-26b dense  0.56 qwen3-32b down
+fp16  512  1.211   1.056    1.210-1.211       0    0  1.03 gemma4-26b dense  0.57 gemma3-27b down
+fp32    4  1.000   1.000    1.000-1.000       0    0  1.00 llama3-70b gate/  1.00 llama3-70b gate/
+fp32    5  1.000   1.000    1.000-1.000       0    0  1.00 llama3-70b gate/  1.00 llama3-70b gate/
+fp32    6  1.000   1.000    1.000-1.000       0    0  1.00 llama3-70b gate/  1.00 llama3-70b gate/
+fp32    8  1.000   1.000    1.000-1.000       0    0  1.00 llama3-70b gate/  1.00 llama3-70b gate/
+fp32    9  1.112   1.130    1.107-1.116       1    0  1.05 qwen3-coder-480b  0.65 phi3-mini/llama3
+fp32   12  1.114   1.130    1.114-1.117       1    0  1.06 qwen3-coder-480b  0.65 gemma3-4b down
+fp32   16  1.114   1.130    1.113-1.116       0    0  1.04 qwen3-coder-480b  0.65 gemma3-4b down
+fp32   20  1.028   1.039    1.027-1.028       5    4  1.20 gemma4-26b-moe e  0.74 qwen3.5-122b-moe
+fp32   24  1.023   1.038    1.021-1.028       5    4  1.20 gemma4-26b-moe e  0.74 qwen3.5-122b-moe
+fp32   28  1.151   1.171    1.150-1.152       0    0  1.00 llama3-70b gate/  0.62 qwen3-30b-moe ex
+fp32   32  1.139   1.167    1.139-1.142       0    0  1.00 llama3-70b gate/  0.62 qwen3-30b-moe ex
+fp32   40  1.083   1.054    1.082-1.083       2    0  1.07 gemma4-26b-moe e  0.84 phi3-mini/llama3
+fp32   48  1.085   1.057    1.084-1.086       0    0  1.04 gemma4-26b-moe e  0.84 llama3-70b down
+fp32   56  1.089   1.058    1.088-1.091       2    0  1.10 gemma4-26b dense  0.83 llama3-70b down
+fp32   64  1.087   1.058    1.085-1.088       2    0  1.09 gemma4-26b dense  0.84 qwen3-coder-480b
+fp32   96  1.000   1.000    1.000-1.000       0    0  1.00 llama3-70b gate/  1.00 llama3-70b gate/
+fp32  256  1.000   1.000    1.000-1.000       0    0  1.00 llama3-70b gate/  1.00 llama3-70b gate/
+
+# cap: old = final fused path (auto), new = dequant + F.linear; old/new < 1 means fused faster
+dtype    M  old/new  geomean  per-cycle old/new  >5%  >10%  worst new/old          best new/old
+bf16  384  0.587   0.589    0.585-0.589      38   38  2.30 gemma3-12b down   1.01 gemma4-26b-moe e
+bf16  416  0.595   0.620    0.594-0.597      38   38  1.99 gemma3-27b down   0.92 gemma4-26b-moe e
+bf16  448  0.590   0.618    0.589-0.591      38   38  2.04 gemma3-27b down   0.95 gemma4-26b-moe e
+bf16  480  0.620   0.648    0.618-0.622      38   38  1.95 gemma3-12b down   0.90 gemma4-26b-moe e
+bf16  512  0.674   0.700    0.672-0.675      37   36  1.93 gemma3-4b down    0.84 gemma4-26b-moe e
+fp16  384  0.597   0.606    0.592-0.598      39   39  2.20 gemma3-12b down   1.00 gemma4-26b-moe e
+fp16  416  0.603   0.625    0.599-0.606      39   39  2.22 gemma3-4b down    0.90 gemma4-26b-moe e
+fp16  448  0.605   0.641    0.605-0.607      39   38  2.04 gemma3-4b down    0.93 gemma4-26b-moe e
+fp16  480  0.632   0.668    0.630-0.634      39   38  1.96 gemma3-4b down    0.87 gemma4-26b-moe e
+fp16  512  0.674   0.703    0.673-0.676      38   37  1.92 gemma3-12b down   0.84 gemma4-26b-moe e
+fp32  512  0.311   0.390    0.310-0.313      40   40  4.36 gemma2-27b down   1.69 qwen3.5-35b-moe

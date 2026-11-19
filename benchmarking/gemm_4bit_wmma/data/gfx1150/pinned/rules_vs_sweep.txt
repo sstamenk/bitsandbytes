@@ -1,0 +1,90 @@
+# python ../scripts/rules_eval.py <rules.cuh> sweep_fp16.csv <table>   (gfx115/gfx11 tables from the PR head 1b6a36a, gfx1150 from this branch)
+== wmma_rules_gfx115_f16: M | rule total / best-per-shape total | worst | missing
+    1 1.037 1.65(small GQA k/v) 0
+    4 1.049 1.63(small GQA k/v) 0
+    8 1.046 1.64(small GQA k/v) 0
+   16 1.065 1.28(gemma4-26b dense gate_up) 0
+   24 1.166 1.51(gemma4-26b-moe expert do) 0
+   32 1.114 1.70(qwen3-235b-moe expert ga) 0
+   48 1.151 1.45(qwen3.5-35b-moe expert g) 0
+   64 1.059 1.59(qwen3.5-122b-moe expert ) 0
+   96 1.112 1.52(qwen3-30b-moe expert gat) 2
+  128 1.142 1.38(qwen3.5-122b-moe expert ) 2
+  192 1.366 1.77(qwen3-32b down) 2
+  256 1.436 1.94(qwen3-14b down) 2
+  384 1.198 1.79(gemma3-27b down) 2
+  512 1.214 1.78(qwen3-32b down) 2
+  all 1.223
+== wmma_rules_gfx11_f16: M | rule total / best-per-shape total | worst | missing
+    1 1.062 1.65(small GQA k/v) 0
+    4 1.056 1.64(small GQA k/v) 0
+    8 1.070 1.65(small GQA k/v) 0
+   16 1.108 1.44(qwen3.5-35b-moe expert g) 0
+   24 1.120 1.72(qwen3-235b-moe expert ga) 0
+   32 1.114 1.70(qwen3-235b-moe expert ga) 0
+   48 1.153 1.66(small GQA k/v) 0
+   64 1.070 1.59(qwen3.5-122b-moe expert ) 0
+   96 1.044 1.55(gemma4-26b-moe expert ga) 0
+  128 1.011 1.50(gemma4-26b-moe expert do) 0
+  192 1.008 1.30(gemma4-26b-moe expert do) 0
+  256 1.011 1.53(gemma4-26b-moe expert do) 0
+  384 1.014 1.77(gemma3-4b down) 0
+  512 1.019 1.86(gemma3-4b down) 0
+  all 1.030
+== wmma_rules_gfx1150_f16: M | rule total / best-per-shape total | worst | missing
+    1 1.005 1.65(small GQA k/v) 0
+    4 1.019 1.64(small GQA k/v) 0
+    8 1.014 1.65(small GQA k/v) 0
+   16 1.032 1.18(qwen3-235b-moe expert do) 0
+   24 1.018 1.41(small square) 0
+   32 1.022 1.42(small square) 0
+   48 1.035 1.19(llama3-8b/mistral-7b o/q) 0
+   64 1.018 1.35(small square) 0
+   96 1.022 1.35(qwen3-30b-moe expert gat) 0
+  128 1.004 1.24(qwen3-30b-moe expert dow) 0
+  192 1.003 1.19(qwen3-30b-moe expert dow) 0
+  256 1.002 1.11(qwen3-30b-moe expert dow) 0
+  384 1.000 1.06(small GQA k/v) 0
+  512 1.000 1.01(qwen3-30b-moe expert dow) 0
+  all 1.005
+
+# fp32: input = python ../scripts/fp32_fit_input.py sweep_fp32.csv sweep_fp32_mt16.csv
+== wmma_rules_gfx115_f32: M | rule total / best-per-shape total | worst | missing
+    4 1.035 1.51(qwen3.5-122b-moe expert ) 0
+    8 1.036 1.49(qwen3.5-122b-moe expert ) 0
+   12 1.137 1.55(gemma3-4b down) 0
+   16 1.136 1.54(gemma3-4b down) 0
+   24 1.030 1.36(qwen3.5-122b-moe expert ) 0
+   32 1.144 1.64(qwen3-30b-moe expert gat) 0
+   48 1.086 1.19(llama3-70b down) 0
+   64 1.094 1.25(qwen3-8b down) 0
+   96 1.004 1.22(qwen3.5-122b-moe expert ) 0
+  128 1.004 1.19(gemma3-4b down) 0
+  256 1.003 1.18(gemma3-4b down) 0
+  all 1.032
+== wmma_rules_gfx11_f32: M | rule total / best-per-shape total | worst | missing
+    4 1.064 1.68(gemma3-4b down) 0
+    8 1.070 1.65(gemma3-4b down) 0
+   12 1.172 1.93(qwen3-235b-moe expert ga) 0
+   16 1.171 1.87(phi3-mini/llama3.2-3b do) 0
+   24 1.096 1.57(qwen3.5-122b-moe expert ) 0
+   32 1.025 1.70(qwen3-30b-moe expert dow) 0
+   48 1.058 1.61(small GQA k/v) 0
+   64 1.117 1.17(gemma3-27b down) 0
+   96 1.124 1.16(qwen3-32b down) 0
+  128 1.131 1.16(gemma3-12b down) 0
+  256 1.145 1.22(qwen3-32b down) 0
+  all 1.122
+== wmma_rules_gfx1150_f32: M | rule total / best-per-shape total | worst | missing
+    4 1.035 1.51(qwen3.5-122b-moe expert ) 0
+    8 1.036 1.49(qwen3.5-122b-moe expert ) 0
+   12 1.021 1.12(small GQA k/v) 0
+   16 1.020 1.12(small GQA k/v) 0
+   24 1.008 1.23(gemma3-4b down) 0
+   32 1.004 1.09(small GQA k/v) 0
+   48 1.001 1.18(small GQA k/v) 0
+   64 1.007 1.12(qwen3-8b gate/up) 0
+   96 1.004 1.22(qwen3.5-122b-moe expert ) 0
+  128 1.004 1.19(gemma3-4b down) 0
+  256 1.003 1.18(gemma3-4b down) 0
+  all 1.006

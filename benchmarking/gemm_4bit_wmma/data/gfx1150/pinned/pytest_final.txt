@@ -1,0 +1,14 @@
+# pytest tests/test_functional.py tests/test_linear4bit.py -k "(4bit or Linear4bit or gemv) and not fsdp" on the final code (srcrelH = this branch's csrc, built without BNB_WMMA_DEV; BNB_WMMA_DEV:BOOL=OFF), Radeon 890M, 2026-11-19
+
+tests/test_functional.py::TestQuantize4BitFunctional::test_4bit_quant[32-fp4-fp32-cuda] PASSED [  0%]
+tests/test_functional.py::TestQuantize4BitFunctional::test_4bit_quant[32-fp4-fp16-cuda] PASSED [  0%]
+tests/test_functional.py::TestQuantize4BitFunctional::test_4bit_quant[32-fp4-bf16-cuda] PASSED [  0%]
+tests/test_functional.py::TestQuantize4BitFunctional::test_4bit_quant[32-nf4-fp32-cuda] PASSED [  0%]
+tests/test_functional.py::TestQuantize4BitFunctional::test_4bit_quant[32-nf4-fp16-cuda] PASSED [  0%]
+tests/test_functional.py::TestQuantize4BitFunctional::test_4bit_quant[32-nf4-bf16-cuda] PASSED [  0%]
+tests/test_functional.py::TestQuantize4BitFunctional::test_4bit_quant[64-fp4-fp32-cuda] PASSED [  0%]
+...
+FAILED lines: 0
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======== 2445 passed, 145 deselected, 128 warnings in 136.17s (0:02:16) ========
+pytest rc=0

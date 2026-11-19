@@ -22,7 +22,9 @@ def timed_rotation(fns, reps):
     A sleep kernel holds the GPU until every launch is queued, so CPU launch
     latency never lands inside the timed window."""
     evs = [torch.cuda.Event(enable_timing=True) for _ in range(reps + 1)]
-    torch.cuda._sleep(int(5e7))
+    # 5e7 cycles hold the GPU for ~0.5 s on RDNA3/3.5 (100 MHz timer); BNB_BENCH_SLEEP_CYCLES shortens it where
+    # enqueueing the reps takes far less (sweeps time ~1000 tiles per shape).
+    torch.cuda._sleep(int(float(os.environ.get("BNB_BENCH_SLEEP_CYCLES", "5e7"))))
     for i in range(reps):
         evs[i].record()
         fns[i % len(fns)]()
