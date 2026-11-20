@@ -1,4 +1,4 @@
-"""Speedup of the final default dispatch over upstream main, on all four GPUs.
+"""Speedup of the final default dispatch over upstream main, on every measured GPU.
 
 main dispatches SIMT for M <= 8 and dequant + F.linear above. The new dispatch is the "auto" kernel up to each GPU's
 Python M limit (_gemm_4bit_use_custom_rocm) and dequant + F.linear above it. Inputs are the eval_final runs; the
@@ -23,16 +23,32 @@ D = os.path.join(HERE, "data")
 OUT = os.path.join(HERE, "plots")
 RUNS = [
     ("Radeon Pro W7900", "gfx1100", f"{D}/gfx1100/pinned/eval_final.csv"),
-    ("Radeon AI PRO R9700", "gfx1201", f"{D}/gfx1201/pinned/final/eval_final_fixedblas.csv"),
-    ("Radeon 8060S", "gfx1151", f"{D}/gfx1151/pinned/dense/eval_final.csv"),
+    ("Radeon RX 7700 XT", "gfx1101", f"{D}/gfx1101/pinned/eval_final.csv"),
+    ("Radeon RX 7600 XT", "gfx1102", f"{D}/gfx1102/pinned/dense/eval_final.csv"),
     ("Radeon 760M", "gfx1103", f"{D}/gfx1103/pinned/eval_final.csv"),
+    ("Radeon 890M", "gfx1150", f"{D}/gfx1150/pinned/eval_final.csv"),
+    ("Radeon 8060S", "gfx1151", f"{D}/gfx1151/pinned/dense/eval_final.csv"),
+    ("Radeon RX 9060 XT", "gfx1200", f"{D}/gfx1200/pinned/dense/eval_final.csv"),
+    ("Radeon AI PRO R9700", "gfx1201", f"{D}/gfx1201/pinned/final/eval_final_fixedblas.csv"),
 ]
-# Largest M on the fused path: (bf16/fp16, fp32).
-CAP = {"gfx1100": (384, 128), "gfx1201": (384, 512), "gfx1151": (512, 512), "gfx1103": (384, 384)}
+# Largest M on the fused path: (bf16/fp16, fp32), as in _ROCM_WMMA_MAX_M (gfx1150 uses gfx1151's).
+CAP = {
+    "gfx1100": (384, 128),
+    "gfx1101": (448, 512),
+    "gfx1102": (512, 512),
+    "gfx1103": (384, 384),
+    "gfx1150": (512, 512),
+    "gfx1151": (512, 512),
+    "gfx1200": (512, 512),
+    "gfx1201": (384, 512),
+}
 DTYPES = ("fp16", "bf16", "fp32")
 # gfx1103's eval_final run predates its own fp32 SIMT/WMMA table (csrc/gemm_4bit.cu, gfx1103_fp32_wmma), so its fp32
 # "new" time applies that table to the forced SIMT and WMMA timings of the same run: (max M, min N for WMMA).
 FP32_RULE = {"gfx1103": [(2, 1 << 31), (4, 3840)]}
+# Measurements left out: the first-in-process artifact of the gfx1102 runs (the first shape at M = 1-2 sometimes reads
+# ~1.44 ms instead of ~0.55 ms, in both builds and kernels; see data/gfx1102/NOTES.md). Those M use 39 shapes.
+SKIP = {("gfx1102", "bf16", "llama3-70b gate/up", 1), ("gfx1102", "bf16", "llama3-70b gate/up", 2)}
 NK = {name: n for name, n, _ in SHAPES}
 TABLE_MS = (1, 4, 8, 16, 32, 64, 128, 256, 384)
 
@@ -89,7 +105,9 @@ for r, (gpu, arch, path) in enumerate(RUNS):
             prev_k = "simt" if M <= 8 else "dequant"
             new_k = "auto" if M <= cap else "dequant"
             ks = [k for k in t if k[0] == dt and k[2] == M and {prev_k, new_k} <= set(t[k])]
-            if len(ks) < 40:
+            skipped = sum((arch, *k) in SKIP for k in ks)
+            ks = [k for k in ks if (arch, *k) not in SKIP]
+            if len(ks) < 40 - skipped:
                 continue
 
             def new_time(k):
@@ -123,12 +141,13 @@ axes[0][0].legend(frameon=False, loc="upper left", fontsize=8)
 fig.suptitle(
     "4-bit GEMM (NF4, blocksize 64): this PR vs main (SIMT for M<=8, dequant + F.linear above)\n"
     "40 LLM linear-layer shapes, weights streamed from DRAM, pinned clocks. gfx1201 fp32 baseline uses a hipBLASLt "
-    "with its fp32 slow path fixed;\ngfx1151 fp32: a few shapes hit a slow fp32 BLAS path (up to ~50x, clipped)",
+    "with its fp32 slow path fixed;\ngfx1101/gfx1102 fp32 and some gfx1151 fp32 shapes hit a slow fp32 BLAS path "
+    "(gfx1151 up to ~50x, clipped)",
     x=0.01,
     ha="left",
     fontsize=11,
 )
-fig.tight_layout()
+fig.tight_layout(rect=(0, 0, 1, 1 - 0.75 / fig.get_figheight()))
 fig.savefig(f"{OUT}/speedup_vs_main.png", dpi=130)
 with open(f"{OUT}/speedup_vs_main.md", "w") as f:
     f.write("Speedup in total time over the 40 shapes, this branch vs main (see plots_vs_main.py)\n\n")
