@@ -1,0 +1,47 @@
+== alt32 (fp32, every shape forced): S = SIMT, A = gfx1100 tiles, B = rules32B.py (= the final table at M <= 48), D = gfx1150 tiles
+M<=   8 (M 1,2,3,4,5,6,8; 280 cells) A=    296.5 ms | B/A 0.9453 (cycles 0.9436-0.9456) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=8, best 0.65 | D/A 0.9525 (cycles 0.9509-0.9523) slower>5%: 0, >20%: 0, worst 1.01 qwen3-coder-480b-moe exper M=6, best 0.66
+M<=  16 (M 9,12,16; 120 cells) A=    199.0 ms | B/A 0.8556 (cycles 0.8543-0.8557) slower>5%: 0, >20%: 0, worst 1.00 qwen3-14b gate/up M=16, best 0.60 | D/A 0.8564 (cycles 0.8550-0.8564) slower>5%: 0, >20%: 0, worst 1.00 qwen3-32b gate/up M=9, best 0.60
+M<=  24 (M 17,20,24; 120 cells) A=    355.6 ms | B/A 0.9300 (cycles 0.9289-0.9306) slower>5%: 0, >20%: 0, worst 0.97 qwen3-235b-moe expert gate M=17, best 0.75 | D/A 0.9306 (cycles 0.9294-0.9301) slower>5%: 0, >20%: 0, worst 0.97 qwen3-235b-moe expert gate M=17, best 0.75
+M<=  48 (M 32,33,40,48; 160 cells) A=    635.6 ms | B/A 0.9523 (cycles 0.9521-0.9526) slower>5%: 0, >20%: 0, worst 1.00 phi3-mini/llama3.2-3b gate M=32, best 0.70 | D/A 0.9526 (cycles 0.9523-0.9529) slower>5%: 0, >20%: 0, worst 1.04 gemma4-26b dense down M=32, best 0.70
+M<= inf (M 49,64,80; 120 cells) A=    827.1 ms | B/A 0.9999 (cycles 0.9996-1.0002) slower>5%: 0, >20%: 0, worst 1.00 phi3-mini/llama3.2-3b gate M=64, best 0.99 | D/A 0.8626 (cycles 0.8624-0.8629) slower>5%: 4, >20%: 0, worst 1.09 gemma4-26b dense down M=64, best 0.76
+M=   1 n=40 A=    42288us | B/A 0.9450 (0.942-0.947) B<A on 35 worst 1.00 qwen3-14b gate/up best 0.65 | D/A 0.9519 (0.950-0.952) D<A on 35 worst 1.00 qwen3-32b down best 0.66 | S/A 0.6624 (0.658-0.662) S<A on 40 worst 0.82 llama3-70b down best 0.37
+M=   2 n=40 A=    42291us | B/A 0.9455 (0.942-0.948) B<A on 31 worst 1.01 qwen3-14b o/q square best 0.66 | D/A 0.9535 (0.948-0.953) D<A on 29 worst 1.01 gemma3-4b gate/up best 0.66 | S/A 0.9561 (0.950-0.958) S<A on 34 worst 1.16 llama3-70b down best 0.52
+M=   3 n=40 A=    42325us | B/A 0.9459 (0.944-0.947) B<A on 33 worst 1.00 qwen3-coder-480b-moe e best 0.66 | D/A 0.9530 (0.952-0.957) D<A on 30 worst 1.01 qwen3-coder-480b-moe e best 0.66 | S/A 1.2124 (1.205-1.216) S<A on 16 worst 1.49 llama3-70b down best 0.60
+M=   4 n=40 A=    42452us | B/A 0.9436 (0.938-0.947) B<A on 32 worst 1.01 qwen3-coder-480b-moe e best 0.66 | D/A 0.9507 (0.947-0.952) D<A on 31 worst 1.00 qwen3-14b o/q square best 0.66 | S/A 1.4394 (1.430-1.441) S<A on 14 worst 1.80 llama3-70b down best 0.68
+M=   5 n=40 A=    42371us | B/A 0.9452 (0.942-0.948) B<A on 32 worst 1.01 qwen3-coder-480b-moe e best 0.66 | D/A 0.9526 (0.949-0.952) D<A on 31 worst 1.00 llama3-70b gate/up best 0.66 | S/A 1.6339 (1.624-1.634) S<A on 12 worst 2.03 llama3-70b down best 0.78
+M=   6 n=40 A=    42379us | B/A 0.9459 (0.944-0.949) B<A on 32 worst 1.01 gemma3-12b gate/up best 0.66 | D/A 0.9530 (0.952-0.953) D<A on 31 worst 1.01 qwen3-coder-480b-moe e best 0.66 | S/A 1.8202 (1.818-1.834) S<A on 9 worst 2.28 llama3-70b down best 0.88
+M=   8 n=40 A=    42408us | B/A 0.9459 (0.943-0.946) B<A on 29 worst 1.01 gemma3-4b gate/up best 0.66 | D/A 0.9529 (0.952-0.953) D<A on 29 worst 1.01 gemma3-4b gate/up best 0.66 | S/A 2.2087 (2.205-2.214) S<A on 0 worst 2.72 llama3-70b down best 1.06
+M=   9 n=40 A=    66183us | B/A 0.8563 (0.852-0.857) B<A on 38 worst 1.00 qwen3-32b gate/up best 0.60 | D/A 0.8571 (0.854-0.857) D<A on 36 worst 1.00 qwen3-32b gate/up best 0.60 | S/A 1.8111 (1.808-1.813) S<A on 11 worst 2.39 gemma3-27b gate/up best 0.83
+M=  12 n=40 A=    66328us | B/A 0.8550 (0.854-0.856) B<A on 37 worst 1.00 qwen3-14b gate/up best 0.60 | D/A 0.8558 (0.854-0.856) D<A on 38 worst 1.00 llama3-70b gate/up best 0.60 | S/A 2.3352 (2.328-2.335) S<A on 3 worst 3.10 gemma3-27b gate/up best 0.96
+M=  16 n=40 A=    66442us | B/A 0.8555 (0.853-0.857) B<A on 37 worst 1.00 qwen3-14b gate/up best 0.60 | D/A 0.8564 (0.854-0.857) D<A on 37 worst 1.00 gemma3-27b gate/up best 0.60 | S/A 2.7964 (2.785-2.804) S<A on 0 worst 3.68 gemma3-27b gate/up best 1.19
+M=  17 n=40 A=   118389us | B/A 0.9303 (0.929-0.931) B<A on 40 worst 0.97 qwen3-235b-moe expert  best 0.75 | D/A 0.9307 (0.930-0.932) D<A on 40 worst 0.97 qwen3-235b-moe expert  best 0.75 | S/A 1.7927 (1.789-1.798) S<A on 3 worst 2.17 llama3-70b down best 0.92
+M=  20 n=40 A=   118497us | B/A 0.9301 (0.929-0.931) B<A on 40 worst 0.97 qwen3-235b-moe expert  best 0.75 | D/A 0.9308 (0.929-0.931) D<A on 40 worst 0.97 qwen3-235b-moe expert  best 0.75 | S/A 2.0806 (2.077-2.085) S<A on 0 worst 2.56 llama3-70b down best 1.03
+M=  24 n=40 A=   118694us | B/A 0.9297 (0.927-0.930) B<A on 40 worst 0.97 qwen3-235b-moe expert  best 0.75 | D/A 0.9304 (0.928-0.930) D<A on 40 worst 0.97 qwen3-235b-moe expert  best 0.75 | S/A 2.3565 (2.352-2.358) S<A on 0 worst 2.90 llama3-70b down best 1.20
+M=  32 n=40 A=   116405us | B/A 0.9510 (0.950-0.952) B<A on 31 worst 1.00 phi3-mini/llama3.2-3b  best 0.71 | D/A 0.9512 (0.950-0.952) D<A on 32 worst 1.04 gemma4-26b dense down best 0.71 | S/A 3.2234 (3.218-3.231) S<A on 0 worst 4.16 llama3-70b down best 1.45
+M=  33 n=40 A=   172455us | B/A 0.9537 (0.953-0.955) B<A on 33 worst 1.00 gemma3-4b gate/up best 0.85 | D/A 0.9541 (0.954-0.954) D<A on 33 worst 1.02 gemma4-26b dense down best 0.85 | S/A 2.3242 (2.323-2.327) S<A on 0 worst 3.00 llama3-70b down best 1.25
+M=  40 n=40 A=   172830us | B/A 0.9536 (0.954-0.954) B<A on 31 worst 1.00 gemma3-27b down best 0.85 | D/A 0.9539 (0.954-0.954) D<A on 32 worst 1.01 gemma4-26b dense down best 0.85 | S/A 2.7184 (2.719-2.723) S<A on 0 worst 3.54 llama3-70b down best 1.46
+M=  48 n=40 A=   173894us | B/A 0.9504 (0.949-0.951) B<A on 33 worst 1.00 gemma3-27b gate/up best 0.70 | D/A 0.9508 (0.950-0.952) D<A on 33 worst 1.02 gemma4-26b dense down best 0.70 | S/A 3.2554 (3.253-3.261) S<A on 0 worst 4.29 llama3-70b down best 1.48
+M=  49 n=40 A=   236197us | B/A 1.0000 (0.999-1.001) B<A on 18 worst 1.00 qwen3.5-35b-moe expert best 1.00 | D/A 0.9258 (0.925-0.927) D<A on 38 worst 1.09 gemma4-26b dense down best 0.90 | S/A 2.5110 (2.508-2.518) S<A on 0 worst 3.09 llama3-70b down best 1.49
+M=  64 n=40 A=   237290us | B/A 0.9996 (0.999-1.001) B<A on 19 worst 1.00 phi3-mini/llama3.2-3b  best 0.99 | D/A 0.9253 (0.925-0.926) D<A on 38 worst 1.09 gemma4-26b dense down best 0.90 | S/A 3.2016 (3.198-3.204) S<A on 0 worst 4.01 llama3-70b down best 1.88
+M=  80 n=40 A=   353586us | B/A 1.0000 (1.000-1.000) B<A on 20 worst 1.00 qwen3-14b gate/up best 0.99 | D/A 0.7783 (0.778-0.779) D<A on 40 worst 0.93 qwen3-30b-moe expert d best 0.76 | S/A 2.7019 (2.700-2.706) S<A on 0 worst 3.41 llama3-70b down best 1.56
+== dispatch (cutoff table + tiles) vs the per-shape oracle over SIMT and B
+M=  1 oracle(S,B)=    28006 cur/orc 1.000 | g1103+B 1.000 | g1103+D 1.000 | bestcut N>=inf 1.000 worst 1.11 qwen3.5-35b-moe expe
+M=  2 oracle(S,B)=    38328 cur/orc 1.055 | g1103+B 1.055 | g1103+D 1.055 | bestcut N>=4608 1.029 worst 1.32 qwen3.5-35b-moe expe
+M=  3 oracle(S,B)=    39937 cur/orc 1.034 | g1103+B 1.004 | g1103+D 1.004 | bestcut N>=2048 1.001 worst 1.10 small square
+M=  4 oracle(S,B)=    40051 cur/orc 1.044 | g1103+B 1.011 | g1103+D 1.011 | bestcut N>=1024 1.000 worst 1.02 qwen3-30b-moe expert
+M=  5 oracle(S,B)=    40048 cur/orc 1.058 | g1103+B 1.000 | g1103+D 1.008 | bestcut N>=1024 1.000 worst 1.00 small square
+M=  6 oracle(S,B)=    40088 cur/orc 1.057 | g1103+B 1.000 | g1103+D 1.007 | bestcut N>=512 1.000 worst 1.00 small square
+M=  8 oracle(S,B)=    40114 cur/orc 1.057 | g1103+B 1.000 | g1103+D 1.007 | bestcut N>=512 1.000 worst 1.00 small square
+M=  9 oracle(S,B)=    56671 cur/orc 1.168 | g1103+B 1.000 | g1103+D 1.001 | bestcut N>=1024 1.000 worst 1.00 small square
+M= 12 oracle(S,B)=    56713 cur/orc 1.170 | g1103+B 1.000 | g1103+D 1.001 | bestcut N>=512 1.000 worst 1.00 small square
+M= 16 oracle(S,B)=    56844 cur/orc 1.169 | g1103+B 1.000 | g1103+D 1.001 | bestcut N>=512 1.000 worst 1.00 small square
+M= 17 oracle(S,B)=   110134 cur/orc 1.075 | g1103+B 1.000 | g1103+D 1.000 | bestcut N>=512 1.000 worst 1.00 small square
+M= 20 oracle(S,B)=   110212 cur/orc 1.075 | g1103+B 1.000 | g1103+D 1.001 | bestcut N>=512 1.000 worst 1.00 small square
+M= 24 oracle(S,B)=   110354 cur/orc 1.076 | g1103+B 1.000 | g1103+D 1.001 | bestcut N>=512 1.000 worst 1.00 small square
+M= 32 oracle(S,B)=   110705 cur/orc 1.051 | g1103+B 1.000 | g1103+D 1.000 | bestcut N>=512 1.000 worst 1.00 small square
+M= 33 oracle(S,B)=   164468 cur/orc 1.049 | g1103+B 1.000 | g1103+D 1.000 | bestcut N>=512 1.000 worst 1.00 small square
+M= 40 oracle(S,B)=   164804 cur/orc 1.049 | g1103+B 1.000 | g1103+D 1.000 | bestcut N>=512 1.000 worst 1.00 small square
+M= 48 oracle(S,B)=   165270 cur/orc 1.052 | g1103+B 1.000 | g1103+D 1.000 | bestcut N>=512 1.000 worst 1.00 small square
+M= 49 oracle(S,B)=   236189 cur/orc 1.000 | g1103+B 1.000 | g1103+D 0.926 | bestcut N>=512 1.000 worst 1.00 small square
+M= 64 oracle(S,B)=   237206 cur/orc 1.000 | g1103+B 1.000 | g1103+D 0.926 | bestcut N>=512 1.000 worst 1.00 small square
+M= 80 oracle(S,B)=   353579 cur/orc 1.000 | g1103+B 1.000 | g1103+D 0.778 | bestcut N>=512 1.000 worst 1.00 small square

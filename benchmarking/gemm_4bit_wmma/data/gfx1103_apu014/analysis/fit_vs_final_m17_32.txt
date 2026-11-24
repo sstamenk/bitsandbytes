@@ -1,0 +1,7 @@
+== M = 17-32, blocksize 64, 5 cycles (build fin2, the final tile at these M): A = gfx1100 table, B = rulesB2.py, F = default dispatch
+-- fp16
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.4 ms | B/A 0.8250 (cycles 0.8207-0.8280) slower>5%: 0, >20%: 0, worst 1.03 qwen3-coder-480b-moe exper M=32, best 0.42 | F/A 0.9066 (cycles 0.9020-0.9088) slower>5%: 0, >20%: 0, worst 1.01 qwen3-coder-480b-moe exper M=17, best 0.43
+M<=  32 (M 17,20,24,28,32; 200 cells) F=    144.5 ms | B/F 0.9100 (cycles 0.9098-0.9126) slower>5%: 10, >20%: 0, worst 1.19 small GQA k/v M=17, best 0.76
+-- bf16
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.6 ms | B/A 0.8255 (cycles 0.8232-0.8280) slower>5%: 0, >20%: 0, worst 1.02 qwen3-coder-480b-moe exper M=32, best 0.42 | F/A 0.9067 (cycles 0.9013-0.9077) slower>5%: 0, >20%: 0, worst 1.02 qwen3-coder-480b-moe exper M=17, best 0.44
+M<=  32 (M 17,20,24,28,32; 200 cells) F=    144.7 ms | B/F 0.9104 (cycles 0.9117-0.9133) slower>5%: 8, >20%: 0, worst 1.19 small GQA k/v M=17, best 0.77

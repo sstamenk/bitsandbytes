@@ -1,0 +1,71 @@
+warmup 63 2931 2873 2871 2947 2894 2967 last 2939
+[W1124 09:43:14.219780526 Context.cpp:599] Warning: Attempting to use CK GEMM on an unsupported architecture! Cannot set blas backend to CK (function operator())
+/home/ubuntu/bnbtune/fin3/bitsandbytes/backends/cuda/ops.py:938: UserWarning: uncheckedSetDevice() ignoring error: CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.
+Exception raised from SetDevice at /__w/rockrel/rockrel/external-builds/pytorch/pytorch/c10/hip/HIPFunctions.cpp:334 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7811625fb60d in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x12cd2 (0x781162698cd2 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #2: c10::cuda::SetDevice(signed char, bool) + 0x65 (0x7811626df9e5 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #3: <unknown function> + 0x2f99b (0x7811626b599b in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #4: <unknown function> + 0xcc3e8f (0x7811634c3e8f in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #5: at::detail::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>) + 0x6e (0x78116368ff2e in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #6: at::native::empty_cuda(c10::ArrayRef<long>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>) + 0x1b (0x781165469aab in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #7: <unknown function> + 0x1241692 (0x781163a41692 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #8: <unknown function> + 0x12417ac (0x781163a417ac in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #9: at::_ops::empty_memory_format::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>) + 0xda (0x7811807c03aa in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: <unknown function> + 0x2bd71c9 (0x781180bd71c9 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #11: at::_ops::empty_memory_format::call(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>) + 0x1af (0x78118087a98f in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #12: <unknown function> + 0x5c8e3f (0x78118c9c8e3f in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #13: python() [0x58216f]
+<omitting python frames>
+frame #17: python() [0x608852]
+frame #18: python() [0x6b50d3]
+frame #23: <unknown function> + 0x2a1ca (0x781280a2a1ca in /lib/x86_64-linux-gnu/libc.so.6)
+frame #24: __libc_start_main + 0x8b (0x781280a2a28b in /lib/x86_64-linux-gnu/libc.so.6)
+ (Triggered internally at /__w/rockrel/rockrel/external-builds/pytorch/pytorch/c10/hip/impl/HIPGuardImpl.h:70.)
+  B_dq = torch.empty(shapeB, dtype=A.dtype, device=A.device)
+/home/ubuntu/bnbtune/fin3/bitsandbytes/backends/cuda/ops.py:938: UserWarning: uncheckedSetDevice() ignoring error: CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.
+Exception raised from SetDevice at /__w/rockrel/rockrel/external-builds/pytorch/pytorch/c10/hip/HIPFunctions.cpp:334 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7811625fb60d in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x12cd2 (0x781162698cd2 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #2: c10::cuda::SetDevice(signed char, bool) + 0x65 (0x7811626df9e5 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #3: <unknown function> + 0x2f99b (0x7811626b599b in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #4: <unknown function> + 0xcf472f (0x7811634f472f in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #5: <unknown function> + 0x12417ac (0x781163a417ac in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #6: at::_ops::empty_memory_format::redispatch(c10::DispatchKeySet, c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>) + 0xda (0x7811807c03aa in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: <unknown function> + 0x2bd71c9 (0x781180bd71c9 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: at::_ops::empty_memory_format::call(c10::ArrayRef<c10::SymInt>, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, std::optional<c10::MemoryFormat>) + 0x1af (0x78118087a98f in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: <unknown function> + 0x5c8e3f (0x78118c9c8e3f in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #10: python() [0x58216f]
+<omitting python frames>
+frame #14: python() [0x608852]
+frame #15: python() [0x6b50d3]
+frame #20: <unknown function> + 0x2a1ca (0x781280a2a1ca in /lib/x86_64-linux-gnu/libc.so.6)
+frame #21: __libc_start_main + 0x8b (0x781280a2a28b in /lib/x86_64-linux-gnu/libc.so.6)
+ (Triggered internally at /__w/rockrel/rockrel/external-builds/pytorch/pytorch/c10/hip/impl/HIPGuardImpl.h:70.)
+  B_dq = torch.empty(shapeB, dtype=A.dtype, device=A.device)
+Traceback (most recent call last):
+  File "/home/ubuntu/bnbtune/bin/alt1103b.py", line 97, in <module>
+    for _, r in rs: run(r, False)  # warm-up pass
+                    ^^^^^^^^^^^^^
+  File "/home/ubuntu/bnbtune/bin/alt1103b.py", line 95, in run
+    for f in fns[:2]: f()
+                      ^^^
+  File "/home/ubuntu/bnbtune/bin/alt1103b.py", line 81, in <lambda>
+    fd = [(lambda b=b, x=x: _dequant_linear_fallback(A, b, (N, K), x, bs, "nf4")) for b, x in copies]
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/bnbtune/fin3/bitsandbytes/backends/cuda/ops.py", line 938, in _dequant_linear_fallback
+    B_dq = torch.empty(shapeB, dtype=A.dtype, device=A.device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.

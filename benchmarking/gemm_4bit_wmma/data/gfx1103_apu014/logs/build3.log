@@ -1,0 +1,60 @@
+169328b2f96fc83034a991443c7e1ce5  /home/ubuntu/bnbtune/final_files3/./bitsandbytes/backends/cuda/ops.py
+f26f2786432fccb6a2e42d989af49397  /home/ubuntu/bnbtune/src/./bitsandbytes/backends/cuda/ops.py
+169328b2f96fc83034a991443c7e1ce5  /home/ubuntu/bnbtune/fin3/./bitsandbytes/backends/cuda/ops.py
+169328b2f96fc83034a991443c7e1ce5  /home/ubuntu/bnbtune/relfin3/./bitsandbytes/backends/cuda/ops.py
+2c1d74dac6910ed5e43304830f9125c2  /home/ubuntu/bnbtune/final_files3/./csrc/gemm_4bit_wmma_rules.cuh
+984e9bb4084172b8ece975e4fb8c1db0  /home/ubuntu/bnbtune/src/./csrc/gemm_4bit_wmma_rules.cuh
+2c1d74dac6910ed5e43304830f9125c2  /home/ubuntu/bnbtune/fin3/./csrc/gemm_4bit_wmma_rules.cuh
+2c1d74dac6910ed5e43304830f9125c2  /home/ubuntu/bnbtune/relfin3/./csrc/gemm_4bit_wmma_rules.cuh
+build fin3 rc=0
+-rwxrwxr-x 1 ubuntu ubuntu 8143232 Nov 24 08:28 bitsandbytes/libbitsandbytes_rocm717.so
+build relfin3 rc=0
+-rwxrwxr-x 1 ubuntu ubuntu 4040608 Nov 24 08:28 bitsandbytes/libbitsandbytes_rocm717.so
+======== 2427 passed, 163 deselected, 129 warnings in 180.10s (0:03:00) ========
+pytest rc=0
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-11-24 08:31:34 290997:290997 SyncActivityProfilerHandler.cpp:46] profiler_stop
+float16 1 ['void gemm_4bit_wmma<11, __half, 1, 2, 1, 1, 4, 2, 4, false>(__half const*, uns
+float16 4 ['void gemm_4bit_wmma<11, __half, 1, 2, 1, 1, 4, 2, 4, false>(__half const*, uns
+float16 16 ['void gemm_4bit_wmma<11, __half, 2, 1, 1, 4, 2, 2, 4, false>(__half const*, un
+float16 128 ['void gemm_4bit_wmma<11, __half, 4, 2, 1, 4, 1, 2, 4, true>(__half const*, un
+bfloat16 1 ['void gemm_4bit_wmma<11, __hip_bfloat16, 1, 2, 1, 1, 4, 2, 4, false>(__hip_bfl
+bfloat16 4 ['void gemm_4bit_wmma<11, __hip_bfloat16, 1, 2, 1, 1, 4, 2, 4, false>(__hip_bfl
+bfloat16 16 ['void gemm_4bit_wmma<11, __hip_bfloat16, 2, 1, 1, 4, 2, 2, 4, false>(__hip_bf
+bfloat16 128 ['void gemm_4bit_wmma<11, __hip_bfloat16, 4, 2, 1, 4, 1, 2, 4, false>(__hip_b
+float32 1 ['void gemm_4bit_simt<float, 1>(float const*, unsigned char const*, float const*
+float32 4 ['void gemm_4bit_wmma<11, float, 1, 2, 1, 2, 2, 2, 4, false>(float const*, unsig
+float32 16 ['void gemm_4bit_wmma<11, float, 2, 2, 1, 4, 1, 2, 4, false>(float const*, unsi
+float32 128 ['void gemm_4bit_wmma<11, float, 2, 2, 1, 4, 1, 2, 4, false>(float const*, uns
+torch.float16 max rel err 3.93e-04 at N=4096 K=4096 M=128 bs=128 nested=False
+torch.bfloat16 max rel err 2.90e-03 at N=10240 K=1024 M=3 bs=128 nested=True
+torch.float32 max rel err 8.81e-07 at N=1024 K=14336 M=33 bs=128 nested=False
+tilecheck rc=0
+torch.float16 max rel err 3.93e-04 at N=4096 K=4096 M=128 bs=128 nested=False
+torch.bfloat16 max rel err 2.90e-03 at N=10240 K=1024 M=3 bs=128 nested=True
+torch.float32 max rel err 2.06e-06 at N=1024 K=14336 M=385 bs=32 nested=True
+tilecheck rc=0
+08:37:45 done
+CLEAN

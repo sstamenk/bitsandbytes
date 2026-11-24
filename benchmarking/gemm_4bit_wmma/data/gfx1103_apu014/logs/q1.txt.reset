@@ -1,0 +1,9 @@
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_afq_retry bash /home/ubuntu/bnbtune/q_r2.sh fp32_afq
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe384 bash /home/ubuntu/bnbtune/q_probe.sh p384 384 A=cut:2/1073741824+4/3840:g1100_f32,F=auto,Q=dequant
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256 bash /home/ubuntu/bnbtune/q_probe.sh p256 256 F=auto,Q=dequant
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe384 bash /home/ubuntu/bnbtune/q_probe.sh p384 384 A=cut:2/1073741824+4/3840:g1100_f32,F=auto,Q=dequant
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256 bash /home/ubuntu/bnbtune/q_probe.sh p256 256 F=auto,Q=dequant
+PROBE_ARGS=--syncwarm TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256s bash /home/ubuntu/bnbtune/q_probe.sh p256s 256 F=auto,Q=dequant
+PROBE_ARGS=--syncwarm TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256s bash /home/ubuntu/bnbtune/q_probe.sh p256s 256 F=auto,Q=dequant
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_fq bash /home/ubuntu/bnbtune/q_r3.sh fp32_fq
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_fq bash /home/ubuntu/bnbtune/q_r3.sh fp32_fq

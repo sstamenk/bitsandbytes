@@ -1,0 +1,33 @@
+== fp16.csv
+same tile: 590 cells, F / A 0.942-1.050, F slower: 286, by > 1%: 10, by > 2%: 1
+   1.050 gemma3-27b down M=28 A 4,1,1,4,2,2 F 4,1,1,4,2,2
+   1.016 qwen3.5-35b-moe expert down M=80 A 4,1,1,2,4,1 F 4,1,1,2,4,1
+   1.016 llama3-8b/mistral-7b gate/up M=49 A 4,2,1,4,1,2 F 4,2,1,4,1,2
+   1.016 qwen3-14b o/q square M=24 A 4,1,1,4,2,2 F 4,1,1,4,2,2
+other tile: 650 cells, F / A 0.444-0.967, F slower: 0, by > 1%: 0, by > 2%: 0
+   0.967 qwen3-coder-480b-moe expert gate_up M=12 A 2,2,1,2,4,2 F 2,1,1,4,2,2
+   0.957 gemma4-26b-moe expert gate_up M=8 A 1,1,1,1,8,1 F 1,2,1,1,4,2
+   0.955 qwen3-coder-480b-moe expert gate_up M=16 A 2,2,1,2,4,2 F 2,1,1,4,2,2
+   0.951 qwen3-32b down M=3 A 1,1,1,2,4,2 F 1,2,1,1,8,2
+== bf16.csv
+same tile: 590 cells, F / A 0.963-1.069, F slower: 281, by > 1%: 10, by > 2%: 1
+   1.069 gemma3-4b gate/up M=56 A 4,2,1,4,1,2 F 4,2,1,4,1,2
+   1.017 llama3-8b/mistral-7b down M=88 A 4,2,1,4,2,2 F 4,2,1,4,2,2
+   1.014 small square M=72 A 4,1,1,2,4,1 F 4,1,1,2,4,1
+   1.014 gemma3-27b gate/up M=256 A 4,2,1,4,1,2 F 4,2,1,4,1,2
+other tile: 650 cells, F / A 0.446-0.977, F slower: 0, by > 1%: 0, by > 2%: 0
+   0.977 llama3-8b/mistral-7b down M=33 A 2,2,1,2,2,2 F 4,2,1,4,1,2
+   0.950 qwen3-32b down M=3 A 1,1,1,2,4,2 F 1,2,1,1,8,2
+   0.950 qwen3-8b gate/up M=12 A 2,2,1,2,4,2 F 2,1,1,4,2,2
+   0.950 qwen3-32b down M=4 A 1,1,1,2,4,2 F 1,2,1,1,8,2
+== the two same-tile cells above 1.02 again (pinned/r1/st_*.csv: shapes gemma3-27b down and gemma3-4b gate/up, M = 28 and 56, 10 cycles)
+-- fp16
+gemma3-27b down              M=  28 A   1480.9 us F   1481.5 us F/A 1.0003 | per cycle 1.001 1.008 1.001 0.998 1.005 1.003 0.995 0.996 0.984 0.991
+gemma3-27b down              M=  56 A   2989.9 us F   2543.7 us F/A 0.8508 | per cycle 0.849 0.850 0.847 0.856 0.912 0.851 0.847 0.858 0.852 0.851
+gemma3-4b gate/up            M=  28 A    375.8 us F    376.8 us F/A 1.0027 | per cycle 1.020 0.979 1.007 1.006 0.998 1.009 0.983 1.007 1.018 1.002
+gemma3-4b gate/up            M=  56 A    604.4 us F    598.6 us F/A 0.9904 | per cycle 1.017 0.993 0.984 1.003 0.989 1.000 0.982 0.985 1.000 0.978
+-- bf16
+gemma3-27b down              M=  28 A   1480.2 us F   1467.9 us F/A 0.9917 | per cycle 0.997 0.990 0.983 1.004 0.988 1.000 1.003 1.009 1.002 0.959
+gemma3-27b down              M=  56 A   2986.6 us F   2547.8 us F/A 0.8531 | per cycle 0.789 0.849 0.851 0.857 0.854 0.856 0.855 0.857 0.856 0.853
+gemma3-4b gate/up            M=  28 A    378.2 us F    376.0 us F/A 0.9943 | per cycle 1.025 0.993 0.966 0.991 1.008 0.997 0.977 1.036 0.967 0.993
+gemma3-4b gate/up            M=  56 A    609.8 us F    605.5 us F/A 0.9929 | per cycle 0.999 0.993 0.977 0.995 1.006 0.993 1.006 0.990 0.981 0.997

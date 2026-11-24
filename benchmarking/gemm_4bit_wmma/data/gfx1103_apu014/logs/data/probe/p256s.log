@@ -1,0 +1,30 @@
+warmup 63 2879 2976 2953 2950 3062 3098 last 2943
+[W1124 09:56:08.569454948 Context.cpp:599] Warning: Attempting to use CK GEMM on an unsupported architecture! Cannot set blas backend to CK (function operator())
+Traceback (most recent call last):
+  File "/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/cuda/__init__.py", line 1291, in synchronize
+    return torch._C._cuda_synchronize()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/ubuntu/bnbtune/bin/alt1103b.py", line 150, in <module>
+    run(r, False)  # warm-up pass
+    ^^^^^^^^^^^^^
+  File "/home/ubuntu/bnbtune/bin/alt1103b.py", line 143, in run
+    torch.cuda.synchronize()
+  File "/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/cuda/__init__.py", line 1290, in synchronize
+    with torch.cuda.device(device):
+  File "/home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/cuda/__init__.py", line 730, in __exit__
+    self.idx = torch.cuda._maybe_exchange_device(self.prev_idx)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.

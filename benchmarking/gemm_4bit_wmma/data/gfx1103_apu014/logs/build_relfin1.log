@@ -1,0 +1,294 @@
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring bitsandbytes (Backend: hip)
+-- The HIP compiler identification is Clang 24.0.0
+-- Detecting HIP compiler ABI info
+-- Detecting HIP compiler ABI info - done
+-- Check for working HIP compiler: /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_devel/lib/llvm/bin/clang++ - skipped
+-- Detecting HIP compile features
+-- Detecting HIP compile features - done
+-- HIP Compiler: /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_devel/lib/llvm/bin/clang++
+-- HIP Targets: gfx1103
+-- ROCm Version: 717 (from hipconfig)
+-- HIP: Using hipcc from relative path: /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_devel/bin/hipcc
+-- HIP_PLATFORM using hip_HIPCONFIG_EXECUTABLE: amd
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+hipblas VERSION: 3.8.0
+hiprand VERSION: 3.4.0
+-- HIP: Using hipcc from relative path: /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/_rocm_sdk_devel/bin/hipcc
+-- Configuring done (1.4s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/ubuntu/bnbtune/relfin1/build
+[ 62%] Building HIP object CMakeFiles/bitsandbytes.dir/csrc/kernels.cu.o
+[ 62%] Building HIP object CMakeFiles/bitsandbytes.dir/csrc/ops.cu.o
+[ 62%] Building HIP object CMakeFiles/bitsandbytes.dir/csrc/gemm_4bit_wmma.cu.o
+[ 62%] Building CXX object CMakeFiles/bitsandbytes.dir/csrc/cpu_ops.cpp.o
+[ 62%] Building CXX object CMakeFiles/bitsandbytes.dir/csrc/pythonInterface.cpp.o
+[ 87%] Building HIP object CMakeFiles/bitsandbytes.dir/csrc/gemm_4bit.cu.o
+[ 87%] Building HIP object CMakeFiles/bitsandbytes.dir/csrc/gemm_4bit_simt.cu.o
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   20 | #if IS_CDNA || IS_CDNA5
+      |     ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:18: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                  ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:17:19: note: expanded from macro 'IS_CDNA1'
+   17 | #define IS_CDNA1 (defined(__gfx908__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:30: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                              ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:18:19: note: expanded from macro 'IS_CDNA2'
+   18 | #define IS_CDNA2 (defined(__gfx90a__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:42: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                                          ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:19:19: note: expanded from macro 'IS_CDNA3'
+   19 | #define IS_CDNA3 (defined(__gfx942__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:54: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                                                      ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:20:19: note: expanded from macro 'IS_CDNA4'
+   20 | #define IS_CDNA4 (defined(__gfx950__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:16: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   20 | #if IS_CDNA || IS_CDNA5
+      |                ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:29:19: note: expanded from macro 'IS_CDNA5'
+   29 | #define IS_CDNA5 (defined(__gfx1250__) || defined(__gfx1251__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:16: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:29:43: note: expanded from macro 'IS_CDNA5'
+   29 | #define IS_CDNA5 (defined(__gfx1250__) || defined(__gfx1251__))
+      |                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   40 | #if IS_RDNA3 || IS_RDNA3_5 || IS_RDNA4
+      |     ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:19: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:43: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:67: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:91: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   40 | #if IS_RDNA3 || IS_RDNA3_5 || IS_RDNA4
+      |                 ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:21: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:45: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                             ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:69: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:93: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                                             ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:31: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   40 | #if IS_RDNA3 || IS_RDNA3_5 || IS_RDNA4
+      |                               ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:14:19: note: expanded from macro 'IS_RDNA4'
+   14 | #define IS_RDNA4 (defined(__gfx1200__) || defined(__gfx1201__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:31: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:14:43: note: expanded from macro 'IS_RDNA4'
+   14 | #define IS_RDNA4 (defined(__gfx1200__) || defined(__gfx1201__))
+      |                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   25 | #if IS_RDNA3 || IS_RDNA3_5 || defined(__gfx11_generic__)
+      |     ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:19: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:43: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:67: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:91: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   25 | #if IS_RDNA3 || IS_RDNA3_5 || defined(__gfx11_generic__)
+      |                 ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:21: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:45: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                             ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:69: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:93: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                                             ^
+16 warnings generated when compiling for gfx1103.
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   20 | #if IS_CDNA || IS_CDNA5
+      |     ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:18: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                  ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:17:19: note: expanded from macro 'IS_CDNA1'
+   17 | #define IS_CDNA1 (defined(__gfx908__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:30: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                              ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:18:19: note: expanded from macro 'IS_CDNA2'
+   18 | #define IS_CDNA2 (defined(__gfx90a__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:42: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                                          ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:19:19: note: expanded from macro 'IS_CDNA3'
+   19 | #define IS_CDNA3 (defined(__gfx942__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:21:54: note: expanded from macro 'IS_CDNA'
+   21 | #define IS_CDNA (IS_CDNA1 || IS_CDNA2 || IS_CDNA3 || IS_CDNA4)
+      |                                                      ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:20:19: note: expanded from macro 'IS_CDNA4'
+   20 | #define IS_CDNA4 (defined(__gfx950__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:16: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   20 | #if IS_CDNA || IS_CDNA5
+      |                ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:29:19: note: expanded from macro 'IS_CDNA5'
+   29 | #define IS_CDNA5 (defined(__gfx1250__) || defined(__gfx1251__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:20:16: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:29:43: note: expanded from macro 'IS_CDNA5'
+   29 | #define IS_CDNA5 (defined(__gfx1250__) || defined(__gfx1251__))
+      |                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   40 | #if IS_RDNA3 || IS_RDNA3_5 || IS_RDNA4
+      |     ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:19: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:43: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:67: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:91: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   40 | #if IS_RDNA3 || IS_RDNA3_5 || IS_RDNA4
+      |                 ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:21: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:45: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                             ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:69: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:93: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                                             ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:31: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   40 | #if IS_RDNA3 || IS_RDNA3_5 || IS_RDNA4
+      |                               ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:14:19: note: expanded from macro 'IS_RDNA4'
+   14 | #define IS_RDNA4 (defined(__gfx1200__) || defined(__gfx1201__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_simt.cu:40:31: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:14:43: note: expanded from macro 'IS_RDNA4'
+   14 | #define IS_RDNA4 (defined(__gfx1200__) || defined(__gfx1201__))
+      |                                           ^
+16 warnings generated when compiling for host.
+8 warnings generated when compiling for gfx1103.
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   25 | #if IS_RDNA3 || IS_RDNA3_5 || defined(__gfx11_generic__)
+      |     ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:19: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:43: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:67: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:5: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:12:91: note: expanded from macro 'IS_RDNA3'
+   12 | #define IS_RDNA3 (defined(__gfx1100__) || defined(__gfx1101__) || defined(__gfx1102__) || defined(__gfx1103__))
+      |                                                                                           ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   25 | #if IS_RDNA3 || IS_RDNA3_5 || defined(__gfx11_generic__)
+      |                 ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:21: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:45: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                             ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:69: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                     ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:25:17: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:13:93: note: expanded from macro 'IS_RDNA3_5'
+   13 | #define IS_RDNA3_5 (defined(__gfx1150__) || defined(__gfx1151__) || defined(__gfx1152__) || defined(__gfx1153__))
+      |                                                                                             ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:27:7: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+   27 | #elif IS_RDNA4 || defined(__gfx12_generic__)
+      |       ^
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:14:19: note: expanded from macro 'IS_RDNA4'
+   14 | #define IS_RDNA4 (defined(__gfx1200__) || defined(__gfx1201__))
+      |                   ^
+/home/ubuntu/bnbtune/relfin1/csrc/gemm_4bit_wmma.cu:27:7: warning: macro expansion producing 'defined' has undefined behavior [-Wexpansion-to-defined]
+/home/ubuntu/bnbtune/relfin1/csrc/common.cuh:14:43: note: expanded from macro 'IS_RDNA4'
+   14 | #define IS_RDNA4 (defined(__gfx1200__) || defined(__gfx1201__))
+      |                                           ^
+10 warnings generated when compiling for host.
+[100%] Linking CXX shared library /home/ubuntu/bnbtune/relfin1/bitsandbytes/libbitsandbytes_rocm717.so
+[100%] Built target bitsandbytes

@@ -1,0 +1,66 @@
+== alt1 fp16: A = gfx1100 table, B = rulesB.py, C = rulesC.py (B = rulesB2.py at M <= 64, C at M <= 48)
+M<=   8 (M 1,2,3,4,6,8; 240 cells) A=    118.8 ms | B/A 0.8022 (cycles 0.7985-0.8037) slower>5%: 0, >20%: 0, worst 0.98 qwen3-30b-moe expert down M=6, best 0.59 | C/A 0.8020 (cycles 0.7975-0.8050) slower>5%: 0, >20%: 0, worst 0.96 qwen3-30b-moe expert down M=6, best 0.58
+M<=  16 (M 9,12,16; 120 cells) A=     68.5 ms | B/A 0.8394 (cycles 0.8351-0.8428) slower>5%: 0, >20%: 0, worst 0.95 qwen3-coder-480b-moe exper M=12, best 0.60 | C/A 0.8396 (cycles 0.8356-0.8416) slower>5%: 0, >20%: 0, worst 0.95 qwen3-coder-480b-moe exper M=16, best 0.61
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.1 ms | B/A 0.8253 (cycles 0.8188-0.8264) slower>5%: 1, >20%: 0, worst 1.06 small GQA k/v M=20, best 0.41 | C/A 0.8255 (cycles 0.8185-0.8256) slower>5%: 1, >20%: 0, worst 1.06 small GQA k/v M=20, best 0.42
+M<=  48 (M 33,40,48; 120 cells) A=    149.1 ms | B/A 0.9272 (cycles 0.9224-0.9295) slower>5%: 0, >20%: 0, worst 1.01 phi3-mini/llama3.2-3b gate M=48, best 0.64 | C/A 0.9267 (cycles 0.9217-0.9288) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=40, best 0.64
+M<=  64 (M 49,56,64; 120 cells) A=    159.5 ms | B/A 0.9156 (cycles 0.9145-0.9185) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=56, best 0.64 | C/A 0.9207 (cycles 0.9196-0.9216) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=56, best 0.77
+M<=  96 (M 72,80,96; 120 cells) A=    220.8 ms | B/A 0.9671 (cycles 0.9628-0.9687) slower>5%: 0, >20%: 0, worst 1.01 gemma2-27b down M=80, best 0.61 | C/A 0.9732 (cycles 0.9691-0.9740) slower>5%: 0, >20%: 0, worst 1.01 gemma2-27b down M=80, best 0.77
+M<= inf (M 97,128; 80 cells) A=    190.1 ms | B/A 0.9998 (cycles 0.9971-1.0001) slower>5%: 0, >20%: 0, worst 1.02 qwen3-235b-moe expert gate M=128, best 0.99 | C/A 0.9996 (cycles 0.9973-1.0008) slower>5%: 1, >20%: 0, worst 1.05 qwen3-30b-moe expert gate_ M=97, best 0.99
+M=   1 n=40 A=    19551us | B/A 0.8006 (0.791-0.804) B<A on 40 worst 0.96 qwen3-30b-moe expert d best 0.61 | C/A 0.8007 (0.796-0.804) C<A on 40 worst 0.94 qwen3-32b down best 0.60
+M=   2 n=40 A=    19603us | B/A 0.7978 (0.796-0.802) B<A on 40 worst 0.94 qwen3-32b down best 0.61 | C/A 0.7971 (0.790-0.807) C<A on 40 worst 0.94 qwen3-32b down best 0.59
+M=   3 n=40 A=    19626us | B/A 0.8074 (0.802-0.809) B<A on 40 worst 0.96 qwen3-32b down best 0.60 | C/A 0.8076 (0.804-0.810) C<A on 40 worst 0.95 qwen3-32b down best 0.58
+M=   4 n=40 A=    19713us | B/A 0.8065 (0.799-0.808) B<A on 40 worst 0.95 gemma4-26b-moe expert  best 0.59 | C/A 0.8057 (0.797-0.809) C<A on 40 worst 0.95 qwen3-32b down best 0.61
+M=   6 n=40 A=    20112us | B/A 0.7958 (0.794-0.798) B<A on 40 worst 0.98 qwen3-30b-moe expert d best 0.61 | C/A 0.7955 (0.790-0.797) C<A on 40 worst 0.96 qwen3-30b-moe expert d best 0.60
+M=   8 n=40 A=    20230us | B/A 0.8053 (0.804-0.811) B<A on 40 worst 0.95 gemma4-26b-moe expert  best 0.62 | C/A 0.8052 (0.803-0.812) C<A on 40 worst 0.94 qwen3-30b-moe expert d best 0.61
+M=   9 n=40 A=    22758us | B/A 0.8330 (0.832-0.835) B<A on 40 worst 0.93 qwen3-coder-480b-moe e best 0.60 | C/A 0.8337 (0.832-0.835) C<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.61
+M=  12 n=40 A=    22774us | B/A 0.8415 (0.829-0.844) B<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.62 | C/A 0.8419 (0.826-0.844) C<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.63
+M=  16 n=40 A=    22948us | B/A 0.8435 (0.839-0.849) B<A on 40 worst 0.94 qwen3-coder-480b-moe e best 0.62 | C/A 0.8433 (0.842-0.849) C<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.63
+M=  17 n=40 A=    31622us | B/A 0.8202 (0.814-0.822) B<A on 40 worst 1.00 small GQA k/v best 0.54 | C/A 0.8197 (0.812-0.821) C<A on 40 worst 1.00 small GQA k/v best 0.54
+M=  20 n=40 A=    31598us | B/A 0.8251 (0.823-0.827) B<A on 38 worst 1.06 small GQA k/v best 0.55 | C/A 0.8285 (0.824-0.829) C<A on 38 worst 1.06 small GQA k/v best 0.52
+M=  24 n=40 A=    31663us | B/A 0.8287 (0.815-0.833) B<A on 38 worst 1.01 qwen3-coder-480b-moe e best 0.52 | C/A 0.8284 (0.812-0.834) C<A on 39 worst 1.03 qwen3-coder-480b-moe e best 0.57
+M=  28 n=40 A=    32081us | B/A 0.8249 (0.822-0.828) B<A on 39 worst 1.03 qwen3-coder-480b-moe e best 0.43 | C/A 0.8229 (0.821-0.826) C<A on 39 worst 1.01 qwen3-coder-480b-moe e best 0.44
+M=  32 n=40 A=    32141us | B/A 0.8276 (0.817-0.830) B<A on 38 worst 1.03 qwen3-coder-480b-moe e best 0.41 | C/A 0.8279 (0.816-0.831) C<A on 38 worst 1.04 qwen3-coder-480b-moe e best 0.42
+M=  33 n=40 A=    49080us | B/A 0.9346 (0.930-0.938) B<A on 34 worst 1.01 llama3-70b o/q square best 0.64 | C/A 0.9343 (0.927-0.937) C<A on 33 worst 1.00 llama3-70b o/q square best 0.64
+M=  40 n=40 A=    49595us | B/A 0.9287 (0.925-0.931) B<A on 32 worst 1.00 qwen3-14b gate/up best 0.65 | C/A 0.9277 (0.922-0.930) C<A on 33 worst 1.01 gemma3-4b gate/up best 0.66
+M=  48 n=40 A=    50403us | B/A 0.9184 (0.911-0.919) B<A on 33 worst 1.01 phi3-mini/llama3.2-3b  best 0.67 | C/A 0.9184 (0.911-0.923) C<A on 33 worst 1.01 phi3-mini/llama3.2-3b  best 0.66
+M=  49 n=40 A=    52912us | B/A 0.9125 (0.911-0.914) B<A on 40 worst 1.00 gemma2-27b gate/up best 0.64 | C/A 0.9175 (0.917-0.918) C<A on 38 worst 1.00 qwen3-14b gate/up best 0.78
+M=  56 n=40 A=    53177us | B/A 0.9144 (0.913-0.920) B<A on 34 worst 1.01 gemma3-4b gate/up best 0.64 | C/A 0.9201 (0.917-0.923) C<A on 33 worst 1.01 gemma3-4b gate/up best 0.77
+M=  64 n=40 A=    53454us | B/A 0.9199 (0.919-0.926) B<A on 34 worst 1.00 qwen3-14b gate/up best 0.64 | C/A 0.9244 (0.923-0.926) C<A on 36 worst 1.00 qwen3-14b gate/up best 0.77
+M=  72 n=40 A=    72818us | B/A 0.9726 (0.966-0.977) B<A on 34 worst 1.00 llama3-8b/mistral-7b g best 0.62 | C/A 0.9784 (0.970-0.979) C<A on 35 worst 1.00 qwen3-14b gate/up best 0.78
+M=  80 n=40 A=    73336us | B/A 0.9749 (0.970-0.977) B<A on 33 worst 1.01 gemma2-27b down best 0.62 | C/A 0.9804 (0.977-0.983) C<A on 34 worst 1.01 gemma2-27b down best 0.77
+M=  96 n=40 A=    74678us | B/A 0.9542 (0.947-0.955) B<A on 35 worst 1.00 gemma3-4b gate/up best 0.61 | C/A 0.9612 (0.958-0.963) C<A on 34 worst 1.00 gemma3-4b gate/up best 0.77
+M=  97 n=40 A=    94231us | B/A 0.9999 (0.994-1.000) B<A on 20 worst 1.01 qwen3-30b-moe expert g best 0.99 | C/A 0.9994 (0.995-1.001) C<A on 22 worst 1.05 qwen3-30b-moe expert g best 0.99
+M= 128 n=40 A=    95914us | B/A 0.9998 (0.999-1.001) B<A on 24 worst 1.02 qwen3-235b-moe expert  best 0.99 | C/A 0.9999 (0.999-1.001) C<A on 18 worst 1.02 qwen3-235b-moe expert  best 0.99
+== alt1 bf16: A = gfx1100 table, B = rulesB.py, C = rulesC.py (B = rulesB2.py at M <= 64, C at M <= 48)
+M<=   8 (M 1,2,3,4,6,8; 240 cells) A=    119.0 ms | B/A 0.8016 (cycles 0.7958-0.8030) slower>5%: 0, >20%: 0, worst 0.96 qwen3-30b-moe expert down M=4, best 0.60 | C/A 0.8016 (cycles 0.7949-0.8031) slower>5%: 0, >20%: 0, worst 0.95 qwen3-32b down M=3, best 0.59
+M<=  16 (M 9,12,16; 120 cells) A=     68.5 ms | B/A 0.8403 (cycles 0.8371-0.8404) slower>5%: 0, >20%: 0, worst 0.95 qwen3-coder-480b-moe exper M=12, best 0.60 | C/A 0.8407 (cycles 0.8359-0.8404) slower>5%: 0, >20%: 0, worst 0.95 qwen3-coder-480b-moe exper M=16, best 0.61
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.2 ms | B/A 0.8255 (cycles 0.8197-0.8260) slower>5%: 0, >20%: 0, worst 1.03 qwen3-coder-480b-moe exper M=32, best 0.42 | C/A 0.8251 (cycles 0.8178-0.8258) slower>5%: 0, >20%: 0, worst 1.03 small GQA k/v M=24, best 0.43
+M<=  48 (M 33,40,48; 120 cells) A=    149.4 ms | B/A 0.9263 (cycles 0.9242-0.9274) slower>5%: 0, >20%: 0, worst 1.00 llama3-70b o/q square M=48, best 0.65 | C/A 0.9263 (cycles 0.9237-0.9267) slower>5%: 0, >20%: 0, worst 1.01 phi3-mini/llama3.2-3b gate M=33, best 0.65
+M<=  64 (M 49,56,64; 120 cells) A=    159.8 ms | B/A 0.9171 (cycles 0.9064-0.9202) slower>5%: 0, >20%: 0, worst 1.00 gemma3-27b gate/up M=49, best 0.65 | C/A 0.9225 (cycles 0.9112-0.9235) slower>5%: 0, >20%: 0, worst 1.00 gemma3-4b gate/up M=49, best 0.76
+M<=  96 (M 72,80,96; 120 cells) A=    222.1 ms | B/A 0.9751 (cycles 0.9732-0.9760) slower>5%: 0, >20%: 0, worst 1.01 gemma2-27b down M=80, best 0.60 | C/A 0.9805 (cycles 0.9785-0.9814) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=80, best 0.74
+M<= inf (M 97,128; 80 cells) A=    195.1 ms | B/A 1.0002 (cycles 0.9947-1.0004) slower>5%: 0, >20%: 0, worst 1.01 qwen3.5-122b-moe expert ga M=128, best 0.99 | C/A 1.0001 (cycles 0.9949-1.0001) slower>5%: 0, >20%: 0, worst 1.01 qwen3.5-122b-moe expert ga M=128, best 0.98
+M=   1 n=40 A=    19553us | B/A 0.8002 (0.791-0.804) B<A on 40 worst 0.94 qwen3-32b down best 0.60 | C/A 0.8002 (0.789-0.806) C<A on 40 worst 0.94 qwen3-32b down best 0.61
+M=   2 n=40 A=    19641us | B/A 0.7963 (0.786-0.800) B<A on 40 worst 0.94 qwen3-30b-moe expert d best 0.63 | C/A 0.7956 (0.785-0.802) C<A on 40 worst 0.93 qwen3-32b down best 0.62
+M=   3 n=40 A=    19628us | B/A 0.8093 (0.805-0.811) B<A on 40 worst 0.95 qwen3-32b down best 0.63 | C/A 0.8082 (0.801-0.811) C<A on 40 worst 0.95 qwen3-32b down best 0.59
+M=   4 n=40 A=    19748us | B/A 0.8045 (0.800-0.811) B<A on 40 worst 0.96 qwen3-30b-moe expert d best 0.61 | C/A 0.8058 (0.800-0.815) C<A on 40 worst 0.94 qwen3-32b down best 0.61
+M=   6 n=40 A=    20158us | B/A 0.7940 (0.781-0.797) B<A on 40 worst 0.93 qwen3-32b down best 0.62 | C/A 0.7954 (0.782-0.796) C<A on 40 worst 0.93 qwen3-32b down best 0.60
+M=   8 n=40 A=    20234us | B/A 0.8051 (0.801-0.813) B<A on 40 worst 0.95 gemma4-26b-moe expert  best 0.61 | C/A 0.8043 (0.796-0.806) C<A on 40 worst 0.94 gemma4-26b-moe expert  best 0.63
+M=   9 n=40 A=    22781us | B/A 0.8338 (0.827-0.836) B<A on 40 worst 0.94 qwen3-8b gate/up best 0.60 | C/A 0.8337 (0.825-0.835) C<A on 40 worst 0.94 qwen3-8b gate/up best 0.61
+M=  12 n=40 A=    22759us | B/A 0.8430 (0.837-0.843) B<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.64 | C/A 0.8440 (0.835-0.844) C<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.63
+M=  16 n=40 A=    22935us | B/A 0.8440 (0.839-0.845) B<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.62 | C/A 0.8443 (0.837-0.846) C<A on 40 worst 0.95 qwen3-coder-480b-moe e best 0.63
+M=  17 n=40 A=    31615us | B/A 0.8222 (0.811-0.827) B<A on 38 worst 1.01 small GQA k/v best 0.51 | C/A 0.8198 (0.808-0.828) C<A on 39 worst 1.01 small GQA k/v best 0.54
+M=  20 n=40 A=    31616us | B/A 0.8254 (0.822-0.827) B<A on 39 worst 1.02 small GQA k/v best 0.56 | C/A 0.8252 (0.821-0.826) C<A on 39 worst 1.02 small GQA k/v best 0.57
+M=  24 n=40 A=    31707us | B/A 0.8277 (0.819-0.828) B<A on 38 worst 1.03 small GQA k/v best 0.53 | C/A 0.8280 (0.814-0.829) C<A on 38 worst 1.03 small GQA k/v best 0.56
+M=  28 n=40 A=    32074us | B/A 0.8246 (0.822-0.826) B<A on 38 worst 1.02 qwen3-coder-480b-moe e best 0.43 | C/A 0.8248 (0.819-0.826) C<A on 38 worst 1.01 qwen3-coder-480b-moe e best 0.43
+M=  32 n=40 A=    32204us | B/A 0.8274 (0.820-0.829) B<A on 39 worst 1.03 qwen3-coder-480b-moe e best 0.42 | C/A 0.8275 (0.821-0.828) C<A on 38 worst 1.03 qwen3-coder-480b-moe e best 0.44
+M=  33 n=40 A=    49167us | B/A 0.9340 (0.929-0.937) B<A on 31 worst 1.00 gemma3-4b gate/up best 0.65 | C/A 0.9335 (0.925-0.936) C<A on 34 worst 1.01 phi3-mini/llama3.2-3b  best 0.65
+M=  40 n=40 A=    49721us | B/A 0.9269 (0.923-0.929) B<A on 36 worst 1.00 qwen3-32b gate/up best 0.66 | C/A 0.9275 (0.922-0.931) C<A on 34 worst 1.01 llama3-8b/mistral-7b g best 0.66
+M=  48 n=40 A=    50523us | B/A 0.9184 (0.912-0.922) B<A on 37 worst 1.00 llama3-70b o/q square best 0.66 | C/A 0.9181 (0.914-0.924) C<A on 34 worst 1.00 llama3-70b gate/up best 0.66
+M=  49 n=40 A=    53065us | B/A 0.9126 (0.897-0.918) B<A on 36 worst 1.00 gemma3-27b gate/up best 0.66 | C/A 0.9186 (0.901-0.924) C<A on 35 worst 1.00 gemma3-4b gate/up best 0.77
+M=  56 n=40 A=    53200us | B/A 0.9173 (0.908-0.922) B<A on 34 worst 1.00 gemma3-4b gate/up best 0.65 | C/A 0.9218 (0.914-0.923) C<A on 36 worst 1.00 gemma3-4b gate/up best 0.76
+M=  64 n=40 A=    53529us | B/A 0.9214 (0.915-0.926) B<A on 35 worst 1.00 gemma3-4b gate/up best 0.65 | C/A 0.9269 (0.919-0.927) C<A on 36 worst 1.00 qwen3-8b gate/up best 0.77
+M=  72 n=40 A=    72971us | B/A 0.9738 (0.972-0.976) B<A on 37 worst 1.00 llama3-70b down best 0.62 | C/A 0.9791 (0.977-0.979) C<A on 33 worst 1.00 llama3-70b down best 0.77
+M=  80 n=40 A=    73550us | B/A 0.9749 (0.970-0.979) B<A on 32 worst 1.01 gemma2-27b down best 0.61 | C/A 0.9807 (0.976-0.985) C<A on 31 worst 1.01 gemma3-4b gate/up best 0.76
+M=  96 n=40 A=    75545us | B/A 0.9766 (0.976-0.980) B<A on 33 worst 1.00 gemma2-27b gate/up best 0.60 | C/A 0.9816 (0.978-0.984) C<A on 32 worst 1.00 phi3-mini/llama3.2-3b  best 0.74
+M=  97 n=40 A=    95653us | B/A 1.0005 (0.995-1.002) B<A on 16 worst 1.01 gemma4-26b dense down best 1.00 | C/A 1.0004 (0.995-1.001) C<A on 16 worst 1.01 phi3-mini/llama3.2-3b  best 0.99
+M= 128 n=40 A=    99429us | B/A 0.9999 (0.990-1.003) B<A on 23 worst 1.01 qwen3.5-122b-moe exper best 0.99 | C/A 0.9999 (0.990-1.001) C<A on 18 worst 1.01 qwen3.5-122b-moe exper best 0.98

@@ -1,0 +1,9 @@
+fp16 M=  576 n=40 fused    431.7 ms dequant    760.4 ms fused/dequant 0.568 ahead on 36/40 worst 1.49 gemma4-26b-moe expert down
+fp16 M=  640 n=40 fused    480.5 ms dequant    773.8 ms fused/dequant 0.621 ahead on 34/40 worst 1.73 gemma4-26b-moe expert down
+fp16 M=  768 n=40 fused    575.2 ms dequant    948.2 ms fused/dequant 0.607 ahead on 34/40 worst 1.73 gemma4-26b-moe expert down
+fp16 M= 1024 n=40 fused    768.6 ms dequant   1242.5 ms fused/dequant 0.619 ahead on 34/40 worst 1.79 gemma4-26b-moe expert down
+bf16 M=  576 n=40 fused    434.8 ms dequant    700.1 ms fused/dequant 0.621 ahead on 37/40 worst 1.47 gemma4-26b-moe expert down
+bf16 M=  640 n=40 fused    483.9 ms dequant    761.0 ms fused/dequant 0.636 ahead on 35/40 worst 1.68 gemma4-26b-moe expert down
+bf16 M=  768 n=40 fused    582.0 ms dequant    893.5 ms fused/dequant 0.651 ahead on 35/40 worst 1.67 gemma4-26b-moe expert down
+bf16 M= 1024 n=40 fused    777.4 ms dequant   1261.5 ms fused/dequant 0.616 ahead on 34/40 worst 1.76 gemma4-26b-moe expert down
+fp32 M= 1024 n=40 fused   3465.6 ms dequant   9882.3 ms fused/dequant 0.351 ahead on 40/40 worst 0.40 gemma4-26b-moe expert down

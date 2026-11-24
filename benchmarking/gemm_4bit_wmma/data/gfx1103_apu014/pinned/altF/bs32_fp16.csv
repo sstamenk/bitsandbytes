@@ -1,0 +1,1681 @@
+shape,N,K,M,dtype,blocksize,cfg,kernel,tile,blas,cycle,us
+llama3-70b down,8192,28672,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,2157.823085784912
+llama3-70b down,8192,28672,1,fp16,32,F,,,_BlasBackend.Cublas,0,1828.3920288085938
+llama3-70b down,8192,28672,1,fp16,32,F,,,_BlasBackend.Cublas,1,1829.8380374908447
+llama3-70b down,8192,28672,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,2114.590883255005
+llama3-70b down,8192,28672,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,2119.399070739746
+llama3-70b down,8192,28672,1,fp16,32,F,,,_BlasBackend.Cublas,2,1841.7320251464844
+llama3-70b down,8192,28672,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,2317.2900676727295
+llama3-70b down,8192,28672,8,fp16,32,F,,,_BlasBackend.Cublas,0,1955.4840326309204
+llama3-70b down,8192,28672,8,fp16,32,F,,,_BlasBackend.Cublas,1,1968.5499668121338
+llama3-70b down,8192,28672,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,2288.6369228363037
+llama3-70b down,8192,28672,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,2296.8080043792725
+llama3-70b down,8192,28672,8,fp16,32,F,,,_BlasBackend.Cublas,2,1973.1489419937134
+llama3-70b down,8192,28672,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,2403.351068496704
+llama3-70b down,8192,28672,16,fp16,32,F,,,_BlasBackend.Cublas,0,2548.3360290527344
+llama3-70b down,8192,28672,16,fp16,32,F,,,_BlasBackend.Cublas,1,2558.9540004730225
+llama3-70b down,8192,28672,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,2419.1319942474365
+llama3-70b down,8192,28672,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,2393.7699794769287
+llama3-70b down,8192,28672,16,fp16,32,F,,,_BlasBackend.Cublas,2,2547.2021102905273
+llama3-70b down,8192,28672,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,3604.9818992614746
+llama3-70b down,8192,28672,24,fp16,32,F,,,_BlasBackend.Cublas,0,3597.301959991455
+llama3-70b down,8192,28672,24,fp16,32,F,,,_BlasBackend.Cublas,1,3580.702066421509
+llama3-70b down,8192,28672,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,3604.1340827941895
+llama3-70b down,8192,28672,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,3579.2810916900635
+llama3-70b down,8192,28672,24,fp16,32,F,,,_BlasBackend.Cublas,2,3612.891912460327
+llama3-70b down,8192,28672,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,3664.1459465026855
+llama3-70b down,8192,28672,32,fp16,32,F,,,_BlasBackend.Cublas,0,3671.0879802703857
+llama3-70b down,8192,28672,32,fp16,32,F,,,_BlasBackend.Cublas,1,3710.6590270996094
+llama3-70b down,8192,28672,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,3677.3860454559326
+llama3-70b down,8192,28672,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,3733.6409091949463
+llama3-70b down,8192,28672,32,fp16,32,F,,,_BlasBackend.Cublas,2,3675.579071044922
+llama3-70b down,8192,28672,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,6673.766136169434
+llama3-70b down,8192,28672,48,fp16,32,F,,,_BlasBackend.Cublas,0,5861.568927764893
+llama3-70b down,8192,28672,48,fp16,32,F,,,_BlasBackend.Cublas,1,5854.30383682251
+llama3-70b down,8192,28672,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,6622.014045715332
+llama3-70b down,8192,28672,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,6733.251094818115
+llama3-70b down,8192,28672,48,fp16,32,F,,,_BlasBackend.Cublas,2,5866.196155548096
+llama3-70b down,8192,28672,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,8835.286140441895
+llama3-70b down,8192,28672,96,fp16,32,F,,,_BlasBackend.Cublas,0,8813.983917236328
+llama3-70b down,8192,28672,96,fp16,32,F,,,_BlasBackend.Cublas,1,8837.126731872559
+llama3-70b down,8192,28672,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,9350.47721862793
+llama3-70b down,8192,28672,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,8832.27825164795
+llama3-70b down,8192,28672,96,fp16,32,F,,,_BlasBackend.Cublas,2,8829.012870788574
+llama3-70b o/q square,8192,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,618.848979473114
+llama3-70b o/q square,8192,8192,1,fp16,32,F,,,_BlasBackend.Cublas,0,548.7719774246216
+llama3-70b o/q square,8192,8192,1,fp16,32,F,,,_BlasBackend.Cublas,1,552.9289841651917
+llama3-70b o/q square,8192,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,608.502984046936
+llama3-70b o/q square,8192,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,616.9559955596924
+llama3-70b o/q square,8192,8192,1,fp16,32,F,,,_BlasBackend.Cublas,2,543.196976184845
+llama3-70b o/q square,8192,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,648.1940150260925
+llama3-70b o/q square,8192,8192,8,fp16,32,F,,,_BlasBackend.Cublas,0,621.1280226707458
+llama3-70b o/q square,8192,8192,8,fp16,32,F,,,_BlasBackend.Cublas,1,629.725992679596
+llama3-70b o/q square,8192,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,628.9550065994263
+llama3-70b o/q square,8192,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,633.1560015678406
+llama3-70b o/q square,8192,8192,8,fp16,32,F,,,_BlasBackend.Cublas,2,555.2570223808289
+llama3-70b o/q square,8192,8192,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,734.8160147666931
+llama3-70b o/q square,8192,8192,16,fp16,32,F,,,_BlasBackend.Cublas,0,688.8719797134399
+llama3-70b o/q square,8192,8192,16,fp16,32,F,,,_BlasBackend.Cublas,1,693.9060091972351
+llama3-70b o/q square,8192,8192,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,760.4439854621887
+llama3-70b o/q square,8192,8192,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,771.4499831199646
+llama3-70b o/q square,8192,8192,16,fp16,32,F,,,_BlasBackend.Cublas,2,726.839005947113
+llama3-70b o/q square,8192,8192,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1078.3629417419434
+llama3-70b o/q square,8192,8192,24,fp16,32,F,,,_BlasBackend.Cublas,0,1071.344017982483
+llama3-70b o/q square,8192,8192,24,fp16,32,F,,,_BlasBackend.Cublas,1,1081.4709663391113
+llama3-70b o/q square,8192,8192,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1080.0139904022217
+llama3-70b o/q square,8192,8192,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1102.4149656295776
+llama3-70b o/q square,8192,8192,24,fp16,32,F,,,_BlasBackend.Cublas,2,1080.3840160369873
+llama3-70b o/q square,8192,8192,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1114.5210266113281
+llama3-70b o/q square,8192,8192,32,fp16,32,F,,,_BlasBackend.Cublas,0,1091.0600423812866
+llama3-70b o/q square,8192,8192,32,fp16,32,F,,,_BlasBackend.Cublas,1,1095.4669713974
+llama3-70b o/q square,8192,8192,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1111.8439435958862
+llama3-70b o/q square,8192,8192,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1107.1269512176514
+llama3-70b o/q square,8192,8192,32,fp16,32,F,,,_BlasBackend.Cublas,2,1113.3259534835815
+llama3-70b o/q square,8192,8192,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,1623.1340169906616
+llama3-70b o/q square,8192,8192,48,fp16,32,F,,,_BlasBackend.Cublas,0,1630.9289932250977
+llama3-70b o/q square,8192,8192,48,fp16,32,F,,,_BlasBackend.Cublas,1,1646.162986755371
+llama3-70b o/q square,8192,8192,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,1617.475986480713
+llama3-70b o/q square,8192,8192,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,1642.4599885940552
+llama3-70b o/q square,8192,8192,48,fp16,32,F,,,_BlasBackend.Cublas,2,1625.1569986343384
+llama3-70b o/q square,8192,8192,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,2421.7000007629395
+llama3-70b o/q square,8192,8192,96,fp16,32,F,,,_BlasBackend.Cublas,0,2423.37703704834
+llama3-70b o/q square,8192,8192,96,fp16,32,F,,,_BlasBackend.Cublas,1,2424.8619079589844
+llama3-70b o/q square,8192,8192,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,2418.9200401306152
+llama3-70b o/q square,8192,8192,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,2427.889108657837
+llama3-70b o/q square,8192,8192,96,fp16,32,F,,,_BlasBackend.Cublas,2,2424.6668815612793
+qwen3-32b gate/up,25600,5120,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,1300.2970218658447
+qwen3-32b gate/up,25600,5120,1,fp16,32,F,,,_BlasBackend.Cublas,0,980.866014957428
+qwen3-32b gate/up,25600,5120,1,fp16,32,F,,,_BlasBackend.Cublas,1,975.5799770355225
+qwen3-32b gate/up,25600,5120,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,1298.7799644470215
+qwen3-32b gate/up,25600,5120,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,1297.5200414657593
+qwen3-32b gate/up,25600,5120,1,fp16,32,F,,,_BlasBackend.Cublas,2,974.120020866394
+qwen3-32b gate/up,25600,5120,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,1299.6139526367188
+qwen3-32b gate/up,25600,5120,8,fp16,32,F,,,_BlasBackend.Cublas,0,1032.3909521102905
+qwen3-32b gate/up,25600,5120,8,fp16,32,F,,,_BlasBackend.Cublas,1,1022.178053855896
+qwen3-32b gate/up,25600,5120,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,1299.286961555481
+qwen3-32b gate/up,25600,5120,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,1294.8520183563232
+qwen3-32b gate/up,25600,5120,8,fp16,32,F,,,_BlasBackend.Cublas,2,1024.2650508880615
+qwen3-32b gate/up,25600,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1350.9010076522827
+qwen3-32b gate/up,25600,5120,16,fp16,32,F,,,_BlasBackend.Cublas,0,1284.9420309066772
+qwen3-32b gate/up,25600,5120,16,fp16,32,F,,,_BlasBackend.Cublas,1,1266.718029975891
+qwen3-32b gate/up,25600,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1354.4009923934937
+qwen3-32b gate/up,25600,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1348.8800525665283
+qwen3-32b gate/up,25600,5120,16,fp16,32,F,,,_BlasBackend.Cublas,2,1273.4509706497192
+qwen3-32b gate/up,25600,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,2011.9330883026123
+qwen3-32b gate/up,25600,5120,24,fp16,32,F,,,_BlasBackend.Cublas,0,2000.1769065856934
+qwen3-32b gate/up,25600,5120,24,fp16,32,F,,,_BlasBackend.Cublas,1,2006.058931350708
+qwen3-32b gate/up,25600,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,2012.7599239349365
+qwen3-32b gate/up,25600,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,2003.2179355621338
+qwen3-32b gate/up,25600,5120,24,fp16,32,F,,,_BlasBackend.Cublas,2,1997.9150295257568
+qwen3-32b gate/up,25600,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,2030.318021774292
+qwen3-32b gate/up,25600,5120,32,fp16,32,F,,,_BlasBackend.Cublas,0,2028.5210609436035
+qwen3-32b gate/up,25600,5120,32,fp16,32,F,,,_BlasBackend.Cublas,1,2006.3350200653076
+qwen3-32b gate/up,25600,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,2012.523889541626
+qwen3-32b gate/up,25600,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,2015.6068801879883
+qwen3-32b gate/up,25600,5120,32,fp16,32,F,,,_BlasBackend.Cublas,2,2016.5619850158691
+qwen3-32b gate/up,25600,5120,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,2977.8199195861816
+qwen3-32b gate/up,25600,5120,48,fp16,32,F,,,_BlasBackend.Cublas,0,2977.8740406036377
+qwen3-32b gate/up,25600,5120,48,fp16,32,F,,,_BlasBackend.Cublas,1,2990.2710914611816
+qwen3-32b gate/up,25600,5120,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,2980.8249473571777
+qwen3-32b gate/up,25600,5120,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,2976.008892059326
+qwen3-32b gate/up,25600,5120,48,fp16,32,F,,,_BlasBackend.Cublas,2,2989.5529747009277
+qwen3-32b gate/up,25600,5120,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,4712.314128875732
+qwen3-32b gate/up,25600,5120,96,fp16,32,F,,,_BlasBackend.Cublas,0,4703.237056732178
+qwen3-32b gate/up,25600,5120,96,fp16,32,F,,,_BlasBackend.Cublas,1,4709.914207458496
+qwen3-32b gate/up,25600,5120,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,4697.503089904785
+qwen3-32b gate/up,25600,5120,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,4708.686828613281
+qwen3-32b gate/up,25600,5120,96,fp16,32,F,,,_BlasBackend.Cublas,2,4701.666831970215
+qwen3-32b down,5120,25600,1,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,0,1064.0339851379395
+qwen3-32b down,5120,25600,1,fp16,32,F,,,_BlasBackend.Cublas,0,1002.2740364074707
+qwen3-32b down,5120,25600,1,fp16,32,F,,,_BlasBackend.Cublas,1,1004.2569637298584
+qwen3-32b down,5120,25600,1,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,1,1053.8549423217773
+qwen3-32b down,5120,25600,1,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,2,1046.3919639587402
+qwen3-32b down,5120,25600,1,fp16,32,F,,,_BlasBackend.Cublas,2,1002.6229619979858
+qwen3-32b down,5120,25600,8,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,0,1148.622989654541
+qwen3-32b down,5120,25600,8,fp16,32,F,,,_BlasBackend.Cublas,0,1057.8199625015259
+qwen3-32b down,5120,25600,8,fp16,32,F,,,_BlasBackend.Cublas,1,1053.076982498169
+qwen3-32b down,5120,25600,8,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,1,1132.4549913406372
+qwen3-32b down,5120,25600,8,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,2,1140.96200466156
+qwen3-32b down,5120,25600,8,fp16,32,F,,,_BlasBackend.Cublas,2,1067.1600103378296
+qwen3-32b down,5120,25600,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1286.8119478225708
+qwen3-32b down,5120,25600,16,fp16,32,F,,,_BlasBackend.Cublas,0,1426.4140129089355
+qwen3-32b down,5120,25600,16,fp16,32,F,,,_BlasBackend.Cublas,1,1350.7219552993774
+qwen3-32b down,5120,25600,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1254.6420097351074
+qwen3-32b down,5120,25600,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1251.6330480575562
+qwen3-32b down,5120,25600,16,fp16,32,F,,,_BlasBackend.Cublas,2,1348.8450050354004
+qwen3-32b down,5120,25600,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1955.9739828109741
+qwen3-32b down,5120,25600,24,fp16,32,F,,,_BlasBackend.Cublas,0,1963.6039733886719
+qwen3-32b down,5120,25600,24,fp16,32,F,,,_BlasBackend.Cublas,1,1966.4709568023682
+qwen3-32b down,5120,25600,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1972.4810123443604
+qwen3-32b down,5120,25600,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1960.4259729385376
+qwen3-32b down,5120,25600,24,fp16,32,F,,,_BlasBackend.Cublas,2,1961.9989395141602
+qwen3-32b down,5120,25600,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1995.5040216445923
+qwen3-32b down,5120,25600,32,fp16,32,F,,,_BlasBackend.Cublas,0,2019.3660259246826
+qwen3-32b down,5120,25600,32,fp16,32,F,,,_BlasBackend.Cublas,1,1994.7630167007446
+qwen3-32b down,5120,25600,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,2071.5649127960205
+qwen3-32b down,5120,25600,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,2075.566053390503
+qwen3-32b down,5120,25600,32,fp16,32,F,,,_BlasBackend.Cublas,2,2088.438034057617
+qwen3-32b down,5120,25600,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,3877.9780864715576
+qwen3-32b down,5120,25600,48,fp16,32,F,,,_BlasBackend.Cublas,0,3143.402099609375
+qwen3-32b down,5120,25600,48,fp16,32,F,,,_BlasBackend.Cublas,1,3136.941909790039
+qwen3-32b down,5120,25600,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,3840.9430980682373
+qwen3-32b down,5120,25600,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,3888.1750106811523
+qwen3-32b down,5120,25600,48,fp16,32,F,,,_BlasBackend.Cublas,2,3147.089958190918
+qwen3-32b down,5120,25600,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,4857.026100158691
+qwen3-32b down,5120,25600,96,fp16,32,F,,,_BlasBackend.Cublas,0,4886.589050292969
+qwen3-32b down,5120,25600,96,fp16,32,F,,,_BlasBackend.Cublas,1,4824.175834655762
+qwen3-32b down,5120,25600,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,4855.325222015381
+qwen3-32b down,5120,25600,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,4833.055019378662
+qwen3-32b down,5120,25600,96,fp16,32,F,,,_BlasBackend.Cublas,2,4990.447998046875
+qwen3-14b gate/up,17408,5120,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,774.7009992599487
+qwen3-14b gate/up,17408,5120,1,fp16,32,F,,,_BlasBackend.Cublas,0,674.5089888572693
+qwen3-14b gate/up,17408,5120,1,fp16,32,F,,,_BlasBackend.Cublas,1,675.8829951286316
+qwen3-14b gate/up,17408,5120,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,769.1689729690552
+qwen3-14b gate/up,17408,5120,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,773.9689946174622
+qwen3-14b gate/up,17408,5120,1,fp16,32,F,,,_BlasBackend.Cublas,2,660.1369976997375
+qwen3-14b gate/up,17408,5120,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,798.5389828681946
+qwen3-14b gate/up,17408,5120,8,fp16,32,F,,,_BlasBackend.Cublas,0,703.9859890937805
+qwen3-14b gate/up,17408,5120,8,fp16,32,F,,,_BlasBackend.Cublas,1,705.24001121521
+qwen3-14b gate/up,17408,5120,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,797.4990010261536
+qwen3-14b gate/up,17408,5120,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,808.2029819488525
+qwen3-14b gate/up,17408,5120,8,fp16,32,F,,,_BlasBackend.Cublas,2,693.556010723114
+qwen3-14b gate/up,17408,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,927.9940128326416
+qwen3-14b gate/up,17408,5120,16,fp16,32,F,,,_BlasBackend.Cublas,0,974.3130207061768
+qwen3-14b gate/up,17408,5120,16,fp16,32,F,,,_BlasBackend.Cublas,1,979.6549677848816
+qwen3-14b gate/up,17408,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,998.8430142402649
+qwen3-14b gate/up,17408,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,923.005998134613
+qwen3-14b gate/up,17408,5120,16,fp16,32,F,,,_BlasBackend.Cublas,2,869.8599934577942
+qwen3-14b gate/up,17408,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1364.6199703216553
+qwen3-14b gate/up,17408,5120,24,fp16,32,F,,,_BlasBackend.Cublas,0,1373.4010457992554
+qwen3-14b gate/up,17408,5120,24,fp16,32,F,,,_BlasBackend.Cublas,1,1369.0849542617798
+qwen3-14b gate/up,17408,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1361.3920211791992
+qwen3-14b gate/up,17408,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1373.3899593353271
+qwen3-14b gate/up,17408,5120,24,fp16,32,F,,,_BlasBackend.Cublas,2,1365.2520179748535
+qwen3-14b gate/up,17408,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1372.1599578857422
+qwen3-14b gate/up,17408,5120,32,fp16,32,F,,,_BlasBackend.Cublas,0,1376.7850399017334
+qwen3-14b gate/up,17408,5120,32,fp16,32,F,,,_BlasBackend.Cublas,1,1382.7029466629028
+qwen3-14b gate/up,17408,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1365.4429912567139
+qwen3-14b gate/up,17408,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1362.1209859848022
+qwen3-14b gate/up,17408,5120,32,fp16,32,F,,,_BlasBackend.Cublas,2,1384.8719596862793
+qwen3-14b gate/up,17408,5120,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,2045.408010482788
+qwen3-14b gate/up,17408,5120,48,fp16,32,F,,,_BlasBackend.Cublas,0,2032.5639247894287
+qwen3-14b gate/up,17408,5120,48,fp16,32,F,,,_BlasBackend.Cublas,1,2025.0639915466309
+qwen3-14b gate/up,17408,5120,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,2036.5409851074219
+qwen3-14b gate/up,17408,5120,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,2024.6620178222656
+qwen3-14b gate/up,17408,5120,48,fp16,32,F,,,_BlasBackend.Cublas,2,2039.412021636963
+qwen3-14b gate/up,17408,5120,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,3194.329023361206
+qwen3-14b gate/up,17408,5120,96,fp16,32,F,,,_BlasBackend.Cublas,0,3188.1439685821533
+qwen3-14b gate/up,17408,5120,96,fp16,32,F,,,_BlasBackend.Cublas,1,3204.0560245513916
+qwen3-14b gate/up,17408,5120,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,3199.6190547943115
+qwen3-14b gate/up,17408,5120,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,3199.7010707855225
+qwen3-14b gate/up,17408,5120,96,fp16,32,F,,,_BlasBackend.Cublas,2,3204.408884048462
+qwen3-14b down,5120,17408,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,759.4540119171143
+qwen3-14b down,5120,17408,1,fp16,32,F,,,_BlasBackend.Cublas,0,677.374005317688
+qwen3-14b down,5120,17408,1,fp16,32,F,,,_BlasBackend.Cublas,1,677.4020195007324
+qwen3-14b down,5120,17408,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,750.2560019493103
+qwen3-14b down,5120,17408,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,745.7550168037415
+qwen3-14b down,5120,17408,1,fp16,32,F,,,_BlasBackend.Cublas,2,677.2130131721497
+qwen3-14b down,5120,17408,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,788.8240218162537
+qwen3-14b down,5120,17408,8,fp16,32,F,,,_BlasBackend.Cublas,0,709.7920179367065
+qwen3-14b down,5120,17408,8,fp16,32,F,,,_BlasBackend.Cublas,1,714.2009735107422
+qwen3-14b down,5120,17408,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,792.6200032234192
+qwen3-14b down,5120,17408,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,786.7890000343323
+qwen3-14b down,5120,17408,8,fp16,32,F,,,_BlasBackend.Cublas,2,705.2159905433655
+qwen3-14b down,5120,17408,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,866.228997707367
+qwen3-14b down,5120,17408,16,fp16,32,F,,,_BlasBackend.Cublas,0,908.4810018539429
+qwen3-14b down,5120,17408,16,fp16,32,F,,,_BlasBackend.Cublas,1,904.4430255889893
+qwen3-14b down,5120,17408,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,857.5220108032227
+qwen3-14b down,5120,17408,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,865.490972995758
+qwen3-14b down,5120,17408,16,fp16,32,F,,,_BlasBackend.Cublas,2,908.0089926719666
+qwen3-14b down,5120,17408,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1326.738953590393
+qwen3-14b down,5120,17408,24,fp16,32,F,,,_BlasBackend.Cublas,0,1345.1570272445679
+qwen3-14b down,5120,17408,24,fp16,32,F,,,_BlasBackend.Cublas,1,1351.8240451812744
+qwen3-14b down,5120,17408,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1350.5330085754395
+qwen3-14b down,5120,17408,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1334.8079919815063
+qwen3-14b down,5120,17408,24,fp16,32,F,,,_BlasBackend.Cublas,2,1352.8310060501099
+qwen3-14b down,5120,17408,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1377.2029876708984
+qwen3-14b down,5120,17408,32,fp16,32,F,,,_BlasBackend.Cublas,0,1363.8769388198853
+qwen3-14b down,5120,17408,32,fp16,32,F,,,_BlasBackend.Cublas,1,1379.485011100769
+qwen3-14b down,5120,17408,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1372.9139566421509
+qwen3-14b down,5120,17408,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1373.6759424209595
+qwen3-14b down,5120,17408,32,fp16,32,F,,,_BlasBackend.Cublas,2,1376.8320083618164
+qwen3-14b down,5120,17408,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,2390.2299404144287
+qwen3-14b down,5120,17408,48,fp16,32,F,,,_BlasBackend.Cublas,0,2150.3100395202637
+qwen3-14b down,5120,17408,48,fp16,32,F,,,_BlasBackend.Cublas,1,2144.9389457702637
+qwen3-14b down,5120,17408,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,2410.4249477386475
+qwen3-14b down,5120,17408,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,2401.392936706543
+qwen3-14b down,5120,17408,48,fp16,32,F,,,_BlasBackend.Cublas,2,2157.2299003601074
+qwen3-14b down,5120,17408,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,3210.822105407715
+qwen3-14b down,5120,17408,96,fp16,32,F,,,_BlasBackend.Cublas,0,3201.7109394073486
+qwen3-14b down,5120,17408,96,fp16,32,F,,,_BlasBackend.Cublas,1,3225.4419326782227
+qwen3-14b down,5120,17408,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,3205.704927444458
+qwen3-14b down,5120,17408,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,3243.6020374298096
+qwen3-14b down,5120,17408,96,fp16,32,F,,,_BlasBackend.Cublas,2,3204.8590183258057
+qwen3-14b o/q square,5120,5120,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,235.10600626468658
+qwen3-14b o/q square,5120,5120,1,fp16,32,F,,,_BlasBackend.Cublas,0,206.45900070667267
+qwen3-14b o/q square,5120,5120,1,fp16,32,F,,,_BlasBackend.Cublas,1,203.14499735832214
+qwen3-14b o/q square,5120,5120,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,241.4039969444275
+qwen3-14b o/q square,5120,5120,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,247.47100472450256
+qwen3-14b o/q square,5120,5120,1,fp16,32,F,,,_BlasBackend.Cublas,2,200.09900629520416
+qwen3-14b o/q square,5120,5120,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,245.24900317192078
+qwen3-14b o/q square,5120,5120,8,fp16,32,F,,,_BlasBackend.Cublas,0,220.4499989748001
+qwen3-14b o/q square,5120,5120,8,fp16,32,F,,,_BlasBackend.Cublas,1,223.14900159835815
+qwen3-14b o/q square,5120,5120,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,244.2760020494461
+qwen3-14b o/q square,5120,5120,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,245.89399993419647
+qwen3-14b o/q square,5120,5120,8,fp16,32,F,,,_BlasBackend.Cublas,2,215.8450037240982
+qwen3-14b o/q square,5120,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,282.38099813461304
+qwen3-14b o/q square,5120,5120,16,fp16,32,F,,,_BlasBackend.Cublas,0,272.23798632621765
+qwen3-14b o/q square,5120,5120,16,fp16,32,F,,,_BlasBackend.Cublas,1,266.6049897670746
+qwen3-14b o/q square,5120,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,290.9899950027466
+qwen3-14b o/q square,5120,5120,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,281.9870114326477
+qwen3-14b o/q square,5120,5120,16,fp16,32,F,,,_BlasBackend.Cublas,2,270.7259953022003
+qwen3-14b o/q square,5120,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,426.0300099849701
+qwen3-14b o/q square,5120,5120,24,fp16,32,F,,,_BlasBackend.Cublas,0,419.0639853477478
+qwen3-14b o/q square,5120,5120,24,fp16,32,F,,,_BlasBackend.Cublas,1,423.02098870277405
+qwen3-14b o/q square,5120,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,426.2140095233917
+qwen3-14b o/q square,5120,5120,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,425.09201169013977
+qwen3-14b o/q square,5120,5120,24,fp16,32,F,,,_BlasBackend.Cublas,2,420.1579988002777
+qwen3-14b o/q square,5120,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,424.8180091381073
+qwen3-14b o/q square,5120,5120,32,fp16,32,F,,,_BlasBackend.Cublas,0,428.6470115184784
+qwen3-14b o/q square,5120,5120,32,fp16,32,F,,,_BlasBackend.Cublas,1,425.01699924468994
+qwen3-14b o/q square,5120,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,420.16100883483887
+qwen3-14b o/q square,5120,5120,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,425.4240095615387
+qwen3-14b o/q square,5120,5120,32,fp16,32,F,,,_BlasBackend.Cublas,2,419.6949899196625
+qwen3-14b o/q square,5120,5120,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,735.880970954895
+qwen3-14b o/q square,5120,5120,48,fp16,32,F,,,_BlasBackend.Cublas,0,650.4960060119629
+qwen3-14b o/q square,5120,5120,48,fp16,32,F,,,_BlasBackend.Cublas,1,646.1169719696045
+qwen3-14b o/q square,5120,5120,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,675.3640174865723
+qwen3-14b o/q square,5120,5120,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,671.7939972877502
+qwen3-14b o/q square,5120,5120,48,fp16,32,F,,,_BlasBackend.Cublas,2,623.045027256012
+qwen3-14b o/q square,5120,5120,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,1009.240984916687
+qwen3-14b o/q square,5120,5120,96,fp16,32,F,,,_BlasBackend.Cublas,0,1002.4089813232422
+qwen3-14b o/q square,5120,5120,96,fp16,32,F,,,_BlasBackend.Cublas,1,1012.9660367965698
+qwen3-14b o/q square,5120,5120,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,1011.9689702987671
+qwen3-14b o/q square,5120,5120,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,1013.2230520248413
+qwen3-14b o/q square,5120,5120,96,fp16,32,F,,,_BlasBackend.Cublas,2,1009.3890428543091
+llama3-8b/mistral-7b gate/up,14336,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,563.0009770393372
+llama3-8b/mistral-7b gate/up,14336,4096,1,fp16,32,F,,,_BlasBackend.Cublas,0,499.19700622558594
+llama3-8b/mistral-7b gate/up,14336,4096,1,fp16,32,F,,,_BlasBackend.Cublas,1,512.6270055770874
+llama3-8b/mistral-7b gate/up,14336,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,591.6379690170288
+llama3-8b/mistral-7b gate/up,14336,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,591.484010219574
+llama3-8b/mistral-7b gate/up,14336,4096,1,fp16,32,F,,,_BlasBackend.Cublas,2,546.2210178375244
+llama3-8b/mistral-7b gate/up,14336,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,640.3939723968506
+llama3-8b/mistral-7b gate/up,14336,4096,8,fp16,32,F,,,_BlasBackend.Cublas,0,529.1929841041565
+llama3-8b/mistral-7b gate/up,14336,4096,8,fp16,32,F,,,_BlasBackend.Cublas,1,561.2890124320984
+llama3-8b/mistral-7b gate/up,14336,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,638.073980808258
+llama3-8b/mistral-7b gate/up,14336,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,634.9419951438904
+llama3-8b/mistral-7b gate/up,14336,4096,8,fp16,32,F,,,_BlasBackend.Cublas,2,589.8529887199402
+llama3-8b/mistral-7b gate/up,14336,4096,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,725.7739901542664
+llama3-8b/mistral-7b gate/up,14336,4096,16,fp16,32,F,,,_BlasBackend.Cublas,0,645.9910273551941
+llama3-8b/mistral-7b gate/up,14336,4096,16,fp16,32,F,,,_BlasBackend.Cublas,1,645.2410221099854
+llama3-8b/mistral-7b gate/up,14336,4096,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,689.4999742507935
+llama3-8b/mistral-7b gate/up,14336,4096,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,680.6089878082275
+llama3-8b/mistral-7b gate/up,14336,4096,16,fp16,32,F,,,_BlasBackend.Cublas,2,647.6150155067444
+llama3-8b/mistral-7b gate/up,14336,4096,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,950.652003288269
+llama3-8b/mistral-7b gate/up,14336,4096,24,fp16,32,F,,,_BlasBackend.Cublas,0,959.3459963798523
+llama3-8b/mistral-7b gate/up,14336,4096,24,fp16,32,F,,,_BlasBackend.Cublas,1,960.1560235023499
+llama3-8b/mistral-7b gate/up,14336,4096,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,968.1569933891296
+llama3-8b/mistral-7b gate/up,14336,4096,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,957.1269750595093
+llama3-8b/mistral-7b gate/up,14336,4096,24,fp16,32,F,,,_BlasBackend.Cublas,2,960.6940150260925
+llama3-8b/mistral-7b gate/up,14336,4096,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,960.4169726371765
+llama3-8b/mistral-7b gate/up,14336,4096,32,fp16,32,F,,,_BlasBackend.Cublas,0,974.4619727134705
+llama3-8b/mistral-7b gate/up,14336,4096,32,fp16,32,F,,,_BlasBackend.Cublas,1,973.8370180130005
+llama3-8b/mistral-7b gate/up,14336,4096,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,967.5170183181763
+llama3-8b/mistral-7b gate/up,14336,4096,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,969.2270159721375
+llama3-8b/mistral-7b gate/up,14336,4096,32,fp16,32,F,,,_BlasBackend.Cublas,2,972.0330238342285
+llama3-8b/mistral-7b gate/up,14336,4096,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,1414.0889644622803
+llama3-8b/mistral-7b gate/up,14336,4096,48,fp16,32,F,,,_BlasBackend.Cublas,0,1424.1180419921875
+llama3-8b/mistral-7b gate/up,14336,4096,48,fp16,32,F,,,_BlasBackend.Cublas,1,1413.5409593582153
+llama3-8b/mistral-7b gate/up,14336,4096,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,1381.598949432373
+llama3-8b/mistral-7b gate/up,14336,4096,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,1372.8740215301514
+llama3-8b/mistral-7b gate/up,14336,4096,48,fp16,32,F,,,_BlasBackend.Cublas,2,1378.6050081253052
+llama3-8b/mistral-7b gate/up,14336,4096,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,2119.5569038391113
+llama3-8b/mistral-7b gate/up,14336,4096,96,fp16,32,F,,,_BlasBackend.Cublas,0,2128.1349658966064
+llama3-8b/mistral-7b gate/up,14336,4096,96,fp16,32,F,,,_BlasBackend.Cublas,1,2138.4060382843018
+llama3-8b/mistral-7b gate/up,14336,4096,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,2205.2340507507324
+llama3-8b/mistral-7b gate/up,14336,4096,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,2125.8420944213867
+llama3-8b/mistral-7b gate/up,14336,4096,96,fp16,32,F,,,_BlasBackend.Cublas,2,2121.2449073791504
+llama3-8b/mistral-7b down,4096,14336,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,546.5800166130066
+llama3-8b/mistral-7b down,4096,14336,1,fp16,32,F,,,_BlasBackend.Cublas,0,465.17398953437805
+llama3-8b/mistral-7b down,4096,14336,1,fp16,32,F,,,_BlasBackend.Cublas,1,465.0079905986786
+llama3-8b/mistral-7b down,4096,14336,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,523.8710045814514
+llama3-8b/mistral-7b down,4096,14336,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,539.650022983551
+llama3-8b/mistral-7b down,4096,14336,1,fp16,32,F,,,_BlasBackend.Cublas,2,466.7310118675232
+llama3-8b/mistral-7b down,4096,14336,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,558.4369897842407
+llama3-8b/mistral-7b down,4096,14336,8,fp16,32,F,,,_BlasBackend.Cublas,0,484.140008687973
+llama3-8b/mistral-7b down,4096,14336,8,fp16,32,F,,,_BlasBackend.Cublas,1,489.4369840621948
+llama3-8b/mistral-7b down,4096,14336,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,576.3869881629944
+llama3-8b/mistral-7b down,4096,14336,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,565.9120082855225
+llama3-8b/mistral-7b down,4096,14336,8,fp16,32,F,,,_BlasBackend.Cublas,2,486.2059950828552
+llama3-8b/mistral-7b down,4096,14336,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,703.6719918251038
+llama3-8b/mistral-7b down,4096,14336,16,fp16,32,F,,,_BlasBackend.Cublas,0,613.211989402771
+llama3-8b/mistral-7b down,4096,14336,16,fp16,32,F,,,_BlasBackend.Cublas,1,631.0759782791138
+llama3-8b/mistral-7b down,4096,14336,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,701.1500000953674
+llama3-8b/mistral-7b down,4096,14336,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,708.4130048751831
+llama3-8b/mistral-7b down,4096,14336,16,fp16,32,F,,,_BlasBackend.Cublas,2,619.0199851989746
+llama3-8b/mistral-7b down,4096,14336,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1136.978030204773
+llama3-8b/mistral-7b down,4096,14336,24,fp16,32,F,,,_BlasBackend.Cublas,0,912.4419689178467
+llama3-8b/mistral-7b down,4096,14336,24,fp16,32,F,,,_BlasBackend.Cublas,1,904.9580097198486
+llama3-8b/mistral-7b down,4096,14336,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1143.4060335159302
+llama3-8b/mistral-7b down,4096,14336,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1144.1309452056885
+llama3-8b/mistral-7b down,4096,14336,24,fp16,32,F,,,_BlasBackend.Cublas,2,902.6539921760559
+llama3-8b/mistral-7b down,4096,14336,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1154.3079614639282
+llama3-8b/mistral-7b down,4096,14336,32,fp16,32,F,,,_BlasBackend.Cublas,0,926.2499809265137
+llama3-8b/mistral-7b down,4096,14336,32,fp16,32,F,,,_BlasBackend.Cublas,1,927.8119802474976
+llama3-8b/mistral-7b down,4096,14336,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1130.5630207061768
+llama3-8b/mistral-7b down,4096,14336,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1140.8809423446655
+llama3-8b/mistral-7b down,4096,14336,32,fp16,32,F,,,_BlasBackend.Cublas,2,919.6370244026184
+llama3-8b/mistral-7b down,4096,14336,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,1519.0730094909668
+llama3-8b/mistral-7b down,4096,14336,48,fp16,32,F,,,_BlasBackend.Cublas,0,1459.3600034713745
+llama3-8b/mistral-7b down,4096,14336,48,fp16,32,F,,,_BlasBackend.Cublas,1,1465.1340246200562
+llama3-8b/mistral-7b down,4096,14336,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,1524.0949392318726
+llama3-8b/mistral-7b down,4096,14336,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,1508.4630250930786
+llama3-8b/mistral-7b down,4096,14336,48,fp16,32,F,,,_BlasBackend.Cublas,2,1462.5680446624756
+llama3-8b/mistral-7b down,4096,14336,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,2195.5080032348633
+llama3-8b/mistral-7b down,4096,14336,96,fp16,32,F,,,_BlasBackend.Cublas,0,2184.328079223633
+llama3-8b/mistral-7b down,4096,14336,96,fp16,32,F,,,_BlasBackend.Cublas,1,2190.506935119629
+llama3-8b/mistral-7b down,4096,14336,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,2195.20902633667
+llama3-8b/mistral-7b down,4096,14336,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,2181.6110610961914
+llama3-8b/mistral-7b down,4096,14336,96,fp16,32,F,,,_BlasBackend.Cublas,2,2198.7099647521973
+llama3-8b/mistral-7b o/q square,4096,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,172.2709983587265
+llama3-8b/mistral-7b o/q square,4096,4096,1,fp16,32,F,,,_BlasBackend.Cublas,0,158.2529991865158
+llama3-8b/mistral-7b o/q square,4096,4096,1,fp16,32,F,,,_BlasBackend.Cublas,1,160.29299795627594
+llama3-8b/mistral-7b o/q square,4096,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,173.10099303722382
+llama3-8b/mistral-7b o/q square,4096,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,178.8329929113388
+llama3-8b/mistral-7b o/q square,4096,4096,1,fp16,32,F,,,_BlasBackend.Cublas,2,162.40400075912476
+llama3-8b/mistral-7b o/q square,4096,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,177.85599827766418
+llama3-8b/mistral-7b o/q square,4096,4096,8,fp16,32,F,,,_BlasBackend.Cublas,0,166.1349982023239
+llama3-8b/mistral-7b o/q square,4096,4096,8,fp16,32,F,,,_BlasBackend.Cublas,1,170.06300389766693
+llama3-8b/mistral-7b o/q square,4096,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,182.31099843978882
+llama3-8b/mistral-7b o/q square,4096,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,174.22999441623688
+llama3-8b/mistral-7b o/q square,4096,4096,8,fp16,32,F,,,_BlasBackend.Cublas,2,167.65399277210236
+llama3-8b/mistral-7b o/q square,4096,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,238.93100023269653
+llama3-8b/mistral-7b o/q square,4096,4096,16,fp16,32,F,,,_BlasBackend.Cublas,0,213.60300481319427
+llama3-8b/mistral-7b o/q square,4096,4096,16,fp16,32,F,,,_BlasBackend.Cublas,1,206.91800117492676
+llama3-8b/mistral-7b o/q square,4096,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,230.2349954843521
+llama3-8b/mistral-7b o/q square,4096,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,237.50199377536774
+llama3-8b/mistral-7b o/q square,4096,4096,16,fp16,32,F,,,_BlasBackend.Cublas,2,223.59000146389008
+llama3-8b/mistral-7b o/q square,4096,4096,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,367.74900555610657
+llama3-8b/mistral-7b o/q square,4096,4096,24,fp16,32,F,,,_BlasBackend.Cublas,0,298.9940047264099
+llama3-8b/mistral-7b o/q square,4096,4096,24,fp16,32,F,,,_BlasBackend.Cublas,1,302.8149902820587
+llama3-8b/mistral-7b o/q square,4096,4096,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,368.4859871864319
+llama3-8b/mistral-7b o/q square,4096,4096,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,369.4149851799011
+llama3-8b/mistral-7b o/q square,4096,4096,24,fp16,32,F,,,_BlasBackend.Cublas,2,291.8049991130829
+llama3-8b/mistral-7b o/q square,4096,4096,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,369.34301257133484
+llama3-8b/mistral-7b o/q square,4096,4096,32,fp16,32,F,,,_BlasBackend.Cublas,0,293.7789857387543
+llama3-8b/mistral-7b o/q square,4096,4096,32,fp16,32,F,,,_BlasBackend.Cublas,1,290.13800621032715
+llama3-8b/mistral-7b o/q square,4096,4096,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,370.8150088787079
+llama3-8b/mistral-7b o/q square,4096,4096,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,366.7069971561432
+llama3-8b/mistral-7b o/q square,4096,4096,32,fp16,32,F,,,_BlasBackend.Cublas,2,291.51400923728943
+llama3-8b/mistral-7b o/q square,4096,4096,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,453.2580077648163
+llama3-8b/mistral-7b o/q square,4096,4096,48,fp16,32,F,,,_BlasBackend.Cublas,0,414.99099135398865
+llama3-8b/mistral-7b o/q square,4096,4096,48,fp16,32,F,,,_BlasBackend.Cublas,1,418.6230003833771
+llama3-8b/mistral-7b o/q square,4096,4096,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,452.20300555229187
+llama3-8b/mistral-7b o/q square,4096,4096,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,456.08600974082947
+llama3-8b/mistral-7b o/q square,4096,4096,48,fp16,32,F,,,_BlasBackend.Cublas,2,418.0560111999512
+llama3-8b/mistral-7b o/q square,4096,4096,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,661.454975605011
+llama3-8b/mistral-7b o/q square,4096,4096,96,fp16,32,F,,,_BlasBackend.Cublas,0,663.7579798698425
+llama3-8b/mistral-7b o/q square,4096,4096,96,fp16,32,F,,,_BlasBackend.Cublas,1,662.0950102806091
+llama3-8b/mistral-7b o/q square,4096,4096,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,642.7310109138489
+llama3-8b/mistral-7b o/q square,4096,4096,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,641.5320038795471
+llama3-8b/mistral-7b o/q square,4096,4096,96,fp16,32,F,,,_BlasBackend.Cublas,2,644.3619728088379
+qwen3-8b gate/up,12288,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,493.5329854488373
+qwen3-8b gate/up,12288,4096,1,fp16,32,F,,,_BlasBackend.Cublas,0,426.5500009059906
+qwen3-8b gate/up,12288,4096,1,fp16,32,F,,,_BlasBackend.Cublas,1,429.3909966945648
+qwen3-8b gate/up,12288,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,488.9709949493408
+qwen3-8b gate/up,12288,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,484.61100459098816
+qwen3-8b gate/up,12288,4096,1,fp16,32,F,,,_BlasBackend.Cublas,2,438.93998861312866
+qwen3-8b gate/up,12288,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,508.98897647857666
+qwen3-8b gate/up,12288,4096,8,fp16,32,F,,,_BlasBackend.Cublas,0,458.7459862232208
+qwen3-8b gate/up,12288,4096,8,fp16,32,F,,,_BlasBackend.Cublas,1,459.69998836517334
+qwen3-8b gate/up,12288,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,510.6920003890991
+qwen3-8b gate/up,12288,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,511.4719867706299
+qwen3-8b gate/up,12288,4096,8,fp16,32,F,,,_BlasBackend.Cublas,2,449.19100403785706
+qwen3-8b gate/up,12288,4096,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,589.9940133094788
+qwen3-8b gate/up,12288,4096,16,fp16,32,F,,,_BlasBackend.Cublas,0,562.4229907989502
+qwen3-8b gate/up,12288,4096,16,fp16,32,F,,,_BlasBackend.Cublas,1,558.8769912719727
+qwen3-8b gate/up,12288,4096,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,591.1080241203308
+qwen3-8b gate/up,12288,4096,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,589.7169709205627
+qwen3-8b gate/up,12288,4096,16,fp16,32,F,,,_BlasBackend.Cublas,2,553.2670021057129
+qwen3-8b gate/up,12288,4096,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,830.8709859848022
+qwen3-8b gate/up,12288,4096,24,fp16,32,F,,,_BlasBackend.Cublas,0,829.4960260391235
+qwen3-8b gate/up,12288,4096,24,fp16,32,F,,,_BlasBackend.Cublas,1,830.7129740715027
+qwen3-8b gate/up,12288,4096,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,816.8540000915527
+qwen3-8b gate/up,12288,4096,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,831.9559693336487
+qwen3-8b gate/up,12288,4096,24,fp16,32,F,,,_BlasBackend.Cublas,2,820.5289840698242
+qwen3-8b gate/up,12288,4096,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,835.3869915008545
+qwen3-8b gate/up,12288,4096,32,fp16,32,F,,,_BlasBackend.Cublas,0,832.1710228919983
+qwen3-8b gate/up,12288,4096,32,fp16,32,F,,,_BlasBackend.Cublas,1,825.1780271530151
+qwen3-8b gate/up,12288,4096,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,834.7319960594177
+qwen3-8b gate/up,12288,4096,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,837.719976902008
+qwen3-8b gate/up,12288,4096,32,fp16,32,F,,,_BlasBackend.Cublas,2,825.2509832382202
+qwen3-8b gate/up,12288,4096,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,1188.8689994812012
+qwen3-8b gate/up,12288,4096,48,fp16,32,F,,,_BlasBackend.Cublas,0,1189.2169713974
+qwen3-8b gate/up,12288,4096,48,fp16,32,F,,,_BlasBackend.Cublas,1,1192.4769878387451
+qwen3-8b gate/up,12288,4096,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,1185.7620477676392
+qwen3-8b gate/up,12288,4096,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,1186.2210035324097
+qwen3-8b gate/up,12288,4096,48,fp16,32,F,,,_BlasBackend.Cublas,2,1195.3020095825195
+qwen3-8b gate/up,12288,4096,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,1828.2289505004883
+qwen3-8b gate/up,12288,4096,96,fp16,32,F,,,_BlasBackend.Cublas,0,1831.3930034637451
+qwen3-8b gate/up,12288,4096,96,fp16,32,F,,,_BlasBackend.Cublas,1,1832.0529460906982
+qwen3-8b gate/up,12288,4096,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,1832.7640295028687
+qwen3-8b gate/up,12288,4096,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,1836.7069959640503
+qwen3-8b gate/up,12288,4096,96,fp16,32,F,,,_BlasBackend.Cublas,2,1891.922950744629
+qwen3-8b down,4096,12288,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,464.4260108470917
+qwen3-8b down,4096,12288,1,fp16,32,F,,,_BlasBackend.Cublas,0,402.21598744392395
+qwen3-8b down,4096,12288,1,fp16,32,F,,,_BlasBackend.Cublas,1,407.25401043891907
+qwen3-8b down,4096,12288,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,457.12900161743164
+qwen3-8b down,4096,12288,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,456.9549858570099
+qwen3-8b down,4096,12288,1,fp16,32,F,,,_BlasBackend.Cublas,2,407.04798698425293
+qwen3-8b down,4096,12288,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,489.315003156662
+qwen3-8b down,4096,12288,8,fp16,32,F,,,_BlasBackend.Cublas,0,419.24798488616943
+qwen3-8b down,4096,12288,8,fp16,32,F,,,_BlasBackend.Cublas,1,419.5629954338074
+qwen3-8b down,4096,12288,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,503.06397676467896
+qwen3-8b down,4096,12288,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,484.8099946975708
+qwen3-8b down,4096,12288,8,fp16,32,F,,,_BlasBackend.Cublas,2,432.99999833106995
+qwen3-8b down,4096,12288,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,613.9910221099854
+qwen3-8b down,4096,12288,16,fp16,32,F,,,_BlasBackend.Cublas,0,560.375988483429
+qwen3-8b down,4096,12288,16,fp16,32,F,,,_BlasBackend.Cublas,1,566.7650103569031
+qwen3-8b down,4096,12288,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,614.109992980957
+qwen3-8b down,4096,12288,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,584.8550200462341
+qwen3-8b down,4096,12288,16,fp16,32,F,,,_BlasBackend.Cublas,2,530.5249691009521
+qwen3-8b down,4096,12288,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,984.932005405426
+qwen3-8b down,4096,12288,24,fp16,32,F,,,_BlasBackend.Cublas,0,779.0690064430237
+qwen3-8b down,4096,12288,24,fp16,32,F,,,_BlasBackend.Cublas,1,776.6420245170593
+qwen3-8b down,4096,12288,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,972.4569916725159
+qwen3-8b down,4096,12288,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,984.807014465332
+qwen3-8b down,4096,12288,24,fp16,32,F,,,_BlasBackend.Cublas,2,784.6869826316833
+qwen3-8b down,4096,12288,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,982.7499985694885
+qwen3-8b down,4096,12288,32,fp16,32,F,,,_BlasBackend.Cublas,0,791.5710210800171
+qwen3-8b down,4096,12288,32,fp16,32,F,,,_BlasBackend.Cublas,1,788.4989976882935
+qwen3-8b down,4096,12288,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,982.2980165481567
+qwen3-8b down,4096,12288,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,984.8759770393372
+qwen3-8b down,4096,12288,32,fp16,32,F,,,_BlasBackend.Cublas,2,789.9940013885498
+qwen3-8b down,4096,12288,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,1256.5540075302124
+qwen3-8b down,4096,12288,48,fp16,32,F,,,_BlasBackend.Cublas,0,1250.4889965057373
+qwen3-8b down,4096,12288,48,fp16,32,F,,,_BlasBackend.Cublas,1,1256.9810152053833
+qwen3-8b down,4096,12288,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,1257.5500011444092
+qwen3-8b down,4096,12288,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,1262.531042098999
+qwen3-8b down,4096,12288,48,fp16,32,F,,,_BlasBackend.Cublas,2,1251.2270212173462
+qwen3-8b down,4096,12288,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,1862.6469373703003
+qwen3-8b down,4096,12288,96,fp16,32,F,,,_BlasBackend.Cublas,0,1856.147050857544
+qwen3-8b down,4096,12288,96,fp16,32,F,,,_BlasBackend.Cublas,1,1858.801007270813
+qwen3-8b down,4096,12288,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,1868.9299821853638
+qwen3-8b down,4096,12288,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,1855.0759553909302
+qwen3-8b down,4096,12288,96,fp16,32,F,,,_BlasBackend.Cublas,2,1857.7499389648438
+gemma2-27b gate/up,36864,4608,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,1788.0460023880005
+gemma2-27b gate/up,36864,4608,1,fp16,32,F,,,_BlasBackend.Cublas,0,1266.7039632797241
+gemma2-27b gate/up,36864,4608,1,fp16,32,F,,,_BlasBackend.Cublas,1,1276.8659591674805
+gemma2-27b gate/up,36864,4608,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,1781.6510200500488
+gemma2-27b gate/up,36864,4608,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,1781.3529968261719
+gemma2-27b gate/up,36864,4608,1,fp16,32,F,,,_BlasBackend.Cublas,2,1272.1730470657349
+gemma2-27b gate/up,36864,4608,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,1841.4520025253296
+gemma2-27b gate/up,36864,4608,8,fp16,32,F,,,_BlasBackend.Cublas,0,1349.884033203125
+gemma2-27b gate/up,36864,4608,8,fp16,32,F,,,_BlasBackend.Cublas,1,1343.8169956207275
+gemma2-27b gate/up,36864,4608,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,1819.5099830627441
+gemma2-27b gate/up,36864,4608,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,1821.0539817810059
+gemma2-27b gate/up,36864,4608,8,fp16,32,F,,,_BlasBackend.Cublas,2,1346.9549417495728
+gemma2-27b gate/up,36864,4608,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1780.1330089569092
+gemma2-27b gate/up,36864,4608,16,fp16,32,F,,,_BlasBackend.Cublas,0,1604.5479774475098
+gemma2-27b gate/up,36864,4608,16,fp16,32,F,,,_BlasBackend.Cublas,1,1623.2010126113892
+gemma2-27b gate/up,36864,4608,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1772.454023361206
+gemma2-27b gate/up,36864,4608,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1766.7609453201294
+gemma2-27b gate/up,36864,4608,16,fp16,32,F,,,_BlasBackend.Cublas,2,1617.1939373016357
+gemma2-27b gate/up,36864,4608,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,2592.2670364379883
+gemma2-27b gate/up,36864,4608,24,fp16,32,F,,,_BlasBackend.Cublas,0,2586.1799716949463
+gemma2-27b gate/up,36864,4608,24,fp16,32,F,,,_BlasBackend.Cublas,1,2590.4150009155273
+gemma2-27b gate/up,36864,4608,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,2583.085060119629
+gemma2-27b gate/up,36864,4608,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,2580.641984939575
+gemma2-27b gate/up,36864,4608,24,fp16,32,F,,,_BlasBackend.Cublas,2,2582.8568935394287
+gemma2-27b gate/up,36864,4608,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,2861.0119819641113
+gemma2-27b gate/up,36864,4608,32,fp16,32,F,,,_BlasBackend.Cublas,0,2610.2399826049805
+gemma2-27b gate/up,36864,4608,32,fp16,32,F,,,_BlasBackend.Cublas,1,2616.8110370635986
+gemma2-27b gate/up,36864,4608,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,2601.331949234009
+gemma2-27b gate/up,36864,4608,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,2600.5239486694336
+gemma2-27b gate/up,36864,4608,32,fp16,32,F,,,_BlasBackend.Cublas,2,2581.0000896453857
+gemma2-27b gate/up,36864,4608,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,3845.531940460205
+gemma2-27b gate/up,36864,4608,48,fp16,32,F,,,_BlasBackend.Cublas,0,3846.8339443206787
+gemma2-27b gate/up,36864,4608,48,fp16,32,F,,,_BlasBackend.Cublas,1,3853.945016860962
+gemma2-27b gate/up,36864,4608,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,3856.6019535064697
+gemma2-27b gate/up,36864,4608,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,3840.7349586486816
+gemma2-27b gate/up,36864,4608,48,fp16,32,F,,,_BlasBackend.Cublas,2,3851.649045944214
+gemma2-27b gate/up,36864,4608,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,6074.808120727539
+gemma2-27b gate/up,36864,4608,96,fp16,32,F,,,_BlasBackend.Cublas,0,6090.396881103516
+gemma2-27b gate/up,36864,4608,96,fp16,32,F,,,_BlasBackend.Cublas,1,6089.258193969727
+gemma2-27b gate/up,36864,4608,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,6261.241912841797
+gemma2-27b gate/up,36864,4608,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,6109.27677154541
+gemma2-27b gate/up,36864,4608,96,fp16,32,F,,,_BlasBackend.Cublas,2,6079.113960266113
+gemma2-27b down,4608,36864,1,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,0,1468.8220024108887
+gemma2-27b down,4608,36864,1,fp16,32,F,,,_BlasBackend.Cublas,0,1328.995943069458
+gemma2-27b down,4608,36864,1,fp16,32,F,,,_BlasBackend.Cublas,1,1344.5080518722534
+gemma2-27b down,4608,36864,1,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,1,1461.459994316101
+gemma2-27b down,4608,36864,1,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,2,1466.1259651184082
+gemma2-27b down,4608,36864,1,fp16,32,F,,,_BlasBackend.Cublas,2,1331.989049911499
+gemma2-27b down,4608,36864,8,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,0,1584.0849876403809
+gemma2-27b down,4608,36864,8,fp16,32,F,,,_BlasBackend.Cublas,0,1465.2409553527832
+gemma2-27b down,4608,36864,8,fp16,32,F,,,_BlasBackend.Cublas,1,1483.3580255508423
+gemma2-27b down,4608,36864,8,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,1,1587.7259969711304
+gemma2-27b down,4608,36864,8,fp16,32,A,wmma,"1,1,1,2,4,2",_BlasBackend.Cublas,2,1593.654990196228
+gemma2-27b down,4608,36864,8,fp16,32,F,,,_BlasBackend.Cublas,2,1457.7640295028687
+gemma2-27b down,4608,36864,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,2076.0860443115234
+gemma2-27b down,4608,36864,16,fp16,32,F,,,_BlasBackend.Cublas,0,1932.3899745941162
+gemma2-27b down,4608,36864,16,fp16,32,F,,,_BlasBackend.Cublas,1,1919.6349382400513
+gemma2-27b down,4608,36864,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,2063.275098800659
+gemma2-27b down,4608,36864,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,2191.606044769287
+gemma2-27b down,4608,36864,16,fp16,32,F,,,_BlasBackend.Cublas,2,2069.1699981689453
+gemma2-27b down,4608,36864,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,3538.620948791504
+gemma2-27b down,4608,36864,24,fp16,32,F,,,_BlasBackend.Cublas,0,2643.028974533081
+gemma2-27b down,4608,36864,24,fp16,32,F,,,_BlasBackend.Cublas,1,2602.7519702911377
+gemma2-27b down,4608,36864,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,3147.7088928222656
+gemma2-27b down,4608,36864,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,3144.421100616455
+gemma2-27b down,4608,36864,24,fp16,32,F,,,_BlasBackend.Cublas,2,2611.1741065979004
+gemma2-27b down,4608,36864,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,3195.924997329712
+gemma2-27b down,4608,36864,32,fp16,32,F,,,_BlasBackend.Cublas,0,2703.4480571746826
+gemma2-27b down,4608,36864,32,fp16,32,F,,,_BlasBackend.Cublas,1,2701.23291015625
+gemma2-27b down,4608,36864,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,3182.9850673675537
+gemma2-27b down,4608,36864,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,3194.935083389282
+gemma2-27b down,4608,36864,32,fp16,32,F,,,_BlasBackend.Cublas,2,2691.3459300994873
+gemma2-27b down,4608,36864,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,5323.92692565918
+gemma2-27b down,4608,36864,48,fp16,32,F,,,_BlasBackend.Cublas,0,4319.713115692139
+gemma2-27b down,4608,36864,48,fp16,32,F,,,_BlasBackend.Cublas,1,4341.836929321289
+gemma2-27b down,4608,36864,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,5429.481983184814
+gemma2-27b down,4608,36864,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,5275.485038757324
+gemma2-27b down,4608,36864,48,fp16,32,F,,,_BlasBackend.Cublas,2,4321.051120758057
+gemma2-27b down,4608,36864,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,6779.861927032471
+gemma2-27b down,4608,36864,96,fp16,32,F,,,_BlasBackend.Cublas,0,6814.641952514648
+gemma2-27b down,4608,36864,96,fp16,32,F,,,_BlasBackend.Cublas,1,6872.592926025391
+gemma2-27b down,4608,36864,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,6860.322952270508
+gemma2-27b down,4608,36864,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,6823.177814483643
+gemma2-27b down,4608,36864,96,fp16,32,F,,,_BlasBackend.Cublas,2,7321.33674621582
+gemma3-27b gate/up,21504,5376,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,1339.264988899231
+gemma3-27b gate/up,21504,5376,1,fp16,32,F,,,_BlasBackend.Cublas,0,1000.7330179214478
+gemma3-27b gate/up,21504,5376,1,fp16,32,F,,,_BlasBackend.Cublas,1,910.7999801635742
+gemma3-27b gate/up,21504,5376,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,1138.7979984283447
+gemma3-27b gate/up,21504,5376,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,1131.9589614868164
+gemma3-27b gate/up,21504,5376,1,fp16,32,F,,,_BlasBackend.Cublas,2,908.4759950637817
+gemma3-27b gate/up,21504,5376,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,1125.5559921264648
+gemma3-27b gate/up,21504,5376,8,fp16,32,F,,,_BlasBackend.Cublas,0,979.7250032424927
+gemma3-27b gate/up,21504,5376,8,fp16,32,F,,,_BlasBackend.Cublas,1,978.8839817047119
+gemma3-27b gate/up,21504,5376,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,1129.027009010315
+gemma3-27b gate/up,21504,5376,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,1124.2409944534302
+gemma3-27b gate/up,21504,5376,8,fp16,32,F,,,_BlasBackend.Cublas,2,977.7399897575378
+gemma3-27b gate/up,21504,5376,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1196.9259977340698
+gemma3-27b gate/up,21504,5376,16,fp16,32,F,,,_BlasBackend.Cublas,0,1105.9730052947998
+gemma3-27b gate/up,21504,5376,16,fp16,32,F,,,_BlasBackend.Cublas,1,1101.4729738235474
+gemma3-27b gate/up,21504,5376,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1197.2709894180298
+gemma3-27b gate/up,21504,5376,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1198.4070539474487
+gemma3-27b gate/up,21504,5376,16,fp16,32,F,,,_BlasBackend.Cublas,2,1095.579981803894
+gemma3-27b gate/up,21504,5376,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1755.0870180130005
+gemma3-27b gate/up,21504,5376,24,fp16,32,F,,,_BlasBackend.Cublas,0,1754.2040348052979
+gemma3-27b gate/up,21504,5376,24,fp16,32,F,,,_BlasBackend.Cublas,1,1741.5870428085327
+gemma3-27b gate/up,21504,5376,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1745.540976524353
+gemma3-27b gate/up,21504,5376,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1750.5450248718262
+gemma3-27b gate/up,21504,5376,24,fp16,32,F,,,_BlasBackend.Cublas,2,1755.9340000152588
+gemma3-27b gate/up,21504,5376,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1755.458950996399
+gemma3-27b gate/up,21504,5376,32,fp16,32,F,,,_BlasBackend.Cublas,0,1740.2880191802979
+gemma3-27b gate/up,21504,5376,32,fp16,32,F,,,_BlasBackend.Cublas,1,1753.1739473342896
+gemma3-27b gate/up,21504,5376,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1749.8430013656616
+gemma3-27b gate/up,21504,5376,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1754.0340423583984
+gemma3-27b gate/up,21504,5376,32,fp16,32,F,,,_BlasBackend.Cublas,2,1750.7699728012085
+gemma3-27b gate/up,21504,5376,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,2623.008966445923
+gemma3-27b gate/up,21504,5376,48,fp16,32,F,,,_BlasBackend.Cublas,0,2622.309923171997
+gemma3-27b gate/up,21504,5376,48,fp16,32,F,,,_BlasBackend.Cublas,1,2626.897096633911
+gemma3-27b gate/up,21504,5376,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,2613.9700412750244
+gemma3-27b gate/up,21504,5376,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,2621.464967727661
+gemma3-27b gate/up,21504,5376,48,fp16,32,F,,,_BlasBackend.Cublas,2,2622.199058532715
+gemma3-27b gate/up,21504,5376,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,4141.387939453125
+gemma3-27b gate/up,21504,5376,96,fp16,32,F,,,_BlasBackend.Cublas,0,4145.839214324951
+gemma3-27b gate/up,21504,5376,96,fp16,32,F,,,_BlasBackend.Cublas,1,4144.51789855957
+gemma3-27b gate/up,21504,5376,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,4147.407054901123
+gemma3-27b gate/up,21504,5376,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,4143.938064575195
+gemma3-27b gate/up,21504,5376,96,fp16,32,F,,,_BlasBackend.Cublas,2,4148.458957672119
+gemma3-27b down,5376,21504,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,958.5210084915161
+gemma3-27b down,5376,21504,1,fp16,32,F,,,_BlasBackend.Cublas,0,884.8029971122742
+gemma3-27b down,5376,21504,1,fp16,32,F,,,_BlasBackend.Cublas,1,922.631025314331
+gemma3-27b down,5376,21504,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,997.4730014801025
+gemma3-27b down,5376,21504,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,921.284019947052
+gemma3-27b down,5376,21504,1,fp16,32,F,,,_BlasBackend.Cublas,2,802.4699687957764
+gemma3-27b down,5376,21504,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,983.3700060844421
+gemma3-27b down,5376,21504,8,fp16,32,F,,,_BlasBackend.Cublas,0,839.3170237541199
+gemma3-27b down,5376,21504,8,fp16,32,F,,,_BlasBackend.Cublas,1,834.007978439331
+gemma3-27b down,5376,21504,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,982.4749827384949
+gemma3-27b down,5376,21504,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,984.9240183830261
+gemma3-27b down,5376,21504,8,fp16,32,F,,,_BlasBackend.Cublas,2,834.185004234314
+gemma3-27b down,5376,21504,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1111.7570400238037
+gemma3-27b down,5376,21504,16,fp16,32,F,,,_BlasBackend.Cublas,0,1125.1349449157715
+gemma3-27b down,5376,21504,16,fp16,32,F,,,_BlasBackend.Cublas,1,1133.2039833068848
+gemma3-27b down,5376,21504,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1114.7350072860718
+gemma3-27b down,5376,21504,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1100.6159782409668
+gemma3-27b down,5376,21504,16,fp16,32,F,,,_BlasBackend.Cublas,2,1127.7309656143188
+gemma3-27b down,5376,21504,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1729.2410135269165
+gemma3-27b down,5376,21504,24,fp16,32,F,,,_BlasBackend.Cublas,0,1735.5129718780518
+gemma3-27b down,5376,21504,24,fp16,32,F,,,_BlasBackend.Cublas,1,1735.4589700698853
+gemma3-27b down,5376,21504,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1733.0620288848877
+gemma3-27b down,5376,21504,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1721.6390371322632
+gemma3-27b down,5376,21504,24,fp16,32,F,,,_BlasBackend.Cublas,2,1736.3300323486328
+gemma3-27b down,5376,21504,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,1741.3170337677002
+gemma3-27b down,5376,21504,32,fp16,32,F,,,_BlasBackend.Cublas,0,1745.3769445419312
+gemma3-27b down,5376,21504,32,fp16,32,F,,,_BlasBackend.Cublas,1,1753.7299394607544
+gemma3-27b down,5376,21504,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,1752.0740032196045
+gemma3-27b down,5376,21504,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,1745.3869581222534
+gemma3-27b down,5376,21504,32,fp16,32,F,,,_BlasBackend.Cublas,2,1749.6039867401123
+gemma3-27b down,5376,21504,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,3225.977897644043
+gemma3-27b down,5376,21504,48,fp16,32,F,,,_BlasBackend.Cublas,0,2817.305088043213
+gemma3-27b down,5376,21504,48,fp16,32,F,,,_BlasBackend.Cublas,1,2823.409080505371
+gemma3-27b down,5376,21504,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,3213.775873184204
+gemma3-27b down,5376,21504,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,3202.5599479675293
+gemma3-27b down,5376,21504,48,fp16,32,F,,,_BlasBackend.Cublas,2,2804.5880794525146
+gemma3-27b down,5376,21504,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,4185.216903686523
+gemma3-27b down,5376,21504,96,fp16,32,F,,,_BlasBackend.Cublas,0,4223.528861999512
+gemma3-27b down,5376,21504,96,fp16,32,F,,,_BlasBackend.Cublas,1,4227.570056915283
+gemma3-27b down,5376,21504,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,4217.668056488037
+gemma3-27b down,5376,21504,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,4221.914768218994
+gemma3-27b down,5376,21504,96,fp16,32,F,,,_BlasBackend.Cublas,2,4203.734874725342
+gemma3-12b gate/up,15360,3840,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,720.058023929596
+gemma3-12b gate/up,15360,3840,1,fp16,32,F,,,_BlasBackend.Cublas,0,454.33101058006287
+gemma3-12b gate/up,15360,3840,1,fp16,32,F,,,_BlasBackend.Cublas,1,453.18499207496643
+gemma3-12b gate/up,15360,3840,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,646.1610198020935
+gemma3-12b gate/up,15360,3840,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,653.8709998130798
+gemma3-12b gate/up,15360,3840,1,fp16,32,F,,,_BlasBackend.Cublas,2,451.35000348091125
+gemma3-12b gate/up,15360,3840,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,661.8779897689819
+gemma3-12b gate/up,15360,3840,8,fp16,32,F,,,_BlasBackend.Cublas,0,462.70298957824707
+gemma3-12b gate/up,15360,3840,8,fp16,32,F,,,_BlasBackend.Cublas,1,460.9070122241974
+gemma3-12b gate/up,15360,3840,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,665.9489870071411
+gemma3-12b gate/up,15360,3840,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,656.1669707298279
+gemma3-12b gate/up,15360,3840,8,fp16,32,F,,,_BlasBackend.Cublas,2,469.17298436164856
+gemma3-12b gate/up,15360,3840,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,652.3399949073792
+gemma3-12b gate/up,15360,3840,16,fp16,32,F,,,_BlasBackend.Cublas,0,608.4449887275696
+gemma3-12b gate/up,15360,3840,16,fp16,32,F,,,_BlasBackend.Cublas,1,613.502025604248
+gemma3-12b gate/up,15360,3840,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,658.0089926719666
+gemma3-12b gate/up,15360,3840,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,662.0360016822815
+gemma3-12b gate/up,15360,3840,16,fp16,32,F,,,_BlasBackend.Cublas,2,581.849992275238
+gemma3-12b gate/up,15360,3840,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,937.1699690818787
+gemma3-12b gate/up,15360,3840,24,fp16,32,F,,,_BlasBackend.Cublas,0,930.3249716758728
+gemma3-12b gate/up,15360,3840,24,fp16,32,F,,,_BlasBackend.Cublas,1,932.7110052108765
+gemma3-12b gate/up,15360,3840,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,934.6190094947815
+gemma3-12b gate/up,15360,3840,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,927.606999874115
+gemma3-12b gate/up,15360,3840,24,fp16,32,F,,,_BlasBackend.Cublas,2,944.6719884872437
+gemma3-12b gate/up,15360,3840,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,935.9539747238159
+gemma3-12b gate/up,15360,3840,32,fp16,32,F,,,_BlasBackend.Cublas,0,927.6589751243591
+gemma3-12b gate/up,15360,3840,32,fp16,32,F,,,_BlasBackend.Cublas,1,933.3580136299133
+gemma3-12b gate/up,15360,3840,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,941.2850141525269
+gemma3-12b gate/up,15360,3840,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,928.9500117301941
+gemma3-12b gate/up,15360,3840,32,fp16,32,F,,,_BlasBackend.Cublas,2,932.4920177459717
+gemma3-12b gate/up,15360,3840,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,1366.515040397644
+gemma3-12b gate/up,15360,3840,48,fp16,32,F,,,_BlasBackend.Cublas,0,1366.6869401931763
+gemma3-12b gate/up,15360,3840,48,fp16,32,F,,,_BlasBackend.Cublas,1,1369.3870306015015
+gemma3-12b gate/up,15360,3840,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,1363.7160062789917
+gemma3-12b gate/up,15360,3840,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,1362.5600337982178
+gemma3-12b gate/up,15360,3840,48,fp16,32,F,,,_BlasBackend.Cublas,2,1364.0090227127075
+gemma3-12b gate/up,15360,3840,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,2128.3109188079834
+gemma3-12b gate/up,15360,3840,96,fp16,32,F,,,_BlasBackend.Cublas,0,2124.0060329437256
+gemma3-12b gate/up,15360,3840,96,fp16,32,F,,,_BlasBackend.Cublas,1,2130.552053451538
+gemma3-12b gate/up,15360,3840,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,2130.331039428711
+gemma3-12b gate/up,15360,3840,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,2125.458002090454
+gemma3-12b gate/up,15360,3840,96,fp16,32,F,,,_BlasBackend.Cublas,2,2130.1119327545166
+gemma3-12b down,3840,15360,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,514.6179795265198
+gemma3-12b down,3840,15360,1,fp16,32,F,,,_BlasBackend.Cublas,0,450.5719840526581
+gemma3-12b down,3840,15360,1,fp16,32,F,,,_BlasBackend.Cublas,1,458.86901021003723
+gemma3-12b down,3840,15360,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,513.0980014801025
+gemma3-12b down,3840,15360,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,505.89799880981445
+gemma3-12b down,3840,15360,1,fp16,32,F,,,_BlasBackend.Cublas,2,466.482013463974
+gemma3-12b down,3840,15360,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,531.7729711532593
+gemma3-12b down,3840,15360,8,fp16,32,F,,,_BlasBackend.Cublas,0,483.801007270813
+gemma3-12b down,3840,15360,8,fp16,32,F,,,_BlasBackend.Cublas,1,478.426992893219
+gemma3-12b down,3840,15360,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,531.1959981918335
+gemma3-12b down,3840,15360,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,529.416024684906
+gemma3-12b down,3840,15360,8,fp16,32,F,,,_BlasBackend.Cublas,2,477.1040081977844
+gemma3-12b down,3840,15360,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,669.5370078086853
+gemma3-12b down,3840,15360,16,fp16,32,F,,,_BlasBackend.Cublas,0,599.6310114860535
+gemma3-12b down,3840,15360,16,fp16,32,F,,,_BlasBackend.Cublas,1,604.5460104942322
+gemma3-12b down,3840,15360,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,683.4779977798462
+gemma3-12b down,3840,15360,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,676.6939759254456
+gemma3-12b down,3840,15360,16,fp16,32,F,,,_BlasBackend.Cublas,2,595.4509973526001
+gemma3-12b down,3840,15360,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1118.1859970092773
+gemma3-12b down,3840,15360,24,fp16,32,F,,,_BlasBackend.Cublas,0,891.4700150489807
+gemma3-12b down,3840,15360,24,fp16,32,F,,,_BlasBackend.Cublas,1,906.3100218772888
+gemma3-12b down,3840,15360,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1125.6920099258423
+gemma3-12b down,3840,15360,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1115.9310340881348
+gemma3-12b down,3840,15360,24,fp16,32,F,,,_BlasBackend.Cublas,2,896.8610167503357
+gemma3-12b down,3840,15360,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,1125.6589889526367
+gemma3-12b down,3840,15360,32,fp16,32,F,,,_BlasBackend.Cublas,0,906.2610268592834
+gemma3-12b down,3840,15360,32,fp16,32,F,,,_BlasBackend.Cublas,1,903.6549925804138
+gemma3-12b down,3840,15360,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,1130.3789615631104
+gemma3-12b down,3840,15360,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,1105.286955833435
+gemma3-12b down,3840,15360,32,fp16,32,F,,,_BlasBackend.Cublas,2,901.8589854240417
+gemma3-12b down,3840,15360,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,1525.784969329834
+gemma3-12b down,3840,15360,48,fp16,32,F,,,_BlasBackend.Cublas,0,1440.98699092865
+gemma3-12b down,3840,15360,48,fp16,32,F,,,_BlasBackend.Cublas,1,1433.763027191162
+gemma3-12b down,3840,15360,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,1526.5350341796875
+gemma3-12b down,3840,15360,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,1522.102952003479
+gemma3-12b down,3840,15360,48,fp16,32,F,,,_BlasBackend.Cublas,2,1440.490961074829
+gemma3-12b down,3840,15360,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,2218.7659740448
+gemma3-12b down,3840,15360,96,fp16,32,F,,,_BlasBackend.Cublas,0,2238.265037536621
+gemma3-12b down,3840,15360,96,fp16,32,F,,,_BlasBackend.Cublas,1,2174.4749546051025
+gemma3-12b down,3840,15360,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,2158.7228775024414
+gemma3-12b down,3840,15360,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,2147.036075592041
+gemma3-12b down,3840,15360,96,fp16,32,F,,,_BlasBackend.Cublas,2,2143.449068069458
+gemma3-4b gate/up,10240,2560,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,327.1690011024475
+gemma3-4b gate/up,10240,2560,1,fp16,32,F,,,_BlasBackend.Cublas,0,202.77799665927887
+gemma3-4b gate/up,10240,2560,1,fp16,32,F,,,_BlasBackend.Cublas,1,206.43199980258942
+gemma3-4b gate/up,10240,2560,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,311.70299649238586
+gemma3-4b gate/up,10240,2560,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,306.4189851284027
+gemma3-4b gate/up,10240,2560,1,fp16,32,F,,,_BlasBackend.Cublas,2,198.96599650382996
+gemma3-4b gate/up,10240,2560,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,323.2010006904602
+gemma3-4b gate/up,10240,2560,8,fp16,32,F,,,_BlasBackend.Cublas,0,204.85399663448334
+gemma3-4b gate/up,10240,2560,8,fp16,32,F,,,_BlasBackend.Cublas,1,204.84599471092224
+gemma3-4b gate/up,10240,2560,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,330.2370011806488
+gemma3-4b gate/up,10240,2560,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,331.06398582458496
+gemma3-4b gate/up,10240,2560,8,fp16,32,F,,,_BlasBackend.Cublas,2,210.20899713039398
+gemma3-4b gate/up,10240,2560,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,302.06000804901123
+gemma3-4b gate/up,10240,2560,16,fp16,32,F,,,_BlasBackend.Cublas,0,265.63599705696106
+gemma3-4b gate/up,10240,2560,16,fp16,32,F,,,_BlasBackend.Cublas,1,272.6399898529053
+gemma3-4b gate/up,10240,2560,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,305.7119846343994
+gemma3-4b gate/up,10240,2560,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,309.3709945678711
+gemma3-4b gate/up,10240,2560,16,fp16,32,F,,,_BlasBackend.Cublas,2,280.10401129722595
+gemma3-4b gate/up,10240,2560,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,443.9849853515625
+gemma3-4b gate/up,10240,2560,24,fp16,32,F,,,_BlasBackend.Cublas,0,445.264995098114
+gemma3-4b gate/up,10240,2560,24,fp16,32,F,,,_BlasBackend.Cublas,1,440.97599387168884
+gemma3-4b gate/up,10240,2560,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,443.4889853000641
+gemma3-4b gate/up,10240,2560,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,441.0420060157776
+gemma3-4b gate/up,10240,2560,24,fp16,32,F,,,_BlasBackend.Cublas,2,443.63200664520264
+gemma3-4b gate/up,10240,2560,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,450.1720070838928
+gemma3-4b gate/up,10240,2560,32,fp16,32,F,,,_BlasBackend.Cublas,0,445.807009935379
+gemma3-4b gate/up,10240,2560,32,fp16,32,F,,,_BlasBackend.Cublas,1,456.1240077018738
+gemma3-4b gate/up,10240,2560,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,446.51299715042114
+gemma3-4b gate/up,10240,2560,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,445.1110064983368
+gemma3-4b gate/up,10240,2560,32,fp16,32,F,,,_BlasBackend.Cublas,2,445.33199071884155
+gemma3-4b gate/up,10240,2560,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,635.7539892196655
+gemma3-4b gate/up,10240,2560,48,fp16,32,F,,,_BlasBackend.Cublas,0,637.067973613739
+gemma3-4b gate/up,10240,2560,48,fp16,32,F,,,_BlasBackend.Cublas,1,639.8839950561523
+gemma3-4b gate/up,10240,2560,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,636.1219882965088
+gemma3-4b gate/up,10240,2560,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,637.3559832572937
+gemma3-4b gate/up,10240,2560,48,fp16,32,F,,,_BlasBackend.Cublas,2,642.4090266227722
+gemma3-4b gate/up,10240,2560,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,977.0249724388123
+gemma3-4b gate/up,10240,2560,96,fp16,32,F,,,_BlasBackend.Cublas,0,983.9659929275513
+gemma3-4b gate/up,10240,2560,96,fp16,32,F,,,_BlasBackend.Cublas,1,984.8030209541321
+gemma3-4b gate/up,10240,2560,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,981.4019799232483
+gemma3-4b gate/up,10240,2560,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,981.2979698181152
+gemma3-4b gate/up,10240,2560,96,fp16,32,F,,,_BlasBackend.Cublas,2,989.9889826774597
+gemma3-4b down,2560,10240,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,257.63100385665894
+gemma3-4b down,2560,10240,1,fp16,32,F,,,_BlasBackend.Cublas,0,222.11900353431702
+gemma3-4b down,2560,10240,1,fp16,32,F,,,_BlasBackend.Cublas,1,221.22900187969208
+gemma3-4b down,2560,10240,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,247.53500521183014
+gemma3-4b down,2560,10240,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,245.70700526237488
+gemma3-4b down,2560,10240,1,fp16,32,F,,,_BlasBackend.Cublas,2,221.82700037956238
+gemma3-4b down,2560,10240,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,267.0210003852844
+gemma3-4b down,2560,10240,8,fp16,32,F,,,_BlasBackend.Cublas,0,235.89499294757843
+gemma3-4b down,2560,10240,8,fp16,32,F,,,_BlasBackend.Cublas,1,237.868994474411
+gemma3-4b down,2560,10240,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,274.4709849357605
+gemma3-4b down,2560,10240,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,263.01300525665283
+gemma3-4b down,2560,10240,8,fp16,32,F,,,_BlasBackend.Cublas,2,226.80699825286865
+gemma3-4b down,2560,10240,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,319.9499845504761
+gemma3-4b down,2560,10240,16,fp16,32,F,,,_BlasBackend.Cublas,0,291.3169860839844
+gemma3-4b down,2560,10240,16,fp16,32,F,,,_BlasBackend.Cublas,1,290.36399722099304
+gemma3-4b down,2560,10240,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,316.96000695228577
+gemma3-4b down,2560,10240,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,319.4279968738556
+gemma3-4b down,2560,10240,16,fp16,32,F,,,_BlasBackend.Cublas,2,299.1740107536316
+gemma3-4b down,2560,10240,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,525.189995765686
+gemma3-4b down,2560,10240,24,fp16,32,F,,,_BlasBackend.Cublas,0,416.00099205970764
+gemma3-4b down,2560,10240,24,fp16,32,F,,,_BlasBackend.Cublas,1,414.249986410141
+gemma3-4b down,2560,10240,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,532.1109890937805
+gemma3-4b down,2560,10240,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,541.2949919700623
+gemma3-4b down,2560,10240,24,fp16,32,F,,,_BlasBackend.Cublas,2,416.09498858451843
+gemma3-4b down,2560,10240,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,594.1429734230042
+gemma3-4b down,2560,10240,32,fp16,32,F,,,_BlasBackend.Cublas,0,420.0589954853058
+gemma3-4b down,2560,10240,32,fp16,32,F,,,_BlasBackend.Cublas,1,419.1739857196808
+gemma3-4b down,2560,10240,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,589.8540019989014
+gemma3-4b down,2560,10240,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,590.6969904899597
+gemma3-4b down,2560,10240,32,fp16,32,F,,,_BlasBackend.Cublas,2,424.5150089263916
+gemma3-4b down,2560,10240,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,766.5150165557861
+gemma3-4b down,2560,10240,48,fp16,32,F,,,_BlasBackend.Cublas,0,655.1209688186646
+gemma3-4b down,2560,10240,48,fp16,32,F,,,_BlasBackend.Cublas,1,655.456006526947
+gemma3-4b down,2560,10240,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,770.2649831771851
+gemma3-4b down,2560,10240,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,766.4709687232971
+gemma3-4b down,2560,10240,48,fp16,32,F,,,_BlasBackend.Cublas,2,657.4050188064575
+gemma3-4b down,2560,10240,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,1274.9459743499756
+gemma3-4b down,2560,10240,96,fp16,32,F,,,_BlasBackend.Cublas,0,1260.4470252990723
+gemma3-4b down,2560,10240,96,fp16,32,F,,,_BlasBackend.Cublas,1,1276.1579751968384
+gemma3-4b down,2560,10240,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,1289.937973022461
+gemma3-4b down,2560,10240,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,1300.3089427947998
+gemma3-4b down,2560,10240,96,fp16,32,F,,,_BlasBackend.Cublas,2,1269.0080404281616
+phi3-mini/llama3.2-3b gate/up,8192,3072,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,242.62699484825134
+phi3-mini/llama3.2-3b gate/up,8192,3072,1,fp16,32,F,,,_BlasBackend.Cublas,0,198.62599670886993
+phi3-mini/llama3.2-3b gate/up,8192,3072,1,fp16,32,F,,,_BlasBackend.Cublas,1,193.5659945011139
+phi3-mini/llama3.2-3b gate/up,8192,3072,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,235.14500260353088
+phi3-mini/llama3.2-3b gate/up,8192,3072,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,233.26000571250916
+phi3-mini/llama3.2-3b gate/up,8192,3072,1,fp16,32,F,,,_BlasBackend.Cublas,2,196.10899686813354
+phi3-mini/llama3.2-3b gate/up,8192,3072,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,235.3229969739914
+phi3-mini/llama3.2-3b gate/up,8192,3072,8,fp16,32,F,,,_BlasBackend.Cublas,0,202.46699452400208
+phi3-mini/llama3.2-3b gate/up,8192,3072,8,fp16,32,F,,,_BlasBackend.Cublas,1,199.9800056219101
+phi3-mini/llama3.2-3b gate/up,8192,3072,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,233.2870066165924
+phi3-mini/llama3.2-3b gate/up,8192,3072,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,241.83499813079834
+phi3-mini/llama3.2-3b gate/up,8192,3072,8,fp16,32,F,,,_BlasBackend.Cublas,2,199.4290053844452
+phi3-mini/llama3.2-3b gate/up,8192,3072,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,296.51299118995667
+phi3-mini/llama3.2-3b gate/up,8192,3072,16,fp16,32,F,,,_BlasBackend.Cublas,0,266.3879990577698
+phi3-mini/llama3.2-3b gate/up,8192,3072,16,fp16,32,F,,,_BlasBackend.Cublas,1,267.50099658966064
+phi3-mini/llama3.2-3b gate/up,8192,3072,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,325.85498690605164
+phi3-mini/llama3.2-3b gate/up,8192,3072,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,317.61398911476135
+phi3-mini/llama3.2-3b gate/up,8192,3072,16,fp16,32,F,,,_BlasBackend.Cublas,2,294.41800713539124
+phi3-mini/llama3.2-3b gate/up,8192,3072,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,468.8119888305664
+phi3-mini/llama3.2-3b gate/up,8192,3072,24,fp16,32,F,,,_BlasBackend.Cublas,0,416.16299748420715
+phi3-mini/llama3.2-3b gate/up,8192,3072,24,fp16,32,F,,,_BlasBackend.Cublas,1,421.7509925365448
+phi3-mini/llama3.2-3b gate/up,8192,3072,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,428.4540116786957
+phi3-mini/llama3.2-3b gate/up,8192,3072,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,425.67700147628784
+phi3-mini/llama3.2-3b gate/up,8192,3072,24,fp16,32,F,,,_BlasBackend.Cublas,2,415.09801149368286
+phi3-mini/llama3.2-3b gate/up,8192,3072,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,423.0700135231018
+phi3-mini/llama3.2-3b gate/up,8192,3072,32,fp16,32,F,,,_BlasBackend.Cublas,0,426.6609847545624
+phi3-mini/llama3.2-3b gate/up,8192,3072,32,fp16,32,F,,,_BlasBackend.Cublas,1,426.6839921474457
+phi3-mini/llama3.2-3b gate/up,8192,3072,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,425.66201090812683
+phi3-mini/llama3.2-3b gate/up,8192,3072,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,423.6379861831665
+phi3-mini/llama3.2-3b gate/up,8192,3072,32,fp16,32,F,,,_BlasBackend.Cublas,2,414.4899845123291
+phi3-mini/llama3.2-3b gate/up,8192,3072,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,604.8539876937866
+phi3-mini/llama3.2-3b gate/up,8192,3072,48,fp16,32,F,,,_BlasBackend.Cublas,0,602.8010249137878
+phi3-mini/llama3.2-3b gate/up,8192,3072,48,fp16,32,F,,,_BlasBackend.Cublas,1,603.1000018119812
+phi3-mini/llama3.2-3b gate/up,8192,3072,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,608.2090139389038
+phi3-mini/llama3.2-3b gate/up,8192,3072,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,605.2939891815186
+phi3-mini/llama3.2-3b gate/up,8192,3072,48,fp16,32,F,,,_BlasBackend.Cublas,2,600.2439856529236
+phi3-mini/llama3.2-3b gate/up,8192,3072,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,931.6149950027466
+phi3-mini/llama3.2-3b gate/up,8192,3072,96,fp16,32,F,,,_BlasBackend.Cublas,0,933.4229826927185
+phi3-mini/llama3.2-3b gate/up,8192,3072,96,fp16,32,F,,,_BlasBackend.Cublas,1,935.2039694786072
+phi3-mini/llama3.2-3b gate/up,8192,3072,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,931.9689869880676
+phi3-mini/llama3.2-3b gate/up,8192,3072,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,928.409993648529
+phi3-mini/llama3.2-3b gate/up,8192,3072,96,fp16,32,F,,,_BlasBackend.Cublas,2,931.2189817428589
+phi3-mini/llama3.2-3b down,3072,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,236.6040050983429
+phi3-mini/llama3.2-3b down,3072,8192,1,fp16,32,F,,,_BlasBackend.Cublas,0,216.29099547863007
+phi3-mini/llama3.2-3b down,3072,8192,1,fp16,32,F,,,_BlasBackend.Cublas,1,218.42500567436218
+phi3-mini/llama3.2-3b down,3072,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,237.07500100135803
+phi3-mini/llama3.2-3b down,3072,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,241.35099351406097
+phi3-mini/llama3.2-3b down,3072,8192,1,fp16,32,F,,,_BlasBackend.Cublas,2,217.05499291419983
+phi3-mini/llama3.2-3b down,3072,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,246.52600288391113
+phi3-mini/llama3.2-3b down,3072,8192,8,fp16,32,F,,,_BlasBackend.Cublas,0,217.73099899291992
+phi3-mini/llama3.2-3b down,3072,8192,8,fp16,32,F,,,_BlasBackend.Cublas,1,215.90299904346466
+phi3-mini/llama3.2-3b down,3072,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,244.45900321006775
+phi3-mini/llama3.2-3b down,3072,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,246.75899744033813
+phi3-mini/llama3.2-3b down,3072,8192,8,fp16,32,F,,,_BlasBackend.Cublas,2,222.03299403190613
+phi3-mini/llama3.2-3b down,3072,8192,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,313.41299414634705
+phi3-mini/llama3.2-3b down,3072,8192,16,fp16,32,F,,,_BlasBackend.Cublas,0,283.03301334381104
+phi3-mini/llama3.2-3b down,3072,8192,16,fp16,32,F,,,_BlasBackend.Cublas,1,282.1109890937805
+phi3-mini/llama3.2-3b down,3072,8192,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,312.3700022697449
+phi3-mini/llama3.2-3b down,3072,8192,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,313.15499544143677
+phi3-mini/llama3.2-3b down,3072,8192,16,fp16,32,F,,,_BlasBackend.Cublas,2,285.0799858570099
+phi3-mini/llama3.2-3b down,3072,8192,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,521.5839743614197
+phi3-mini/llama3.2-3b down,3072,8192,24,fp16,32,F,,,_BlasBackend.Cublas,0,410.9179973602295
+phi3-mini/llama3.2-3b down,3072,8192,24,fp16,32,F,,,_BlasBackend.Cublas,1,411.79201006889343
+phi3-mini/llama3.2-3b down,3072,8192,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,523.0579972267151
+phi3-mini/llama3.2-3b down,3072,8192,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,515.1990056037903
+phi3-mini/llama3.2-3b down,3072,8192,24,fp16,32,F,,,_BlasBackend.Cublas,2,407.65199065208435
+phi3-mini/llama3.2-3b down,3072,8192,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,518.3050036430359
+phi3-mini/llama3.2-3b down,3072,8192,32,fp16,32,F,,,_BlasBackend.Cublas,0,413.8199985027313
+phi3-mini/llama3.2-3b down,3072,8192,32,fp16,32,F,,,_BlasBackend.Cublas,1,413.99699449539185
+phi3-mini/llama3.2-3b down,3072,8192,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,518.347978591919
+phi3-mini/llama3.2-3b down,3072,8192,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,518.5109972953796
+phi3-mini/llama3.2-3b down,3072,8192,32,fp16,32,F,,,_BlasBackend.Cublas,2,412.8449857234955
+phi3-mini/llama3.2-3b down,3072,8192,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,742.4499988555908
+phi3-mini/llama3.2-3b down,3072,8192,48,fp16,32,F,,,_BlasBackend.Cublas,0,615.257978439331
+phi3-mini/llama3.2-3b down,3072,8192,48,fp16,32,F,,,_BlasBackend.Cublas,1,618.0329918861389
+phi3-mini/llama3.2-3b down,3072,8192,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,746.6359734535217
+phi3-mini/llama3.2-3b down,3072,8192,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,748.4220266342163
+phi3-mini/llama3.2-3b down,3072,8192,48,fp16,32,F,,,_BlasBackend.Cublas,2,621.474027633667
+phi3-mini/llama3.2-3b down,3072,8192,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,936.6989731788635
+phi3-mini/llama3.2-3b down,3072,8192,96,fp16,32,F,,,_BlasBackend.Cublas,0,934.6439838409424
+phi3-mini/llama3.2-3b down,3072,8192,96,fp16,32,F,,,_BlasBackend.Cublas,1,936.6260170936584
+phi3-mini/llama3.2-3b down,3072,8192,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,931.6189885139465
+phi3-mini/llama3.2-3b down,3072,8192,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,934.4949722290039
+phi3-mini/llama3.2-3b down,3072,8192,96,fp16,32,F,,,_BlasBackend.Cublas,2,939.9009943008423
+small square,2048,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,61.91499903798103
+small square,2048,2048,1,fp16,32,F,,,_BlasBackend.Cublas,0,51.252998411655426
+small square,2048,2048,1,fp16,32,F,,,_BlasBackend.Cublas,1,50.8899986743927
+small square,2048,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,58.26300010085106
+small square,2048,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,64.09499794244766
+small square,2048,2048,1,fp16,32,F,,,_BlasBackend.Cublas,2,53.84499952197075
+small square,2048,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,65.70900231599808
+small square,2048,2048,8,fp16,32,F,,,_BlasBackend.Cublas,0,58.20399895310402
+small square,2048,2048,8,fp16,32,F,,,_BlasBackend.Cublas,1,58.61999839544296
+small square,2048,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,61.41199916601181
+small square,2048,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,61.089999973773956
+small square,2048,2048,8,fp16,32,F,,,_BlasBackend.Cublas,2,51.715001463890076
+small square,2048,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,75.44299960136414
+small square,2048,2048,16,fp16,32,F,,,_BlasBackend.Cublas,0,63.93600255250931
+small square,2048,2048,16,fp16,32,F,,,_BlasBackend.Cublas,1,64.03599679470062
+small square,2048,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,76.14699751138687
+small square,2048,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,77.10400223731995
+small square,2048,2048,16,fp16,32,F,,,_BlasBackend.Cublas,2,64.60899859666824
+small square,2048,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,106.08699917793274
+small square,2048,2048,24,fp16,32,F,,,_BlasBackend.Cublas,0,89.3929973244667
+small square,2048,2048,24,fp16,32,F,,,_BlasBackend.Cublas,1,92.46300160884857
+small square,2048,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,107.35499858856201
+small square,2048,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,107.11599886417389
+small square,2048,2048,24,fp16,32,F,,,_BlasBackend.Cublas,2,90.06399661302567
+small square,2048,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,132.64499604701996
+small square,2048,2048,32,fp16,32,F,,,_BlasBackend.Cublas,0,91.76599979400635
+small square,2048,2048,32,fp16,32,F,,,_BlasBackend.Cublas,1,90.55300056934357
+small square,2048,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,132.43399560451508
+small square,2048,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,131.49599730968475
+small square,2048,2048,32,fp16,32,F,,,_BlasBackend.Cublas,2,90.60300141572952
+small square,2048,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,150.68499743938446
+small square,2048,2048,48,fp16,32,F,,,_BlasBackend.Cublas,0,126.49700045585632
+small square,2048,2048,48,fp16,32,F,,,_BlasBackend.Cublas,1,127.73999571800232
+small square,2048,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,151.68499946594238
+small square,2048,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,151.75700187683105
+small square,2048,2048,48,fp16,32,F,,,_BlasBackend.Cublas,2,127.69900262355804
+small square,2048,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,237.83400654792786
+small square,2048,2048,96,fp16,32,F,,,_BlasBackend.Cublas,0,242.8629994392395
+small square,2048,2048,96,fp16,32,F,,,_BlasBackend.Cublas,1,239.0899956226349
+small square,2048,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,238.413006067276
+small square,2048,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,236.43800616264343
+small square,2048,2048,96,fp16,32,F,,,_BlasBackend.Cublas,2,236.85500025749207
+7-8b k/v,1024,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,59.95199829339981
+7-8b k/v,1024,4096,1,fp16,32,F,,,_BlasBackend.Cublas,0,52.06900089979172
+7-8b k/v,1024,4096,1,fp16,32,F,,,_BlasBackend.Cublas,1,51.9770011305809
+7-8b k/v,1024,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,56.038998067379
+7-8b k/v,1024,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,56.623999029397964
+7-8b k/v,1024,4096,1,fp16,32,F,,,_BlasBackend.Cublas,2,50.19000172615051
+7-8b k/v,1024,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,59.46299806237221
+7-8b k/v,1024,4096,8,fp16,32,F,,,_BlasBackend.Cublas,0,52.54000052809715
+7-8b k/v,1024,4096,8,fp16,32,F,,,_BlasBackend.Cublas,1,51.201000809669495
+7-8b k/v,1024,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,60.290999710559845
+7-8b k/v,1024,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,59.71900001168251
+7-8b k/v,1024,4096,8,fp16,32,F,,,_BlasBackend.Cublas,2,52.72899940609932
+7-8b k/v,1024,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,66.63999706506729
+7-8b k/v,1024,4096,16,fp16,32,F,,,_BlasBackend.Cublas,0,71.92300260066986
+7-8b k/v,1024,4096,16,fp16,32,F,,,_BlasBackend.Cublas,1,72.3629966378212
+7-8b k/v,1024,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,67.90400296449661
+7-8b k/v,1024,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,67.05000251531601
+7-8b k/v,1024,4096,16,fp16,32,F,,,_BlasBackend.Cublas,2,72.24000245332718
+7-8b k/v,1024,4096,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,97.70700335502625
+7-8b k/v,1024,4096,24,fp16,32,F,,,_BlasBackend.Cublas,0,85.2309986948967
+7-8b k/v,1024,4096,24,fp16,32,F,,,_BlasBackend.Cublas,1,84.79300141334534
+7-8b k/v,1024,4096,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,101.63100063800812
+7-8b k/v,1024,4096,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,100.64800083637238
+7-8b k/v,1024,4096,24,fp16,32,F,,,_BlasBackend.Cublas,2,85.4090005159378
+7-8b k/v,1024,4096,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,114.09399658441544
+7-8b k/v,1024,4096,32,fp16,32,F,,,_BlasBackend.Cublas,0,85.04900336265564
+7-8b k/v,1024,4096,32,fp16,32,F,,,_BlasBackend.Cublas,1,84.74099636077881
+7-8b k/v,1024,4096,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,116.4499968290329
+7-8b k/v,1024,4096,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,109.98699814081192
+7-8b k/v,1024,4096,32,fp16,32,F,,,_BlasBackend.Cublas,2,84.32800322771072
+7-8b k/v,1024,4096,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,141.9609934091568
+7-8b k/v,1024,4096,48,fp16,32,F,,,_BlasBackend.Cublas,0,126.65699422359467
+7-8b k/v,1024,4096,48,fp16,32,F,,,_BlasBackend.Cublas,1,126.15199387073517
+7-8b k/v,1024,4096,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,139.97000455856323
+7-8b k/v,1024,4096,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,141.16600155830383
+7-8b k/v,1024,4096,48,fp16,32,F,,,_BlasBackend.Cublas,2,126.11900269985199
+7-8b k/v,1024,4096,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,214.55900371074677
+7-8b k/v,1024,4096,96,fp16,32,F,,,_BlasBackend.Cublas,0,213.23099732398987
+7-8b k/v,1024,4096,96,fp16,32,F,,,_BlasBackend.Cublas,1,212.9340022802353
+7-8b k/v,1024,4096,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,235.47199368476868
+7-8b k/v,1024,4096,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,235.3149950504303
+7-8b k/v,1024,4096,96,fp16,32,F,,,_BlasBackend.Cublas,2,215.8840000629425
+small GQA k/v,512,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,24.36699904501438
+small GQA k/v,512,2048,1,fp16,32,F,,,_BlasBackend.Cublas,0,19.639000296592712
+small GQA k/v,512,2048,1,fp16,32,F,,,_BlasBackend.Cublas,1,21.105999127030373
+small GQA k/v,512,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,25.022000074386597
+small GQA k/v,512,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,25.373000651597977
+small GQA k/v,512,2048,1,fp16,32,F,,,_BlasBackend.Cublas,2,20.01200057566166
+small GQA k/v,512,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,27.15500071644783
+small GQA k/v,512,2048,8,fp16,32,F,,,_BlasBackend.Cublas,0,21.37400023639202
+small GQA k/v,512,2048,8,fp16,32,F,,,_BlasBackend.Cublas,1,19.858000800013542
+small GQA k/v,512,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,24.924999102950096
+small GQA k/v,512,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,24.8429998755455
+small GQA k/v,512,2048,8,fp16,32,F,,,_BlasBackend.Cublas,2,20.810000598430634
+small GQA k/v,512,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,27.28400006890297
+small GQA k/v,512,2048,16,fp16,32,F,,,_BlasBackend.Cublas,0,24.180999025702477
+small GQA k/v,512,2048,16,fp16,32,F,,,_BlasBackend.Cublas,1,24.949999526143074
+small GQA k/v,512,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,27.21400000154972
+small GQA k/v,512,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,26.055999100208282
+small GQA k/v,512,2048,16,fp16,32,F,,,_BlasBackend.Cublas,2,24.589000269770622
+small GQA k/v,512,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,36.18299961090088
+small GQA k/v,512,2048,24,fp16,32,F,,,_BlasBackend.Cublas,0,32.26799890398979
+small GQA k/v,512,2048,24,fp16,32,F,,,_BlasBackend.Cublas,1,31.874999403953552
+small GQA k/v,512,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,36.212000995874405
+small GQA k/v,512,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,37.643998861312866
+small GQA k/v,512,2048,24,fp16,32,F,,,_BlasBackend.Cublas,2,32.55299851298332
+small GQA k/v,512,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,40.32199829816818
+small GQA k/v,512,2048,32,fp16,32,F,,,_BlasBackend.Cublas,0,32.73100033402443
+small GQA k/v,512,2048,32,fp16,32,F,,,_BlasBackend.Cublas,1,31.713001430034637
+small GQA k/v,512,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,40.65399989485741
+small GQA k/v,512,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,39.85799849033356
+small GQA k/v,512,2048,32,fp16,32,F,,,_BlasBackend.Cublas,2,32.81199932098389
+small GQA k/v,512,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,45.06799951195717
+small GQA k/v,512,2048,48,fp16,32,F,,,_BlasBackend.Cublas,0,42.59900003671646
+small GQA k/v,512,2048,48,fp16,32,F,,,_BlasBackend.Cublas,1,42.77300089597702
+small GQA k/v,512,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,45.763999223709106
+small GQA k/v,512,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,45.55799812078476
+small GQA k/v,512,2048,48,fp16,32,F,,,_BlasBackend.Cublas,2,42.94100031256676
+small GQA k/v,512,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,66.84000045061111
+small GQA k/v,512,2048,96,fp16,32,F,,,_BlasBackend.Cublas,0,67.20999628305435
+small GQA k/v,512,2048,96,fp16,32,F,,,_BlasBackend.Cublas,1,66.45499914884567
+small GQA k/v,512,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,67.14099645614624
+small GQA k/v,512,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,67.13499873876572
+small GQA k/v,512,2048,96,fp16,32,F,,,_BlasBackend.Cublas,2,66.14299863576889
+qwen3-30b-moe expert gate_up,1536,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,48.6380010843277
+qwen3-30b-moe expert gate_up,1536,2048,1,fp16,32,F,,,_BlasBackend.Cublas,0,41.2449985742569
+qwen3-30b-moe expert gate_up,1536,2048,1,fp16,32,F,,,_BlasBackend.Cublas,1,39.441999047994614
+qwen3-30b-moe expert gate_up,1536,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,47.974999994039536
+qwen3-30b-moe expert gate_up,1536,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,49.4999997317791
+qwen3-30b-moe expert gate_up,1536,2048,1,fp16,32,F,,,_BlasBackend.Cublas,2,39.90999981760979
+qwen3-30b-moe expert gate_up,1536,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,49.79899898171425
+qwen3-30b-moe expert gate_up,1536,2048,8,fp16,32,F,,,_BlasBackend.Cublas,0,39.96000066399574
+qwen3-30b-moe expert gate_up,1536,2048,8,fp16,32,F,,,_BlasBackend.Cublas,1,39.92599993944168
+qwen3-30b-moe expert gate_up,1536,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,49.13099855184555
+qwen3-30b-moe expert gate_up,1536,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,47.6359985768795
+qwen3-30b-moe expert gate_up,1536,2048,8,fp16,32,F,,,_BlasBackend.Cublas,2,39.90200161933899
+qwen3-30b-moe expert gate_up,1536,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,59.801001101732254
+qwen3-30b-moe expert gate_up,1536,2048,16,fp16,32,F,,,_BlasBackend.Cublas,0,48.85299876332283
+qwen3-30b-moe expert gate_up,1536,2048,16,fp16,32,F,,,_BlasBackend.Cublas,1,48.73799905180931
+qwen3-30b-moe expert gate_up,1536,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,59.067998081445694
+qwen3-30b-moe expert gate_up,1536,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,57.14600160717964
+qwen3-30b-moe expert gate_up,1536,2048,16,fp16,32,F,,,_BlasBackend.Cublas,2,49.500998109579086
+qwen3-30b-moe expert gate_up,1536,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,83.55200290679932
+qwen3-30b-moe expert gate_up,1536,2048,24,fp16,32,F,,,_BlasBackend.Cublas,0,70.2809989452362
+qwen3-30b-moe expert gate_up,1536,2048,24,fp16,32,F,,,_BlasBackend.Cublas,1,71.7879980802536
+qwen3-30b-moe expert gate_up,1536,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,82.80599862337112
+qwen3-30b-moe expert gate_up,1536,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,83.20800215005875
+qwen3-30b-moe expert gate_up,1536,2048,24,fp16,32,F,,,_BlasBackend.Cublas,2,71.39399647712708
+qwen3-30b-moe expert gate_up,1536,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,101.27700120210648
+qwen3-30b-moe expert gate_up,1536,2048,32,fp16,32,F,,,_BlasBackend.Cublas,0,70.71299850940704
+qwen3-30b-moe expert gate_up,1536,2048,32,fp16,32,F,,,_BlasBackend.Cublas,1,71.56600058078766
+qwen3-30b-moe expert gate_up,1536,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,98.32199662923813
+qwen3-30b-moe expert gate_up,1536,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,98.56899827718735
+qwen3-30b-moe expert gate_up,1536,2048,32,fp16,32,F,,,_BlasBackend.Cublas,2,71.41199707984924
+qwen3-30b-moe expert gate_up,1536,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,117.59500205516815
+qwen3-30b-moe expert gate_up,1536,2048,48,fp16,32,F,,,_BlasBackend.Cublas,0,103.59100252389908
+qwen3-30b-moe expert gate_up,1536,2048,48,fp16,32,F,,,_BlasBackend.Cublas,1,103.30799967050552
+qwen3-30b-moe expert gate_up,1536,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,117.77199804782867
+qwen3-30b-moe expert gate_up,1536,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,115.97099900245667
+qwen3-30b-moe expert gate_up,1536,2048,48,fp16,32,F,,,_BlasBackend.Cublas,2,103.49799692630768
+qwen3-30b-moe expert gate_up,1536,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,182.07599222660065
+qwen3-30b-moe expert gate_up,1536,2048,96,fp16,32,F,,,_BlasBackend.Cublas,0,184.02099609375
+qwen3-30b-moe expert gate_up,1536,2048,96,fp16,32,F,,,_BlasBackend.Cublas,1,179.99699711799622
+qwen3-30b-moe expert gate_up,1536,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,181.15900456905365
+qwen3-30b-moe expert gate_up,1536,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,180.06299436092377
+qwen3-30b-moe expert gate_up,1536,2048,96,fp16,32,F,,,_BlasBackend.Cublas,2,181.15800619125366
+qwen3-30b-moe expert down,2048,768,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,32.899998128414154
+qwen3-30b-moe expert down,2048,768,1,fp16,32,F,,,_BlasBackend.Cublas,0,30.751999467611313
+qwen3-30b-moe expert down,2048,768,1,fp16,32,F,,,_BlasBackend.Cublas,1,27.77799963951111
+qwen3-30b-moe expert down,2048,768,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,34.79599952697754
+qwen3-30b-moe expert down,2048,768,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,34.80299934744835
+qwen3-30b-moe expert down,2048,768,1,fp16,32,F,,,_BlasBackend.Cublas,2,29.7279991209507
+qwen3-30b-moe expert down,2048,768,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,33.674001693725586
+qwen3-30b-moe expert down,2048,768,8,fp16,32,F,,,_BlasBackend.Cublas,0,28.697000816464424
+qwen3-30b-moe expert down,2048,768,8,fp16,32,F,,,_BlasBackend.Cublas,1,29.007000848650932
+qwen3-30b-moe expert down,2048,768,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,33.966001123189926
+qwen3-30b-moe expert down,2048,768,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,32.6090008020401
+qwen3-30b-moe expert down,2048,768,8,fp16,32,F,,,_BlasBackend.Cublas,2,27.62099914252758
+qwen3-30b-moe expert down,2048,768,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,43.960001319646835
+qwen3-30b-moe expert down,2048,768,16,fp16,32,F,,,_BlasBackend.Cublas,0,33.02200138568878
+qwen3-30b-moe expert down,2048,768,16,fp16,32,F,,,_BlasBackend.Cublas,1,30.469000339508057
+qwen3-30b-moe expert down,2048,768,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,44.89799961447716
+qwen3-30b-moe expert down,2048,768,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,44.47900131344795
+qwen3-30b-moe expert down,2048,768,16,fp16,32,F,,,_BlasBackend.Cublas,2,32.742999494075775
+qwen3-30b-moe expert down,2048,768,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,58.33499878644943
+qwen3-30b-moe expert down,2048,768,24,fp16,32,F,,,_BlasBackend.Cublas,0,44.79999840259552
+qwen3-30b-moe expert down,2048,768,24,fp16,32,F,,,_BlasBackend.Cublas,1,42.913999408483505
+qwen3-30b-moe expert down,2048,768,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,57.785000652074814
+qwen3-30b-moe expert down,2048,768,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,60.506001114845276
+qwen3-30b-moe expert down,2048,768,24,fp16,32,F,,,_BlasBackend.Cublas,2,42.7590012550354
+qwen3-30b-moe expert down,2048,768,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,82.26600289344788
+qwen3-30b-moe expert down,2048,768,32,fp16,32,F,,,_BlasBackend.Cublas,0,46.355001628398895
+qwen3-30b-moe expert down,2048,768,32,fp16,32,F,,,_BlasBackend.Cublas,1,46.8359999358654
+qwen3-30b-moe expert down,2048,768,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,74.98899847269058
+qwen3-30b-moe expert down,2048,768,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,77.11199671030045
+qwen3-30b-moe expert down,2048,768,32,fp16,32,F,,,_BlasBackend.Cublas,2,45.20399868488312
+qwen3-30b-moe expert down,2048,768,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,70.92799991369247
+qwen3-30b-moe expert down,2048,768,48,fp16,32,F,,,_BlasBackend.Cublas,0,56.31199851632118
+qwen3-30b-moe expert down,2048,768,48,fp16,32,F,,,_BlasBackend.Cublas,1,55.51299825310707
+qwen3-30b-moe expert down,2048,768,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,70.57800143957138
+qwen3-30b-moe expert down,2048,768,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,70.86099684238434
+qwen3-30b-moe expert down,2048,768,48,fp16,32,F,,,_BlasBackend.Cublas,2,55.420998483896255
+qwen3-30b-moe expert down,2048,768,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,116.66800081729889
+qwen3-30b-moe expert down,2048,768,96,fp16,32,F,,,_BlasBackend.Cublas,0,117.83800274133682
+qwen3-30b-moe expert down,2048,768,96,fp16,32,F,,,_BlasBackend.Cublas,1,113.64699900150299
+qwen3-30b-moe expert down,2048,768,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,115.27799814939499
+qwen3-30b-moe expert down,2048,768,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,116.4650022983551
+qwen3-30b-moe expert down,2048,768,96,fp16,32,F,,,_BlasBackend.Cublas,2,117.23099648952484
+qwen3-235b-moe expert gate_up,3072,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,135.684996843338
+qwen3-235b-moe expert gate_up,3072,4096,1,fp16,32,F,,,_BlasBackend.Cublas,0,123.28200042247772
+qwen3-235b-moe expert gate_up,3072,4096,1,fp16,32,F,,,_BlasBackend.Cublas,1,125.70099532604218
+qwen3-235b-moe expert gate_up,3072,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,135.7019990682602
+qwen3-235b-moe expert gate_up,3072,4096,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,135.37199795246124
+qwen3-235b-moe expert gate_up,3072,4096,1,fp16,32,F,,,_BlasBackend.Cublas,2,124.04099851846695
+qwen3-235b-moe expert gate_up,3072,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,142.71000027656555
+qwen3-235b-moe expert gate_up,3072,4096,8,fp16,32,F,,,_BlasBackend.Cublas,0,129.34599816799164
+qwen3-235b-moe expert gate_up,3072,4096,8,fp16,32,F,,,_BlasBackend.Cublas,1,132.11899995803833
+qwen3-235b-moe expert gate_up,3072,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,140.625
+qwen3-235b-moe expert gate_up,3072,4096,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,142.03700423240662
+qwen3-235b-moe expert gate_up,3072,4096,8,fp16,32,F,,,_BlasBackend.Cublas,2,129.17499244213104
+qwen3-235b-moe expert gate_up,3072,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,185.45399606227875
+qwen3-235b-moe expert gate_up,3072,4096,16,fp16,32,F,,,_BlasBackend.Cublas,0,162.64000535011292
+qwen3-235b-moe expert gate_up,3072,4096,16,fp16,32,F,,,_BlasBackend.Cublas,1,165.13800621032715
+qwen3-235b-moe expert gate_up,3072,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,180.70000410079956
+qwen3-235b-moe expert gate_up,3072,4096,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,177.9019981622696
+qwen3-235b-moe expert gate_up,3072,4096,16,fp16,32,F,,,_BlasBackend.Cublas,2,164.2639935016632
+qwen3-235b-moe expert gate_up,3072,4096,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,279.25199270248413
+qwen3-235b-moe expert gate_up,3072,4096,24,fp16,32,F,,,_BlasBackend.Cublas,0,222.02399373054504
+qwen3-235b-moe expert gate_up,3072,4096,24,fp16,32,F,,,_BlasBackend.Cublas,1,220.4360067844391
+qwen3-235b-moe expert gate_up,3072,4096,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,276.0230004787445
+qwen3-235b-moe expert gate_up,3072,4096,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,279.9670100212097
+qwen3-235b-moe expert gate_up,3072,4096,24,fp16,32,F,,,_BlasBackend.Cublas,2,221.08399868011475
+qwen3-235b-moe expert gate_up,3072,4096,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,285.4210138320923
+qwen3-235b-moe expert gate_up,3072,4096,32,fp16,32,F,,,_BlasBackend.Cublas,0,225.44999420642853
+qwen3-235b-moe expert gate_up,3072,4096,32,fp16,32,F,,,_BlasBackend.Cublas,1,220.30599415302277
+qwen3-235b-moe expert gate_up,3072,4096,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,275.86299180984497
+qwen3-235b-moe expert gate_up,3072,4096,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,276.11199021339417
+qwen3-235b-moe expert gate_up,3072,4096,32,fp16,32,F,,,_BlasBackend.Cublas,2,224.40600395202637
+qwen3-235b-moe expert gate_up,3072,4096,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,399.6509909629822
+qwen3-235b-moe expert gate_up,3072,4096,48,fp16,32,F,,,_BlasBackend.Cublas,0,322.8580057621002
+qwen3-235b-moe expert gate_up,3072,4096,48,fp16,32,F,,,_BlasBackend.Cublas,1,319.24599409103394
+qwen3-235b-moe expert gate_up,3072,4096,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,400.6679952144623
+qwen3-235b-moe expert gate_up,3072,4096,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,404.2840003967285
+qwen3-235b-moe expert gate_up,3072,4096,48,fp16,32,F,,,_BlasBackend.Cublas,2,320.8659887313843
+qwen3-235b-moe expert gate_up,3072,4096,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,488.70500922203064
+qwen3-235b-moe expert gate_up,3072,4096,96,fp16,32,F,,,_BlasBackend.Cublas,0,492.810994386673
+qwen3-235b-moe expert gate_up,3072,4096,96,fp16,32,F,,,_BlasBackend.Cublas,1,491.890013217926
+qwen3-235b-moe expert gate_up,3072,4096,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,493.33998560905457
+qwen3-235b-moe expert gate_up,3072,4096,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,494.4460093975067
+qwen3-235b-moe expert gate_up,3072,4096,96,fp16,32,F,,,_BlasBackend.Cublas,2,488.3889853954315
+qwen3-235b-moe expert down,4096,1536,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,73.46899807453156
+qwen3-235b-moe expert down,4096,1536,1,fp16,32,F,,,_BlasBackend.Cublas,0,61.41199916601181
+qwen3-235b-moe expert down,4096,1536,1,fp16,32,F,,,_BlasBackend.Cublas,1,63.3229985833168
+qwen3-235b-moe expert down,4096,1536,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,72.19000160694122
+qwen3-235b-moe expert down,4096,1536,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,74.12400096654892
+qwen3-235b-moe expert down,4096,1536,1,fp16,32,F,,,_BlasBackend.Cublas,2,64.77600336074829
+qwen3-235b-moe expert down,4096,1536,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,71.63800299167633
+qwen3-235b-moe expert down,4096,1536,8,fp16,32,F,,,_BlasBackend.Cublas,0,64.1539990901947
+qwen3-235b-moe expert down,4096,1536,8,fp16,32,F,,,_BlasBackend.Cublas,1,63.88399749994278
+qwen3-235b-moe expert down,4096,1536,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,74.74400103092194
+qwen3-235b-moe expert down,4096,1536,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,74.17000085115433
+qwen3-235b-moe expert down,4096,1536,8,fp16,32,F,,,_BlasBackend.Cublas,2,70.71500271558762
+qwen3-235b-moe expert down,4096,1536,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,110.555998980999
+qwen3-235b-moe expert down,4096,1536,16,fp16,32,F,,,_BlasBackend.Cublas,0,79.40199971199036
+qwen3-235b-moe expert down,4096,1536,16,fp16,32,F,,,_BlasBackend.Cublas,1,83.02000164985657
+qwen3-235b-moe expert down,4096,1536,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,104.80300337076187
+qwen3-235b-moe expert down,4096,1536,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,107.90599882602692
+qwen3-235b-moe expert down,4096,1536,16,fp16,32,F,,,_BlasBackend.Cublas,2,75.62900334596634
+qwen3-235b-moe expert down,4096,1536,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,161.16899251937866
+qwen3-235b-moe expert down,4096,1536,24,fp16,32,F,,,_BlasBackend.Cublas,0,121.97999656200409
+qwen3-235b-moe expert down,4096,1536,24,fp16,32,F,,,_BlasBackend.Cublas,1,121.59399688243866
+qwen3-235b-moe expert down,4096,1536,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,159.6270054578781
+qwen3-235b-moe expert down,4096,1536,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,162.86799311637878
+qwen3-235b-moe expert down,4096,1536,24,fp16,32,F,,,_BlasBackend.Cublas,2,125.66199898719788
+qwen3-235b-moe expert down,4096,1536,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,165.20699858665466
+qwen3-235b-moe expert down,4096,1536,32,fp16,32,F,,,_BlasBackend.Cublas,0,123.71800094842911
+qwen3-235b-moe expert down,4096,1536,32,fp16,32,F,,,_BlasBackend.Cublas,1,124.84300136566162
+qwen3-235b-moe expert down,4096,1536,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,165.50299525260925
+qwen3-235b-moe expert down,4096,1536,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,161.70600056648254
+qwen3-235b-moe expert down,4096,1536,32,fp16,32,F,,,_BlasBackend.Cublas,2,124.42799657583237
+qwen3-235b-moe expert down,4096,1536,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,190.82699716091156
+qwen3-235b-moe expert down,4096,1536,48,fp16,32,F,,,_BlasBackend.Cublas,0,172.1159964799881
+qwen3-235b-moe expert down,4096,1536,48,fp16,32,F,,,_BlasBackend.Cublas,1,168.6220020055771
+qwen3-235b-moe expert down,4096,1536,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,193.05400550365448
+qwen3-235b-moe expert down,4096,1536,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,193.26399266719818
+qwen3-235b-moe expert down,4096,1536,48,fp16,32,F,,,_BlasBackend.Cublas,2,171.14600539207458
+qwen3-235b-moe expert down,4096,1536,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,273.16901087760925
+qwen3-235b-moe expert down,4096,1536,96,fp16,32,F,,,_BlasBackend.Cublas,0,273.93901348114014
+qwen3-235b-moe expert down,4096,1536,96,fp16,32,F,,,_BlasBackend.Cublas,1,272.7299928665161
+qwen3-235b-moe expert down,4096,1536,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,272.9780077934265
+qwen3-235b-moe expert down,4096,1536,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,271.3330090045929
+qwen3-235b-moe expert down,4096,1536,96,fp16,32,F,,,_BlasBackend.Cublas,2,271.51501178741455
+qwen3.5-35b-moe expert gate_up,1024,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,37.23999857902527
+qwen3.5-35b-moe expert gate_up,1024,2048,1,fp16,32,F,,,_BlasBackend.Cublas,0,33.309999853372574
+qwen3.5-35b-moe expert gate_up,1024,2048,1,fp16,32,F,,,_BlasBackend.Cublas,1,31.849000602960587
+qwen3.5-35b-moe expert gate_up,1024,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,37.36799955368042
+qwen3.5-35b-moe expert gate_up,1024,2048,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,38.72700035572052
+qwen3.5-35b-moe expert gate_up,1024,2048,1,fp16,32,F,,,_BlasBackend.Cublas,2,31.31899982690811
+qwen3.5-35b-moe expert gate_up,1024,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,39.73500058054924
+qwen3.5-35b-moe expert gate_up,1024,2048,8,fp16,32,F,,,_BlasBackend.Cublas,0,33.32100063562393
+qwen3.5-35b-moe expert gate_up,1024,2048,8,fp16,32,F,,,_BlasBackend.Cublas,1,31.362000852823257
+qwen3.5-35b-moe expert gate_up,1024,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,37.849001586437225
+qwen3.5-35b-moe expert gate_up,1024,2048,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,36.935001611709595
+qwen3.5-35b-moe expert gate_up,1024,2048,8,fp16,32,F,,,_BlasBackend.Cublas,2,32.94999897480011
+qwen3.5-35b-moe expert gate_up,1024,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,43.54099929332733
+qwen3.5-35b-moe expert gate_up,1024,2048,16,fp16,32,F,,,_BlasBackend.Cublas,0,38.151998072862625
+qwen3.5-35b-moe expert gate_up,1024,2048,16,fp16,32,F,,,_BlasBackend.Cublas,1,38.50200027227402
+qwen3.5-35b-moe expert gate_up,1024,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,44.19400170445442
+qwen3.5-35b-moe expert gate_up,1024,2048,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,42.79499873518944
+qwen3.5-35b-moe expert gate_up,1024,2048,16,fp16,32,F,,,_BlasBackend.Cublas,2,38.072001188993454
+qwen3.5-35b-moe expert gate_up,1024,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,61.97100132703781
+qwen3.5-35b-moe expert gate_up,1024,2048,24,fp16,32,F,,,_BlasBackend.Cublas,0,51.7599992454052
+qwen3.5-35b-moe expert gate_up,1024,2048,24,fp16,32,F,,,_BlasBackend.Cublas,1,51.36900022625923
+qwen3.5-35b-moe expert gate_up,1024,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,61.93000078201294
+qwen3.5-35b-moe expert gate_up,1024,2048,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,59.86500158905983
+qwen3.5-35b-moe expert gate_up,1024,2048,24,fp16,32,F,,,_BlasBackend.Cublas,2,51.46099999547005
+qwen3.5-35b-moe expert gate_up,1024,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,70.47300040721893
+qwen3.5-35b-moe expert gate_up,1024,2048,32,fp16,32,F,,,_BlasBackend.Cublas,0,52.59599909186363
+qwen3.5-35b-moe expert gate_up,1024,2048,32,fp16,32,F,,,_BlasBackend.Cublas,1,52.859000861644745
+qwen3.5-35b-moe expert gate_up,1024,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,70.38000226020813
+qwen3.5-35b-moe expert gate_up,1024,2048,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,68.94099712371826
+qwen3.5-35b-moe expert gate_up,1024,2048,32,fp16,32,F,,,_BlasBackend.Cublas,2,52.09999904036522
+qwen3.5-35b-moe expert gate_up,1024,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,80.60699701309204
+qwen3.5-35b-moe expert gate_up,1024,2048,48,fp16,32,F,,,_BlasBackend.Cublas,0,77.51599699258804
+qwen3.5-35b-moe expert gate_up,1024,2048,48,fp16,32,F,,,_BlasBackend.Cublas,1,77.88000255823135
+qwen3.5-35b-moe expert gate_up,1024,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,82.02499896287918
+qwen3.5-35b-moe expert gate_up,1024,2048,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,81.12599700689316
+qwen3.5-35b-moe expert gate_up,1024,2048,48,fp16,32,F,,,_BlasBackend.Cublas,2,79.30800318717957
+qwen3.5-35b-moe expert gate_up,1024,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,125.05500018596649
+qwen3.5-35b-moe expert gate_up,1024,2048,96,fp16,32,F,,,_BlasBackend.Cublas,0,124.91200119256973
+qwen3.5-35b-moe expert gate_up,1024,2048,96,fp16,32,F,,,_BlasBackend.Cublas,1,125.59199333190918
+qwen3.5-35b-moe expert gate_up,1024,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,124.60999935865402
+qwen3.5-35b-moe expert gate_up,1024,2048,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,123.62699955701828
+qwen3.5-35b-moe expert gate_up,1024,2048,96,fp16,32,F,,,_BlasBackend.Cublas,2,124.87100064754486
+qwen3.5-35b-moe expert down,2048,512,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,32.6710008084774
+qwen3.5-35b-moe expert down,2048,512,1,fp16,32,F,,,_BlasBackend.Cublas,0,24.38800036907196
+qwen3.5-35b-moe expert down,2048,512,1,fp16,32,F,,,_BlasBackend.Cublas,1,24.754999205470085
+qwen3.5-35b-moe expert down,2048,512,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,32.16699883341789
+qwen3.5-35b-moe expert down,2048,512,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,31.938999891281128
+qwen3.5-35b-moe expert down,2048,512,1,fp16,32,F,,,_BlasBackend.Cublas,2,23.679999634623528
+qwen3.5-35b-moe expert down,2048,512,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,31.346000730991364
+qwen3.5-35b-moe expert down,2048,512,8,fp16,32,F,,,_BlasBackend.Cublas,0,25.276999920606613
+qwen3.5-35b-moe expert down,2048,512,8,fp16,32,F,,,_BlasBackend.Cublas,1,23.850999772548676
+qwen3.5-35b-moe expert down,2048,512,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,31.821999698877335
+qwen3.5-35b-moe expert down,2048,512,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,31.449999660253525
+qwen3.5-35b-moe expert down,2048,512,8,fp16,32,F,,,_BlasBackend.Cublas,2,25.087999179959297
+qwen3.5-35b-moe expert down,2048,512,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,33.74699875712395
+qwen3.5-35b-moe expert down,2048,512,16,fp16,32,F,,,_BlasBackend.Cublas,0,27.393000200390816
+qwen3.5-35b-moe expert down,2048,512,16,fp16,32,F,,,_BlasBackend.Cublas,1,24.72900040447712
+qwen3.5-35b-moe expert down,2048,512,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,36.789000034332275
+qwen3.5-35b-moe expert down,2048,512,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,34.40399840474129
+qwen3.5-35b-moe expert down,2048,512,16,fp16,32,F,,,_BlasBackend.Cublas,2,24.971000850200653
+qwen3.5-35b-moe expert down,2048,512,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,47.249000519514084
+qwen3.5-35b-moe expert down,2048,512,24,fp16,32,F,,,_BlasBackend.Cublas,0,36.87300160527229
+qwen3.5-35b-moe expert down,2048,512,24,fp16,32,F,,,_BlasBackend.Cublas,1,34.15700048208237
+qwen3.5-35b-moe expert down,2048,512,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,47.485001385211945
+qwen3.5-35b-moe expert down,2048,512,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,49.69700053334236
+qwen3.5-35b-moe expert down,2048,512,24,fp16,32,F,,,_BlasBackend.Cublas,2,37.498001009225845
+qwen3.5-35b-moe expert down,2048,512,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,63.551001250743866
+qwen3.5-35b-moe expert down,2048,512,32,fp16,32,F,,,_BlasBackend.Cublas,0,37.115998566150665
+qwen3.5-35b-moe expert down,2048,512,32,fp16,32,F,,,_BlasBackend.Cublas,1,35.89700162410736
+qwen3.5-35b-moe expert down,2048,512,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,60.743000358343124
+qwen3.5-35b-moe expert down,2048,512,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,60.47999858856201
+qwen3.5-35b-moe expert down,2048,512,32,fp16,32,F,,,_BlasBackend.Cublas,2,36.348000168800354
+qwen3.5-35b-moe expert down,2048,512,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,56.4970001578331
+qwen3.5-35b-moe expert down,2048,512,48,fp16,32,F,,,_BlasBackend.Cublas,0,42.20899939537048
+qwen3.5-35b-moe expert down,2048,512,48,fp16,32,F,,,_BlasBackend.Cublas,1,43.556999415159225
+qwen3.5-35b-moe expert down,2048,512,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,57.28599801659584
+qwen3.5-35b-moe expert down,2048,512,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,56.87199905514717
+qwen3.5-35b-moe expert down,2048,512,48,fp16,32,F,,,_BlasBackend.Cublas,2,42.62400045990944
+qwen3.5-35b-moe expert down,2048,512,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,94.99400109052658
+qwen3.5-35b-moe expert down,2048,512,96,fp16,32,F,,,_BlasBackend.Cublas,0,94.23399716615677
+qwen3.5-35b-moe expert down,2048,512,96,fp16,32,F,,,_BlasBackend.Cublas,1,93.57599914073944
+qwen3.5-35b-moe expert down,2048,512,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,94.47100013494492
+qwen3.5-35b-moe expert down,2048,512,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,95.2569991350174
+qwen3.5-35b-moe expert down,2048,512,96,fp16,32,F,,,_BlasBackend.Cublas,2,91.81399643421173
+qwen3.5-122b-moe expert gate_up,2048,3072,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,68.60099732875824
+qwen3.5-122b-moe expert gate_up,2048,3072,1,fp16,32,F,,,_BlasBackend.Cublas,0,61.423998326063156
+qwen3.5-122b-moe expert gate_up,2048,3072,1,fp16,32,F,,,_BlasBackend.Cublas,1,61.524998396635056
+qwen3.5-122b-moe expert gate_up,2048,3072,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,68.84200125932693
+qwen3.5-122b-moe expert gate_up,2048,3072,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,66.95599853992462
+qwen3.5-122b-moe expert gate_up,2048,3072,1,fp16,32,F,,,_BlasBackend.Cublas,2,59.4480000436306
+qwen3.5-122b-moe expert gate_up,2048,3072,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,69.78700309991837
+qwen3.5-122b-moe expert gate_up,2048,3072,8,fp16,32,F,,,_BlasBackend.Cublas,0,63.169002532958984
+qwen3.5-122b-moe expert gate_up,2048,3072,8,fp16,32,F,,,_BlasBackend.Cublas,1,61.218999326229095
+qwen3.5-122b-moe expert gate_up,2048,3072,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,67.32100248336792
+qwen3.5-122b-moe expert gate_up,2048,3072,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,69.35200095176697
+qwen3.5-122b-moe expert gate_up,2048,3072,8,fp16,32,F,,,_BlasBackend.Cublas,2,59.8130002617836
+qwen3.5-122b-moe expert gate_up,2048,3072,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,92.81999617815018
+qwen3.5-122b-moe expert gate_up,2048,3072,16,fp16,32,F,,,_BlasBackend.Cublas,0,75.81699639558792
+qwen3.5-122b-moe expert gate_up,2048,3072,16,fp16,32,F,,,_BlasBackend.Cublas,1,77.2790014743805
+qwen3.5-122b-moe expert gate_up,2048,3072,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,91.90300107002258
+qwen3.5-122b-moe expert gate_up,2048,3072,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,90.86799621582031
+qwen3.5-122b-moe expert gate_up,2048,3072,16,fp16,32,F,,,_BlasBackend.Cublas,2,75.98000019788742
+qwen3.5-122b-moe expert gate_up,2048,3072,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,141.68399572372437
+qwen3.5-122b-moe expert gate_up,2048,3072,24,fp16,32,F,,,_BlasBackend.Cublas,0,115.02199620008469
+qwen3.5-122b-moe expert gate_up,2048,3072,24,fp16,32,F,,,_BlasBackend.Cublas,1,115.91000109910965
+qwen3.5-122b-moe expert gate_up,2048,3072,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,144.92399990558624
+qwen3.5-122b-moe expert gate_up,2048,3072,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,141.4490044116974
+qwen3.5-122b-moe expert gate_up,2048,3072,24,fp16,32,F,,,_BlasBackend.Cublas,2,115.4090017080307
+qwen3.5-122b-moe expert gate_up,2048,3072,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,167.88700222969055
+qwen3.5-122b-moe expert gate_up,2048,3072,32,fp16,32,F,,,_BlasBackend.Cublas,0,115.34299701452255
+qwen3.5-122b-moe expert gate_up,2048,3072,32,fp16,32,F,,,_BlasBackend.Cublas,1,116.01399630308151
+qwen3.5-122b-moe expert gate_up,2048,3072,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,166.89099371433258
+qwen3.5-122b-moe expert gate_up,2048,3072,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,166.56500101089478
+qwen3.5-122b-moe expert gate_up,2048,3072,32,fp16,32,F,,,_BlasBackend.Cublas,2,116.9700026512146
+qwen3.5-122b-moe expert gate_up,2048,3072,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,209.90699529647827
+qwen3.5-122b-moe expert gate_up,2048,3072,48,fp16,32,F,,,_BlasBackend.Cublas,0,165.78499972820282
+qwen3.5-122b-moe expert gate_up,2048,3072,48,fp16,32,F,,,_BlasBackend.Cublas,1,165.66099226474762
+qwen3.5-122b-moe expert gate_up,2048,3072,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,208.89300107955933
+qwen3.5-122b-moe expert gate_up,2048,3072,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,207.3100060224533
+qwen3.5-122b-moe expert gate_up,2048,3072,48,fp16,32,F,,,_BlasBackend.Cublas,2,166.62299633026123
+qwen3.5-122b-moe expert gate_up,2048,3072,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,328.7329971790314
+qwen3.5-122b-moe expert gate_up,2048,3072,96,fp16,32,F,,,_BlasBackend.Cublas,0,328.62600684165955
+qwen3.5-122b-moe expert gate_up,2048,3072,96,fp16,32,F,,,_BlasBackend.Cublas,1,328.83599400520325
+qwen3.5-122b-moe expert gate_up,2048,3072,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,330.65998554229736
+qwen3.5-122b-moe expert gate_up,2048,3072,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,321.10899686813354
+qwen3.5-122b-moe expert gate_up,2048,3072,96,fp16,32,F,,,_BlasBackend.Cublas,2,329.15198802948
+qwen3.5-122b-moe expert down,3072,1024,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,47.811999917030334
+qwen3.5-122b-moe expert down,3072,1024,1,fp16,32,F,,,_BlasBackend.Cublas,0,41.23099893331528
+qwen3.5-122b-moe expert down,3072,1024,1,fp16,32,F,,,_BlasBackend.Cublas,1,40.48199951648712
+qwen3.5-122b-moe expert down,3072,1024,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,48.413001000881195
+qwen3.5-122b-moe expert down,3072,1024,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,46.67000100016594
+qwen3.5-122b-moe expert down,3072,1024,1,fp16,32,F,,,_BlasBackend.Cublas,2,42.201001197099686
+qwen3.5-122b-moe expert down,3072,1024,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,46.61799967288971
+qwen3.5-122b-moe expert down,3072,1024,8,fp16,32,F,,,_BlasBackend.Cublas,0,41.11599922180176
+qwen3.5-122b-moe expert down,3072,1024,8,fp16,32,F,,,_BlasBackend.Cublas,1,41.94200038909912
+qwen3.5-122b-moe expert down,3072,1024,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,46.62799835205078
+qwen3.5-122b-moe expert down,3072,1024,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,45.82899808883667
+qwen3.5-122b-moe expert down,3072,1024,8,fp16,32,F,,,_BlasBackend.Cublas,2,39.420999586582184
+qwen3.5-122b-moe expert down,3072,1024,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,65.16499817371368
+qwen3.5-122b-moe expert down,3072,1024,16,fp16,32,F,,,_BlasBackend.Cublas,0,49.639999866485596
+qwen3.5-122b-moe expert down,3072,1024,16,fp16,32,F,,,_BlasBackend.Cublas,1,47.616999596357346
+qwen3.5-122b-moe expert down,3072,1024,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,65.4970034956932
+qwen3.5-122b-moe expert down,3072,1024,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,66.7560026049614
+qwen3.5-122b-moe expert down,3072,1024,16,fp16,32,F,,,_BlasBackend.Cublas,2,47.3719984292984
+qwen3.5-122b-moe expert down,3072,1024,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,90.23900330066681
+qwen3.5-122b-moe expert down,3072,1024,24,fp16,32,F,,,_BlasBackend.Cublas,0,70.9109976887703
+qwen3.5-122b-moe expert down,3072,1024,24,fp16,32,F,,,_BlasBackend.Cublas,1,74.02999699115753
+qwen3.5-122b-moe expert down,3072,1024,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,92.79099851846695
+qwen3.5-122b-moe expert down,3072,1024,24,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,92.59200096130371
+qwen3.5-122b-moe expert down,3072,1024,24,fp16,32,F,,,_BlasBackend.Cublas,2,74.41899925470352
+qwen3.5-122b-moe expert down,3072,1024,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,93.90900284051895
+qwen3.5-122b-moe expert down,3072,1024,32,fp16,32,F,,,_BlasBackend.Cublas,0,74.53200221061707
+qwen3.5-122b-moe expert down,3072,1024,32,fp16,32,F,,,_BlasBackend.Cublas,1,75.9190022945404
+qwen3.5-122b-moe expert down,3072,1024,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,96.56400233507156
+qwen3.5-122b-moe expert down,3072,1024,32,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,94.46299821138382
+qwen3.5-122b-moe expert down,3072,1024,32,fp16,32,F,,,_BlasBackend.Cublas,2,74.47899878025055
+qwen3.5-122b-moe expert down,3072,1024,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,123.65099787712097
+qwen3.5-122b-moe expert down,3072,1024,48,fp16,32,F,,,_BlasBackend.Cublas,0,97.45299816131592
+qwen3.5-122b-moe expert down,3072,1024,48,fp16,32,F,,,_BlasBackend.Cublas,1,97.24599868059158
+qwen3.5-122b-moe expert down,3072,1024,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,123.3770027756691
+qwen3.5-122b-moe expert down,3072,1024,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,122.98999726772308
+qwen3.5-122b-moe expert down,3072,1024,48,fp16,32,F,,,_BlasBackend.Cublas,2,97.75599837303162
+qwen3.5-122b-moe expert down,3072,1024,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,155.29300272464752
+qwen3.5-122b-moe expert down,3072,1024,96,fp16,32,F,,,_BlasBackend.Cublas,0,154.73100543022156
+qwen3.5-122b-moe expert down,3072,1024,96,fp16,32,F,,,_BlasBackend.Cublas,1,155.0779938697815
+qwen3.5-122b-moe expert down,3072,1024,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,153.30100059509277
+qwen3.5-122b-moe expert down,3072,1024,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,153.94200384616852
+qwen3.5-122b-moe expert down,3072,1024,96,fp16,32,F,,,_BlasBackend.Cublas,2,155.008003115654
+qwen3-coder-480b-moe expert gate_up,5120,6144,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,295.3310012817383
+qwen3-coder-480b-moe expert gate_up,5120,6144,1,fp16,32,F,,,_BlasBackend.Cublas,0,269.7550058364868
+qwen3-coder-480b-moe expert gate_up,5120,6144,1,fp16,32,F,,,_BlasBackend.Cublas,1,272.5929915904999
+qwen3-coder-480b-moe expert gate_up,5120,6144,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,302.3430109024048
+qwen3-coder-480b-moe expert gate_up,5120,6144,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,300.6190061569214
+qwen3-coder-480b-moe expert gate_up,5120,6144,1,fp16,32,F,,,_BlasBackend.Cublas,2,272.62601256370544
+qwen3-coder-480b-moe expert gate_up,5120,6144,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,319.2479908466339
+qwen3-coder-480b-moe expert gate_up,5120,6144,8,fp16,32,F,,,_BlasBackend.Cublas,0,305.0679862499237
+qwen3-coder-480b-moe expert gate_up,5120,6144,8,fp16,32,F,,,_BlasBackend.Cublas,1,307.25300312042236
+qwen3-coder-480b-moe expert gate_up,5120,6144,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,322.90899753570557
+qwen3-coder-480b-moe expert gate_up,5120,6144,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,316.8799877166748
+qwen3-coder-480b-moe expert gate_up,5120,6144,8,fp16,32,F,,,_BlasBackend.Cublas,2,290.800005197525
+qwen3-coder-480b-moe expert gate_up,5120,6144,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,358.832985162735
+qwen3-coder-480b-moe expert gate_up,5120,6144,16,fp16,32,F,,,_BlasBackend.Cublas,0,351.2429893016815
+qwen3-coder-480b-moe expert gate_up,5120,6144,16,fp16,32,F,,,_BlasBackend.Cublas,1,348.86300563812256
+qwen3-coder-480b-moe expert gate_up,5120,6144,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,367.26799607276917
+qwen3-coder-480b-moe expert gate_up,5120,6144,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,365.20498991012573
+qwen3-coder-480b-moe expert gate_up,5120,6144,16,fp16,32,F,,,_BlasBackend.Cublas,2,344.77299451828003
+qwen3-coder-480b-moe expert gate_up,5120,6144,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,510.5360150337219
+qwen3-coder-480b-moe expert gate_up,5120,6144,24,fp16,32,F,,,_BlasBackend.Cublas,0,514.7669911384583
+qwen3-coder-480b-moe expert gate_up,5120,6144,24,fp16,32,F,,,_BlasBackend.Cublas,1,513.5989785194397
+qwen3-coder-480b-moe expert gate_up,5120,6144,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,513.8530135154724
+qwen3-coder-480b-moe expert gate_up,5120,6144,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,511.7970108985901
+qwen3-coder-480b-moe expert gate_up,5120,6144,24,fp16,32,F,,,_BlasBackend.Cublas,2,511.7189884185791
+qwen3-coder-480b-moe expert gate_up,5120,6144,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,514.6059989929199
+qwen3-coder-480b-moe expert gate_up,5120,6144,32,fp16,32,F,,,_BlasBackend.Cublas,0,516.5280103683472
+qwen3-coder-480b-moe expert gate_up,5120,6144,32,fp16,32,F,,,_BlasBackend.Cublas,1,517.8419947624207
+qwen3-coder-480b-moe expert gate_up,5120,6144,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,511.0729932785034
+qwen3-coder-480b-moe expert gate_up,5120,6144,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,520.6120014190674
+qwen3-coder-480b-moe expert gate_up,5120,6144,32,fp16,32,F,,,_BlasBackend.Cublas,2,516.4819955825806
+qwen3-coder-480b-moe expert gate_up,5120,6144,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,799.7869849205017
+qwen3-coder-480b-moe expert gate_up,5120,6144,48,fp16,32,F,,,_BlasBackend.Cublas,0,755.1180124282837
+qwen3-coder-480b-moe expert gate_up,5120,6144,48,fp16,32,F,,,_BlasBackend.Cublas,1,752.5560259819031
+qwen3-coder-480b-moe expert gate_up,5120,6144,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,866.6759729385376
+qwen3-coder-480b-moe expert gate_up,5120,6144,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,886.7009878158569
+qwen3-coder-480b-moe expert gate_up,5120,6144,48,fp16,32,F,,,_BlasBackend.Cublas,2,785.7999801635742
+qwen3-coder-480b-moe expert gate_up,5120,6144,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,1172.7269887924194
+qwen3-coder-480b-moe expert gate_up,5120,6144,96,fp16,32,F,,,_BlasBackend.Cublas,0,1188.4859800338745
+qwen3-coder-480b-moe expert gate_up,5120,6144,96,fp16,32,F,,,_BlasBackend.Cublas,1,1183.426022529602
+qwen3-coder-480b-moe expert gate_up,5120,6144,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,1191.9809579849243
+qwen3-coder-480b-moe expert gate_up,5120,6144,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,1187.0959997177124
+qwen3-coder-480b-moe expert gate_up,5120,6144,96,fp16,32,F,,,_BlasBackend.Cublas,2,1189.7120475769043
+qwen3-coder-480b-moe expert down,6144,2560,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,150.94299614429474
+qwen3-coder-480b-moe expert down,6144,2560,1,fp16,32,F,,,_BlasBackend.Cublas,0,130.12400269508362
+qwen3-coder-480b-moe expert down,6144,2560,1,fp16,32,F,,,_BlasBackend.Cublas,1,129.09600138664246
+qwen3-coder-480b-moe expert down,6144,2560,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,151.54099464416504
+qwen3-coder-480b-moe expert down,6144,2560,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,151.02100372314453
+qwen3-coder-480b-moe expert down,6144,2560,1,fp16,32,F,,,_BlasBackend.Cublas,2,134.0080052614212
+qwen3-coder-480b-moe expert down,6144,2560,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,151.9560068845749
+qwen3-coder-480b-moe expert down,6144,2560,8,fp16,32,F,,,_BlasBackend.Cublas,0,130.77299296855927
+qwen3-coder-480b-moe expert down,6144,2560,8,fp16,32,F,,,_BlasBackend.Cublas,1,129.48599457740784
+qwen3-coder-480b-moe expert down,6144,2560,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,149.29400384426117
+qwen3-coder-480b-moe expert down,6144,2560,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,150.10499954223633
+qwen3-coder-480b-moe expert down,6144,2560,8,fp16,32,F,,,_BlasBackend.Cublas,2,133.11900198459625
+qwen3-coder-480b-moe expert down,6144,2560,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,190.33999741077423
+qwen3-coder-480b-moe expert down,6144,2560,16,fp16,32,F,,,_BlasBackend.Cublas,0,169.82899606227875
+qwen3-coder-480b-moe expert down,6144,2560,16,fp16,32,F,,,_BlasBackend.Cublas,1,168.87199878692627
+qwen3-coder-480b-moe expert down,6144,2560,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,187.61399388313293
+qwen3-coder-480b-moe expert down,6144,2560,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,189.96299803256989
+qwen3-coder-480b-moe expert down,6144,2560,16,fp16,32,F,,,_BlasBackend.Cublas,2,176.8520027399063
+qwen3-coder-480b-moe expert down,6144,2560,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,268.13000440597534
+qwen3-coder-480b-moe expert down,6144,2560,24,fp16,32,F,,,_BlasBackend.Cublas,0,272.95398712158203
+qwen3-coder-480b-moe expert down,6144,2560,24,fp16,32,F,,,_BlasBackend.Cublas,1,276.7210006713867
+qwen3-coder-480b-moe expert down,6144,2560,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,271.4749872684479
+qwen3-coder-480b-moe expert down,6144,2560,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,263.0999982357025
+qwen3-coder-480b-moe expert down,6144,2560,24,fp16,32,F,,,_BlasBackend.Cublas,2,272.0020115375519
+qwen3-coder-480b-moe expert down,6144,2560,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,271.88700437545776
+qwen3-coder-480b-moe expert down,6144,2560,32,fp16,32,F,,,_BlasBackend.Cublas,0,276.1729955673218
+qwen3-coder-480b-moe expert down,6144,2560,32,fp16,32,F,,,_BlasBackend.Cublas,1,273.2999920845032
+qwen3-coder-480b-moe expert down,6144,2560,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,271.6670036315918
+qwen3-coder-480b-moe expert down,6144,2560,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,276.6140103340149
+qwen3-coder-480b-moe expert down,6144,2560,32,fp16,32,F,,,_BlasBackend.Cublas,2,306.32901191711426
+qwen3-coder-480b-moe expert down,6144,2560,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,0,479.0099859237671
+qwen3-coder-480b-moe expert down,6144,2560,48,fp16,32,F,,,_BlasBackend.Cublas,0,425.34399032592773
+qwen3-coder-480b-moe expert down,6144,2560,48,fp16,32,F,,,_BlasBackend.Cublas,1,385.23998856544495
+qwen3-coder-480b-moe expert down,6144,2560,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,1,439.79498744010925
+qwen3-coder-480b-moe expert down,6144,2560,48,fp16,32,A,wmma,"2,2,1,2,2,2",_BlasBackend.Cublas,2,433.55101346969604
+qwen3-coder-480b-moe expert down,6144,2560,48,fp16,32,F,,,_BlasBackend.Cublas,2,394.2379951477051
+qwen3-coder-480b-moe expert down,6144,2560,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,0,615.1589751243591
+qwen3-coder-480b-moe expert down,6144,2560,96,fp16,32,F,,,_BlasBackend.Cublas,0,616.2449717521667
+qwen3-coder-480b-moe expert down,6144,2560,96,fp16,32,F,,,_BlasBackend.Cublas,1,610.8430027961731
+qwen3-coder-480b-moe expert down,6144,2560,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,1,617.9900169372559
+qwen3-coder-480b-moe expert down,6144,2560,96,fp16,32,A,wmma,"4,2,1,4,2,2",_BlasBackend.Cublas,2,615.9250140190125
+qwen3-coder-480b-moe expert down,6144,2560,96,fp16,32,F,,,_BlasBackend.Cublas,2,615.2480244636536
+gemma4-26b-moe expert gate_up,1408,2816,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,48.9640012383461
+gemma4-26b-moe expert gate_up,1408,2816,1,fp16,32,F,,,_BlasBackend.Cublas,0,45.39499804377556
+gemma4-26b-moe expert gate_up,1408,2816,1,fp16,32,F,,,_BlasBackend.Cublas,1,45.07499933242798
+gemma4-26b-moe expert gate_up,1408,2816,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,48.37900027632713
+gemma4-26b-moe expert gate_up,1408,2816,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,48.67099970579147
+gemma4-26b-moe expert gate_up,1408,2816,1,fp16,32,F,,,_BlasBackend.Cublas,2,46.28999903798103
+gemma4-26b-moe expert gate_up,1408,2816,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,50.77499896287918
+gemma4-26b-moe expert gate_up,1408,2816,8,fp16,32,F,,,_BlasBackend.Cublas,0,44.75000128149986
+gemma4-26b-moe expert gate_up,1408,2816,8,fp16,32,F,,,_BlasBackend.Cublas,1,43.53199899196625
+gemma4-26b-moe expert gate_up,1408,2816,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,49.08199980854988
+gemma4-26b-moe expert gate_up,1408,2816,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,47.65300080180168
+gemma4-26b-moe expert gate_up,1408,2816,8,fp16,32,F,,,_BlasBackend.Cublas,2,45.82799971103668
+gemma4-26b-moe expert gate_up,1408,2816,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,60.43099984526634
+gemma4-26b-moe expert gate_up,1408,2816,16,fp16,32,F,,,_BlasBackend.Cublas,0,53.126998245716095
+gemma4-26b-moe expert gate_up,1408,2816,16,fp16,32,F,,,_BlasBackend.Cublas,1,54.52800169587135
+gemma4-26b-moe expert gate_up,1408,2816,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,61.41800060868263
+gemma4-26b-moe expert gate_up,1408,2816,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,62.84099817276001
+gemma4-26b-moe expert gate_up,1408,2816,16,fp16,32,F,,,_BlasBackend.Cublas,2,54.26499992609024
+gemma4-26b-moe expert gate_up,1408,2816,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,93.29400211572647
+gemma4-26b-moe expert gate_up,1408,2816,24,fp16,32,F,,,_BlasBackend.Cublas,0,80.37400245666504
+gemma4-26b-moe expert gate_up,1408,2816,24,fp16,32,F,,,_BlasBackend.Cublas,1,83.55200290679932
+gemma4-26b-moe expert gate_up,1408,2816,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,97.60099649429321
+gemma4-26b-moe expert gate_up,1408,2816,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,95.46700119972229
+gemma4-26b-moe expert gate_up,1408,2816,24,fp16,32,F,,,_BlasBackend.Cublas,2,81.01700246334076
+gemma4-26b-moe expert gate_up,1408,2816,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,111.30700260400772
+gemma4-26b-moe expert gate_up,1408,2816,32,fp16,32,F,,,_BlasBackend.Cublas,0,81.89500123262405
+gemma4-26b-moe expert gate_up,1408,2816,32,fp16,32,F,,,_BlasBackend.Cublas,1,82.42499828338623
+gemma4-26b-moe expert gate_up,1408,2816,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,113.35700005292892
+gemma4-26b-moe expert gate_up,1408,2816,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,110.64299941062927
+gemma4-26b-moe expert gate_up,1408,2816,32,fp16,32,F,,,_BlasBackend.Cublas,2,82.21399784088135
+gemma4-26b-moe expert gate_up,1408,2816,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,134.9550038576126
+gemma4-26b-moe expert gate_up,1408,2816,48,fp16,32,F,,,_BlasBackend.Cublas,0,117.67199635505676
+gemma4-26b-moe expert gate_up,1408,2816,48,fp16,32,F,,,_BlasBackend.Cublas,1,118.21000277996063
+gemma4-26b-moe expert gate_up,1408,2816,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,137.23500072956085
+gemma4-26b-moe expert gate_up,1408,2816,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,136.31099462509155
+gemma4-26b-moe expert gate_up,1408,2816,48,fp16,32,F,,,_BlasBackend.Cublas,2,117.72499978542328
+gemma4-26b-moe expert gate_up,1408,2816,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,212.1250033378601
+gemma4-26b-moe expert gate_up,1408,2816,96,fp16,32,F,,,_BlasBackend.Cublas,0,211.3959938287735
+gemma4-26b-moe expert gate_up,1408,2816,96,fp16,32,F,,,_BlasBackend.Cublas,1,212.2879922389984
+gemma4-26b-moe expert gate_up,1408,2816,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,212.5750035047531
+gemma4-26b-moe expert gate_up,1408,2816,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,213.73100578784943
+gemma4-26b-moe expert gate_up,1408,2816,96,fp16,32,F,,,_BlasBackend.Cublas,2,212.07299828529358
+gemma4-26b-moe expert down,2816,704,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,52.08100005984306
+gemma4-26b-moe expert down,2816,704,1,fp16,32,F,,,_BlasBackend.Cublas,0,32.340001314878464
+gemma4-26b-moe expert down,2816,704,1,fp16,32,F,,,_BlasBackend.Cublas,1,32.607000321149826
+gemma4-26b-moe expert down,2816,704,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,48.781998455524445
+gemma4-26b-moe expert down,2816,704,1,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,50.14599859714508
+gemma4-26b-moe expert down,2816,704,1,fp16,32,F,,,_BlasBackend.Cublas,2,30.849000439047813
+gemma4-26b-moe expert down,2816,704,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,0,50.87599903345108
+gemma4-26b-moe expert down,2816,704,8,fp16,32,F,,,_BlasBackend.Cublas,0,31.16600029170513
+gemma4-26b-moe expert down,2816,704,8,fp16,32,F,,,_BlasBackend.Cublas,1,31.032999977469444
+gemma4-26b-moe expert down,2816,704,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,1,48.71999844908714
+gemma4-26b-moe expert down,2816,704,8,fp16,32,A,wmma,"1,1,1,2,8,1",_BlasBackend.Cublas,2,49.31800067424774
+gemma4-26b-moe expert down,2816,704,8,fp16,32,F,,,_BlasBackend.Cublas,2,33.20600092411041
+gemma4-26b-moe expert down,2816,704,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,58.1200011074543
+gemma4-26b-moe expert down,2816,704,16,fp16,32,F,,,_BlasBackend.Cublas,0,36.910999566316605
+gemma4-26b-moe expert down,2816,704,16,fp16,32,F,,,_BlasBackend.Cublas,1,35.35199910402298
+gemma4-26b-moe expert down,2816,704,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,57.11499974131584
+gemma4-26b-moe expert down,2816,704,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,58.31500142812729
+gemma4-26b-moe expert down,2816,704,16,fp16,32,F,,,_BlasBackend.Cublas,2,36.29299998283386
+gemma4-26b-moe expert down,2816,704,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,75.73000341653824
+gemma4-26b-moe expert down,2816,704,24,fp16,32,F,,,_BlasBackend.Cublas,0,46.27399891614914
+gemma4-26b-moe expert down,2816,704,24,fp16,32,F,,,_BlasBackend.Cublas,1,44.89300027489662
+gemma4-26b-moe expert down,2816,704,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,74.92099702358246
+gemma4-26b-moe expert down,2816,704,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,75.44399797916412
+gemma4-26b-moe expert down,2816,704,24,fp16,32,F,,,_BlasBackend.Cublas,2,45.71299999952316
+gemma4-26b-moe expert down,2816,704,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,95.93699872493744
+gemma4-26b-moe expert down,2816,704,32,fp16,32,F,,,_BlasBackend.Cublas,0,47.22300171852112
+gemma4-26b-moe expert down,2816,704,32,fp16,32,F,,,_BlasBackend.Cublas,1,46.35699838399887
+gemma4-26b-moe expert down,2816,704,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,104.02099788188934
+gemma4-26b-moe expert down,2816,704,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,100.25600343942642
+gemma4-26b-moe expert down,2816,704,32,fp16,32,F,,,_BlasBackend.Cublas,2,48.54699969291687
+gemma4-26b-moe expert down,2816,704,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,92.83600002527237
+gemma4-26b-moe expert down,2816,704,48,fp16,32,F,,,_BlasBackend.Cublas,0,63.09100240468979
+gemma4-26b-moe expert down,2816,704,48,fp16,32,F,,,_BlasBackend.Cublas,1,61.76299974322319
+gemma4-26b-moe expert down,2816,704,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,90.64099937677383
+gemma4-26b-moe expert down,2816,704,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,93.470998108387
+gemma4-26b-moe expert down,2816,704,48,fp16,32,F,,,_BlasBackend.Cublas,2,62.24500015377998
+gemma4-26b-moe expert down,2816,704,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,153.7570059299469
+gemma4-26b-moe expert down,2816,704,96,fp16,32,F,,,_BlasBackend.Cublas,0,152.49499678611755
+gemma4-26b-moe expert down,2816,704,96,fp16,32,F,,,_BlasBackend.Cublas,1,152.62000262737274
+gemma4-26b-moe expert down,2816,704,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,151.5589952468872
+gemma4-26b-moe expert down,2816,704,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,151.47699415683746
+gemma4-26b-moe expert down,2816,704,96,fp16,32,F,,,_BlasBackend.Cublas,2,152.37100422382355
+gemma4-26b dense gate_up,2112,2816,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,67.330002784729
+gemma4-26b dense gate_up,2112,2816,1,fp16,32,F,,,_BlasBackend.Cublas,0,60.561999678611755
+gemma4-26b dense gate_up,2112,2816,1,fp16,32,F,,,_BlasBackend.Cublas,1,59.90200117230415
+gemma4-26b dense gate_up,2112,2816,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,68.3559998869896
+gemma4-26b dense gate_up,2112,2816,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,66.42799824476242
+gemma4-26b dense gate_up,2112,2816,1,fp16,32,F,,,_BlasBackend.Cublas,2,58.699000626802444
+gemma4-26b dense gate_up,2112,2816,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,67.10000336170197
+gemma4-26b dense gate_up,2112,2816,8,fp16,32,F,,,_BlasBackend.Cublas,0,60.74099987745285
+gemma4-26b dense gate_up,2112,2816,8,fp16,32,F,,,_BlasBackend.Cublas,1,59.96000021696091
+gemma4-26b dense gate_up,2112,2816,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,68.35100054740906
+gemma4-26b dense gate_up,2112,2816,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,67.0590028166771
+gemma4-26b dense gate_up,2112,2816,8,fp16,32,F,,,_BlasBackend.Cublas,2,59.02700126171112
+gemma4-26b dense gate_up,2112,2816,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,91.46299958229065
+gemma4-26b dense gate_up,2112,2816,16,fp16,32,F,,,_BlasBackend.Cublas,0,76.57600194215775
+gemma4-26b dense gate_up,2112,2816,16,fp16,32,F,,,_BlasBackend.Cublas,1,76.48299634456635
+gemma4-26b dense gate_up,2112,2816,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,88.61500024795532
+gemma4-26b dense gate_up,2112,2816,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,91.5139988064766
+gemma4-26b dense gate_up,2112,2816,16,fp16,32,F,,,_BlasBackend.Cublas,2,77.14799791574478
+gemma4-26b dense gate_up,2112,2816,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,152.27900445461273
+gemma4-26b dense gate_up,2112,2816,24,fp16,32,F,,,_BlasBackend.Cublas,0,126.86100602149963
+gemma4-26b dense gate_up,2112,2816,24,fp16,32,F,,,_BlasBackend.Cublas,1,127.4300068616867
+gemma4-26b dense gate_up,2112,2816,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,137.9150003194809
+gemma4-26b dense gate_up,2112,2816,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,140.01399278640747
+gemma4-26b dense gate_up,2112,2816,24,fp16,32,F,,,_BlasBackend.Cublas,2,113.78800123929977
+gemma4-26b dense gate_up,2112,2816,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,165.8249944448471
+gemma4-26b dense gate_up,2112,2816,32,fp16,32,F,,,_BlasBackend.Cublas,0,118.71100217103958
+gemma4-26b dense gate_up,2112,2816,32,fp16,32,F,,,_BlasBackend.Cublas,1,116.42300337553024
+gemma4-26b dense gate_up,2112,2816,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,164.4420027732849
+gemma4-26b dense gate_up,2112,2816,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,168.68999600410461
+gemma4-26b dense gate_up,2112,2816,32,fp16,32,F,,,_BlasBackend.Cublas,2,119.55200135707855
+gemma4-26b dense gate_up,2112,2816,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,198.78999888896942
+gemma4-26b dense gate_up,2112,2816,48,fp16,32,F,,,_BlasBackend.Cublas,0,161.85100376605988
+gemma4-26b dense gate_up,2112,2816,48,fp16,32,F,,,_BlasBackend.Cublas,1,162.58299350738525
+gemma4-26b dense gate_up,2112,2816,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,200.06300508975983
+gemma4-26b dense gate_up,2112,2816,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,196.67400419712067
+gemma4-26b dense gate_up,2112,2816,48,fp16,32,F,,,_BlasBackend.Cublas,2,163.87799382209778
+gemma4-26b dense gate_up,2112,2816,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,312.89198994636536
+gemma4-26b dense gate_up,2112,2816,96,fp16,32,F,,,_BlasBackend.Cublas,0,309.80101227760315
+gemma4-26b dense gate_up,2112,2816,96,fp16,32,F,,,_BlasBackend.Cublas,1,315.49200415611267
+gemma4-26b dense gate_up,2112,2816,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,315.3899908065796
+gemma4-26b dense gate_up,2112,2816,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,313.4160041809082
+gemma4-26b dense gate_up,2112,2816,96,fp16,32,F,,,_BlasBackend.Cublas,2,310.7849955558777
+gemma4-26b dense down,2816,2112,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,75.29599964618683
+gemma4-26b dense down,2816,2112,1,fp16,32,F,,,_BlasBackend.Cublas,0,62.93399631977081
+gemma4-26b dense down,2816,2112,1,fp16,32,F,,,_BlasBackend.Cublas,1,62.82000243663788
+gemma4-26b dense down,2816,2112,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,74.74999874830246
+gemma4-26b dense down,2816,2112,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,74.74400103092194
+gemma4-26b dense down,2816,2112,1,fp16,32,F,,,_BlasBackend.Cublas,2,65.07600098848343
+gemma4-26b dense down,2816,2112,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,74.37499612569809
+gemma4-26b dense down,2816,2112,8,fp16,32,F,,,_BlasBackend.Cublas,0,66.07600301504135
+gemma4-26b dense down,2816,2112,8,fp16,32,F,,,_BlasBackend.Cublas,1,63.913002610206604
+gemma4-26b dense down,2816,2112,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,77.6820033788681
+gemma4-26b dense down,2816,2112,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,74.95500147342682
+gemma4-26b dense down,2816,2112,8,fp16,32,F,,,_BlasBackend.Cublas,2,65.81400334835052
+gemma4-26b dense down,2816,2112,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,100.52900016307831
+gemma4-26b dense down,2816,2112,16,fp16,32,F,,,_BlasBackend.Cublas,0,74.02899861335754
+gemma4-26b dense down,2816,2112,16,fp16,32,F,,,_BlasBackend.Cublas,1,73.2249990105629
+gemma4-26b dense down,2816,2112,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,100.26700049638748
+gemma4-26b dense down,2816,2112,16,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,100.55500268936157
+gemma4-26b dense down,2816,2112,16,fp16,32,F,,,_BlasBackend.Cublas,2,74.31899756193161
+gemma4-26b dense down,2816,2112,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,0,154.15500104427338
+gemma4-26b dense down,2816,2112,24,fp16,32,F,,,_BlasBackend.Cublas,0,99.77799654006958
+gemma4-26b dense down,2816,2112,24,fp16,32,F,,,_BlasBackend.Cublas,1,99.7060015797615
+gemma4-26b dense down,2816,2112,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,1,155.41400015354156
+gemma4-26b dense down,2816,2112,24,fp16,32,A,wmma,"1,2,1,1,8,1",_BlasBackend.Cublas,2,157.19999372959137
+gemma4-26b dense down,2816,2112,24,fp16,32,F,,,_BlasBackend.Cublas,2,101.6009971499443
+gemma4-26b dense down,2816,2112,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,0,184.45099890232086
+gemma4-26b dense down,2816,2112,32,fp16,32,F,,,_BlasBackend.Cublas,0,100.3049984574318
+gemma4-26b dense down,2816,2112,32,fp16,32,F,,,_BlasBackend.Cublas,1,100.51599889993668
+gemma4-26b dense down,2816,2112,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,1,184.86100435256958
+gemma4-26b dense down,2816,2112,32,fp16,32,A,wmma,"2,1,1,2,8,1",_BlasBackend.Cublas,2,179.72899973392487
+gemma4-26b dense down,2816,2112,32,fp16,32,F,,,_BlasBackend.Cublas,2,99.8620018362999
+gemma4-26b dense down,2816,2112,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,0,214.13399279117584
+gemma4-26b dense down,2816,2112,48,fp16,32,F,,,_BlasBackend.Cublas,0,147.7929949760437
+gemma4-26b dense down,2816,2112,48,fp16,32,F,,,_BlasBackend.Cublas,1,152.17700600624084
+gemma4-26b dense down,2816,2112,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,1,213.14400434494019
+gemma4-26b dense down,2816,2112,48,fp16,32,A,wmma,"2,1,1,2,4,1",_BlasBackend.Cublas,2,214.13099765777588
+gemma4-26b dense down,2816,2112,48,fp16,32,F,,,_BlasBackend.Cublas,2,149.23599362373352
+gemma4-26b dense down,2816,2112,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,0,341.54000878334045
+gemma4-26b dense down,2816,2112,96,fp16,32,F,,,_BlasBackend.Cublas,0,341.497004032135
+gemma4-26b dense down,2816,2112,96,fp16,32,F,,,_BlasBackend.Cublas,1,343.095988035202
+gemma4-26b dense down,2816,2112,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,1,345.68899869918823
+gemma4-26b dense down,2816,2112,96,fp16,32,A,wmma,"4,1,1,2,4,1",_BlasBackend.Cublas,2,343.66700053215027
+gemma4-26b dense down,2816,2112,96,fp16,32,F,,,_BlasBackend.Cublas,2,349.2479920387268
+llama3-70b gate/up,28672,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,2106.0760021209717
+llama3-70b gate/up,28672,8192,1,fp16,32,F,,,_BlasBackend.Cublas,0,1873.8019466400146
+llama3-70b gate/up,28672,8192,1,fp16,32,F,,,_BlasBackend.Cublas,1,1907.4159860610962
+llama3-70b gate/up,28672,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,2093.394994735718
+llama3-70b gate/up,28672,8192,1,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,2081.099033355713
+llama3-70b gate/up,28672,8192,1,fp16,32,F,,,_BlasBackend.Cublas,2,1876.8080472946167
+llama3-70b gate/up,28672,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,0,2148.948907852173
+llama3-70b gate/up,28672,8192,8,fp16,32,F,,,_BlasBackend.Cublas,0,1905.1849842071533
+llama3-70b gate/up,28672,8192,8,fp16,32,F,,,_BlasBackend.Cublas,1,1902.1739959716797
+llama3-70b gate/up,28672,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,1,2145.543098449707
+llama3-70b gate/up,28672,8192,8,fp16,32,A,wmma,"1,1,1,1,8,1",_BlasBackend.Cublas,2,2166.318893432617
+llama3-70b gate/up,28672,8192,8,fp16,32,F,,,_BlasBackend.Cublas,2,1909.0989828109741
+llama3-70b gate/up,28672,8192,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,0,2415.900945663452
+llama3-70b gate/up,28672,8192,16,fp16,32,F,,,_BlasBackend.Cublas,0,2316.8160915374756
+llama3-70b gate/up,28672,8192,16,fp16,32,F,,,_BlasBackend.Cublas,1,2312.9189014434814
+llama3-70b gate/up,28672,8192,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,1,2419.6109771728516
+llama3-70b gate/up,28672,8192,16,fp16,32,A,wmma,"2,2,1,2,4,2",_BlasBackend.Cublas,2,2448.1749534606934
+llama3-70b gate/up,28672,8192,16,fp16,32,F,,,_BlasBackend.Cublas,2,2311.893939971924
+llama3-70b gate/up,28672,8192,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,3770.2949047088623
+llama3-70b gate/up,28672,8192,24,fp16,32,F,,,_BlasBackend.Cublas,0,3735.2678775787354
+llama3-70b gate/up,28672,8192,24,fp16,32,F,,,_BlasBackend.Cublas,1,3768.052101135254
+llama3-70b gate/up,28672,8192,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,3709.8538875579834
+llama3-70b gate/up,28672,8192,24,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,3720.834970474243
+llama3-70b gate/up,28672,8192,24,fp16,32,F,,,_BlasBackend.Cublas,2,3789.7861003875732
+llama3-70b gate/up,28672,8192,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,0,3765.8419609069824
+llama3-70b gate/up,28672,8192,32,fp16,32,F,,,_BlasBackend.Cublas,0,3695.255994796753
+llama3-70b gate/up,28672,8192,32,fp16,32,F,,,_BlasBackend.Cublas,1,3756.002902984619
+llama3-70b gate/up,28672,8192,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,1,3718.549966812134
+llama3-70b gate/up,28672,8192,32,fp16,32,A,wmma,"4,1,1,4,2,2",_BlasBackend.Cublas,2,3706.6810131073
+llama3-70b gate/up,28672,8192,32,fp16,32,F,,,_BlasBackend.Cublas,2,3739.4258975982666
+llama3-70b gate/up,28672,8192,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,0,5729.911804199219
+llama3-70b gate/up,28672,8192,48,fp16,32,F,,,_BlasBackend.Cublas,0,5670.475006103516
+llama3-70b gate/up,28672,8192,48,fp16,32,F,,,_BlasBackend.Cublas,1,5660.439968109131
+llama3-70b gate/up,28672,8192,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,1,5692.023754119873
+llama3-70b gate/up,28672,8192,48,fp16,32,A,wmma,"2,2,1,4,1,2",_BlasBackend.Cublas,2,5653.998851776123
+llama3-70b gate/up,28672,8192,48,fp16,32,F,,,_BlasBackend.Cublas,2,5656.3239097595215
+llama3-70b gate/up,28672,8192,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,0,8516.559600830078
+llama3-70b gate/up,28672,8192,96,fp16,32,F,,,_BlasBackend.Cublas,0,8504.044532775879
+llama3-70b gate/up,28672,8192,96,fp16,32,F,,,_BlasBackend.Cublas,1,8504.7025680542
+llama3-70b gate/up,28672,8192,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,1,8513.866424560547
+llama3-70b gate/up,28672,8192,96,fp16,32,A,wmma,"4,2,1,4,1,2",_BlasBackend.Cublas,2,8520.939826965332
+llama3-70b gate/up,28672,8192,96,fp16,32,F,,,_BlasBackend.Cublas,2,8512.228965759277

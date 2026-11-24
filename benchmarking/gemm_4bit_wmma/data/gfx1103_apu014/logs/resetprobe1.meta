@@ -1,0 +1,11 @@
+2026-11-24T09:17:29Z start resetprobe1 level=high tree=src gpu_resets=6 pin_tries=1
+cmd: python -c import torch; x=torch.ones(2048,2048,device="cuda"); print(float((x@x).sum()))
+users:
+0: 2599Mhz
+1: 1100Mhz
+2: 2599Mhz *
+0: 400Mhz
+1: 937Mhz *
+2: 937Mhz *
+2026-11-24T09:17:31Z end rc=0 gpu_resets=6
+2026-11-24T09:17:31Z restored auto

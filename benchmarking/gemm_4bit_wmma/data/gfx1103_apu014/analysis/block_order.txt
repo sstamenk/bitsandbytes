@@ -1,0 +1,10 @@
+== block order, fp32: A0/A1 = gfx1100 tiles N-first / row-tiles-first, T0/T1 = tile 2,2,1,4,1,2
+M=  24 n=40 A0=   118712us | A1/A0 0.9927 (0.990-0.993) A1<A0 on 20 worst 1.08 qwen3-30b-moe expert d best 0.98 | T0/A0 0.9295 (0.927-0.930) T0<A0 on 40 worst 0.97 qwen3-235b-moe expert  best 0.75 | T1/A0 0.9278 (0.926-0.929) T1<A0 on 40 worst 0.98 qwen3-235b-moe expert  best 0.75
+M=  48 n=40 A0=   173882us | A1/A0 0.9976 (0.996-0.998) A1<A0 on 19 worst 1.07 qwen3.5-35b-moe expert best 0.97 | T0/A0 0.9506 (0.950-0.951) T0<A0 on 32 worst 1.00 gemma3-27b gate/up best 0.69 | T1/A0 0.9457 (0.945-0.946) T1<A0 on 37 worst 1.01 qwen3-coder-480b-moe e best 0.71
+M=  96 n=40 A0=   354420us | A1/A0 0.9979 (0.998-0.998) A1<A0 on 18 worst 1.03 7-8b k/v best 0.96 | T0/A0 0.9262 (0.926-0.926) T0<A0 on 40 worst 0.98 gemma4-26b-moe expert  best 0.91 | T1/A0 0.9229 (0.923-0.923) T1<A0 on 40 worst 0.99 gemma4-26b dense down best 0.89
+M= 192 n=40 A0=   706558us | A1/A0 1.0039 (1.004-1.005) A1<A0 on 9 worst 1.04 qwen3.5-122b-moe exper best 0.99 | T0/A0 0.9270 (0.927-0.927) T0<A0 on 40 worst 0.98 gemma4-26b dense down best 0.92 | T1/A0 0.9317 (0.932-0.932) T1<A0 on 39 worst 1.07 gemma4-26b-moe expert  best 0.91
+== block order, fp16: A1 = row-tiles-first (default), A0 = N-first, gfx1100 tiles
+M=  24 n=40 A1=    31730us | A0/A1 1.0090 (1.005-1.010) A0<A1 on 22 worst 1.15 gemma3-4b down best 0.88
+M=  48 n=40 A1=    50611us | A0/A1 1.1659 (1.164-1.172) A0<A1 on 13 worst 1.57 qwen3-8b gate/up best 0.92
+M=  96 n=40 A1=    74901us | A0/A1 1.0401 (1.040-1.044) A0<A1 on 14 worst 1.19 llama3-8b/mistral-7b g best 0.78
+M= 192 n=40 A1=   145794us | A0/A1 1.0420 (1.040-1.045) A0<A1 on 20 worst 1.23 llama3-8b/mistral-7b o best 0.88

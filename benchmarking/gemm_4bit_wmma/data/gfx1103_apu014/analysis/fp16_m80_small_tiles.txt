@@ -1,0 +1,42 @@
+per-shape best: tiles >= 32 rows 71.9 ms, tiles <= 16 rows 77.6 ms, ratio 1.079
+one tile for every shape: 4,2,1,4,1,2 1.000, best tile <= 16 rows 2,2,1,4,1,2 1.091 (of the >= 32-row best)
+  0.928 gemma4-26b dense down
+  0.965 gemma4-26b-moe expert down
+  0.981 small GQA k/v
+  0.982 qwen3-30b-moe expert down
+  0.983 gemma4-26b-moe expert gate_up
+  0.998 qwen3.5-35b-moe expert down
+  1.005 qwen3-235b-moe expert down
+  1.006 gemma4-26b dense gate_up
+  1.008 7-8b k/v
+  1.011 small square
+  1.016 qwen3-30b-moe expert gate_up
+  1.019 qwen3.5-35b-moe expert gate_up
+  1.027 llama3-70b gate/up
+  1.028 qwen3.5-122b-moe expert down
+  1.029 qwen3-coder-480b-moe expert gate_up
+  1.031 gemma3-27b gate/up
+  1.043 qwen3-32b gate/up
+  1.043 llama3-8b/mistral-7b o/q square
+  1.045 qwen3-14b gate/up
+  1.045 qwen3-8b gate/up
+  1.046 gemma3-12b gate/up
+  1.046 qwen3-235b-moe expert gate_up
+  1.048 llama3-8b/mistral-7b gate/up
+  1.048 gemma2-27b gate/up
+  1.048 llama3-70b o/q square
+  1.048 gemma3-4b gate/up
+  1.048 phi3-mini/llama3.2-3b gate/up
+  1.050 qwen3-14b o/q square
+  1.055 phi3-mini/llama3.2-3b down
+  1.057 qwen3-coder-480b-moe expert down
+  1.058 qwen3.5-122b-moe expert gate_up
+  1.059 qwen3-32b down
+  1.070 gemma3-4b down
+  1.077 gemma3-12b down
+  1.086 qwen3-8b down
+  1.101 llama3-8b/mistral-7b down
+  1.116 gemma3-27b down
+  1.166 llama3-70b down
+  1.176 gemma2-27b down
+  1.177 qwen3-14b down

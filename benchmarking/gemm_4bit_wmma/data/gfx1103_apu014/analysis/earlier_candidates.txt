@@ -1,0 +1,83 @@
+== earlier candidate cand/S7.py (the final table with one tile for M = 49-96) through its own build (fin2): A = gfx1100 table, F = default dispatch of fin2
+-- fp16
+M<=   8 (M 1,2,3,4,6,8; 240 cells) A=    119.0 ms | F/A 0.8059 (cycles 0.8025-0.8083) slower>5%: 0, >20%: 0, worst 0.95 qwen3-32b down M=3, best 0.59
+M<=  16 (M 9,12,16; 120 cells) A=     68.6 ms | F/A 0.8616 (cycles 0.8576-0.8625) slower>5%: 0, >20%: 0, worst 0.95 qwen3-coder-480b-moe exper M=16, best 0.60
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.2 ms | F/A 0.9072 (cycles 0.9030-0.9085) slower>5%: 0, >20%: 0, worst 1.01 qwen3-8b gate/up M=20, best 0.44
+M<=  48 (M 33,40,48; 120 cells) A=    149.3 ms | F/A 0.9267 (cycles 0.9227-0.9277) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=48, best 0.65
+M<=  64 (M 49,56,64; 120 cells) A=    159.6 ms | F/A 0.9166 (cycles 0.9139-0.9185) slower>5%: 0, >20%: 0, worst 1.00 gemma3-27b gate/up M=49, best 0.63
+M<=  96 (M 65,72,80,88,96; 200 cells) A=    368.2 ms | F/A 0.9696 (cycles 0.9660-0.9735) slower>5%: 0, >20%: 0, worst 1.00 gemma3-4b gate/up M=96, best 0.60
+M<= inf (M 97,128,192,256,384,512; 240 cells) A=   1199.8 ms | F/A 0.9999 (cycles 0.9993-1.0010) slower>5%: 0, >20%: 0, worst 1.01 qwen3.5-35b-moe expert dow M=128, best 0.99
+-- bf16
+M<=   8 (M 1,2,3,4,6,8; 240 cells) A=    119.1 ms | F/A 0.8055 (cycles 0.8016-0.8076) slower>5%: 0, >20%: 0, worst 0.95 qwen3-32b down M=4, best 0.59
+M<=  16 (M 9,12,16; 120 cells) A=     68.6 ms | F/A 0.8619 (cycles 0.8585-0.8628) slower>5%: 0, >20%: 0, worst 0.95 qwen3-8b gate/up M=12, best 0.59
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.4 ms | F/A 0.9069 (cycles 0.9050-0.9086) slower>5%: 0, >20%: 0, worst 1.01 llama3-8b/mistral-7b gate/ M=24, best 0.44
+M<=  48 (M 33,40,48; 120 cells) A=    149.5 ms | F/A 0.9267 (cycles 0.9194-0.9283) slower>5%: 0, >20%: 0, worst 1.01 qwen3-8b gate/up M=33, best 0.65
+M<=  64 (M 49,56,64; 120 cells) A=    159.9 ms | F/A 0.9179 (cycles 0.9164-0.9195) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=64, best 0.64
+M<=  96 (M 65,72,80,88,96; 200 cells) A=    369.9 ms | F/A 0.9735 (cycles 0.9697-0.9780) slower>5%: 0, >20%: 0, worst 1.01 gemma2-27b down M=80, best 0.61
+M<= inf (M 97,128,192,256,384,512; 240 cells) A=   1219.1 ms | F/A 0.9997 (cycles 0.9991-1.0006) slower>5%: 0, >20%: 0, worst 1.01 qwen3-32b down M=512, best 0.99
+== earlier candidate cand/S1.py through its own build (fin1): A = gfx1100 table, F = default dispatch of fin1
+-- fp16
+M<=   8 (M 1,2,3,4,6,8; 240 cells) A=    118.8 ms | F/A 0.8064 (cycles 0.8029-0.8089) slower>5%: 0, >20%: 0, worst 0.96 gemma4-26b-moe expert gate M=8, best 0.59
+M<=  16 (M 9,12,16; 120 cells) A=     68.5 ms | F/A 0.8617 (cycles 0.8575-0.8595) slower>5%: 0, >20%: 0, worst 0.95 qwen3-coder-480b-moe exper M=16, best 0.60
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    158.9 ms | F/A 0.8814 (cycles 0.8792-0.8826) slower>5%: 0, >20%: 0, worst 1.01 phi3-mini/llama3.2-3b gate M=20, best 0.43
+M<=  48 (M 33,40,48; 120 cells) A=    149.0 ms | F/A 0.9274 (cycles 0.9251-0.9287) slower>5%: 0, >20%: 0, worst 1.01 phi3-mini/llama3.2-3b gate M=48, best 0.65
+M<=  96 (M 49,56,64,65,72,80,88,96; 320 cells) A=    527.3 ms | F/A 0.9536 (cycles 0.9505-0.9555) slower>5%: 0, >20%: 0, worst 1.01 gemma2-27b down M=80, best 0.60
+M<= inf (M 97,128,192,256,384,512; 240 cells) A=   1204.1 ms | F/A 0.9994 (cycles 0.9990-1.0003) slower>5%: 0, >20%: 0, worst 1.01 qwen3.5-35b-moe expert dow M=192, best 0.98
+-- bf16
+M<=   8 (M 1,2,3,4,6,8; 240 cells) A=    119.0 ms | F/A 0.8052 (cycles 0.8038-0.8059) slower>5%: 0, >20%: 0, worst 1.00 qwen3-30b-moe expert down M=8, best 0.59
+M<=  16 (M 9,12,16; 120 cells) A=     68.5 ms | F/A 0.8615 (cycles 0.8584-0.8625) slower>5%: 0, >20%: 0, worst 0.96 qwen3-coder-480b-moe exper M=12, best 0.59
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.1 ms | F/A 0.8818 (cycles 0.8780-0.8829) slower>5%: 0, >20%: 0, worst 1.02 qwen3-coder-480b-moe exper M=17, best 0.44
+M<=  48 (M 33,40,48; 120 cells) A=    149.3 ms | F/A 0.9263 (cycles 0.9208-0.9301) slower>5%: 0, >20%: 0, worst 1.01 phi3-mini/llama3.2-3b gate M=48, best 0.65
+M<=  96 (M 49,56,64,65,72,80,88,96; 320 cells) A=    529.0 ms | F/A 0.9570 (cycles 0.9538-0.9582) slower>5%: 0, >20%: 0, worst 1.01 gemma2-27b gate/up M=56, best 0.60
+M<= inf (M 97,128,192,256,384,512; 240 cells) A=   1218.2 ms | F/A 1.0000 (cycles 0.9988-1.0007) slower>5%: 0, >20%: 0, worst 1.01 qwen3.5-35b-moe expert gat M=97, best 0.97
+-- blocksize 32, fp16 (3 cycles)
+M=   1 n=40 A=    20018us | F/A 0.8495 (0.846-0.849) F<A on 40 worst 0.96 qwen3-235b-moe expert  best 0.62
+M=   8 n=40 A=    20840us | F/A 0.8556 (0.853-0.856) F<A on 40 worst 0.94 gemma2-27b down best 0.64
+M=  16 n=40 A=    23428us | F/A 0.9516 (0.944-0.952) F<A on 35 worst 1.08 7-8b k/v best 0.63
+M=  32 n=40 A=    36095us | F/A 1.1908 (1.188-1.192) F<A on 16 worst 1.63 llama3-70b down best 0.45
+M=  48 n=40 A=    55989us | F/A 0.9242 (0.922-0.930) F<A on 35 worst 1.00 llama3-70b gate/up best 0.68
+M=  96 n=40 A=    80395us | F/A 0.9791 (0.971-0.980) F<A on 34 worst 1.02 phi3-mini/llama3.2-3b  best 0.61
+-- blocksize 128, fp16
+M=   1 n=40 A=    19253us | F/A 0.8035 (0.793-0.806) F<A on 40 worst 0.94 gemma4-26b-moe expert  best 0.63
+M=   8 n=40 A=    19830us | F/A 0.8050 (0.801-0.808) F<A on 40 worst 0.95 qwen3-30b-moe expert d best 0.62
+M=  16 n=40 A=    22800us | F/A 0.8603 (0.860-0.862) F<A on 40 worst 0.93 qwen3-coder-480b-moe e best 0.60
+M=  32 n=40 A=    32169us | F/A 0.8763 (0.873-0.876) F<A on 34 worst 1.01 gemma3-4b gate/up best 0.44
+M=  48 n=40 A=    50373us | F/A 0.9191 (0.912-0.922) F<A on 36 worst 1.00 llama3-70b gate/up best 0.66
+M=  96 n=40 A=    74614us | F/A 0.9538 (0.951-0.956) F<A on 35 worst 1.00 llama3-70b gate/up best 0.60
+== fp32 on build fin1 (the same fp32 tables and cutoffs as the final build): A = gfx1103 cutoffs + gfx1100 tiles, F = default dispatch
+-- fp32_lo (rerun after the GPU reset, queue job altF2)
+M<=   2 (M 1,2; 80 cells) A=     68.5 ms | F/A 0.9994 (cycles 0.9981-1.0001) slower>5%: 0, >20%: 0, worst 1.02 qwen3.5-122b-moe expert do M=2, best 0.97
+M<=   4 (M 3,4; 80 cells) A=     83.0 ms | F/A 0.9710 (cycles 0.9692-0.9723) slower>5%: 0, >20%: 0, worst 1.01 qwen3.5-122b-moe expert do M=4, best 0.84
+M<=   8 (M 5,6,8; 120 cells) A=    127.3 ms | F/A 0.9458 (cycles 0.9429-0.9455) slower>5%: 0, >20%: 0, worst 1.01 phi3-mini/llama3.2-3b gate M=8, best 0.66
+M<=  16 (M 9,12,16; 120 cells) A=    199.1 ms | F/A 0.8553 (cycles 0.8538-0.8563) slower>5%: 0, >20%: 0, worst 1.00 gemma2-27b gate/up M=12, best 0.59
+M<=  24 (M 17,24; 80 cells) A=    237.1 ms | F/A 0.9302 (cycles 0.9281-0.9303) slower>5%: 0, >20%: 0, worst 0.97 qwen3-235b-moe expert gate M=17, best 0.75
+M<=  48 (M 32,33,48; 120 cells) A=    462.2 ms | F/A 0.9516 (cycles 0.9506-0.9523) slower>5%: 0, >20%: 0, worst 1.00 gemma3-4b gate/up M=33, best 0.69
+M<= inf (M 49,64,72,80,96,112,128,160; 320 cells) A=   3058.3 ms | F/A 0.8728 (cycles 0.8728-0.8730) slower>5%: 0, >20%: 0, worst 0.98 gemma4-26b-moe expert down M=160, best 0.76
+-- fp32_lo, the 13 shapes done before the GPU reset
+M<=   2 (M 1,2; 26 cells) A=     37.2 ms | F/A 0.9986 (cycles 0.9968-1.0006) slower>5%: 0, >20%: 0, worst 1.02 llama3-8b/mistral-7b o/q s M=2, best 0.99
+M<=   4 (M 3,4; 26 cells) A=     44.2 ms | F/A 0.9808 (cycles 0.9786-0.9817) slower>5%: 0, >20%: 0, worst 1.00 llama3-8b/mistral-7b gate/ M=4, best 0.83
+M<=   8 (M 5,6,8; 39 cells) A=     66.4 ms | F/A 0.9810 (cycles 0.9782-0.9813) slower>5%: 0, >20%: 0, worst 1.01 qwen3-8b gate/up M=6, best 0.85
+M<=  16 (M 9,12,16; 39 cells) A=    104.4 ms | F/A 0.8805 (cycles 0.8780-0.8812) slower>5%: 0, >20%: 0, worst 1.00 gemma2-27b gate/up M=12, best 0.68
+M<=  24 (M 17,24; 26 cells) A=    128.1 ms | F/A 0.9388 (cycles 0.9380-0.9394) slower>5%: 0, >20%: 0, worst 0.97 llama3-8b/mistral-7b o/q s M=17, best 0.92
+M<=  48 (M 32,33,48; 39 cells) A=    250.8 ms | F/A 0.9571 (cycles 0.9565-0.9572) slower>5%: 0, >20%: 0, worst 1.00 gemma2-27b gate/up M=48, best 0.87
+M<= inf (M 49,64,72,80,96,112,128,160; 104 cells) A=   1678.9 ms | F/A 0.8722 (cycles 0.8720-0.8725) slower>5%: 0, >20%: 0, worst 0.94 llama3-70b o/q square M=128, best 0.77
+-- fp32_hi, fp32_x, fp32_d: run after the GPU reset in the same job (the level high no longer held the clock at every sample)
+M= 256 n=40 A=   937796us | F/A 0.9266 (0.926-0.927) F<A on 40 worst 0.98 gemma4-26b dense down best 0.92
+M= 384 n=40 A=  1405954us | F/A 0.9262 (0.926-0.926) F<A on 40 worst 0.98 gemma4-26b dense down best 0.91
+M= 512 n=40 A=  1874249us | F/A 0.9265 (0.926-0.927) F<A on 40 worst 0.98 gemma4-26b dense down best 0.91
+M=   4 n=40 F=    40540us | X/F 1.0008 (1.000-1.004) X<F on 14 worst 1.04 small GQA k/v best 0.98
+M=   8 n=40 F=    40183us | X/F 0.9997 (0.996-1.000) X<F on 22 worst 1.01 qwen3-30b-moe expert d best 0.94
+M=  16 n=40 F=    56855us | X/F 1.0002 (1.000-1.001) X<F on 19 worst 1.01 qwen3-30b-moe expert d best 1.00
+M=  48 n=40 F=   164863us | X/F 1.0002 (0.999-1.000) X<F on 19 worst 1.00 phi3-mini/llama3.2-3b  best 1.00
+M=  80 n=40 F=   272824us | X/F 1.0000 (0.999-1.000) X<F on 16 worst 1.00 qwen3-14b o/q square best 1.00
+M=   5 n=40 F=    40134us | D/F 1.0076 (1.002-1.007) D<F on 14 worst 1.26 7-8b k/v best 0.99
+M=   8 n=40 F=    40181us | D/F 1.0070 (1.001-1.007) D<F on 15 worst 1.28 small square best 0.99
+M=  16 n=40 F=    56883us | D/F 1.0011 (1.000-1.002) D<F on 18 worst 1.14 gemma4-26b-moe expert  best 0.90
+M=  48 n=40 F=   164857us | D/F 1.0005 (1.000-1.001) D<F on 20 worst 1.13 gemma4-26b-moe expert  best 0.99
+M=  64 n=40 F=   218699us | D/F 1.0005 (0.999-1.001) D<F on 16 worst 1.12 gemma4-26b dense down best 1.00
+M= 128 n=40 F=   434751us | D/F 1.0034 (1.003-1.004) D<F on 20 worst 1.16 gemma3-4b down best 1.00
+-- bs32_fp32 (blocksize 32, 3 cycles)
+M=   8 n=40 A=    44178us | F/A 0.9584 (0.955-0.964) F<A on 27 worst 1.03 qwen3-32b down best 0.70
+M=  16 n=40 A=    67234us | F/A 0.8456 (0.846-0.847) F<A on 38 worst 1.00 gemma2-27b gate/up best 0.60
+M=  48 n=40 A=   173439us | F/A 0.9490 (0.949-0.949) F<A on 33 worst 1.00 qwen3-32b gate/up best 0.66
+M= 128 n=40 A=   469250us | F/A 0.9234 (0.923-0.924) F<A on 40 worst 0.98 gemma4-26b-moe expert  best 0.91

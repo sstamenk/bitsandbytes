@@ -1,0 +1,63 @@
+== M = 17-32 at blocksize 32 (base build, 5 cycles): A = gfx1100 table, S = cand/S1.py, V2 = cand/V2.py, V3 = cand/V3.py (= the final bucket), B = rulesB2.py
+-- v32_fp16
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    178.6 ms | S/A 1.1874 (cycles 1.1803-1.1881) slower>5%: 79, >20%: 49, worst 1.62 llama3-70b down M=24, best 0.45 | V2/A 0.8963 (cycles 0.8871-0.8966) slower>5%: 5, >20%: 0, worst 1.18 small GQA k/v M=20, best 0.45 | V3/A 0.9451 (cycles 0.9389-0.9482) slower>5%: 0, >20%: 0, worst 1.01 phi3-mini/llama3.2-3b gate M=24, best 0.44 | B/A 1.0650 (cycles 1.0537-1.0668) slower>5%: 50, >20%: 36, worst 1.62 llama3-70b down M=24, best 0.46
+M=  17 n=40 A=    35423us | S/A 1.1826 (1.167-1.184) S<A on 17 worst 1.61 llama3-70b down best 0.57 | V2/A 0.8965 (0.883-0.900) V2<A on 34 worst 1.14 small GQA k/v best 0.57 | V3/A 0.9468 (0.935-0.948) V3<A on 32 worst 1.01 qwen3-8b gate/up best 0.57 | B/A 1.0589 (1.042-1.059) B<A on 30 worst 1.61 llama3-70b down best 0.54
+M=  20 n=40 A=    35506us | S/A 1.1874 (1.172-1.187) S<A on 18 worst 1.61 llama3-70b down best 0.58 | V2/A 0.8985 (0.879-0.899) V2<A on 34 worst 1.18 small GQA k/v best 0.59 | V3/A 0.9466 (0.931-0.947) V3<A on 34 worst 1.01 gemma3-12b gate/up best 0.59 | B/A 1.0652 (1.042-1.066) B<A on 30 worst 1.61 llama3-70b down best 0.60
+M=  24 n=40 A=    35570us | S/A 1.1917 (1.186-1.194) S<A on 15 worst 1.62 llama3-70b down best 0.60 | V2/A 0.9005 (0.891-0.903) V2<A on 34 worst 1.16 small GQA k/v best 0.60 | V3/A 0.9490 (0.941-0.954) V3<A on 32 worst 1.01 phi3-mini/llama3.2-3b  best 0.59 | B/A 1.0692 (1.059-1.074) B<A on 30 worst 1.62 llama3-70b down best 0.57
+M=  28 n=40 A=    35970us | S/A 1.1873 (1.182-1.190) S<A on 18 worst 1.59 llama3-70b down best 0.45 | V2/A 0.8937 (0.889-0.895) V2<A on 34 worst 1.12 small GQA k/v best 0.45 | V3/A 0.9420 (0.935-0.947) V3<A on 33 worst 1.01 llama3-70b o/q square best 0.44 | B/A 1.0652 (1.057-1.071) B<A on 30 worst 1.60 llama3-70b down best 0.47
+M=  32 n=40 A=    36125us | S/A 1.1881 (1.187-1.189) S<A on 15 worst 1.61 llama3-70b down best 0.45 | V2/A 0.8926 (0.890-0.895) V2<A on 35 worst 1.06 small GQA k/v best 0.45 | V3/A 0.9412 (0.939-0.950) V3<A on 35 worst 1.00 llama3-70b o/q square best 0.45 | B/A 1.0662 (1.065-1.069) B<A on 30 worst 1.61 llama3-70b down best 0.46
+-- v32_bf16
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    178.9 ms | S/A 1.1842 (cycles 1.1800-1.1861) slower>5%: 78, >20%: 47, worst 1.62 llama3-70b down M=17, best 0.45 | V2/A 0.8919 (cycles 0.8888-0.8950) slower>5%: 4, >20%: 0, worst 1.17 small GQA k/v M=20, best 0.44 | V3/A 0.9454 (cycles 0.9427-0.9477) slower>5%: 0, >20%: 0, worst 1.02 llama3-70b o/q square M=17, best 0.42 | B/A 1.0594 (cycles 1.0546-1.0613) slower>5%: 49, >20%: 34, worst 1.61 llama3-70b down M=20, best 0.47
+M=  17 n=40 A=    35439us | S/A 1.1819 (1.182-1.184) S<A on 19 worst 1.62 llama3-70b down best 0.58 | V2/A 0.8936 (0.891-0.896) V2<A on 33 worst 1.14 small GQA k/v best 0.59 | V3/A 0.9450 (0.944-0.950) V3<A on 36 worst 1.02 llama3-70b o/q square best 0.58 | B/A 1.0550 (1.052-1.057) B<A on 30 worst 1.61 llama3-70b down best 0.59
+M=  20 n=40 A=    35515us | S/A 1.1840 (1.181-1.190) S<A on 19 worst 1.62 llama3-70b down best 0.60 | V2/A 0.8950 (0.894-0.897) V2<A on 35 worst 1.17 small GQA k/v best 0.59 | V3/A 0.9485 (0.947-0.954) V3<A on 31 worst 1.01 llama3-70b gate/up best 0.59 | B/A 1.0569 (1.053-1.060) B<A on 30 worst 1.61 llama3-70b down best 0.60
+M=  24 n=40 A=    35666us | S/A 1.1894 (1.185-1.192) S<A on 17 worst 1.60 llama3-70b down best 0.60 | V2/A 0.8939 (0.891-0.899) V2<A on 35 worst 1.16 small GQA k/v best 0.61 | V3/A 0.9472 (0.947-0.950) V3<A on 32 worst 1.01 llama3-70b o/q square best 0.61 | B/A 1.0648 (1.062-1.067) B<A on 30 worst 1.61 llama3-70b down best 0.61
+M=  28 n=40 A=    36048us | S/A 1.1820 (1.168-1.184) S<A on 16 worst 1.60 llama3-70b down best 0.45 | V2/A 0.8895 (0.873-0.899) V2<A on 32 worst 1.08 small GQA k/v best 0.46 | V3/A 0.9424 (0.929-0.951) V3<A on 33 worst 1.01 phi3-mini/llama3.2-3b  best 0.42 | B/A 1.0574 (1.042-1.061) B<A on 30 worst 1.60 llama3-70b down best 0.47
+M=  32 n=40 A=    36194us | S/A 1.1835 (1.173-1.183) S<A on 19 worst 1.60 llama3-70b down best 0.45 | V2/A 0.8875 (0.877-0.891) V2<A on 32 worst 1.05 small GQA k/v best 0.44 | V3/A 0.9440 (0.936-0.947) V3<A on 31 worst 1.01 llama3-70b gate/up best 0.45 | B/A 1.0630 (1.050-1.065) B<A on 30 worst 1.61 llama3-70b down best 0.47
+== the same at blocksize 64: A, S, V3
+-- v64_fp16
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.3 ms | S/A 0.8808 (cycles 0.8784-0.8818) slower>5%: 0, >20%: 0, worst 1.02 phi3-mini/llama3.2-3b gate M=32, best 0.44 | V3/A 0.9064 (cycles 0.9015-0.9087) slower>5%: 0, >20%: 0, worst 1.02 phi3-mini/llama3.2-3b gate M=32, best 0.44
+M=  17 n=40 A=    31647us | S/A 0.8797 (0.878-0.881) S<A on 36 worst 1.01 phi3-mini/llama3.2-3b  best 0.57 | V3/A 0.9092 (0.906-0.909) V3<A on 31 worst 1.01 phi3-mini/llama3.2-3b  best 0.56
+M=  20 n=40 A=    31664us | S/A 0.8823 (0.882-0.885) S<A on 35 worst 1.00 qwen3-14b gate/up best 0.59 | V3/A 0.9095 (0.903-0.911) V3<A on 35 worst 1.00 gemma3-27b down best 0.58
+M=  24 n=40 A=    31724us | S/A 0.8838 (0.880-0.889) S<A on 33 worst 1.01 phi3-mini/llama3.2-3b  best 0.58 | V3/A 0.9100 (0.904-0.917) V3<A on 29 worst 1.01 phi3-mini/llama3.2-3b  best 0.60
+M=  28 n=40 A=    32057us | S/A 0.8799 (0.870-0.882) S<A on 34 worst 1.02 gemma3-4b gate/up best 0.44 | V3/A 0.9024 (0.892-0.908) V3<A on 32 worst 1.01 qwen3-14b o/q square best 0.44
+M=  32 n=40 A=    32210us | S/A 0.8785 (0.870-0.890) S<A on 35 worst 1.02 phi3-mini/llama3.2-3b  best 0.44 | V3/A 0.9009 (0.890-0.902) V3<A on 32 worst 1.02 phi3-mini/llama3.2-3b  best 0.44
+-- v64_bf16
+M<=  32 (M 17,20,24,28,32; 200 cells) A=    159.5 ms | S/A 0.8805 (cycles 0.8789-0.8811) slower>5%: 0, >20%: 0, worst 1.02 phi3-mini/llama3.2-3b gate M=32, best 0.44 | V3/A 0.9065 (cycles 0.9015-0.9075) slower>5%: 0, >20%: 0, worst 1.01 gemma3-4b gate/up M=24, best 0.45
+M=  17 n=40 A=    31671us | S/A 0.8788 (0.877-0.881) S<A on 39 worst 1.00 qwen3-8b gate/up best 0.57 | V3/A 0.9091 (0.908-0.910) V3<A on 35 worst 1.01 qwen3-14b o/q square best 0.57
+M=  20 n=40 A=    31677us | S/A 0.8821 (0.880-0.883) S<A on 33 worst 1.01 gemma3-4b gate/up best 0.60 | V3/A 0.9096 (0.906-0.910) V3<A on 33 worst 1.01 gemma3-4b gate/up best 0.59
+M=  24 n=40 A=    31743us | S/A 0.8840 (0.881-0.885) S<A on 35 worst 1.01 gemma3-4b gate/up best 0.58 | V3/A 0.9105 (0.907-0.912) V3<A on 31 worst 1.01 gemma3-4b gate/up best 0.60
+M=  28 n=40 A=    32139us | S/A 0.8774 (0.877-0.881) S<A on 33 worst 1.01 gemma3-12b gate/up best 0.45 | V3/A 0.9017 (0.899-0.908) V3<A on 29 worst 1.01 qwen3-coder-480b-moe e best 0.45
+M=  32 n=40 A=    32236us | S/A 0.8802 (0.869-0.881) S<A on 36 worst 1.02 phi3-mini/llama3.2-3b  best 0.44 | V3/A 0.9020 (0.886-0.903) V3<A on 31 worst 1.00 qwen3-coder-480b-moe e best 0.45
+== bf16, blocksize 32, the other buckets: A, S
+M=   1 n=40 A=    20104us | S/A 0.8455 (0.841-0.848) S<A on 40 worst 0.95 qwen3-32b down best 0.62
+M=   8 n=40 A=    20906us | S/A 0.8517 (0.850-0.854) S<A on 40 worst 0.94 qwen3-32b down best 0.62
+M=  16 n=40 A=    23480us | S/A 0.9500 (0.950-0.952) S<A on 35 worst 1.09 7-8b k/v best 0.63
+M=  48 n=40 A=    56153us | S/A 0.9245 (0.918-0.925) S<A on 34 worst 1.01 qwen3-8b down best 0.67
+M=  96 n=40 A=    95751us | S/A 0.8305 (0.828-0.832) S<A on 37 worst 1.00 gemma3-12b gate/up best 0.63
+== double-quantized absmax, blocksize 64 (base build, 3 cycles): A, S, V3; fp32: A = gfx1103 cutoffs + gfx1100 tiles, F = the same cutoffs + cand/F1.py
+-- nest_fp16
+M=   1 n=40 A=    19824us | S/A 0.7983 (0.794-0.800) S<A on 40 worst 0.93 qwen3-32b down best 0.63 | V3/A 0.7974 (0.793-0.798) V3<A on 40 worst 0.93 qwen3-32b down best 0.63
+M=   8 n=40 A=    20356us | S/A 0.7929 (0.788-0.793) S<A on 40 worst 0.92 qwen3-32b down best 0.61 | V3/A 0.7907 (0.786-0.792) V3<A on 40 worst 0.92 qwen3-32b down best 0.63
+M=  16 n=40 A=    23294us | S/A 0.8488 (0.848-0.850) S<A on 40 worst 0.92 llama3-70b down best 0.67 | V3/A 0.8485 (0.846-0.851) V3<A on 40 worst 0.92 qwen3-32b down best 0.68
+M=  24 n=40 A=    32138us | S/A 0.8782 (0.877-0.879) S<A on 34 worst 1.01 phi3-mini/llama3.2-3b  best 0.59 | V3/A 0.9056 (0.903-0.906) V3<A on 29 worst 1.01 qwen3-coder-480b-moe e best 0.58
+M=  32 n=40 A=    32509us | S/A 0.8743 (0.874-0.881) S<A on 34 worst 1.01 phi3-mini/llama3.2-3b  best 0.48 | V3/A 0.8989 (0.897-0.899) V3<A on 31 worst 1.01 llama3-8b/mistral-7b g best 0.48
+M=  48 n=40 A=    51163us | S/A 0.9285 (0.922-0.929) S<A on 33 worst 1.00 gemma2-27b gate/up best 0.67 | V3/A 0.9281 (0.921-0.933) V3<A on 33 worst 1.01 qwen3-32b gate/up best 0.66
+M=  64 n=40 A=    54250us | S/A 0.9217 (0.921-0.923) S<A on 33 worst 1.01 gemma3-4b gate/up best 0.65 | V3/A 0.9216 (0.919-0.922) V3<A on 36 worst 1.01 qwen3-32b gate/up best 0.64
+M=  96 n=40 A=    76231us | S/A 0.9759 (0.974-0.978) S<A on 29 worst 1.00 qwen3-32b gate/up best 0.59 | V3/A 0.9768 (0.976-0.981) V3<A on 29 worst 1.01 llama3-70b down best 0.60
+M= 128 n=40 A=   100612us | S/A 1.0003 (0.999-1.001) S<A on 16 worst 1.01 qwen3-30b-moe expert g best 0.98 | V3/A 1.0003 (0.999-1.001) V3<A on 21 worst 1.01 qwen3-30b-moe expert g best 0.98
+-- nest_bf16
+M=   1 n=40 A=    19893us | S/A 0.7943 (0.789-0.797) S<A on 40 worst 0.94 qwen3-32b down best 0.59 | V3/A 0.7942 (0.788-0.798) V3<A on 40 worst 0.94 qwen3-32b down best 0.60
+M=   8 n=40 A=    20435us | S/A 0.7891 (0.780-0.788) S<A on 40 worst 0.91 qwen3-32b down best 0.59 | V3/A 0.7886 (0.774-0.791) V3<A on 40 worst 0.91 qwen3-32b down best 0.64
+M=  16 n=40 A=    23304us | S/A 0.8494 (0.845-0.857) S<A on 40 worst 0.92 qwen3-32b down best 0.67 | V3/A 0.8487 (0.842-0.850) V3<A on 40 worst 0.92 llama3-70b down best 0.67
+M=  24 n=40 A=    32231us | S/A 0.8753 (0.874-0.877) S<A on 35 worst 1.01 gemma3-4b gate/up best 0.58 | V3/A 0.9027 (0.902-0.910) V3<A on 36 worst 1.01 qwen3-coder-480b-moe e best 0.59
+M=  32 n=40 A=    32557us | S/A 0.8747 (0.863-0.875) S<A on 34 worst 1.00 qwen3-32b gate/up best 0.47 | V3/A 0.8981 (0.885-0.898) V3<A on 33 worst 1.01 qwen3-32b down best 0.47
+M=  48 n=40 A=    51216us | S/A 0.9279 (0.919-0.930) S<A on 36 worst 1.00 llama3-70b o/q square best 0.66 | V3/A 0.9289 (0.920-0.932) V3<A on 35 worst 1.00 gemma3-4b gate/up best 0.66
+M=  64 n=40 A=    54299us | S/A 0.9241 (0.922-0.925) S<A on 36 worst 1.00 gemma3-12b gate/up best 0.65 | V3/A 0.9244 (0.917-0.925) V3<A on 35 worst 1.01 qwen3-14b gate/up best 0.65
+M=  96 n=40 A=    76408us | S/A 0.9782 (0.975-0.981) S<A on 30 worst 1.01 gemma2-27b down best 0.61 | V3/A 0.9778 (0.976-0.986) V3<A on 33 worst 1.01 gemma2-27b down best 0.61
+-- nest_fp32
+M=   4 n=40 A=    42706us | F/A 0.9711 (0.968-0.973) F<A on 19 worst 1.01 qwen3.5-35b-moe expert best 0.83
+M=   8 n=40 A=    43295us | F/A 0.9428 (0.942-0.944) F<A on 33 worst 1.00 llama3-8b/mistral-7b g best 0.64
+M=  16 n=40 A=    66823us | F/A 0.8597 (0.859-0.861) F<A on 38 worst 1.00 gemma3-12b gate/up best 0.59
+M=  48 n=40 A=   175803us | F/A 0.9469 (0.946-0.948) F<A on 31 worst 1.00 qwen3-coder-480b-moe e best 0.68
+M=  80 n=40 A=   355192us | F/A 0.7754 (0.775-0.776) F<A on 40 worst 0.84 gemma4-26b-moe expert  best 0.77
+M= 128 n=40 A=   472943us | F/A 0.9277 (0.927-0.928) F<A on 40 worst 0.98 gemma4-26b dense down best 0.91

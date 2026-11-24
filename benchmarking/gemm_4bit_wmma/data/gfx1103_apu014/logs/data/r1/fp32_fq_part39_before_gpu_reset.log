@@ -1,0 +1,89 @@
+warmup 63 2974 2913 2998 2968 2927 2954 last 2970
+[W1124 09:57:21.304926842 Context.cpp:599] Warning: Attempting to use CK GEMM on an unsupported architecture! Cannot set blas backend to CK (function operator())
+done llama3-70b down
+done llama3-70b o/q square
+done qwen3-32b gate/up
+done qwen3-32b down
+done qwen3-14b gate/up
+done qwen3-14b down
+done qwen3-14b o/q square
+done llama3-8b/mistral-7b gate/up
+done llama3-8b/mistral-7b down
+done llama3-8b/mistral-7b o/q square
+done qwen3-8b gate/up
+done qwen3-8b down
+done gemma2-27b gate/up
+done gemma2-27b down
+done gemma3-27b gate/up
+done gemma3-27b down
+done gemma3-12b gate/up
+done gemma3-12b down
+done gemma3-4b gate/up
+done gemma3-4b down
+done phi3-mini/llama3.2-3b gate/up
+done phi3-mini/llama3.2-3b down
+done small square
+done 7-8b k/v
+done small GQA k/v
+done qwen3-30b-moe expert gate_up
+done qwen3-30b-moe expert down
+done qwen3-235b-moe expert gate_up
+done qwen3-235b-moe expert down
+done qwen3.5-35b-moe expert gate_up
+done qwen3.5-35b-moe expert down
+done qwen3.5-122b-moe expert gate_up
+done qwen3.5-122b-moe expert down
+done qwen3-coder-480b-moe expert gate_up
+done qwen3-coder-480b-moe expert down
+done gemma4-26b-moe expert gate_up
+done gemma4-26b-moe expert down
+done gemma4-26b dense gate_up
+done gemma4-26b dense down
+/home/ubuntu/bnbtune/fin3/bitsandbytes/functional.py:854: UserWarning: uncheckedSetDevice() ignoring error: CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.
+Exception raised from SetDevice at /__w/rockrel/rockrel/external-builds/pytorch/pytorch/c10/hip/HIPFunctions.cpp:334 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x9d (0x7b3e69b7560d in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x12cd2 (0x7b3ec0a98cd2 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #2: c10::cuda::SetDevice(signed char, bool) + 0x65 (0x7b3ec0adf9e5 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libc10_hip.so)
+frame #3: <unknown function> + 0xe455eb (0x7b3e6aa455eb in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #4: <unknown function> + 0x1c9280c (0x7b3e6b89280c in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_hip.so)
+frame #5: <unknown function> + 0x1ae7dee (0x7b3e86ee7dee in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #6: at::native::copy_(at::Tensor&, at::Tensor const&, bool) + 0x30 (0x7b3e86eea390 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #7: at::_ops::copy_::call(at::Tensor&, at::Tensor const&, bool) + 0x142 (0x7b3e87dc3da2 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #8: at::native::_to_copy(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0x16ca (0x7b3e872cd49a in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #9: <unknown function> + 0x2e63d4c (0x7b3e88263d4c in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #10: at::_ops::_to_copy::redispatch(c10::DispatchKeySet, at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0xe2 (0x7b3e87871ce2 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #11: <unknown function> + 0x2bd3d3b (0x7b3e87fd3d3b in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #12: at::_ops::_to_copy::call(at::Tensor const&, std::optional<c10::ScalarType>, std::optional<c10::Layout>, std::optional<c10::Device>, std::optional<bool>, bool, std::optional<c10::MemoryFormat>) + 0x1e4 (0x7b3e87922bf4 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #13: at::native::to(at::Tensor const&, c10::Device, c10::ScalarType, bool, bool, std::optional<c10::MemoryFormat>) + 0x9a (0x7b3e872b572a in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #14: <unknown function> + 0x2faebb8 (0x7b3e883aebb8 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #15: at::_ops::to_device::call(at::Tensor const&, c10::Device, c10::ScalarType, bool, bool, std::optional<c10::MemoryFormat>) + 0x183 (0x7b3e87ad1393 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_cpu.so)
+frame #16: <unknown function> + 0xeb33aa (0x7b3e946b33aa in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #17: <unknown function> + 0xeb3fbb (0x7b3e946b3fbb in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #18: <unknown function> + 0x8844a3 (0x7b3e940844a3 in /home/ubuntu/bnbtune/venv/lib/python3.12/site-packages/torch/lib/libtorch_python.so)
+frame #19: python() [0x58216f]
+<omitting python frames>
+frame #23: python() [0x608852]
+frame #24: python() [0x6b50d3]
+frame #29: <unknown function> + 0x2a1ca (0x7b3f87e2a1ca in /lib/x86_64-linux-gnu/libc.so.6)
+frame #30: __libc_start_main + 0x8b (0x7b3f87e2a28b in /lib/x86_64-linux-gnu/libc.so.6)
+ (Triggered internally at /__w/rockrel/rockrel/external-builds/pytorch/pytorch/c10/hip/impl/HIPGuardImpl.h:70.)
+  data = torch.tensor(data, device=device)
+Traceback (most recent call last):
+  File "/home/ubuntu/bnbtune/bin/alt1103b.py", line 110, in <module>
+    q, s = F.quantize_4bit(W, blocksize=bs, quant_type="nf4", compress_statistics=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/bnbtune/fin3/bitsandbytes/functional.py", line 936, in quantize_4bit
+    code = get_4bit_type(quant_type, device=A.device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/bnbtune/fin3/bitsandbytes/functional.py", line 854, in get_4bit_type
+    data = torch.tensor(data, device=device)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: unspecified launch failure
+Search for `hipErrorLaunchFailure' in https://rocm.docs.amd.com/projects/HIP/en/latest/index.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing AMD_SERIALIZE_KERNEL=3
+Device-side assertion tracking was not enabled by user.

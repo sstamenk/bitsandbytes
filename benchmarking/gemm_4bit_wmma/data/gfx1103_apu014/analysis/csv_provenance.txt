@@ -1,0 +1,131 @@
+122 CSVs, 61 jobs, 13 GPU resets (dmesg times, about +-1 s against the file times)
+csv                                                  last write (UTC) job                    tree   level flags
+alt/alt1_bf16.csv                                    23 20:10:54      alt1                   src    high  -
+alt/alt1_fp16.csv                                    23 19:58:40      alt1                   src    high  -
+alt/alt2_bf16.csv                                    24 01:20:28      alt2                   src    high  -
+alt/alt2_fp16.csv                                    24 01:02:24      alt2                   src    high  -
+alt/alt32.csv                                        23 20:42:19      alt32                  src    high  -
+alt/rtf_fp16.csv                                     23 23:05:47      rtf                    src    high  -
+alt/rtf_fp32.csv                                     23 23:04:27      rtf                    src    high  -
+altF/bf16.csv                                        24 09:08:18      altF_fin3              fin3   high  -
+altF/bf16_m1.csv                                     24 09:10:34      altF_fin3              fin3   high  -
+altF/bf16_x.csv                                      24 09:09:55      altF_fin3              fin3   high  -
+altF/bs128_fp16.csv                                  24 09:48:44      altB_fin3              fin3   high  -
+altF/bs32_bf16.csv                                   24 09:47:18      altB_fin3              fin3   high  -
+altF/bs32_fp16.csv                                   24 09:45:47      altB_fin3              fin3   high  -
+altF/bs32_fp32.csv                                   24 13:18:45      altF_fin3_fp32         fin3   high  -
+altF/fp16.csv                                        24 08:51:51      altF_fin3              fin3   high  -
+altF/fp16_m1.csv                                     24 08:54:07      altF_fin3              fin3   high  -
+altF/fp16_x.csv                                      24 08:53:28      altF_fin3              fin3   high  -
+altF/fp32_d.csv                                      24 13:16:25      altF_fin3_fp32         fin3   high  -
+altF/fp32_lo.csv                                     24 13:11:14      altF_fin3_fp32         fin3   high  -
+altF/fp32_x.csv                                      24 13:13:18      altF_fin3_fp32         fin3   high  -
+altF/nest_bf16.csv                                   24 09:52:29      nest_fin3              fin3   high  -
+altF/nest_fp16.csv                                   24 09:50:48      nest_fin3              fin3   high  -
+altF/nest_fp32.csv                                   24 09:55:56      nest_fin3              fin3   high  -
+altF_5c/bs128_fp16.csv                               24 14:02:26      spot5_fin3             fin3   high  -
+altF_5c/bs32_bf16.csv                                24 14:00:10      spot5_fin3             fin3   high  -
+altF_5c/bs32_fp16.csv                                24 13:57:47      spot5_fin3             fin3   high  -
+altF_5c/bs32_fp32.csv                                24 14:17:43      spot5_fin3             fin3   high  -
+altF_5c/nest_bf16.csv                                24 14:08:22      spot5_fin3             fin3   high  -
+altF_5c/nest_fp16.csv                                24 14:05:41      spot5_fin3             fin3   high  -
+altF_5c/nest_fp32.csv                                24 14:13:58      spot5_fin3             fin3   high  -
+altV/b32_bf16.csv                                    24 04:45:56      altV                   src    high  -
+altV/nest_bf16.csv                                   24 04:51:15      nest                   src    high  -
+altV/nest_fp16.csv                                   24 04:48:51      nest                   src    high  -
+altV/nest_fp32.csv                                   24 04:54:42      nest                   src    high  -
+altV/v32_bf16.csv                                    24 04:40:20      altV                   src    high  -
+altV/v32_fp16.csv                                    24 04:36:24      altV                   src    high  -
+altV/v64_bf16.csv                                    24 04:44:49      altV                   src    high  -
+altV/v64_fp16.csv                                    24 04:42:34      altV                   src    high  -
+alt_s1/bf16.csv                                      24 01:50:47      altF                   fin1   high  r finished 701 s before the reset at 02:02:28; ALLOWED: earlier candidate S1; finished before the reset of its job (02:02)
+alt_s1/bf16_m1.csv                                   24 01:53:02      altF                   fin1   high  r finished 566 s before the reset at 02:02:28; ALLOWED: earlier candidate S1; finished before the reset of its job (02:02)
+alt_s1/bf16_x.csv                                    24 01:52:23      altF                   fin1   high  r finished 605 s before the reset at 02:02:28; ALLOWED: earlier candidate S1; finished before the reset of its job (02:02)
+alt_s1/bs128_fp16.csv                                24 04:20:21      altB                   fin1   high  -
+alt_s1/bs32_fp16.csv                                 24 04:19:05      altB                   fin1   high  -
+alt_s1/bs32_fp32.csv                                 24 04:22:40      altB                   fin1   high  -
+alt_s1/fp16.csv                                      24 01:34:28      altF                   fin1   high  r finished 1679 s before the reset at 02:02:28; ALLOWED: earlier candidate S1; finished 1 h before the reset of its job (02:02)
+alt_s1/fp16_m1.csv                                   24 01:36:43      altF                   fin1   high  r finished 1545 s before the reset at 02:02:28; ALLOWED: earlier candidate S1; finished before the reset of its job (02:02)
+alt_s1/fp16_x.csv                                    24 01:36:03      altF                   fin1   high  r finished 1584 s before the reset at 02:02:28; ALLOWED: earlier candidate S1; finished before the reset of its job (02:02)
+alt_s1/fp32_d.csv                                    24 02:18:12      altF                   fin1   high  UR 92 busy samples not at 2599 MHz; reset 02:02:28 before the last write; ALLOWED: after the 02:02 reset, clock not held; listed in NOTES as not used
+alt_s1/fp32_hi.csv                                   24 02:13:01      altF                   fin1   high  UR 62 busy samples not at 2599 MHz; reset 02:02:28 before the last write; ALLOWED: after the 02:02 reset, clock not held; listed in NOTES as not used
+alt_s1/fp32_lo.csv                                   24 02:38:17      altF2                  fin1   high  -
+alt_s1/fp32_lo_part13_before_gpu_reset.csv           24 02:02:27      altF                   fin1   high  r finished 1 s before the reset at 02:02:28; ALLOWED: rows written before the 02:02 reset; cross-check only
+alt_s1/fp32_x.csv                                    24 02:15:05      altF                   fin1   high  UR 74 busy samples not at 2599 MHz; reset 02:02:28 before the last write; ALLOWED: after the 02:02 reset, clock not held; listed in NOTES as not used
+alt_s7/bf16.csv                                      24 05:46:03      altF_fin2              fin2   high  -
+alt_s7/bf16_m1.csv                                   24 05:48:18      altF_fin2              fin2   high  -
+alt_s7/bf16_x.csv                                    24 05:47:39      altF_fin2              fin2   high  -
+alt_s7/bs128_fp16.csv                                24 05:52:40      altB_fin2              fin2   high  -
+alt_s7/bs32_bf16.csv                                 24 05:51:15      altB_fin2              fin2   high  -
+alt_s7/bs32_fp16.csv                                 24 05:49:46      altB_fin2              fin2   high  -
+alt_s7/bs32_fp32.csv                                 24 07:35:22      altF_fin2_fp32         fin2   high  -
+alt_s7/fp16.csv                                      24 05:29:42      altF_fin2              fin2   high  -
+alt_s7/fp16_m1.csv                                   24 05:31:57      altF_fin2              fin2   high  -
+alt_s7/fp16_x.csv                                    24 05:31:18      altF_fin2              fin2   high  -
+alt_s7/fp32_d.csv                                    24 07:33:02      altF_fin2_fp32         fin2   high  -
+alt_s7/fp32_hi.csv                                   24 07:27:53      altF_fin2_fp32         fin2   high  -
+alt_s7/fp32_lo.csv                                   24 07:17:23      altF_fin2_fp32         fin2   high  -
+alt_s7/fp32_x.csv                                    24 07:29:56      altF_fin2_fp32         fin2   high  -
+alt_s7/nest_bf16.csv                                 24 05:56:22      nest_fin2              fin2   high  -
+alt_s7/nest_fp16.csv                                 24 05:54:42      nest_fin2              fin2   high  -
+alt_s7/nest_fp32.csv                                 24 05:59:49      nest_fin2              fin2   high  -
+cap/cap_bf16.csv                                     24 03:01:35      cap                    fin1   high  -
+cap/cap_bs32_bf16.csv                                24 03:04:17      cap                    fin1   high  -
+cap/cap_bs32_fp16.csv                                24 02:51:11      cap                    fin1   high  -
+cap/cap_fp16.csv                                     24 02:48:33      cap                    fin1   high  -
+cap/cap_fp32.csv                                     24 03:19:11      cap                    fin1   high  -
+evalA/bf16_auto.csv                                  23 21:29:26      evalA                  src    high  -
+evalA/bf16_dequant.csv                               23 21:24:12      evalA                  src    high  -
+evalA/bf16_simt.csv                                  23 21:12:00      evalA                  src    high  -
+evalA/fp16_auto.csv                                  23 21:05:33      evalA                  src    high  -
+evalA/fp16_dequant.csv                               23 21:00:21      evalA                  src    high  -
+evalA/fp16_simt.csv                                  23 20:48:56      evalA                  src    high  -
+evalA/fp32_auto.csv                                  23 22:53:45      evalA                  src    high  -
+evalA/fp32_dequant.csv                               23 22:33:52      evalA                  src    high  -
+evalA/fp32_simt.csv                                  23 21:36:47      evalA                  src    high  -
+evalA/fp32_wmma.csv                                  23 22:57:04      evalA                  src    high  -
+evalA_fix/bf16_auto.csv                              24 04:17:10      evalA_fix              src    high  -
+evalA_fix/fp16_auto.csv                              24 04:16:48      evalA_fix              src    high  -
+evalA_fix/fp32_auto.csv                              24 04:17:39      evalA_fix              src    high  -
+evalF/bf16_auto.csv                                  24 09:35:58      evalF3                 fin3   high  -
+evalF/bf16_wmma.csv                                  24 09:41:11      evalF3                 fin3   high  -
+evalF/fp16_auto.csv                                  24 09:25:35      evalF3                 fin3   high  -
+evalF/fp16_wmma.csv                                  24 09:30:45      evalF3                 fin3   high  -
+evalF/fp32_auto.csv                                  24 13:37:06      evalF3_fp32            fin3   high  -
+evalF/fp32_wmma.csv                                  24 13:55:25      evalF3_fp32            fin3   high  -
+evalH/bf16_auto.csv                                  24 04:29:35      evalH                  fin1   high  -
+evalH/bf16_dequant.csv                               24 04:32:30      evalH                  fin1   high  -
+evalH/fp16_auto.csv                                  24 04:24:37      evalH                  fin1   high  -
+evalH/fp16_dequant.csv                               24 04:27:37      evalH                  fin1   high  -
+evalH/fp32_auto.csv                                  24 04:57:31      evalH32                fin1   high  -
+evalH/fp32_dequant.csv                               24 05:05:13      evalH32                fin1   high  -
+r1/abf_bf16.csv                                      24 08:27:10      r5_abf_bf16            fin2   high  -
+r1/abf_fp16.csv                                      24 08:24:55      r5_abf_fp16            fin2   high  -
+r1/cap_bs32_bf16.csv                                 24 08:22:41      r2_bs32cap_bf16        fin2   high  -
+r1/cap_bs32_fp16.csv                                 24 08:12:01      r2_bs32cap_fp16        fin2   high  -
+r1/fp32_af.csv                                       24 11:30:02      r2_fp32_af             fin3   high  -
+r1/fp32_fq.csv                                       24 12:43:17      r2_fp32_fq2            fin3   high  -
+r1/fp32_fq256.csv                                    24 12:50:36      r2_fp32_fq256          fin3   high  -
+r1/fp32_fq_part39_before_gpu_reset.csv               24 10:52:03      r2_fp32_fq             fin3   high  r finished 0 s before the reset at 10:52:04; ALLOWED: rows written before the 10:52 reset; cross-check only
+r1/fp32_fqb.csv                                      24 11:42:21      r2_fp32_fqb            fin3   high  -
+r1/r1_bf16.csv                                       24 08:01:28      r1_bf16                fin2   high  -
+r1/r1_fp16.csv                                       24 07:54:33      r1_fp16                fin2   high  -
+r1/st_bf16.csv                                       24 12:51:05      same_tile              fin3   high  -
+r1/st_fp16.csv                                       24 12:50:52      same_tile              fin3   high  -
+sweep/sweep_bf16a.csv                                23 19:46:29      sweep2                 src    high  -
+sweep/sweep_bf16b.csv                                23 23:43:13      sweep4                 src    high  -
+sweep/sweep_fp16a.csv                                23 17:48:42      sweep                  src    high  -
+sweep/sweep_fp16b.csv                                23 18:30:00      sweep                  src    high  -
+sweep/sweep_fp16c.csv                                23 19:22:41      sweep2                 src    high  -
+sweep/sweep_fp16e.csv                                23 23:34:45      sweep4                 src    high  -
+sweep/sweep_fp32a.csv                                23 18:52:37      sweep                  src    high  -
+sweep/sweep_fp32b.csv                                23 23:26:31      sweep3                 src    high  -
+sweep/sweep_fp32c_part.csv                           23 23:10:56      sweep3                 src    high  -
+sweep/sweep_fp32d.csv                                24 00:33:47      sweep5                 src    high  -
+0 flagged CSVs that are not in the allowed list
+== queue jobs that did not return 0
+2026-11-24T09:20:23 END rc=99 TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_afq_retry bash /home/ubuntu/bnbtune/q_r2.sh fp32_afq
+2026-11-24T09:43:04 END rc=99 TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe384 bash /home/ubuntu/bnbtune/q_probe.sh p384 384 A=cut:2/1073
+2026-11-24T09:44:17 END rc=99 TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256 bash /home/ubuntu/bnbtune/q_probe.sh p256 256 F=auto,Q=deq
+2026-11-24T09:57:11 END rc=99 PROBE_ARGS=--syncwarm TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256s bash /home/ubuntu/bnbtune/q_probe.s
+2026-11-24T10:53:06 END rc=99 TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_fq bash /home/ubuntu/bnbtune/q_r3.sh fp32_fq

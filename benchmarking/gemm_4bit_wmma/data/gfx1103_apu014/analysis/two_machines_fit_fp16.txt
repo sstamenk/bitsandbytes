@@ -1,0 +1,66 @@
+#### M 1,2,4,8
+g1100_f16 maxreg 1.00      APU 1.263 ROR 1.028 (worst ROR shape 1.04 qwen3-32b gate/up) | else: table
+w=1.0 L=0 maxreg 1.00      APU 1.040 ROR 1.049 (worst ROR shape 1.13 llama3-70b o/q square) | else: 1,2,1,1,4,2
+w=1.0 L=1 maxreg 0.99      APU 1.018 ROR 1.054 (worst ROR shape 1.13 llama3-70b o/q square) | K<10240: 1,2,1,1,4,2; else: 1,2,1,1,8,2
+w=1.0 L=2 maxreg 0.99      APU 1.012 ROR 1.069 (worst ROR shape 1.20 llama3-70b gate/up) | K<5376: 1,2,1,1,4,2; N<10240: 1,2,1,1,8,2; else: 1,1,1,4,2,2
+w=0.75 L=0 maxreg 1.00     APU 1.040 ROR 1.049 (worst ROR shape 1.13 llama3-70b o/q square) | else: 1,2,1,1,4,2
+w=0.75 L=1 maxreg 0.99     APU 1.019 ROR 1.023 (worst ROR shape 1.04 llama3-70b gate/up) | K<8192: 1,2,1,1,4,2; else: 1,2,1,1,8,2
+w=0.75 L=2 maxreg 1.02     APU 1.014 ROR 1.023 (worst ROR shape 1.04 llama3-70b gate/up) | K<4096: 1,1,1,4,2,2; K<8192: 1,2,1,1,4,2; else: 1,2,1,1,8,2
+w=0.5 L=0 maxreg 1.14      APU 1.063 ROR 1.019 (worst ROR shape 1.04 llama3-70b gate/up) | else: 1,2,1,1,8,2
+w=0.5 L=1 maxreg 0.99      APU 1.019 ROR 1.023 (worst ROR shape 1.04 llama3-70b gate/up) | K<8192: 1,2,1,1,4,2; else: 1,2,1,1,8,2
+w=0.5 L=2 maxreg 1.02      APU 1.014 ROR 1.023 (worst ROR shape 1.04 llama3-70b gate/up) | K<4096: 1,1,1,4,2,2; K<8192: 1,2,1,1,4,2; else: 1,2,1,1,8,2
+#### M 12,16
+g1100_f16 maxreg 1.00      APU 1.219 ROR 1.072 (worst ROR shape 1.17 llama3-70b o/q square) | else: table
+w=1.0 L=0 maxreg 0.97      APU 1.048 ROR 1.101 (worst ROR shape 1.23 llama3-70b o/q square) | else: 2,1,1,4,2,2
+w=1.0 L=1 maxreg 1.32      APU 1.029 ROR 1.135 (worst ROR shape 1.36 qwen3-32b gate/up) | K<6144: 2,2,1,4,1,2; else: 2,1,1,4,2,2
+w=1.0 L=2 maxreg 1.40      APU 1.019 ROR 1.135 (worst ROR shape 1.36 qwen3-32b gate/up) | K<4608: 2,2,1,2,1,2; K<6144: 2,2,1,4,1,2; else: 2,1,1,4,2,2
+w=0.75 L=0 maxreg 0.97     APU 1.048 ROR 1.101 (worst ROR shape 1.23 llama3-70b o/q square) | else: 2,1,1,4,2,2
+w=0.75 L=1 maxreg 1.40     APU 1.030 ROR 1.107 (worst ROR shape 1.23 llama3-70b o/q square) | K<8192: 2,2,1,2,1,2; else: 2,1,1,4,2,2
+w=0.75 L=2 maxreg 1.40     APU 1.043 ROR 1.044 (worst ROR shape 1.19 qwen3-32b gate/up) | K<8192: 2,2,1,2,1,2; K<12288: 2,1,1,4,4,2; else: 2,1,1,4,2,2
+w=0.5 L=0 maxreg 0.97      APU 1.048 ROR 1.101 (worst ROR shape 1.23 llama3-70b o/q square) | else: 2,1,1,4,2,2
+w=0.5 L=1 maxreg 0.97      APU 1.073 ROR 1.031 (worst ROR shape 1.23 llama3-70b o/q square) | N<25600: 2,1,1,4,2,2; else: 2,1,1,4,4,2
+w=0.5 L=2 maxreg 1.40      APU 1.070 ROR 1.016 (worst ROR shape 1.06 llama3-70b o/q square) | K<5120: 2,2,1,2,1,2; K<12288: 2,1,1,4,4,2; else: 2,1,1,4,2,2
+#### M 20,24,28,32
+g1100_f16 maxreg 1.18      APU 1.235 ROR 1.052 (worst ROR shape 1.15 llama3-70b o/q square) | else: table
+w=1.0 L=0 maxreg 1.07      APU 1.024 ROR 1.151 (worst ROR shape 1.29 qwen3-32b gate/up) | else: 4,2,1,4,1,2
+w=1.0 L=1 maxreg 1.07      APU 1.011 ROR 1.110 (worst ROR shape 1.29 qwen3-32b gate/up) | K<10240: 4,2,1,4,1,2; else: 4,2,1,4,2,2
+w=1.0 L=2 maxreg 1.07      APU 1.007 ROR 1.111 (worst ROR shape 1.29 qwen3-32b gate/up) | K<3840: 4,2,1,4,1,2; N<15360: 4,2,1,4,2,2; else: 4,2,1,4,1,2
+w=0.75 L=0 maxreg 1.07     APU 1.024 ROR 1.151 (worst ROR shape 1.29 qwen3-32b gate/up) | else: 4,2,1,4,1,2
+w=0.75 L=1 maxreg 1.07     APU 1.011 ROR 1.110 (worst ROR shape 1.29 qwen3-32b gate/up) | K<10240: 4,2,1,4,1,2; else: 4,2,1,4,2,2
+w=0.75 L=2 maxreg 1.07     APU 1.007 ROR 1.111 (worst ROR shape 1.29 qwen3-32b gate/up) | K<3840: 4,2,1,4,1,2; N<15360: 4,2,1,4,2,2; else: 4,2,1,4,1,2
+w=0.5 L=0 maxreg 1.00      APU 1.047 ROR 1.104 (worst ROR shape 1.21 qwen3-32b gate/up) | else: 4,2,1,4,2,2
+w=0.5 L=1 maxreg 1.00      APU 1.066 ROR 1.047 (worst ROR shape 1.14 llama3-70b o/q square) | N<25600: 4,2,1,4,2,2; else: 4,1,1,4,2,2
+w=0.5 L=2 maxreg 1.08      APU 1.059 ROR 1.033 (worst ROR shape 1.14 llama3-70b o/q square) | K<5120: 4,2,1,4,1,2; N<25600: 4,2,1,4,2,2; else: 4,1,1,4,4,1
+#### M 40,48
+g1100_f16 maxreg 1.00      APU 1.087 ROR 1.185 (worst ROR shape 1.36 llama3-70b down) | else: table
+w=1.0 L=0 maxreg 1.03      APU 1.033 ROR 1.186 (worst ROR shape 1.36 llama3-70b down) | else: 2,2,1,4,1,2
+w=1.0 L=1 maxreg 1.00      APU 1.004 ROR 1.072 (worst ROR shape 1.11 llama3-70b down) | K<12288: 2,2,1,4,1,2; else: 4,2,1,4,1,2
+w=1.0 L=2 maxreg 1.00      APU 1.001 ROR 1.072 (worst ROR shape 1.11 llama3-70b down) | K<12288: 2,2,1,4,1,2; K<36864: 4,2,1,4,1,2; else: 4,2,1,4,2,2
+w=0.75 L=0 maxreg 1.13     APU 1.046 ROR 1.093 (worst ROR shape 1.11 llama3-70b down) | else: 4,2,1,4,1,2
+w=0.75 L=1 maxreg 1.00     APU 1.004 ROR 1.072 (worst ROR shape 1.11 llama3-70b down) | K<12288: 2,2,1,4,1,2; else: 4,2,1,4,1,2
+w=0.75 L=2 maxreg 1.00     APU 1.001 ROR 1.072 (worst ROR shape 1.11 llama3-70b down) | K<12288: 2,2,1,4,1,2; K<36864: 4,2,1,4,1,2; else: 4,2,1,4,2,2
+w=0.5 L=0 maxreg 1.13      APU 1.046 ROR 1.093 (worst ROR shape 1.11 llama3-70b down) | else: 4,2,1,4,1,2
+w=0.5 L=1 maxreg 1.01      APU 1.030 ROR 1.030 (worst ROR shape 1.09 llama3-70b o/q square) | K<25600: 2,2,1,4,1,2; else: 4,1,1,4,1,2
+w=0.5 L=2 maxreg 1.01      APU 1.023 ROR 1.030 (worst ROR shape 1.09 llama3-70b o/q square) | K<25600: 2,2,1,4,1,2; N<5120: 4,2,1,4,2,2; else: 4,1,1,4,1,2
+#### M 56,64
+g1100_f16 maxreg 1.00      APU 1.093 ROR 1.173 (worst ROR shape 1.31 llama3-70b down) | else: table
+w=1.0 L=0 maxreg 1.00      APU 1.004 ROR 1.072 (worst ROR shape 1.13 llama3-70b gate/up) | else: 4,2,1,4,1,2
+w=1.0 L=1 maxreg 1.00      APU 1.000 ROR 1.092 (worst ROR shape 1.13 llama3-70b down) | K<28672: 4,2,1,4,1,2; else: 4,2,1,4,2,2
+w=1.0 L=2 maxreg 1.00      APU 1.000 ROR 1.092 (worst ROR shape 1.13 llama3-70b down) | N<1024: 4,2,1,4,2,2; K<28672: 4,2,1,4,1,2; else: 4,2,1,4,2,2
+w=0.75 L=0 maxreg 1.00     APU 1.004 ROR 1.072 (worst ROR shape 1.13 llama3-70b gate/up) | else: 4,2,1,4,1,2
+w=0.75 L=1 maxreg 1.00     APU 1.002 ROR 1.072 (worst ROR shape 1.13 llama3-70b gate/up) | K<36864: 4,2,1,4,1,2; else: 4,2,1,4,2,2
+w=0.75 L=2 maxreg 1.09     APU 1.013 ROR 1.036 (worst ROR shape 1.07 qwen3-32b down) | N<10240: 4,2,1,4,1,2; K<6144: 4,2,1,4,1,2; else: 4,1,1,4,1,2
+w=0.5 L=0 maxreg 1.00      APU 1.004 ROR 1.072 (worst ROR shape 1.13 llama3-70b gate/up) | else: 4,2,1,4,1,2
+w=0.5 L=1 maxreg 1.16      APU 1.026 ROR 1.036 (worst ROR shape 1.07 qwen3-32b down) | N<28672: 4,2,1,4,1,2; else: 4,1,1,4,1,2
+w=0.5 L=2 maxreg 1.09      APU 1.013 ROR 1.036 (worst ROR shape 1.07 qwen3-32b down) | N<10240: 4,2,1,4,1,2; K<6144: 4,2,1,4,1,2; else: 4,1,1,4,1,2
+#### M 80,96
+g1100_f16 maxreg 1.00      APU 1.041 ROR 1.094 (worst ROR shape 1.26 qwen3-32b down) | else: table
+w=1.0 L=0 maxreg 1.00      APU 1.000 ROR 1.068 (worst ROR shape 1.16 llama3-70b gate/up) | else: 4,2,1,4,1,2
+w=1.0 L=1 maxreg 1.00      APU 1.000 ROR 1.068 (worst ROR shape 1.16 llama3-70b gate/up) | K<768: 4,1,1,4,1,2; else: 4,2,1,4,1,2
+w=1.0 L=2 maxreg 1.00      APU 1.000 ROR 1.068 (worst ROR shape 1.16 llama3-70b gate/up) | N<2112: 4,2,1,4,1,2; K<768: 4,1,1,4,1,2; else: 4,2,1,4,1,2
+w=0.75 L=0 maxreg 1.00     APU 1.000 ROR 1.068 (worst ROR shape 1.16 llama3-70b gate/up) | else: 4,2,1,4,1,2
+w=0.75 L=1 maxreg 1.00     APU 1.000 ROR 1.068 (worst ROR shape 1.16 llama3-70b gate/up) | K<768: 4,1,1,4,1,2; else: 4,2,1,4,1,2
+w=0.75 L=2 maxreg 1.00     APU 1.000 ROR 1.068 (worst ROR shape 1.16 llama3-70b gate/up) | N<2112: 4,2,1,4,1,2; K<768: 4,1,1,4,1,2; else: 4,2,1,4,1,2
+w=0.5 L=0 maxreg 1.00      APU 1.000 ROR 1.068 (worst ROR shape 1.16 llama3-70b gate/up) | else: 4,2,1,4,1,2
+w=0.5 L=1 maxreg 1.21      APU 1.030 ROR 1.025 (worst ROR shape 1.10 qwen3-32b down) | N<28672: 4,2,1,4,1,2; else: 4,1,1,4,1,2
+w=0.5 L=2 maxreg 1.16      APU 1.015 ROR 1.025 (worst ROR shape 1.10 qwen3-32b down) | N<10240: 4,2,1,4,1,2; K<6144: 4,2,1,4,1,2; else: 4,1,1,4,1,2

@@ -1,0 +1,58 @@
+COOL=3 bash /home/ubuntu/bnbtune/job.sh sweep bash /home/ubuntu/bnbtune/q_sweep.sh
+COOL=3 bash /home/ubuntu/bnbtune/job.sh sweep2 bash /home/ubuntu/bnbtune/q_sweep2.sh
+bash /home/ubuntu/bnbtune/job.sh alt1 bash /home/ubuntu/bnbtune/q_alt1.sh
+bash /home/ubuntu/bnbtune/job.sh alt32 bash /home/ubuntu/bnbtune/q_alt32.sh
+bash /home/ubuntu/bnbtune/job.sh evalA bash /home/ubuntu/bnbtune/q_eval.sh /home/ubuntu/bnbtune/data/evalA simt dequant auto wmma
+bash /home/ubuntu/bnbtune/job.sh rtf bash /home/ubuntu/bnbtune/q_rtf.sh
+COOL=3 bash /home/ubuntu/bnbtune/job.sh sweep3 bash /home/ubuntu/bnbtune/q_sweep3.sh
+COOL=3 bash /home/ubuntu/bnbtune/job.sh sweep4 bash /home/ubuntu/bnbtune/q_sweep4.sh
+COOL=3 bash /home/ubuntu/bnbtune/job.sh sweep5 bash /home/ubuntu/bnbtune/q_sweep5.sh
+bash /home/ubuntu/bnbtune/job.sh build1 bash /home/ubuntu/bnbtune/q_build.sh 1
+bash /home/ubuntu/bnbtune/job.sh alt2 bash /home/ubuntu/bnbtune/q_alt2.sh
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh altF bash /home/ubuntu/bnbtune/q_altF.sh fp16,bf16,fp32
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh altF2 bash /home/ubuntu/bnbtune/q_altF.sh fp32
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh cap bash /home/ubuntu/bnbtune/q_cap.sh fp16,bf16,fp32
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh evalF bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalF dense fp16,bf16,fp32 auto wmma
+bash /home/ubuntu/bnbtune/job.sh evalA_fix bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalA_fix 1,2,3,4,5,6,7,8 fp16,bf16,fp32 auto
+bash /home/ubuntu/bnbtune/job.sh kname bash /home/ubuntu/bnbtune/q_kname.sh
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh altF_retry bash /home/ubuntu/bnbtune/q_altF.sh fp16,bf16,fp32
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh cap_retry bash /home/ubuntu/bnbtune/q_cap.sh fp16,bf16,fp32
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh evalF_retry bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalF dense fp16,bf16,fp32 auto wmma
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh altB bash /home/ubuntu/bnbtune/q_altB.sh
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh evalH bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalH 576,640,768,1024 fp16,bf16 auto dequant
+bash /home/ubuntu/bnbtune/job.sh altV bash /home/ubuntu/bnbtune/q_altV.sh
+bash /home/ubuntu/bnbtune/job.sh nest bash /home/ubuntu/bnbtune/q_nest.sh
+TREE=fin1 bash /home/ubuntu/bnbtune/job.sh evalH32 bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalH 1024 fp32 auto dequant
+bash /home/ubuntu/bnbtune/job.sh build2 bash /home/ubuntu/bnbtune/q_build.sh 2
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh altF_fin2 bash /home/ubuntu/bnbtune/q_fin2.sh altF
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh altB_fin2 bash /home/ubuntu/bnbtune/q_fin2.sh altB
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh nest_fin2 bash /home/ubuntu/bnbtune/q_fin2.sh nest
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh evalF2 bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalF2 dense fp16,bf16,fp32 auto wmma
+KTAG=2 bash /home/ubuntu/bnbtune/job.sh kname2 bash /home/ubuntu/bnbtune/q_kname.sh
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh altF_fin2_fp32 bash /home/ubuntu/bnbtune/q_fin2.sh fp32
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh r1_fp16 bash /home/ubuntu/bnbtune/q_r.sh r1_fp16
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh r1_bf16 bash /home/ubuntu/bnbtune/q_r.sh r1_bf16
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh r2_bs32cap_fp16 bash /home/ubuntu/bnbtune/q_r.sh bs32cap_fp16
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh r2_bs32cap_bf16 bash /home/ubuntu/bnbtune/q_r.sh bs32cap_bf16
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh r5_abf_fp16 bash /home/ubuntu/bnbtune/q_r2.sh abf_fp16
+TREE=fin2 bash /home/ubuntu/bnbtune/job.sh r5_abf_bf16 bash /home/ubuntu/bnbtune/q_r2.sh abf_bf16
+bash /home/ubuntu/bnbtune/job.sh build3 bash /home/ubuntu/bnbtune/q_build.sh 3
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh altF_fin3 bash /home/ubuntu/bnbtune/q_fin3.sh altF
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_afq bash /home/ubuntu/bnbtune/q_r2.sh fp32_afq
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_afq_retry bash /home/ubuntu/bnbtune/q_r2.sh fp32_afq
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh evalF3 bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalF3 dense fp16,bf16 auto wmma
+KTAG=3 bash /home/ubuntu/bnbtune/job.sh kname3 bash /home/ubuntu/bnbtune/q_kname.sh
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe384 bash /home/ubuntu/bnbtune/q_probe.sh p384 384 A=cut:2/1073741824+4/3840:g1100_f32,F=auto,Q=dequant
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256 bash /home/ubuntu/bnbtune/q_probe.sh p256 256 F=auto,Q=dequant
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh altB_fin3 bash /home/ubuntu/bnbtune/q_fin3.sh altB
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh nest_fin3 bash /home/ubuntu/bnbtune/q_fin3.sh nest
+PROBE_ARGS=--syncwarm TREE=fin3 bash /home/ubuntu/bnbtune/job.sh probe256s bash /home/ubuntu/bnbtune/q_probe.sh p256s 256 F=auto,Q=dequant
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_fq bash /home/ubuntu/bnbtune/q_r3.sh fp32_fq
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_af bash /home/ubuntu/bnbtune/q_r3.sh fp32_af
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_fqb bash /home/ubuntu/bnbtune/q_r4.sh fp32_fqb
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_fq2 bash /home/ubuntu/bnbtune/q_r4.sh fp32_fq
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh r2_fp32_fq256 bash /home/ubuntu/bnbtune/q_r5.sh fp32_fq256
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh same_tile bash /home/ubuntu/bnbtune/q_r5.sh same_tile
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh altF_fin3_fp32 bash /home/ubuntu/bnbtune/q_fin3.sh fp32
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh evalF3_fp32 bash /home/ubuntu/bnbtune/q_evalF.sh /home/ubuntu/bnbtune/data/evalF3 dense fp32 auto wmma
+TREE=fin3 bash /home/ubuntu/bnbtune/job.sh spot5_fin3 bash /home/ubuntu/bnbtune/q_fin3.sh spot5

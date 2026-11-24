@@ -1,0 +1,60 @@
+== blocksize 64: bf16/fp16 5 cycles, fp32 3 cycles (build fin1; the tiles at these M are the final ones)
+fp16 bs64 M= 384 n=40 fused    286.5 ms dequant    492.1 ms F/Q 0.582 (cycles 0.581-0.584, 5) fused ahead on 34/40; > 1.2x slower: 3 gemma4-26b-moe expert down 1.43, qwen3-30b-moe expert down 1.31, qwen3.5-35b-moe expert down 1.22
+fp16 bs64 M= 416 n=40 fused    312.9 ms dequant    567.4 ms F/Q 0.551 (cycles 0.551-0.553, 5) fused ahead on 37/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.21
+fp16 bs64 M= 448 n=40 fused    335.9 ms dequant    592.6 ms F/Q 0.567 (cycles 0.566-0.567, 5) fused ahead on 35/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.30
+fp16 bs64 M= 480 n=40 fused    360.3 ms dequant    616.5 ms F/Q 0.584 (cycles 0.583-0.585, 5) fused ahead on 35/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.37
+fp16 bs64 M= 512 n=40 fused    382.8 ms dequant    653.5 ms F/Q 0.586 (cycles 0.584-0.586, 5) fused ahead on 33/40; > 1.2x slower: 3 gemma4-26b-moe expert down 1.52, qwen3-30b-moe expert down 1.23, gemma4-26b dense down 1.21
+bf16 bs64 M= 384 n=40 fused    291.1 ms dequant    512.5 ms F/Q 0.568 (cycles 0.567-0.568, 5) fused ahead on 35/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.36
+bf16 bs64 M= 416 n=40 fused    316.7 ms dequant    572.2 ms F/Q 0.553 (cycles 0.553-0.554, 5) fused ahead on 37/40; > 1.2x slower: 0
+bf16 bs64 M= 448 n=40 fused    339.5 ms dequant    597.0 ms F/Q 0.569 (cycles 0.568-0.571, 5) fused ahead on 37/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.25
+bf16 bs64 M= 480 n=40 fused    364.1 ms dequant    614.2 ms F/Q 0.593 (cycles 0.591-0.594, 5) fused ahead on 37/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.32
+bf16 bs64 M= 512 n=40 fused    387.8 ms dequant    682.5 ms F/Q 0.568 (cycles 0.568-0.569, 5) fused ahead on 35/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.48
+fp32 bs64 M= 384 n=40 fused   1298.4 ms dequant   3795.7 ms F/Q 0.342 (cycles 0.342-0.342, 3) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 512 n=40 fused   1731.0 ms dequant   4998.8 ms F/Q 0.346 (cycles 0.346-0.347, 3) fused ahead on 40/40; > 1.2x slower: 0
+== fp32, M = 384-512, 5 cycles (final build, pinned/r1/fp32_fq.csv)
+fp32 bs64 M= 384 n=40 fused   1296.6 ms dequant   3786.7 ms F/Q 0.342 (cycles 0.342-0.343, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 416 n=40 fused   1404.6 ms dequant   4082.4 ms F/Q 0.344 (cycles 0.344-0.345, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 448 n=40 fused   1512.6 ms dequant   4384.7 ms F/Q 0.345 (cycles 0.345-0.345, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 480 n=40 fused   1620.5 ms dequant   4689.5 ms F/Q 0.346 (cycles 0.345-0.346, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 512 n=40 fused   1729.1 ms dequant   4998.2 ms F/Q 0.346 (cycles 0.346-0.346, 5) fused ahead on 40/40; > 1.2x slower: 0
+== fp32, M = 256, 5 cycles (final build, pinned/r1/fp32_fq256.csv)
+fp32 bs64 M= 256 n=40 fused    865.0 ms dequant   2557.4 ms F/Q 0.338 (cycles 0.338-0.339, 5) fused ahead on 40/40; > 1.2x slower: 0
+== fp32, the first run of it (ended by a GPU reset after 39 shapes) + llama3-70b gate/up from fp32_fqb.csv (a later job, shapes 0 and 1)
+fp32 bs64 M= 384 n=40 fused   1294.8 ms dequant   3779.2 ms F/Q 0.343 (cycles 0.342-0.343, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 416 n=40 fused   1402.7 ms dequant   4079.1 ms F/Q 0.344 (cycles 0.344-0.344, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 448 n=40 fused   1510.1 ms dequant   4376.0 ms F/Q 0.345 (cycles 0.345-0.345, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 480 n=40 fused   1618.1 ms dequant   4674.9 ms F/Q 0.346 (cycles 0.346-0.346, 5) fused ahead on 40/40; > 1.2x slower: 0
+fp32 bs64 M= 512 n=40 fused   1725.7 ms dequant   4992.2 ms F/Q 0.346 (cycles 0.345-0.346, 5) fused ahead on 40/40; > 1.2x slower: 0
+-- the first run alone (39 shapes)
+fp32 bs64 M= 384 n=39 fused   1152.8 ms dequant   3372.7 ms F/Q 0.342 (cycles 0.342-0.342, 5) fused ahead on 39/39; > 1.2x slower: 0
+fp32 bs64 M= 416 n=39 fused   1248.8 ms dequant   3643.3 ms F/Q 0.343 (cycles 0.342-0.343, 5) fused ahead on 39/39; > 1.2x slower: 0
+fp32 bs64 M= 448 n=39 fused   1344.5 ms dequant   3907.7 ms F/Q 0.344 (cycles 0.344-0.344, 5) fused ahead on 39/39; > 1.2x slower: 0
+fp32 bs64 M= 480 n=39 fused   1440.5 ms dequant   4176.2 ms F/Q 0.345 (cycles 0.345-0.345, 5) fused ahead on 39/39; > 1.2x slower: 0
+fp32 bs64 M= 512 n=39 fused   1536.4 ms dequant   4458.3 ms F/Q 0.345 (cycles 0.344-0.345, 5) fused ahead on 39/39; > 1.2x slower: 0
+-- llama3-70b down: first run, then fp32_fqb
+fp32 bs64 M= 384 n=1 fused    141.7 ms dequant    426.5 ms F/Q 0.332 (cycles 0.331-0.333, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 416 n=1 fused    153.4 ms dequant    460.4 ms F/Q 0.333 (cycles 0.332-0.334, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 448 n=1 fused    165.2 ms dequant    494.7 ms F/Q 0.334 (cycles 0.333-0.335, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 480 n=1 fused    177.0 ms dequant    526.2 ms F/Q 0.336 (cycles 0.336-0.338, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 512 n=1 fused    188.8 ms dequant    564.1 ms F/Q 0.335 (cycles 0.334-0.338, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 384 n=1 fused    142.0 ms dequant    426.5 ms F/Q 0.333 (cycles 0.332-0.334, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 416 n=1 fused    153.9 ms dequant    460.8 ms F/Q 0.334 (cycles 0.333-0.335, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 448 n=1 fused    166.1 ms dequant    492.2 ms F/Q 0.337 (cycles 0.336-0.339, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 480 n=1 fused    177.9 ms dequant    530.2 ms F/Q 0.335 (cycles 0.335-0.338, 5) fused ahead on 1/1; > 1.2x slower: 0
+fp32 bs64 M= 512 n=1 fused    189.7 ms dequant    565.1 ms F/Q 0.336 (cycles 0.335-0.338, 5) fused ahead on 1/1; > 1.2x slower: 0
+== blocksize 32, M = 384-512, 5 cycles (build fin2, pinned/r1/cap_bs32_*.csv)
+fp16 bs32 M= 384 n=40 fused    314.0 ms dequant    495.2 ms F/Q 0.634 (cycles 0.631-0.637, 5) fused ahead on 32/40; > 1.2x slower: 3 gemma4-26b-moe expert down 1.41, qwen3-30b-moe expert down 1.32, qwen3.5-35b-moe expert down 1.22
+fp16 bs32 M= 416 n=40 fused    340.3 ms dequant    567.7 ms F/Q 0.599 (cycles 0.598-0.600, 5) fused ahead on 34/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.20
+fp16 bs32 M= 448 n=40 fused    365.7 ms dequant    594.2 ms F/Q 0.615 (cycles 0.612-0.617, 5) fused ahead on 32/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.29
+fp16 bs32 M= 480 n=40 fused    391.0 ms dequant    621.0 ms F/Q 0.630 (cycles 0.626-0.632, 5) fused ahead on 32/40; > 1.2x slower: 1 gemma4-26b-moe expert down 1.35
+fp16 bs32 M= 512 n=40 fused    417.4 ms dequant    656.1 ms F/Q 0.636 (cycles 0.634-0.637, 5) fused ahead on 29/40; > 1.2x slower: 4 gemma4-26b-moe expert down 1.52, qwen3.5-35b-moe expert gate_ 1.27, gemma4-26b dense down 1.24, qwen3-30b-moe expert down 1.23
+bf16 bs32 M= 384 n=40 fused    315.1 ms dequant    515.3 ms F/Q 0.611 (cycles 0.607-0.613, 5) fused ahead on 31/40; > 1.2x slower: 2 gemma4-26b-moe expert down 1.36, qwen3-30b-moe expert down 1.32
+bf16 bs32 M= 416 n=40 fused    341.3 ms dequant    572.5 ms F/Q 0.596 (cycles 0.595-0.598, 5) fused ahead on 35/40; > 1.2x slower: 0
+bf16 bs32 M= 448 n=40 fused    365.4 ms dequant    596.7 ms F/Q 0.612 (cycles 0.610-0.613, 5) fused ahead on 33/40; > 1.2x slower: 2 gemma4-26b-moe expert down 1.25, qwen3-30b-moe expert down 1.23
+bf16 bs32 M= 480 n=40 fused    391.4 ms dequant    616.0 ms F/Q 0.635 (cycles 0.632-0.636, 5) fused ahead on 30/40; > 1.2x slower: 2 gemma4-26b-moe expert down 1.31, qwen3-30b-moe expert down 1.31
+bf16 bs32 M= 512 n=40 fused    419.0 ms dequant    684.3 ms F/Q 0.612 (cycles 0.609-0.614, 5) fused ahead on 27/40; > 1.2x slower: 4 gemma4-26b-moe expert down 1.48, qwen3-30b-moe expert down 1.39, qwen3.5-35b-moe expert down 1.27, qwen3.5-35b-moe expert gate_ 1.25
+== blocksize 32, M = 384 and 512, 3 cycles (build fin1)
+fp16 bs32 M= 384 n=40 fused    313.1 ms dequant    492.1 ms F/Q 0.636 (cycles 0.635-0.637, 3) fused ahead on 31/40; > 1.2x slower: 3 gemma4-26b-moe expert down 1.42, qwen3-30b-moe expert down 1.31, qwen3.5-35b-moe expert down 1.21
+fp16 bs32 M= 512 n=40 fused    417.0 ms dequant    654.0 ms F/Q 0.638 (cycles 0.637-0.639, 3) fused ahead on 29/40; > 1.2x slower: 6 gemma4-26b-moe expert down 1.52, qwen3.5-35b-moe expert gate_ 1.28, qwen3-30b-moe expert down 1.24, gemma4-26b-moe expert gate_u 1.24, gemma4-26b dense gate_up 1.21, gemma4-26b dense down 1.20
+bf16 bs32 M= 384 n=40 fused    314.0 ms dequant    513.0 ms F/Q 0.612 (cycles 0.611-0.613, 3) fused ahead on 31/40; > 1.2x slower: 2 gemma4-26b-moe expert down 1.36, qwen3-30b-moe expert down 1.32
+bf16 bs32 M= 512 n=40 fused    417.4 ms dequant    683.4 ms F/Q 0.611 (cycles 0.610-0.612, 3) fused ahead on 27/40; > 1.2x slower: 4 gemma4-26b-moe expert down 1.47, qwen3-30b-moe expert down 1.41, qwen3.5-35b-moe expert down 1.26, qwen3.5-35b-moe expert gate_ 1.24

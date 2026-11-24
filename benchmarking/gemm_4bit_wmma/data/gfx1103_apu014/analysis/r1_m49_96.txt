@@ -1,0 +1,10 @@
+r1_fp16.csv cycles [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  M = 49-64: F/A 0.9174 (gain 8.26%); A-first cycles 0.9174, F-first cycles 0.9170; per-cycle totals 0.9153-0.9206; cells with F slower: 13/120, worst 1.0042 gemma3-4b gate/up M=49
+  M = 65-96: F/A 0.9699 (gain 3.01%); A-first cycles 0.9701, F-first cycles 0.9694; per-cycle totals 0.9669-0.9717; cells with F slower: 36/200, worst 1.0078 gemma2-27b down M=80
+  M = 49-96: F/A 0.9540 (gain 4.60%); A-first cycles 0.9542, F-first cycles 0.9536; per-cycle totals 0.9525-0.9553; cells with F slower: 49/320, worst 1.0078 gemma2-27b down M=80
+  per M: 49:0.9131 56:0.9174 64:0.9216 65:0.9717 72:0.9730 80:0.9748 88:0.9757 96:0.9545
+r1_bf16.csv cycles [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  M = 49-64: F/A 0.9181 (gain 8.19%); A-first cycles 0.9179, F-first cycles 0.9178; per-cycle totals 0.9116-0.9207; cells with F slower: 18/120, worst 1.0041 gemma3-4b gate/up M=49
+  M = 65-96: F/A 0.9744 (gain 2.56%); A-first cycles 0.9745, F-first cycles 0.9744; per-cycle totals 0.9703-0.9767; cells with F slower: 37/200, worst 1.0036 qwen3-32b gate/up M=80
+  M = 49-96: F/A 0.9574 (gain 4.26%); A-first cycles 0.9574, F-first cycles 0.9573; per-cycle totals 0.9526-0.9592; cells with F slower: 55/320, worst 1.0041 gemma3-4b gate/up M=49
+  per M: 49:0.9143 56:0.9185 64:0.9216 65:0.9729 72:0.9739 80:0.9746 88:0.9750 96:0.9757

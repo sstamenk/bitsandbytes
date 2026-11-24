@@ -25,6 +25,7 @@ absmax, A, C) once at peak DRAM bandwidth. Script: `../plots_kernels.py`.
 | Radeon RX 7600 XT (gfx1102) | 288 GB/s | [median](gfx1102/kernels_median.png) | [fp16](gfx1102/kernels_per_shape_fp16.png) | [bf16](gfx1102/kernels_per_shape_bf16.png) | [fp32](gfx1102/kernels_per_shape_fp32.png) |
 | Radeon 8050S (gfx1151, 32 CUs; gfx115x rules, see ../data/gfx1151_8050s/NOTES.md) | 256 GB/s | [median](gfx1151_8050s/kernels_median.png) | [fp16](gfx1151_8050s/kernels_per_shape_fp16.png) | - | [fp32](gfx1151_8050s/kernels_per_shape_fp32.png) |
 | Radeon 760M (gfx1103) | 89.6 GB/s | [median](gfx1103/kernels_median.png) | [fp16](gfx1103/kernels_per_shape_fp16.png) | [bf16](gfx1103/kernels_per_shape_bf16.png) | [fp32](gfx1103/kernels_per_shape_fp32.png) |
+| Radeon 760M (gfx1103, LPDDR5X-7500 machine; own tile rules, see ../data/gfx1103_apu014/NOTES.md) | 120 GB/s | [median](gfx1103_apu014/kernels_median.png) | [fp16](gfx1103_apu014/kernels_per_shape_fp16.png) | [bf16](gfx1103_apu014/kernels_per_shape_bf16.png) | [fp32](gfx1103_apu014/kernels_per_shape_fp32.png) |
 | Radeon 890M (gfx1150) | 120 GB/s | [median](gfx1150/kernels_median.png) | [fp16](gfx1150/kernels_per_shape_fp16.png) | [bf16](gfx1150/kernels_per_shape_bf16.png) | [fp32](gfx1150/kernels_per_shape_fp32.png) |
 
 The gfx1201 fp32 dequant + BLAS line uses hipBLASLt with ROCm/rocm-libraries#12465 (see `../README.md`).
@@ -55,6 +56,9 @@ it there; `../data/gfx1102/NOTES.md`).
 
 ### Radeon 760M (gfx1103)
 ![](gfx1103/kernels_median.png)
+
+### Radeon 760M (gfx1103), LPDDR5X-7500 machine
+![](gfx1103_apu014/kernels_median.png)
 
 ### Radeon 890M (gfx1150)
 ![](gfx1150/kernels_median.png)
