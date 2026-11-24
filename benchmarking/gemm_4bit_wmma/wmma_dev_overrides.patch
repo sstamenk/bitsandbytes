@@ -63,7 +63,7 @@ index 49c928c..475e008 100644
                          wmma_arch, A, B, absmax, absmax_8bit, absmax_code, absmax_offset, out, bias, M, N, K, blocksize,
                          quant_type, stream
 diff --git a/csrc/gemm_4bit_wmma.cu b/csrc/gemm_4bit_wmma.cu
-index 9db2da1..947e218 100644
+index 4efdbc7..44f68fa 100644
 --- a/csrc/gemm_4bit_wmma.cu
 +++ b/csrc/gemm_4bit_wmma.cu
 @@ -5,6 +5,11 @@
@@ -80,15 +80,15 @@ index 9db2da1..947e218 100644
 
 @@ -661,7 +666,13 @@ int wmma_device_arch() {
  /// Whether blocks walk the row tiles of the same N columns first, so they share B in L2
- /// (see gemm_4bit_wmma_body). Only matters with two or more row tiles. fp32 on gfx110x
- /// stays N-first. The tile rules are fitted with this order.
--bool wmma_row_tiles_first(int target, bool fp32) { return wmma_family_main(target) == 1100 ? !fp32 : true; }
-+bool wmma_row_tiles_first(int target, bool fp32) {
+ /// (see gemm_4bit_wmma_body), for the tile tables of `owner`. Only matters with two or more row
+ /// tiles. fp32 with gfx110x tables stays N-first. The tile rules are fitted with this order.
+-bool wmma_row_tiles_first(int owner, bool fp32) { return owner >= 1150 || !fp32; }
++bool wmma_row_tiles_first(int owner, bool fp32) {
 +#ifdef BNB_WMMA_DEV
 +    if (const char* env = std::getenv("BNB_WMMA_ROW_TILES_FIRST"))
 +        return env[0] == '1';
 +#endif
-+    return wmma_family_main(target) == 1100 ? !fp32 : true;
++    return owner >= 1150 || !fp32;
 +}
 
  /// Launch one tile configuration. KCH_MAX is lowered to 1 when K is not a multiple
