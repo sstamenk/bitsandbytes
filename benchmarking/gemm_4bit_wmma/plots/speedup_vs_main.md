@@ -11,9 +11,9 @@ Speedup in total time over the 40 shapes, this branch vs main (see plots_vs_main
 | Radeon RX 7600 XT (gfx1102) | fp16 | 1.03x | 1.84x | 3.00x | 7.96x | 6.12x | 3.82x | 2.27x | 1.72x | 1.37x |
 | Radeon RX 7600 XT (gfx1102) | bf16 | 1.05x | 1.80x | 2.91x | 8.11x | 6.23x | 3.89x | 2.28x | 1.72x | 1.37x |
 | Radeon RX 7600 XT (gfx1102) | fp32 | 1.00x | 1.06x | 1.79x | 6.79x | 3.66x | 2.94x | 2.70x | 2.52x | 2.44x |
-| Radeon 760M (gfx1103) | fp16 | 1.01x | 1.73x | 2.50x | 8.63x | 7.47x | 4.89x | 2.78x | 1.70x | - |
-| Radeon 760M (gfx1103) | bf16 | 1.02x | 1.65x | 2.34x | 8.59x | 7.40x | 4.79x | 2.71x | 1.64x | - |
-| Radeon 760M (gfx1103) | fp32 | 1.00x | 1.35x | 2.05x | 9.20x | 5.33x | 3.86x | 3.49x | 3.31x | - |
+| Radeon 760M (gfx1103) | fp16 | 1.48x | 3.61x | 5.43x | 8.53x | 5.87x | 3.66x | 2.15x | 1.62x | 1.70x |
+| Radeon 760M (gfx1103) | bf16 | 1.41x | 3.47x | 5.24x | 9.48x | 6.55x | 4.04x | 2.14x | 1.67x | 1.76x |
+| Radeon 760M (gfx1103) | fp32 | 1.00x | 1.50x | 2.35x | 7.55x | 3.93x | 3.36x | 3.10x | 2.94x | 2.91x |
 | Radeon 890M (gfx1150) | fp16 | 1.16x | 1.64x | 2.42x | 7.92x | 6.78x | 4.27x | 2.55x | 1.95x | 1.69x |
 | Radeon 890M (gfx1150) | bf16 | 1.12x | 1.57x | 2.45x | 8.21x | 7.02x | 4.41x | 2.70x | 1.98x | 1.70x |
 | Radeon 890M (gfx1150) | fp32 | 1.00x | 1.10x | 1.92x | 7.94x | 5.02x | 3.71x | 2.98x | 3.14x | 3.11x |

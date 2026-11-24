@@ -25,7 +25,7 @@ RUNS = [
     ("Radeon Pro W7900", "gfx1100", f"{D}/gfx1100/pinned/eval_final.csv"),
     ("Radeon RX 7700 XT", "gfx1101", f"{D}/gfx1101/pinned/eval_final.csv"),
     ("Radeon RX 7600 XT", "gfx1102", f"{D}/gfx1102/pinned/dense/eval_final.csv"),
-    ("Radeon 760M", "gfx1103", f"{D}/gfx1103/pinned/eval_final.csv"),
+    ("Radeon 760M", "gfx1103", f"{D}/gfx1103_apu014/pinned/eval_final.csv"),
     ("Radeon 890M", "gfx1150", f"{D}/gfx1150/pinned/eval_final.csv"),
     ("Radeon 8060S", "gfx1151", f"{D}/gfx1151/pinned/dense/eval_final.csv"),
     ("Radeon RX 9060 XT", "gfx1200", f"{D}/gfx1200/pinned/dense/eval_final.csv"),
@@ -43,9 +43,9 @@ CAP = {
     "gfx1201": (384, 512),
 }
 DTYPES = ("fp16", "bf16", "fp32")
-# gfx1103's eval_final run predates its own fp32 SIMT/WMMA table (csrc/gemm_4bit.cu, gfx1103_fp32_wmma), so its fp32
-# "new" time applies that table to the forced SIMT and WMMA timings of the same run: (max M, min N for WMMA).
-FP32_RULE = {"gfx1103": [(2, 1 << 31), (4, 3840)]}
+# fp32 "new" time from the forced SIMT and WMMA timings by a SIMT/WMMA table, for runs whose `auto` predates it:
+# (max M, min N for WMMA). None at the moment.
+FP32_RULE = {}
 # Measurements left out: the first-in-process artifact of the gfx1102 runs (the first shape at M = 1-2 sometimes reads
 # ~1.44 ms instead of ~0.55 ms, in both builds and kernels; see data/gfx1102/NOTES.md). Those M use 39 shapes.
 SKIP = {("gfx1102", "bf16", "llama3-70b gate/up", 1), ("gfx1102", "bf16", "llama3-70b gate/up", 2)}
